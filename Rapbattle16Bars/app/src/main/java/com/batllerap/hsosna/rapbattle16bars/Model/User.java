@@ -10,10 +10,15 @@ public class User {
     String aboutMe;
     String profilePicture;
     boolean isRapper;
+    boolean notifications;
     Rapper rapper;
 
     public String getUserName(){
         return this.userName;
+    }
+
+    public void setUserName(String userName){
+        this.userName = userName;
     }
 
     public String getRealName(){
@@ -40,17 +45,26 @@ public class User {
         this.isRapper = isRapper;
     }
 
+    public boolean getNotifications(){
+        return this.notifications;
+    }
+
+    public void setNotifications(boolean notifications){
+        this.notifications = notifications;
+    }
+
     public Rapper getRapper(){
         return this.rapper;
     }
 
-    public User(String userName, String realName, String location, String aboutMe, String profilePicture, boolean isRapper, Rapper rapper){
+    public User(String userName, String realName, String location, String aboutMe, String profilePicture, boolean isRapper, boolean notifications, Rapper rapper){
         this.userName = userName;
         this.realName = realName;
         this.location = location;
         this.aboutMe = aboutMe;
         this.profilePicture = profilePicture;
-        this.rapper = rapper;
         this.isRapper = isRapper;
+        this.notifications = notifications;
+        this.rapper = rapper;
     }
 }

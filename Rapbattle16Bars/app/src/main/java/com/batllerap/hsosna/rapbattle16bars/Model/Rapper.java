@@ -1,4 +1,4 @@
-package Model;
+package com.batllerap.hsosna.rapbattle16bars.Model;
 import java.util.HashMap;
 import java.util.Map;
 /**

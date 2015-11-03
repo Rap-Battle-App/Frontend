@@ -1,4 +1,4 @@
-package Model
+package com.batllerap.hsosna.rapbattle16bars.Model;
  /**
  * Created by Dennis on 03.11.2015.
  */

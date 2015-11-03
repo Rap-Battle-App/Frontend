@@ -71,6 +71,11 @@ public class UserController {
         //TODO: Logik erstelln
     }
 
+    /**
+     *
+     * @param username
+     * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null
+     */
     public static User getUser(String username){
         User user;
         //TODO: Logik erstellen

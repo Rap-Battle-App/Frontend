@@ -13,7 +13,7 @@ public class AuthentifactionController {
      * Login
      * @param username username
      * @param password password
-     * @return return user if login is correct, else returns null
+     * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null
      */
     public static User login(String username, String password){
         User user;

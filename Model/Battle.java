@@ -1,6 +1,5 @@
-package com.example.woors.test.Model;
-
-/**
+package Model
+ /**
  * Created by Dennis on 03.11.2015.
  */
 public class Battle {

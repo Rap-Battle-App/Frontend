@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Rapbattle16Bars</string>
+    <string name="profilePictureDescription">picture of the user</string>
 </resources>

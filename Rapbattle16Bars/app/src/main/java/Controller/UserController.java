@@ -7,6 +7,9 @@ import com.batllerap.hsosna.rapbattle16bars.Model.Rapper;
 import com.batllerap.hsosna.rapbattle16bars.Model.Settings;
 import com.batllerap.hsosna.rapbattle16bars.Model.User;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class UserController {
 
     /**
@@ -14,9 +17,9 @@ public class UserController {
      * @param user user to find in Database
      * @param newUserName new Username
      */
-    public static void setUsername(User user, String newUserName){
-        //TODO: logik erstellen
-        user.setUserName(newUserName);
+    public static void setUsername(User user, String newUserName) throws JSONException {
+        //TODO: JSON verschicken
+        JSONObject userNameObj = new JSONObject("\"username\":\""+newUserName+"\"");
     }
 
     /**
@@ -24,10 +27,8 @@ public class UserController {
      * @param user the User
      * @param isRapper the new status
      */
-    public static void setIsRapper(User user, boolean isRapper){
-        //TODO: Logik erstellen
-        Settings settings = new Settings(user.getNotifications(), isRapper);
-        user.setIsRapper(isRapper);
+    public static void setIsRapper(User user, boolean isRapper)throws JSONException{
+        setSettings(user,user.getNotifications(),isRapper);
     }
 
     /**
@@ -35,10 +36,13 @@ public class UserController {
      * @param user the User
      * @param notifications the new status
      */
-    public static void setNotifications(User user, boolean notifications){
-        //TODO: Logik erstellen
-        Settings settings = new Settings(notifications, user.getIsRapper());
-        user.setNotifications(notifications);
+    public static void setNotifications(User user, boolean notifications) throws JSONException {
+        setSettings(user,notifications,user.getIsRapper());
+    }
+
+    public static void setSettings(User user, boolean notifications, boolean isRapper) throws JSONException {
+        JSONObject notificationObj = new JSONObject("{\"rapper\":\"\"+isRapper+\"\", \"notifications\":\""+notifications+"\"}");
+        //TODO:JSON verschicken
     }
 
     /**
@@ -46,29 +50,34 @@ public class UserController {
      * @param username username
      * @return returns Setting from the User, if the User doesn't exist it returns null
      */
-    public static Settings getSettings(String username){
-        //TODO: Logik erstellen
+    public static Settings getSettings(String username) throws JSONException {
+        JSONObject settingsJson;
+        //TODO: JSON empfangen
+
         Settings settings;
         if(username.equals("testRapper")) {
-            settings = new Settings(true, true);
+            settingsJson = new JSONObject("\"rapper\":\"true\", \"notifications\":\"true\"");
         }
         else if(username.equals("testViewer")){
-            settings = new Settings(true,false);
+            settingsJson = new JSONObject("\"rapper\":\"true\", \"notifications\":\"true\"");
         }
         else{
-            settings = null;
+            return null;
         }
 
+        settings = new Settings(settingsJson.getBoolean("notifications"),settingsJson.getBoolean("rapper"));
         return settings;
     }
 
-    public static void setProfilPicture(String username, String picture){
+    public static void setProfilPicture(String username, byte picture) throws JSONException{
+        JSONObject pictureJSON = new JSONObject("{\"picture\":\"" + picture + "\"}");
         //TODO:Logik erstellen
 
     }
 
-    public static void setProfileInformation(String username, String location, String aboutMe){
-        //TODO: Logik erstelln
+    public static void setProfileInformation(String username, String location, String aboutMe) throws JSONException {
+        JSONObject profilInformation = new JSONObject("\"city\":\""+location+"\", \"about_me\":\""+aboutMe+"\"");
+        //TODO: JSON an api senden
     }
 
     /**
@@ -76,33 +85,36 @@ public class UserController {
      * @param username
      * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null
      */
-    public static User getUser(String username){
+    public static User getUser(String username) throws JSONException {
+        //{"id":"3", "username":"testRapper", "profile_picture":"blablabla", "city":"Hopsten", "about_me":"cooler Dude, yo", "statistics":{"wins":"10","looses":"13"}, "rapper":"true"}
+
         User user;
-        //TODO: Logik erstellen
+        //TODO: JSON aus Api erhalten
+        JSONObject UserJSON;
         if(username.equals("testRapper")) {
-            Rapper rapper = getRapper(username);
-            user = new User(username, "testRealName", "testLocation", "testAboutme", "testProfilPicture", true, true, rapper);
+            UserJSON = new JSONObject("{\"id\":\"3\", \"username\":\"testRapper\", \"profile_picture\":\"blablabla\", \"city\":\"Hopsten\", \"about_me\":\"cooler Dude, yo\","
+                    + " \"statistics\":{\"wins\":\"10\",\"looses\":\"13\"}, \"rapper\":\"true\"}");
         }
         else if(username.equals("testViewer")){
-            user = new User(username, "testRealName", "testLocation", "testAboutme", "testProfilPicture", false, true, null);
+            UserJSON = new JSONObject("{\"id\":\"2\", \"username\":\"testViewer\", \"profile_picture\":\"blablabla2\", \"city\":\"Osnabrück\", \"about_me\":\"nicht son cooler Dude, yo\","
+                    + " \"statistics\":\"null\", \"rapper\":\"false\"}");
         }
         else{
-            user = null;
+            return null;
         }
+
+        String newUsername = UserJSON.getString("username");
+        String profilePicture = UserJSON.getString("profile_picture");
+        String location = UserJSON.getString("city");
+        String aboutMe = UserJSON.getString("about_me");
+        JSONObject stats = UserJSON.getJSONObject("statistics");
+        int wins = stats.getInt("wins");
+        int looses = stats.getInt("looses");
+        boolean isRapper = UserJSON.getBoolean("rapper");
+
+        Rapper rapper = new Rapper(newUsername,wins,looses);
+        user = new User(username, location, aboutMe, profilePicture,isRapper,true, rapper );
 
         return user;
-    }
-
-    public static Rapper getRapper(String username){
-        Rapper rapper;
-        //TODO: Logik erstellen
-        if(username.equals("testRapper")) {
-            rapper = new Rapper(username,10,8,22);
-        }
-        else{
-            rapper = null;
-        }
-
-        return rapper;
     }
 }

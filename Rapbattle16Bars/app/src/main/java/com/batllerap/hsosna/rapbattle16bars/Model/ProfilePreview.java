@@ -1,0 +1,28 @@
+package com.batllerap.hsosna.rapbattle16bars.Model;
+
+/**
+ * Created by Dennis on 04.11.2015.
+ */
+public class ProfilePreview {
+    int userId;
+    String username;
+    String profilePicture;
+
+    public int getUserId(){
+        return this.userId;
+    }
+
+    public String getUsername(){
+        return this.username;
+    }
+
+    public String getProfilePicture(){
+        return this.profilePicture;
+    }
+
+    public ProfilePreview(int userId, String username, String profilePicture){
+        this.userId = userId;
+        this.username = username;
+        this.profilePicture = profilePicture;
+    }
+}

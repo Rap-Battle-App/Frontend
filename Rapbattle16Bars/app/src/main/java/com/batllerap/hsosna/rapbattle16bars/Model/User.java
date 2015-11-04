@@ -5,7 +5,6 @@ package com.batllerap.hsosna.rapbattle16bars.Model;
  */
 public class User {
     String userName;
-    String realName;
     String location;
     String aboutMe;
     String profilePicture;
@@ -19,10 +18,6 @@ public class User {
 
     public void setUserName(String userName){
         this.userName = userName;
-    }
-
-    public String getRealName(){
-        return this.realName;
     }
 
     public String getLocation(){
@@ -57,9 +52,8 @@ public class User {
         return this.rapper;
     }
 
-    public User(String userName, String realName, String location, String aboutMe, String profilePicture, boolean isRapper, boolean notifications, Rapper rapper){
+    public User(String userName, String location, String aboutMe, String profilePicture, boolean isRapper, boolean notifications, Rapper rapper){
         this.userName = userName;
-        this.realName = realName;
         this.location = location;
         this.aboutMe = aboutMe;
         this.profilePicture = profilePicture;

@@ -9,7 +9,6 @@ public class Rapper {
     Map<Integer, Battle> openBattles;
     int wins;
     int looses;
-    int rating;
     String userName;
 
     public int getWins(){
@@ -20,14 +19,6 @@ public class Rapper {
         return  this.looses;
     }
 
-    public int getRating(){
-        return  this.rating;
-    }
-
-    public int increaseRating(int value){   //Value kann auch negativ sein
-        return this.rating += value;
-    }
-
     public String getUserName(){
         return this.userName;
     }
@@ -36,11 +27,10 @@ public class Rapper {
         return this.wins/this.looses;
     }
 
-    public Rapper(String userName, int wins, int looses, int rating){
+    public Rapper(String userName, int wins, int looses){
         this.userName = userName;
         this.wins = wins;
         this.looses = looses;
-        this.rating = rating;
         this.finishedBattles = new HashMap<>();
         this.openBattles = new HashMap<>();
     }

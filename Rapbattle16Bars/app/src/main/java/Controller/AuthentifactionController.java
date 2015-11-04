@@ -7,6 +7,9 @@ package Controller;
 import com.batllerap.hsosna.rapbattle16bars.Model.Rapper;
 import com.batllerap.hsosna.rapbattle16bars.Model.User;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class AuthentifactionController {
 
     /**
@@ -15,21 +18,23 @@ public class AuthentifactionController {
      * @param password password
      * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null
      */
-    public static User login(String username, String password){
+    public static User login(String username, String password) throws JSONException {
+        //TODO: Login JSON verschicken + Antwort erhalten und success setzten
         User user;
-        //TODO: login logik erstellen
-        if(username.equals("testRapper")) {
-            Rapper rapper = new Rapper(username,10,8,22);
-            user = new User(username, "testRealName", "testLocation", "testAboutme", "testProfilPicture", true, true, rapper);
-        }
-        else if(username.equals("testViewer")){
-            user = new User(username, "testRealName", "testLocation", "testAboutme", "testProfilPicture", false, true, null);
-        }
-        else{
-            user = null;
-        }
+        JSONObject loginObj = new JSONObject("\"username\":\"" + username + "\", \"password\":\"" + password + "\"");
+        boolean success = true;
 
-        return user;
+        if(success) {
+            if (username.equals("testRapper")) {
+                user = UserController.getUser(username);
+            } else if (username.equals("testViewer")) {
+                user = UserController.getUser(username);
+            } else {
+                return null;
+            }
+            return user;
+        }
+        return null;
     }
 
     /**
@@ -39,10 +44,21 @@ public class AuthentifactionController {
      * @param password password
      * @return returns the new User
      */
-    public static User register(String username, String email, String password){
-        User user = new User(username,"","", "", "dummyProfilPicture", false, true, null);
-        //TODO: Registrierungslogik erstellen
-        return user;
+    public static User register(String username, String email, String password) throws JSONException {
+        //TODO: Register JSON verschicken + Antwort erhalten und success setzten
+        JSONObject registerJSON = new JSONObject("\"username\":\"" + username + "\", \"email\":\"" + email + "\", \"password\":\"" + password + "\"");
+        boolean success = true;
+
+        if(success) {
+            if (username.equals("testRapper")) {
+                return UserController.getUser(username);
+            } else if (username.equals("testViewer")) {
+                return UserController.getUser(username);
+            } else {
+                return null;
+            }
+        }
+        return null;
     }
 
     /**

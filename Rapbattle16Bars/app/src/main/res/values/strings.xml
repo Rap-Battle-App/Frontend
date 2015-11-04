@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Rapbattle16Bars</string>
     <string name="profilePictureDescription">picture of the user</string>
+    <string name="strWins">Siege:</string>
+    <string name="strLooses">Niederlagen:</string>
+    <string name="strEditProfile">Profil bearbeiten</string>
+    <string name="editProfilePictureDescription">Preview of old profile picture</string>
+    <string name="strSaveChangesDescription">Speichern</string>
+    <string name="strChangeProfilePictureDescription">Profilbild ändern</string>
 </resources>

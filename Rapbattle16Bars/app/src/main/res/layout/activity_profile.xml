@@ -8,9 +8,9 @@
     tools:context="com.batllerap.hsosna.rapbattle16bars.ProfileActivity">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/profilePicture"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/imgvProfilePicture"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -20,26 +20,80 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/username"
+        android:id="@+id/txtvUsername"
         android:text="New Text"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_alignLeft="@+id/txtvLocation"
+        android:layout_alignStart="@+id/txtvLocation" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/textView"
-        android:layout_below="@+id/username"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:id="@+id/txtvLocation"
+        android:layout_below="@+id/txtvUsername"
+        android:layout_alignLeft="@+id/txtvAboutMe"
+        android:layout_alignStart="@+id/txtvAboutMe" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/txtvAboutMe"
+        android:layout_below="@+id/txtvLocation"
+        android:layout_toRightOf="@+id/imgvProfilePicture"
+        android:layout_toEndOf="@+id/imgvProfilePicture"
+        android:layout_marginLeft="29dp"
+        android:layout_marginStart="29dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/strWins"
+        android:id="@+id/txtvWins"
+        android:layout_below="@+id/imgvProfilePicture"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="22dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/strLooses"
+        android:id="@+id/txtvLooses"
+        android:layout_alignTop="@+id/txtvWins"
+        android:layout_alignRight="@+id/txtvAboutMe"
+        android:layout_alignEnd="@+id/txtvAboutMe" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/intWins"
+        android:layout_below="@+id/txtvWins"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/intLooses"
+        android:layout_below="@+id/txtvLooses"
+        android:layout_alignLeft="@+id/txtvLooses"
+        android:layout_alignStart="@+id/txtvLooses" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/strEditProfile"
+        android:id="@+id/btnEditProfile"
+        android:textSize="10sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/txtvWins"
+        android:layout_alignRight="@+id/imgvProfilePicture"
+        android:layout_alignEnd="@+id/imgvProfilePicture"
+        android:onClick="editProfil" />
+
 </RelativeLayout>

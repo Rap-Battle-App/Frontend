@@ -1,10 +1,10 @@
-package Controller;
+package com.batllerap.hsosna.rapbattle16bars.Controller;
 
 /**
  * Created by Dennis on 03.11.2015.
  */
 
-import com.batllerap.hsosna.rapbattle16bars.Model.Rapper;
+import com.batllerap.hsosna.rapbattle16bars.Exceptions.AuthentificationException;
 import com.batllerap.hsosna.rapbattle16bars.Model.User;
 
 import org.json.JSONException;
@@ -18,17 +18,35 @@ public class AuthentifactionController {
      * @param password password
      * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null
      */
-    public static User login(String username, String password) throws JSONException {
+    public static User login(String username, String password) throws AuthentificationException{
         //TODO: Login JSON verschicken + Antwort erhalten und success setzten
         User user;
-        JSONObject loginObj = new JSONObject("\"username\":\"" + username + "\", \"password\":\"" + password + "\"");
+        try {
+            JSONObject loginObj = new JSONObject("\"username\":\"" + username + "\", \"password\":\"" + password + "\"");
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+            throw new AuthentificationException("Error at making a JSONObjekt");
+        }
         boolean success = true;
 
         if(success) {
             if (username.equals("testRapper")) {
-                user = UserController.getUser(username);
+                try {
+                    user = UserController.getUser(username);
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                    throw new AuthentificationException(e.getMessage());
+                }
             } else if (username.equals("testViewer")) {
-                user = UserController.getUser(username);
+                try {
+                    user = UserController.getUser(username);
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                    throw new AuthentificationException(e.getMessage());
+                }
             } else {
                 return null;
             }
@@ -44,7 +62,7 @@ public class AuthentifactionController {
      * @param password password
      * @return returns the new User
      */
-    public static User register(String username, String email, String password) throws JSONException {
+    public static User register(String username, String email, String password) throws Exception {
         //TODO: Register JSON verschicken + Antwort erhalten und success setzten
         JSONObject registerJSON = new JSONObject("\"username\":\"" + username + "\", \"email\":\"" + email + "\", \"password\":\"" + password + "\"");
         boolean success = true;

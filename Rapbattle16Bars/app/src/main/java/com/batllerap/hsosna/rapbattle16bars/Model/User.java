@@ -24,8 +24,16 @@ public class User {
         return this.location;
     }
 
+    public void setLocation(String location){
+        this.location = location;
+    }
+
     public String getAboutMe(){
         return this.aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe){
+        this.aboutMe = aboutMe;
     }
 
     public String getProfilePicture(){

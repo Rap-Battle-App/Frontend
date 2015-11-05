@@ -1,9 +1,7 @@
-package Controller;
+package com.batllerap.hsosna.rapbattle16bars.Controller;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattlePreview;
-import com.batllerap.hsosna.rapbattle16bars.Model.Beat;
-import com.batllerap.hsosna.rapbattle16bars.Model.Rapper;
 import com.batllerap.hsosna.rapbattle16bars.Model.RequestList;
 
 import org.json.JSONArray;
@@ -15,7 +13,12 @@ import org.json.JSONObject;
  */
 public class BattleController {
 
-
+    /**
+     * parse a JSONObject to an Array of BattlePreview
+     * @param obj
+     * @return
+     * @throws JSONException
+     */
     private static BattlePreview[] parseBattleList(JSONObject obj) throws JSONException {
         JSONArray battlesJSON = obj.getJSONArray("data");
         BattlePreview[] battles = new BattlePreview[battlesJSON.length()];

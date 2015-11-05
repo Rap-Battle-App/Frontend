@@ -11,6 +11,8 @@ import com.batllerap.hsosna.rapbattle16bars.Model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Iterator;
+
 public class UserController {
 
     /**
@@ -125,7 +127,10 @@ public class UserController {
             return null;
         }
         try {
-            System.out.println(UserJSON.getString("username"));
+            String ParsingData = "{\"id\":\"alasdj\"}";
+            JSONObject jsonObject = new JSONObject(ParsingData);
+            String name = jsonObject.getString("id");
+            System.out.println(name);
             String newUsername = UserJSON.getString("username");
             String profilePicture = UserJSON.getString("profile_picture");
             String location = UserJSON.getString("city");
@@ -144,8 +149,6 @@ public class UserController {
         catch(Exception e){
             e.printStackTrace();
         }
-
-
         return user;
     }
 }

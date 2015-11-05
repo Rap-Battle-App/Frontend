@@ -7,4 +7,7 @@
     <string name="editProfilePictureDescription">Preview of old profile picture</string>
     <string name="strSaveChangesDescription">Speichern</string>
     <string name="strChangeProfilePictureDescription">Profilbild ändern</string>
+    <string name="strNewUsername">Benutzername</string>
+    <string name="strNewLocation">Stadt</string>
+    <string name="strNewAboutMe">Über mich</string>
 </resources>

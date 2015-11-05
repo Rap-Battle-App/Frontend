@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="@string/strNewUsername"
         android:layout_below="@+id/imgvEditProfilePicture"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -40,7 +40,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="@string/strNewLocation"
         android:id="@+id/txtvEditLocation"
         android:layout_below="@+id/txteNewUsername"
         android:layout_alignParentLeft="true"
@@ -61,7 +61,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="@string/strNewAboutMe"
         android:id="@+id/txtvEditAboutMe"
         android:layout_below="@+id/txteNewLocation"
         android:layout_alignParentLeft="true"

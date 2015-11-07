@@ -85,7 +85,8 @@
         android:text="@string/strSaveChangesDescription"
         android:id="@+id/btnSaveChanges"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="saveChanges" />
 
     <Button
         android:layout_width="wrap_content"

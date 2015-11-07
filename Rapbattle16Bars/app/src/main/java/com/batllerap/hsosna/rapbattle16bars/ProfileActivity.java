@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    public final static String OLD_USERNAME = "com.batllerap.hsosna.rapbattle16bars.USERNAME";
+    public final static String OLD_LOCATION = "com.batllerap.hsosna.rapbattle16bars.LOCATION";
+    public final static String OLD_ABOUT_ME = "com.batllerap.hsosna.rapbattle16bars.ABOUTME";
+
     //Widgets Deklarieren und Initialisieren
 
     //TextView
@@ -30,6 +34,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        Intent intent = getIntent();
+
         //TextView
         this.txtvUsername = (TextView) findViewById(R.id.txtvUsername);
         this.txtvLocation = (TextView) findViewById(R.id.txtvLocation);
@@ -43,18 +49,28 @@ public class ProfileActivity extends AppCompatActivity {
         //Button
         this.btnEditProfile = (Button) findViewById(R.id.btnEditProfile);
 
-        //Listener
-       /* btnEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });*/
+        //TODO beim start der App TextView nicht auf null setzen
+        if (!(intent.getExtras().size()==0)) {
+            this.txtvUsername.setText(intent.getStringExtra(EditProfileActivity.NEW_USERNAME));
+            this.txtvLocation.setText(intent.getStringExtra(EditProfileActivity.NEW_LOCATION));
+            this.txtvAboutMe.setText(intent.getStringExtra(EditProfileActivity.NEW_ABOUT_ME));
+        }
     }
 
     public void editProfil(View v) {
 
-        startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
+        Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+
+        //Zu übergebene Strings
+        String userName = txtvUsername.getText().toString();
+        String location = txtvLocation.getText().toString();
+        String aboutMe = txtvAboutMe.getText().toString();
+
+        intent.putExtra(OLD_USERNAME, userName);
+        intent.putExtra(OLD_LOCATION, location);
+        intent.putExtra(OLD_ABOUT_ME, aboutMe);
+
+        startActivity(intent);
 
     }
 }

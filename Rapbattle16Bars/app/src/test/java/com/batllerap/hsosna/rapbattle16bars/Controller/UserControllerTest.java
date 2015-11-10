@@ -24,27 +24,27 @@ public class UserControllerTest {
     @Test
     public void testSetIsRapper() throws Exception {
         User user = new User("testUser", null, null, null, false, false, null);
-        Assert.assertTrue(UserController.setNotifications(user,false));
+        Assert.assertTrue(UserController.setIsRapper(user, false));
         Assert.assertTrue(!user.getIsRapper());
-        Assert.assertTrue(UserController.setNotifications(user,true));
+        Assert.assertTrue(UserController.setIsRapper(user,true));
         Assert.assertTrue(user.getIsRapper());
 
         user = new User("testUser", null, null, null, false, true, null);
-        Assert.assertTrue(UserController.setNotifications(user, false));
+        Assert.assertTrue(UserController.setIsRapper(user, false));
         Assert.assertTrue(!user.getIsRapper());
-        Assert.assertTrue(UserController.setNotifications(user,true));
+        Assert.assertTrue(UserController.setIsRapper(user, true));
         Assert.assertTrue(user.getIsRapper());
 
         user = new User("testUser", null, null, null, true, false, null);
-        Assert.assertTrue(UserController.setNotifications(user, false));
+        Assert.assertTrue(UserController.setIsRapper(user, false));
         Assert.assertTrue(!user.getIsRapper());
-        Assert.assertTrue(UserController.setNotifications(user,true));
+        Assert.assertTrue(UserController.setIsRapper(user, true));
         Assert.assertTrue(user.getIsRapper());
 
         user = new User("testUser", null, null, null, true, true, null);
-        Assert.assertTrue(UserController.setNotifications(user, false));
+        Assert.assertTrue(UserController.setIsRapper(user, false));
         Assert.assertTrue(!user.getIsRapper());
-        Assert.assertTrue(UserController.setNotifications(user,true));
+        Assert.assertTrue(UserController.setIsRapper(user,true));
         Assert.assertTrue(user.getIsRapper());
     }
 

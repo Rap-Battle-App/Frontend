@@ -42,7 +42,7 @@ public class UserController {
      * @param notifications the new status
      */
     public static boolean setNotifications(User user, boolean notifications) throws JSONException {
-        return setSettings(user, notifications,user.getIsRapper());
+        return setSettings(user, notifications, user.getIsRapper());
     }
 
     public static boolean setSettings(User user, boolean notifications, boolean isRapper) throws JSONException {
@@ -65,16 +65,22 @@ public class UserController {
         Settings settings;
         if(username.equals("testRapper")) {
             settingsJson = new JSONObject("\"rapper\":\"true\", \"notifications\":\"true\"");
+
+            //TODO: entfernen
+            return new Settings(true,true);
         }
         else if(username.equals("testViewer")){
             settingsJson = new JSONObject("\"rapper\":\"true\", \"notifications\":\"true\"");
+
+            //TODO: entfernen
+            return new Settings(true,false);
         }
         else{
             return null;
         }
 
-        settings = new Settings(settingsJson.getBoolean("notifications"),settingsJson.getBoolean("rapper"));
-        return settings;
+        //TODO: settings = new Settings(settingsJson.getBoolean("notifications"),settingsJson.getBoolean("rapper"));
+        //return settings;
     }
 
     public static boolean setProfilPicture(byte picture) throws JSONException{
@@ -107,6 +113,9 @@ public class UserController {
             try {
                 UserJSON = new JSONObject("{\"id\":3, \"username\":\"testRapper\", \"profile_picture\":\"blablabla\", \"city\":\"Hopsten\", \"about_me\":\"cooler Dude, yo\","
                         + " \"statistics\":{\"wins\":10,\"looses\":13}, \"rapper\":\"TRUE\" }");
+                Rapper rapper = new Rapper("testRapper",10,22);
+                //TODO: entfernen
+                return new User("testRapper",null,null,null,true,true,rapper);
             }
             catch(Exception e){
                 e.printStackTrace();
@@ -117,13 +126,15 @@ public class UserController {
             try {
                 UserJSON = new JSONObject("{\"id\":2, \"username\":\"testViewer\", \"profile_picture\":\"blablabla2\", \"city\":\"Osnabrück\", \"about_me\":\"nicht son cooler Dude, yo\","
                         + " \"statistics\":NULL, \"rapper\":\"FALSE\"}");
+                //TODO: entfernen
+                return new User("testViewer",null,null,null,false,true,null);
             }
             catch(Exception e){
                 e.printStackTrace();
             }
         }
         else{
-            System.out.println("null");
+            System.out.println("Kein User gefunden");
             return null;
         }
         try {

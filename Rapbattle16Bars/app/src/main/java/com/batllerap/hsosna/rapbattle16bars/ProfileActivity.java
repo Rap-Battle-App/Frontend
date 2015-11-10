@@ -49,11 +49,22 @@ public class ProfileActivity extends AppCompatActivity {
         //Button
         this.btnEditProfile = (Button) findViewById(R.id.btnEditProfile);
 
-        //TODO beim start der App TextView nicht auf null setzen
-        if (!(intent.getExtras().size()==0)) {
-            this.txtvUsername.setText(intent.getStringExtra(EditProfileActivity.NEW_USERNAME));
-            this.txtvLocation.setText(intent.getStringExtra(EditProfileActivity.NEW_LOCATION));
-            this.txtvAboutMe.setText(intent.getStringExtra(EditProfileActivity.NEW_ABOUT_ME));
+        //TODO sichtbarkeit, wenn leer
+        if ((intent.getExtras() != null)) {
+            if(!intent.getStringExtra(EditProfileActivity.NEW_USERNAME).equals("")) {
+                this.txtvUsername.setText(intent.getStringExtra(EditProfileActivity.NEW_USERNAME));
+            }
+            if(!intent.getStringExtra(EditProfileActivity.NEW_LOCATION).equals("")) {
+                this.txtvLocation.setText(intent.getStringExtra(EditProfileActivity.NEW_LOCATION));
+                this.txtvLocation.setVisibility(1);
+            }else{
+                if(txtvLocation.equals("")) {
+                    this.txtvLocation.setVisibility(1);
+                }
+            }
+            if(!intent.getStringExtra(EditProfileActivity.NEW_ABOUT_ME).equals("")) {
+                this.txtvAboutMe.setText(intent.getStringExtra(EditProfileActivity.NEW_ABOUT_ME));
+            }
         }
     }
 

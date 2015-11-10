@@ -60,9 +60,9 @@ public class EditProfileActivity extends AppCompatActivity {
         this.btnSaveChanges = (Button) findViewById(R.id.btnSaveChanges);
         this.btnChangeProfilePicture = (Button) findViewById(R.id.btnChangeProfilePicture);
 
-        txteNewUsername.setText(intent.getStringExtra(EditProfileActivity.NEW_USERNAME));
-        txteNewLocation.setText(intent.getStringExtra(EditProfileActivity.NEW_LOCATION));
-        txteNewAboutMe.setText(intent.getStringExtra(EditProfileActivity.NEW_ABOUT_ME));
+        txteNewUsername.setHint(intent.getStringExtra(EditProfileActivity.NEW_USERNAME));
+        txteNewLocation.setHint(intent.getStringExtra(EditProfileActivity.NEW_LOCATION));
+        txteNewAboutMe.setHint(intent.getStringExtra(EditProfileActivity.NEW_ABOUT_ME));
     }
 
     public void saveChanges(View v) {
@@ -73,8 +73,8 @@ public class EditProfileActivity extends AppCompatActivity {
         String location = txteNewLocation.getText().toString();
         String aboutMe = txteNewAboutMe.getText().toString();
 
-        if (userName.isEmpty() || location.isEmpty() || aboutMe.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Alle Felder müssen ausgefüllt werden", Toast.LENGTH_LONG).show();
+        if (userName.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Benutzername darf nicht leer sein", Toast.LENGTH_LONG).show();
         } else {
             intent.putExtra(NEW_USERNAME, userName);
             intent.putExtra(NEW_LOCATION, location);

@@ -29,7 +29,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/txtvLocation"
         android:layout_below="@+id/txtvUsername"
         android:layout_alignLeft="@+id/txtvAboutMe"
@@ -38,7 +37,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/txtvAboutMe"
         android:layout_below="@+id/txtvLocation"
         android:layout_toRightOf="@+id/imgvProfilePicture"

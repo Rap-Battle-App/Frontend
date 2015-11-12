@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
+import com.batllerap.hsosna.rapbattle16bars.Model.User;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -35,6 +37,8 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         Intent intent = getIntent();
+
+        User rapper = UserController.getUser("testRapper");
 
         //TextView
         this.txtvUsername = (TextView) findViewById(R.id.txtvUsername);

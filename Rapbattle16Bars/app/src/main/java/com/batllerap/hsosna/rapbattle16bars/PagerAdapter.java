@@ -1,8 +1,5 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
-/**
- * Created by Robert on 20.11.15.
- */
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;

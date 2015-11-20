@@ -38,7 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        User rapper = UserController.getUser("testRapper");
+        // Musste ich eben auskommentieren, hat mir die ganze Zeit Fehler geworden - Robert
+        // User rapper = UserController.getUser("testRapper");
 
         //TextView
         this.txtvUsername = (TextView) findViewById(R.id.txtvUsername);

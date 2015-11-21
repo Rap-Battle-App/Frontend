@@ -8,11 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import junit.framework.Test;
+
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     Button bLogin;
     EditText etUserName, etPassword;
     TextView tvRegisterLink;
+    TestUserLocalStore userLocalStore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         bLogin.setOnClickListener(this);
         tvRegisterLink.setOnClickListener(this);
+
+        userLocalStore = new TestUserLocalStore(this);
     }
 
 
@@ -33,7 +39,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bLogin:
-                startActivity(new Intent(this, Logout.class));
+                TestUser testUser = new TestUser (null,null);
+                userLocalStore.storeTestUserData(testUser);
+                userLocalStore.setTestUserLoggedIn(true);
+
                 break;
 
             case R.id.tvRegisterLink:

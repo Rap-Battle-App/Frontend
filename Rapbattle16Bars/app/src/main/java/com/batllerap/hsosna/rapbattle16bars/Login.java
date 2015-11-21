@@ -1,5 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +16,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     Button bLogin;
     EditText etUserName, etPassword;
     TextView tvRegisterLink;
-    TestUserLocalStore userLocalStore;
 
 
     @Override
@@ -31,7 +31,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         bLogin.setOnClickListener(this);
         tvRegisterLink.setOnClickListener(this);
 
-        userLocalStore = new TestUserLocalStore(this);
     }
 
 
@@ -39,10 +38,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bLogin:
-                TestUser testUser = new TestUser (null,null);
-                userLocalStore.storeTestUserData(testUser);
-                userLocalStore.setTestUserLoggedIn(true);
-
+                startActivity(new Intent(this, Logout.class));
                 break;
 
             case R.id.tvRegisterLink:

@@ -7,12 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import junit.framework.Test;
-
 public class Logout extends AppCompatActivity implements View.OnClickListener {
 
     Button bLogout;
-    EditText etName, etAge, etUsername, etPassword;
+    EditText etName, etAge, etUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

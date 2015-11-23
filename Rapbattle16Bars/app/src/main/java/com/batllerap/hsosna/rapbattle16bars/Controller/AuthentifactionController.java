@@ -12,6 +12,12 @@ import org.json.JSONObject;
 
 public class AuthentifactionController {
 
+    private static String token;
+
+    public static String getToken(){
+        return AuthentifactionController.token;
+    }
+
     /**
      * Login
      * @param username username
@@ -21,6 +27,8 @@ public class AuthentifactionController {
     public static User login(String username, String password) throws AuthentificationException{
         //TODO: Login JSON verschicken + Antwort erhalten und success setzten
         User user;
+
+
         try {
             JSONObject loginObj = new JSONObject("\"username\":\"" + username + "\", \"password\":\"" + password + "\"");
         }
@@ -94,9 +102,14 @@ public class AuthentifactionController {
      * @param email Email to find the Account
      * @return returns true if reset is successful, else false
      */
-    public static boolean resetPassword(String email){
+    public static boolean resetPassword(String email, String passord) throws JSONException{
         //TODO: resetPassword logik erstellen
+        JSONObject obj = new JSONObject();
+        obj.put("email",email);
+        obj.put("token",AuthentifactionController.getToken());
+        obj.put("password",passord);
         return true;
     }
+
 
 }

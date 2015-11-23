@@ -19,7 +19,7 @@ public class JSONTest {
             object = new JSONObject("{\"test\":\"bla\"}");
             System.out.println(object.getString("test"));
         } catch (JSONException e) {
-            Assert.fail();
+            e.printStackTrace();
         }
     }
 }

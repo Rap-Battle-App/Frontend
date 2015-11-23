@@ -29,7 +29,7 @@ public class Battle {
          return this.beat2;
      }
 
-     public int getVotes2(){
+    public int getVotes2(){
          return this.votes2;
      }
 
@@ -41,7 +41,7 @@ public class Battle {
         return this.isOpen;
     }
 
-     public void closeVoting(){
+    public void closeVoting(){
          this.isOpen = false;
      }
 
@@ -49,7 +49,7 @@ public class Battle {
         return this.id;
     }
 
-     public String getVideoUrl(){
+    public String getVideoUrl(){
          return this.videoUrl;
      }
 

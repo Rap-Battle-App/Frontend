@@ -11,8 +11,6 @@ import com.batllerap.hsosna.rapbattle16bars.Model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Iterator;
-
 public class UserController {
 
     /**
@@ -115,7 +113,7 @@ public class UserController {
                         + " \"statistics\":{\"wins\":10,\"looses\":13}, \"rapper\":\"TRUE\" }");
                 Rapper rapper = new Rapper("testRapper",10,22);
                 //TODO: entfernen
-                return new User("testRapper",null,null,null,true,true,rapper);
+                return new User(0, "testRapper",null,null,null,true,true,rapper);
             }
             catch(Exception e){
                 e.printStackTrace();
@@ -127,7 +125,7 @@ public class UserController {
                 UserJSON = new JSONObject("{\"id\":2, \"username\":\"testViewer\", \"profile_picture\":\"blablabla2\", \"city\":\"Osnabrück\", \"about_me\":\"nicht son cooler Dude, yo\","
                         + " \"statistics\":NULL, \"rapper\":\"FALSE\"}");
                 //TODO: entfernen
-                return new User("testViewer",null,null,null,false,true,null);
+                return new User(1, "testViewer",null,null,null,false,true,null);
             }
             catch(Exception e){
                 e.printStackTrace();
@@ -142,6 +140,8 @@ public class UserController {
             JSONObject jsonObject = new JSONObject(ParsingData);
             String name = jsonObject.getString("id");
             System.out.println(name);
+
+            int id = UserJSON.getInt("id");
             String newUsername = UserJSON.getString("username");
             String profilePicture = UserJSON.getString("profile_picture");
             String location = UserJSON.getString("city");
@@ -155,11 +155,28 @@ public class UserController {
                 int looses = stats.getInt("looses");
                 rapper = new Rapper(newUsername, wins, looses);
             }
-            user = new User(username, location, aboutMe, profilePicture,isRapper,true, rapper );
+            user = new User(id, username, location, aboutMe, profilePicture,isRapper,true, rapper );
         }
         catch(Exception e){
             e.printStackTrace();
         }
         return user;
+    }
+
+    /**
+     * Changes the Password of the current User
+     * @param oldPassword oldPassword of the current User
+     * @param newPassword the new Password
+     * @return returns true if successfull
+     * @throws JSONException
+     */
+    public static boolean changePassword(String oldPassword, String newPassword) throws JSONException{
+        JSONObject obj = new JSONObject();
+        obj.put("old_password",oldPassword);
+        obj.put("password",newPassword);
+
+        //TODO: JSON versenden!
+
+        return true;
     }
 }

@@ -24,40 +24,23 @@ public class AuthentifactionController {
      * @param password password
      * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null
      */
-    public static User login(String username, String password) throws AuthentificationException{
+    public static User login(String username, String password) throws Exception{
         //TODO: Login JSON verschicken + Antwort erhalten und success setzten
         User user;
+        int userId = -1;
 
+        JSONObject loginObj = new JSONObject("\"username\":\"" + username + "\", \"password\":\"" + password + "\"");
 
-        try {
-            JSONObject loginObj = new JSONObject("\"username\":\"" + username + "\", \"password\":\"" + password + "\"");
+        if(username.equals("testRapper")) {
+            userId = 0;
         }
-        catch (JSONException e){
-            e.printStackTrace();
-            throw new AuthentificationException("Error at making a JSONObjekt");
+        else if(username.equals("testViewer")){
+            userId = 1;
         }
-        boolean success = true;
 
-        if(success) {
-            if (username.equals("testRapper")) {
-                try {
-                    user = UserController.getUser(username);
-                }
-                catch(Exception e){
-                    e.printStackTrace();
-                    throw new AuthentificationException(e.getMessage());
-                }
-            } else if (username.equals("testViewer")) {
-                try {
-                    user = UserController.getUser(username);
-                }
-                catch(Exception e){
-                    e.printStackTrace();
-                    throw new AuthentificationException(e.getMessage());
-                }
-            } else {
-                return null;
-            }
+
+        if(userId >= 0) {
+            user = UserController.getUser(userId);
             return user;
         }
         return null;
@@ -72,17 +55,19 @@ public class AuthentifactionController {
      */
     public static User register(String username, String email, String password) throws Exception {
         //TODO: Register JSON verschicken + Antwort erhalten und success setzten
-        JSONObject registerJSON = new JSONObject("\"username\":\"" + username + "\", \"email\":\"" + email + "\", \"password\":\"" + password + "\"");
-        boolean success = true;
+        int userId = -1;
 
-        if(success) {
-            if (username.equals("testRapper")) {
-                return UserController.getUser(username);
-            } else if (username.equals("testViewer")) {
-                return UserController.getUser(username);
-            } else {
-                return null;
-            }
+        JSONObject registerJSON = new JSONObject("\"username\":\"" + username + "\", \"email\":\"" + email + "\", \"password\":\"" + password + "\"");
+
+        if(username.equals("testRapper")){
+            userId = 0;
+        }
+        else if(username.equals("testViewer")){
+            userId = 1;
+        }
+
+        if(userId >= 0) {
+                return UserController.getUser(userId);
         }
         return null;
     }

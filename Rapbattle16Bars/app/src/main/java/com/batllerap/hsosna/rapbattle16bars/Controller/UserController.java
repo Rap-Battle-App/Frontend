@@ -100,13 +100,13 @@ public class UserController {
      * @param username
      * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null
      */
-    public static User getUser(String username) throws UserControllerException {
+    public static User getUser(int  userId) throws UserControllerException {
         //{"id":"3", "username":"testRapper", "profile_picture":"blablabla", "city":"Hopsten", "about_me":"cooler Dude, yo", "statistics":{"wins":"10","looses":"13"}, "rapper":"true"}
 
         User user = null;
         //TODO: JSON aus Api erhalten
         JSONObject UserJSON = null;
-        if(username.equals("testRapper")) {
+        if(userId == 0) {
             System.out.println("rapper");
             try {
                 UserJSON = new JSONObject("{\"id\":3, \"username\":\"testRapper\", \"profile_picture\":\"blablabla\", \"city\":\"Hopsten\", \"about_me\":\"cooler Dude, yo\","
@@ -119,7 +119,7 @@ public class UserController {
                 e.printStackTrace();
             }
         }
-        else if(username.equals("testViewer")){
+        else if(userId == 1){
             System.out.println("viewer");
             try {
                 UserJSON = new JSONObject("{\"id\":2, \"username\":\"testViewer\", \"profile_picture\":\"blablabla2\", \"city\":\"Osnabrück\", \"about_me\":\"nicht son cooler Dude, yo\","
@@ -155,7 +155,7 @@ public class UserController {
                 int looses = stats.getInt("looses");
                 rapper = new Rapper(newUsername, wins, looses);
             }
-            user = new User(id, username, location, aboutMe, profilePicture,isRapper,true, rapper );
+            user = new User(id, newUsername, location, aboutMe, profilePicture,isRapper,true, rapper );
         }
         catch(Exception e){
             e.printStackTrace();

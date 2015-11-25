@@ -16,7 +16,7 @@ public class BattleControllerTest {
 
     @Test
     public void testGetTrendingBattles() throws Exception {
-        BattlePreview[] prev = BattleController.getTrendingBattles(5);
+        BattlePreview[] prev = BattleController.getTrendingBattles(5,1);
         if (prev.length > 5){
             Assert.fail();
         }
@@ -25,7 +25,7 @@ public class BattleControllerTest {
     @Test
     public void testGetOpenForVotingBattles() throws Exception {
 
-        BattlePreview[] prev = BattleController.getOpenForVotingBattles(5);
+        BattlePreview[] prev = BattleController.getOpenForVotingBattles(5,1,1);
         if (prev.length > 5){
             Assert.fail();
         }
@@ -34,7 +34,7 @@ public class BattleControllerTest {
     @Test
     public void testGetCompletedBattles() throws Exception {
 
-        BattlePreview[] prev = BattleController.getCompletedBattles(5);
+        BattlePreview[] prev = BattleController.getCompletedBattles(5,1,1);
         if (prev.length > 5){
             Assert.fail();
         }

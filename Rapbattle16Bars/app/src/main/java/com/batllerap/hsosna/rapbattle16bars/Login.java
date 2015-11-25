@@ -40,13 +40,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.bLogin:
                 User testUser = null;
+
                 try {
                     testUser = AuthentifactionController.login(etUserName.getText().toString(), etPassword.getText().toString());
-                } catch (AuthenticationException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
                 if (testUser != null) {
+                    // To-Do: User über Intent mitgeben
                     startActivity(new Intent(this, MainActivity.class));
                     break;
                 }

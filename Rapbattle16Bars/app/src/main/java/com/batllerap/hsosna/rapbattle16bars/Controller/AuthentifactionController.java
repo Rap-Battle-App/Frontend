@@ -4,7 +4,7 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
  * Created by Dennis on 03.11.2015.
  */
 
-import com.batllerap.hsosna.rapbattle16bars.Exceptions.AuthentificationException;
+import com.batllerap.hsosna.rapbattle16bars.Exceptions.AuthenticationException;
 import com.batllerap.hsosna.rapbattle16bars.Model.User;
 
 import org.json.JSONException;

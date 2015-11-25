@@ -29,7 +29,9 @@ public class AuthentifactionController {
         User user;
         int userId = -1;
 
-        JSONObject loginObj = new JSONObject("\"username\":\"" + username + "\", \"password\":\"" + password + "\"");
+        JSONObject loginObj = new JSONObject();
+        loginObj.put("username", username);
+        loginObj.put("password", password);
 
         if(username.equals("testRapper")) {
             userId = 0;
@@ -57,7 +59,10 @@ public class AuthentifactionController {
         //TODO: Register JSON verschicken + Antwort erhalten und success setzten
         int userId = -1;
 
-        JSONObject registerJSON = new JSONObject("\"username\":\"" + username + "\", \"email\":\"" + email + "\", \"password\":\"" + password + "\"");
+        JSONObject registerJSON = new JSONObject();
+        registerJSON.put("username", username);
+        registerJSON.put("email", email);
+        registerJSON.put("password", password);
 
         if(username.equals("testRapper")){
             userId = 0;

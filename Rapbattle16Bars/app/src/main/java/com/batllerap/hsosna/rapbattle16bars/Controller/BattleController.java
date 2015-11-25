@@ -193,7 +193,7 @@ public class BattleController {
         return new Battle(id, isOpen, votes1, votes2, rapper1Name, rapper2Name, null, null, videoUrl);
     }
 
-    public static OpenBattle getOpenBattle() throws JSONException{
+    public static OpenBattle getOpenBattle(int battleId) throws JSONException{
         OpenBattle openBattle = null;
 
         //TODO: JSON Empfangen
@@ -201,7 +201,6 @@ public class BattleController {
                 "\"opponent\":{\"user_id\":1, \"username\": \"testRapper\", \"profile_picture\":\"blskjdtfösa\"}, \"phase\": 1, \"info\":" +
                 " {\"time_left\":561, \"round1_url\":\"irgendwo\", \"beat_id\": 4, \"opponent_round1_url\":\"nirgendwo\", \"round2_url\": \"nochwoanders\"}}");
 
-        int battleId = response.getInt("id");
         JSONObject opponent = response.getJSONObject("opponent");
         int phase = response.getInt("phase");
         JSONObject info = response.getJSONObject("info");
@@ -229,7 +228,7 @@ public class BattleController {
         return openBattle;
     }
 
-    public static boolean uploadRound(int beatId, byte[] video) throws JSONException {
+    public static boolean uploadRound(int battleId, int beatId, byte[] video) throws JSONException {
         //TODO: Logik erstellen
         JSONObject obj = new JSONObject();
         obj.put("beat_id",beatId);
@@ -281,7 +280,7 @@ public class BattleController {
      * gives a vote for a Battle to the Database
      * @param rapper_number the name of the rapper, who gets the Vote
      */
-    public static boolean voteBattle(int rapperNumber) throws JSONException {
+    public static boolean voteBattle(int battleId, int rapperNumber) throws JSONException {
         JSONObject request = new JSONObject();
         request.put("rapper_numer", rapperNumber);
 
@@ -296,7 +295,7 @@ public class BattleController {
      * @param opponentName
      * @param accepted true if the request is accepted, else false
      */
-    public static void answerRequest(String rapperName, String opponentName, boolean accepted){
+    public static void answerRequest(int requestId, boolean accepted){
         //TODO: Logik erstellen
     }
 }

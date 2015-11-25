@@ -1,7 +1,7 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
-import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentifactionController;
-import com.batllerap.hsosna.rapbattle16bars.Exceptions.AuthenticationException;
+import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationController;
+import com.batllerap.hsosna.rapbattle16bars.Exceptions.AuthentificationException;
 import com.batllerap.hsosna.rapbattle16bars.Model.User;
 
 import android.content.Intent;
@@ -41,8 +41,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             case R.id.bLogin:
                 User testUser = null;
                 try {
-                    testUser = AuthentifactionController.login(etUserName.getText().toString(), etPassword.getText().toString());
-                } catch (AuthenticationException e) {
+                    testUser = AuthentificationController.login(etUserName.getText().toString(), etPassword.getText().toString());
+                } catch (AuthentificationException e) {
                     e.printStackTrace();
                 }
 

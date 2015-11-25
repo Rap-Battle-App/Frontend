@@ -4,18 +4,17 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
  * Created by Dennis on 03.11.2015.
  */
 
-import com.batllerap.hsosna.rapbattle16bars.Exceptions.AuthentificationException;
 import com.batllerap.hsosna.rapbattle16bars.Model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AuthentifactionController {
+public class AuthentificationController {
 
     private static String token;
 
     public static String getToken(){
-        return AuthentifactionController.token;
+        return AuthentificationController.token;
     }
 
     /**
@@ -72,7 +71,7 @@ public class AuthentifactionController {
         }
 
         if(userId >= 0) {
-                return UserController.getUser(userId);
+                return AuthentificationController.login(username, password);
         }
         return null;
     }
@@ -96,7 +95,7 @@ public class AuthentifactionController {
         //TODO: resetPassword logik erstellen
         JSONObject obj = new JSONObject();
         obj.put("email",email);
-        obj.put("token",AuthentifactionController.getToken());
+        obj.put("token", AuthentificationController.getToken());
         obj.put("password",passord);
         return true;
     }

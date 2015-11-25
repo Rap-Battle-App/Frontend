@@ -4,6 +4,10 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
  * Created by Dennis on 03.11.2015.
  */
 
+<<<<<<< HEAD:Rapbattle16Bars/app/src/main/java/com/batllerap/hsosna/rapbattle16bars/Controller/AuthentificationController.java
+=======
+import com.batllerap.hsosna.rapbattle16bars.Exceptions.AuthenticationException;
+>>>>>>> 8b579cb0cc49f861f07c62ff366d87304a9b85dc:Rapbattle16Bars/app/src/main/java/com/batllerap/hsosna/rapbattle16bars/Controller/AuthentifactionController.java
 import com.batllerap.hsosna.rapbattle16bars.Model.User;
 
 import org.json.JSONException;

@@ -7,7 +7,7 @@
     android:padding="10dp" >
 
     <TextView
-        android:text="Name"
+        android:text="Username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:id="@+id/etName" />
+        android:id="@+id/etUsername" />
 
     <TextView
         android:text="Email"
@@ -29,18 +29,6 @@
         android:id="@+id/etEmail" />
 
     <TextView
-        android:text="Username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/etUsername"
-        />
-
-    <TextView
         android:text="Password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -50,8 +38,18 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:inputType="textPassword"
-        android:id="@+id/etPassword"
-        />
+        android:id="@+id/etPassword" />
+
+    <TextView
+        android:text="Confirm Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/etPasswordConfirm" />
 
     <Button
         android:id="@+id/bRegister"

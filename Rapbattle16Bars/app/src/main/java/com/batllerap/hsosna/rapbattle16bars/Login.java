@@ -48,7 +48,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
 
                 if (testUser != null) {
-                    // To-Do: User über Intent mitgeben
                     Intent i = new Intent(this, MainActivity.class);
                     i.putExtra("User", testUser);
                     startActivity(i);

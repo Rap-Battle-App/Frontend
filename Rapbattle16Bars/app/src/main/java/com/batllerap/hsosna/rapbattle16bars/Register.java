@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationController;
+import com.batllerap.hsosna.rapbattle16bars.Model.User;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,9 +34,15 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bRegister:
+                User testUser = null;
                 try {
                     AuthentificationController.register(etUsername.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString());
-                    startActivity(new Intent(this, MainActivity.class));
+                    if (testUser != null) {
+                        Intent i = new Intent(this, MainActivity.class);
+                        i.putExtra("User", testUser);
+                        startActivity(i);
+                        break;
+                    }
                     break;
                 } catch (Exception e) {
                     e.printStackTrace();

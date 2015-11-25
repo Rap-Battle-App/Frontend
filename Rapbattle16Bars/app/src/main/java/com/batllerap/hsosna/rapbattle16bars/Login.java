@@ -46,7 +46,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 if (testUser != null) {
                     Intent i = new Intent(this, MainActivity.class);
                     i.putExtra("User", testUser);

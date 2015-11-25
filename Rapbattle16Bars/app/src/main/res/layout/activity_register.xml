@@ -4,57 +4,91 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp" >
+    android:padding="10dp"
+    android:background="@color/colorPrimary"
+    >
 
+    <!-- Space -->
     <TextView
-        android:text="Username"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/etUsername" />
+        android:id="@+id/etUsername"
+        android:background="@color/white"
+        android:hint="Username"
+        android:padding="10dp"
+        android:singleLine="true" />
 
+    <!-- Space -->
     <TextView
-        android:text="Email"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/etEmail" />
+        android:id="@+id/etEmail"
+        android:background="@color/white"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:singleLine="true" />
 
+
+    <!-- Space -->
     <TextView
-        android:text="Password"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:id="@+id/etPassword"
+        android:background="@color/white"
+        android:hint="Password"
         android:inputType="textPassword"
-        android:id="@+id/etPassword" />
+        android:padding="10dp"
+        android:singleLine="true" />
 
+    <!-- Space -->
     <TextView
-        android:text="Confirm Password"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/etPasswordConfirm" />
+        android:id="@+id/etPasswordConfirm"
+        android:background="@color/white"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:singleLine="true" />
+
+    <!-- Space -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/bRegister"
         android:text="Register"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"/>
+
+    <TextView
+        android:id="@+id/tvBackToLogin"
+        android:text="Already registered? Login."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        />
 
 </LinearLayout>

@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.Serializable;
-
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     Button bLogin;
@@ -25,10 +23,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        tvRegisterLink = (TextView) findViewById(R.id.tvRegisterLink);
+
         etUserName = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         bLogin = (Button) findViewById(R.id.bLogin);
-        tvRegisterLink = (TextView) findViewById(R.id.tvRegisterLink);
 
         bLogin.setOnClickListener(this);
         tvRegisterLink.setOnClickListener(this);
@@ -51,9 +50,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     i.putExtra("User", testUser);
                     startActivity(i);
                     break;
+                } else {
+                    break;
                 }
-                break;
-
             case R.id.tvRegisterLink:
                 startActivity(new Intent(this, Register.class));
                 break;

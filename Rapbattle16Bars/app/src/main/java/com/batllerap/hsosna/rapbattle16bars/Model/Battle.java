@@ -1,8 +1,11 @@
 package com.batllerap.hsosna.rapbattle16bars.Model;
- /**
+
+import java.io.Serializable;
+
+/**
  * Created by Dennis on 03.11.2015.
  */
-public class Battle {
+public class Battle implements Serializable{
      private String rapper1Name;
      private String rapper2Name;
      private Beat beat1;

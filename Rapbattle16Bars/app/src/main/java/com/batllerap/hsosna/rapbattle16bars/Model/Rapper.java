@@ -1,10 +1,11 @@
 package com.batllerap.hsosna.rapbattle16bars.Model;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 /**
  * Created by Dennis on 03.11.2015.
  */
-public class Rapper {
+public class Rapper implements Serializable {
     Map<Integer, Battle> finishedBattles;
     Map<Integer, Battle> openBattles;
     int wins;

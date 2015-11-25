@@ -1,9 +1,11 @@
 package com.batllerap.hsosna.rapbattle16bars.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Dennis on 04.11.2015.
  */
-public class BattlePreview {
+public class BattlePreview implements Serializable{
     int battleId;
     ProfilePreview rapper1;
     ProfilePreview rapper2;

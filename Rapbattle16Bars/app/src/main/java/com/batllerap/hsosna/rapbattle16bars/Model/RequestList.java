@@ -1,11 +1,12 @@
 package com.batllerap.hsosna.rapbattle16bars.Model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Dennis on 03.11.2015.
  */
-public class RequestList {
+public class RequestList implements Serializable{
     List<Request> requests;
     List<Request> opponentRequests;
 

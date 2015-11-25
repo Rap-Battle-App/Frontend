@@ -1,9 +1,11 @@
 package com.batllerap.hsosna.rapbattle16bars.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Dennis on 03.11.2015.
  */
-public class Beat{
+public class Beat implements Serializable{
     String name;
     int id;
     //TODO: BeatDatentyp beat

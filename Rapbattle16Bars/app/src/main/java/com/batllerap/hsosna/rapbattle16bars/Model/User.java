@@ -1,9 +1,11 @@
 package com.batllerap.hsosna.rapbattle16bars.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Dennis on 03.11.2015.
  */
-public class User {
+public class User implements Serializable {
     int id;
     String userName;
     String location;

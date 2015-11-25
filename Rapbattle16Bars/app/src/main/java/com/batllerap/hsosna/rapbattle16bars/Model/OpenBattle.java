@@ -2,10 +2,12 @@ package com.batllerap.hsosna.rapbattle16bars.Model;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.PhaseInfo.PhaseInfo;
 
+import java.io.Serializable;
+
 /**
  * Created by woors on 23.11.2015.
  */
-public class OpenBattle {
+public class OpenBattle implements Serializable{
     private int id;
     private ProfilePreview opponent;
     private int phase;

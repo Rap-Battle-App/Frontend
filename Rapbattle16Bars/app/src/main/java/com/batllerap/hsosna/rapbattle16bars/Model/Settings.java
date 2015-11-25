@@ -1,9 +1,11 @@
 package com.batllerap.hsosna.rapbattle16bars.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by woors on 03.11.2015.
  */
-public class Settings {
+public class Settings implements Serializable{
     private boolean notifications;
     private boolean isRapper;
 

@@ -1,6 +1,9 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
-import android.app.AlertDialog;
+import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentifactionController;
+import com.batllerap.hsosna.rapbattle16bars.Exceptions.AuthenticationException;
+import com.batllerap.hsosna.rapbattle16bars.Model.User;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,8 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import junit.framework.Test;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,7 +39,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bLogin:
-                startActivity(new Intent(this, MainActivity.class));
+                User testUser = null;
+                try {
+                    testUser = AuthentifactionController.login(etUserName.getText().toString(), etPassword.getText().toString());
+                } catch (AuthenticationException e) {
+                    e.printStackTrace();
+                }
+
+                if (testUser != null) {
+                    startActivity(new Intent(this, MainActivity.class));
+                    break;
+                }
                 break;
 
             case R.id.tvRegisterLink:

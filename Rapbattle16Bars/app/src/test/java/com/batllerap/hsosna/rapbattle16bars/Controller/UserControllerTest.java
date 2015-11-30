@@ -1,7 +1,7 @@
 package com.batllerap.hsosna.rapbattle16bars.Controller;
 
-import com.batllerap.hsosna.rapbattle16bars.Model.Settings;
-import com.batllerap.hsosna.rapbattle16bars.Model.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.Profile.Settings;
+import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
 
 import junit.framework.Assert;
 

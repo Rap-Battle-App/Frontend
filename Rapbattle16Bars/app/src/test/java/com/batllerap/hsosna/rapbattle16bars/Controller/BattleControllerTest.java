@@ -1,13 +1,11 @@
 package com.batllerap.hsosna.rapbattle16bars.Controller;
 
-import com.batllerap.hsosna.rapbattle16bars.Model.Battle;
-import com.batllerap.hsosna.rapbattle16bars.Model.BattlePreview;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.BattlePreview;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by woors on 15.11.2015.
@@ -51,7 +49,7 @@ public class BattleControllerTest {
 
     @Test
     public void testVoteBattle() throws Exception {
-        Assert.assertTrue(BattleController.voteBattle(2));
+        Assert.assertTrue(BattleController.voteBattle(2,1));
     }
 
     @Test

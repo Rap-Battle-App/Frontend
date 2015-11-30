@@ -1,13 +1,13 @@
 package com.batllerap.hsosna.rapbattle16bars.Controller;
 
-import com.batllerap.hsosna.rapbattle16bars.Model.Battle;
-import com.batllerap.hsosna.rapbattle16bars.Model.BattlePreview;
-import com.batllerap.hsosna.rapbattle16bars.Model.OpenBattle;
-import com.batllerap.hsosna.rapbattle16bars.Model.PhaseInfo.Phase1Info;
-import com.batllerap.hsosna.rapbattle16bars.Model.PhaseInfo.Phase2Info;
-import com.batllerap.hsosna.rapbattle16bars.Model.PhaseInfo.PhaseInfo;
-import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
-import com.batllerap.hsosna.rapbattle16bars.Model.RequestList;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.BattlePreview;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.OpenBattle;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.PhaseInfo.Phase1Info;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.PhaseInfo.Phase2Info;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.PhaseInfo.PhaseInfo;
+import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.RequestList;
 
 import org.json.JSONArray;
 import org.json.JSONException;

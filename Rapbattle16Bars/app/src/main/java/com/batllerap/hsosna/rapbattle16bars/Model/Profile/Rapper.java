@@ -1,4 +1,6 @@
-package com.batllerap.hsosna.rapbattle16bars.Model;
+package com.batllerap.hsosna.rapbattle16bars.Model.Profile;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars.Controller;
 
-import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
+import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
 
 import org.json.JSONArray;
 import org.json.JSONException;

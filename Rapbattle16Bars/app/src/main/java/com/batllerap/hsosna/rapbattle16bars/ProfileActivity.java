@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
-import com.batllerap.hsosna.rapbattle16bars.Model.User;
 
 public class ProfileActivity extends AppCompatActivity {
 

@@ -4,9 +4,9 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
  * Created by Dennis on 03.11.2015.
  */
 import com.batllerap.hsosna.rapbattle16bars.Exceptions.UserControllerException;
-import com.batllerap.hsosna.rapbattle16bars.Model.Rapper;
-import com.batllerap.hsosna.rapbattle16bars.Model.Settings;
-import com.batllerap.hsosna.rapbattle16bars.Model.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.Profile.Rapper;
+import com.batllerap.hsosna.rapbattle16bars.Model.Profile.Settings;
+import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -3,9 +3,6 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
 /**
  * Created by woors on 05.11.2015.
  */
-import com.batllerap.hsosna.rapbattle16bars.Model.User;
-
-import junit.framework.Assert;
 
 import org.json.JSONException;
 import org.json.JSONObject;

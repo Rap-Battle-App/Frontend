@@ -5,7 +5,7 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
  */
 
 
-import com.batllerap.hsosna.rapbattle16bars.Model.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;

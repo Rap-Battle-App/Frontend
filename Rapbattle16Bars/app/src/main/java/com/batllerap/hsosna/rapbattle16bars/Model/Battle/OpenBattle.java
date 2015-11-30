@@ -1,6 +1,7 @@
-package com.batllerap.hsosna.rapbattle16bars.Model;
+package com.batllerap.hsosna.rapbattle16bars.Model.Battle;
 
-import com.batllerap.hsosna.rapbattle16bars.Model.PhaseInfo.PhaseInfo;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.PhaseInfo.PhaseInfo;
+import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.batllerap.hsosna.rapbattle16bars.Model.PhaseInfo;
+package com.batllerap.hsosna.rapbattle16bars.Model.Battle.PhaseInfo;
 
 /**
  * Created by woors on 23.11.2015.

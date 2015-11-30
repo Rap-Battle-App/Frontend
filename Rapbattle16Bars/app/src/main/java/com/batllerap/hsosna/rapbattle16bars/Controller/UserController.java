@@ -97,7 +97,7 @@ public class UserController {
 
     /**
      *
-     * @param username
+     * @param userId
      * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null
      */
     public static User getUser(int  userId) throws UserControllerException {

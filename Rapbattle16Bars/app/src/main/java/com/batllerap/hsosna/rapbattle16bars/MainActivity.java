@@ -17,21 +17,23 @@ public class MainActivity extends AppCompatActivity {
         // Holt sich den User über das Login
         getIntent().getSerializableExtra("User");
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Toolbar
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Creating Tabs
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Home")); //.setIcon(R.mipmap.ic_home_black_24dp));
-        tabLayout.addTab(tabLayout.newTab().setText("Battle"));
-        tabLayout.addTab(tabLayout.newTab().setText("Profile"));
+        tabLayout.addTab(tabLayout.newTab().setContentDescription("HOME").setIcon(R.mipmap.ic_home_black_24dp)); //setText("Home")); //.setIcon(R.mipmap.ic_home_black_24dp));
+        tabLayout.addTab(tabLayout.newTab().setContentDescription("BATTLE").setIcon(R.mipmap.ic_settings_voice_black_24dp));
+        tabLayout.addTab(tabLayout.newTab().setContentDescription("PROFILE").setIcon(R.mipmap.ic_face_black_24dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        getSupportActionBar().setTitle("Home");
+        getSupportActionBar().setTitle("HOME");
 
+        // Creating Viewpager
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                getSupportActionBar().setTitle(tab.getText());
+                getSupportActionBar().setTitle(tab.getContentDescription());
             }
 
 

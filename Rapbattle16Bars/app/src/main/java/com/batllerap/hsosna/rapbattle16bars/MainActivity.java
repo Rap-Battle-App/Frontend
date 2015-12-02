@@ -1,5 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.content.Intent;
         import android.os.Bundle;
         import android.support.design.widget.TabLayout;
         import android.support.v4.view.ViewPager;
@@ -8,14 +9,19 @@ package com.batllerap.hsosna.rapbattle16bars;
         import android.view.Menu;
         import android.view.MenuItem;
 
+        import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationController;
+        import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
+
 
 public class MainActivity extends AppCompatActivity {
+    private User aktUser;
+    private AuthentificationController authController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         // Holt sich den User über das Login
-        getIntent().getSerializableExtra("User");
+         aktUser = (User) getIntent().getSerializableExtra("User");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -67,14 +73,33 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent i = new Intent("com.batllerap.hsosna.rapbattle16bars.SettingsActivity");
+                i.putExtra("User", aktUser);
+                startActivity(i);
+                return true;
+
+            case R.id.action_info:
+                Intent e = new Intent("com.batllerap.hsosna.rapbattle16bars.InfoActivity");
+                startActivity(e);
+                return true;
+
+            case R.id.action_logout:
+                Intent d = new Intent(this, Login.class);
+                 if(aktUser != null){
+                     authController.logout(aktUser.getUserName());
+                 }
+
+                startActivity(d);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
     }
 
     public void setActionBarTitle(String title){

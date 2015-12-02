@@ -1,21 +1,24 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrendingActivity extends Activity {
+public class TrendingActivity extends Activity  implements MyAdapter.ClickListener{
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private MyAdapter mAdapter;
     private final List<ListElement> myDataset = new ArrayList<>();
     private Handler handler;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class TrendingActivity extends Activity {
 
         mAdapter = new MyAdapter<String>(myDataset, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setClickListener(this);
 
         //mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -91,5 +96,27 @@ public class TrendingActivity extends Activity {
         }
 
 
+    }
+
+
+    @Override
+    public void itemClicked(View view, int position) {
+        View v = view;
+
+
+        System.out.println("Trending List Angeklickt");
+        Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
+        startActivity(intent);
+        //
+        //Works after Controllers are finished
+        /*
+               try{
+                   Intent intent = new Intent("com.albert.testbattle.ClosedBattleActivity");
+                    Battle battle = bController.getBattle(trending[position].getBattleId());
+                    intent.putExtra("battle",battle);
+                    startActivity(intent);
+                }catch(org.json.JSONException exception) {
+                    exception.printStackTrace();
+                }*/
     }
 }

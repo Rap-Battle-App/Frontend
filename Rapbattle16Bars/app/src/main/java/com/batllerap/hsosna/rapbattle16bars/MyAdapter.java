@@ -21,6 +21,7 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final int VIEW_PROG = 0;
 
 
+
     private List<ListElement> mDataset= Collections.emptyList();
 
     // The minimum amount of items to have below your current scroll position before loading more.
@@ -28,6 +29,7 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private int lastVisibleItem, totalItemCount;
     private boolean loading;
     private OnLoadMoreListener onLoadMoreListener;
+    private static ClickListener cListener;
 
     public MyAdapter(List<ListElement> myDataSet, RecyclerView recyclerView) {
 
@@ -117,7 +119,7 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         void onLoadMore();
     }
 
-    public static class TextViewHolder extends RecyclerView.ViewHolder {
+    public static class TextViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
         TextView rapper1;
         TextView rapper2;
         TextView vs;
@@ -127,12 +129,21 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         public TextViewHolder(View v) {
             super(v);
+            itemView.setOnClickListener(this);
             rapper1= (TextView) itemView.findViewById(R.id.ListText);
             rapper2= (TextView) itemView.findViewById(R.id.ListText2);
             vs = (TextView) itemView.findViewById(R.id.VS);
 
             imgRapper1= (ImageView) itemView.findViewById(R.id.ListImage);
             imgRapper2= (ImageView) itemView.findViewById(R.id.ListImage2);
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            if (cListener != null){
+                cListener.itemClicked(v, getAdapterPosition());
+            }
         }
     }
 
@@ -144,4 +155,13 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
         }
     }
+
+    public interface ClickListener{
+        public void itemClicked(View view, int position);
+    }
+
+    public void setClickListener(ClickListener clickListener){
+        this.cListener = clickListener;
+    }
+
 }

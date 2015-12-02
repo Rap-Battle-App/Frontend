@@ -41,7 +41,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         tview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent("com.albert.testbattle.TrendingActivity");
+                Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.TrendingActivity");
                 startActivity(myIntent);
             }
         });
@@ -49,7 +49,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         oView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent("com.albert.testbattle.OpenforvotesActivity");
+                Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforvotesActivity");
                 startActivity(myIntent);
             }
         });
@@ -145,7 +145,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         System.out.println(v.getParent());
         if(v.getParent()== tList){
             System.out.println("Trending List Angeklickt");
-            Intent intent = new Intent("com.albert.testbattle.ClosedBattleActivity");
+            Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
             startActivity(intent);
             //
             //Works after Controllers are finished
@@ -161,7 +161,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
 
         }else if(v.getParent()== oList){
             System.out.println("Open for Votes List Angeklickt");
-            Intent intent = new Intent("com.albert.testbattle.OpenforVotesBattleActivity");
+            Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
             startActivity(intent);
 
             //

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.batllerap.hsosna.rapbattle16bars.SettingsActivity">
+
+    <RelativeLayout android:id="@+id/notifications_row"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp">
+
+
+        <TextView
+            android:paddingLeft="16dp"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Benachrichtigungen"/>
+
+        <Switch android:id="@+id/notifications_switch"
+
+            android:paddingRight="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:textOff="Aus"
+            android:textOn="Ein"/>
+    </RelativeLayout>
+
+    <RelativeLayout android:id="@+id/battle_row"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/notifications_row">
+
+        <TextView
+            android:paddingLeft="16dp"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Herausforderungen"/>
+
+        <Switch     android:id="@+id/battles_switch"
+            android:paddingRight="16dp"
+            android:layout_alignParentRight="true"
+
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:textOff="Aus"
+            android:textOn="Ein"
+           />
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -7,7 +7,7 @@
         <!--   darker variant for the status bar and contextual app bars -->
         <item name="colorPrimaryDark">#4b0202</item>
         <!--   theme UI controls like checkboxes and text fields -->
-        <item name="colorAccent">#ffffff</item>
+        <item name="colorAccent">#4b0202</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

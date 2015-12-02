@@ -21,11 +21,9 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
         <activity android:name=".Logout" />
-        <activity
-            android:name=".TrendingActivity">
-
+        <activity android:name=".TrendingActivity">
             <intent-filter>
-                <action android:name="com.albert.testbattle.TrendingActivity" />
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.TrendingActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -34,7 +32,7 @@
             android:name=".OpenforvotesActivity"
             android:label="OpenforvotesActivity">
             <intent-filter>
-                <action android:name="com.albert.testbattle.OpenforvotesActivity" />
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.OpenforvotesActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -43,17 +41,32 @@
             android:name=".ClosedBattleActivity"
             android:label="Closed Battle">
             <intent-filter>
-                <action android:name="com.albert.testbattle.ClosedBattleActivity" />
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".OpenforVotesBattleActivity">
             <intent-filter>
-                <action android:name="com.albert.testbattle.OpenforVotesBattleActivity" />
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity android:name=".SettingsActivity">
+            <intent-filter>
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.SettingsActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".InfoActivity">
+            <intent-filter>
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.InfoActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
         </activity>
     </application>
 

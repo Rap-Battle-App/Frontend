@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+
+    tools:context="com.albert.testbattle.ClosedBattleActivity">
+
+    <VideoView
+
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:id="@+id/video"
+        android:layout_margin="16dp"/>
+
+    <MediaController
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mediaController"
+        android:layout_alignBottom="@+id/video"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/video"
+        android:orientation="horizontal"
+        android:id="@+id/battleElement">
+        <ImageView
+            android:id="@+id/battleRapper1"
+            android:layout_marginLeft="8dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/closedBattleRapper1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/battleRapper1"
+            android:text="Bushido"/>
+
+        <TextView
+            android:id="@+id/battlevs"
+
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="VS"/>
+
+        <TextView
+            android:id="@+id/closedBattleRapper2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:textSize="20sp"
+            android:layout_toRightOf="@id/battlevs"
+            android:text="Kollegah"/>
+
+        <ImageView
+            android:id="@+id/battleRapper2"
+            android:layout_marginRight="8dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentRight="true"
+
+            android:src="@mipmap/ic_launcher"/>
+    </RelativeLayout>
+
+    <ProgressBar
+
+        android:paddingTop="16dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+        android:max="100"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/progressBar2"
+        android:layout_below="@+id/battleElement"
+        android:progress="50"/>
+
+</RelativeLayout>

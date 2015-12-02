@@ -2,4 +2,6 @@
 <resources>
     <color name="colorPrimary">#4b0202</color>
     <color name="white">#FFF</color>
+    <color name="colorRipple">#b6b6b6</color>
+    <color name="bgColor">#FFFFFF</color>
 </resources>

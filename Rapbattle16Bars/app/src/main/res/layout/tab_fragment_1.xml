@@ -1,15 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Tab 1"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    tools:context=".TabFragment1">
 
-</RelativeLayout>
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tools:context=".TrendingActivity">
+
+        <TextView
+            android:textSize="16sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/trending_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trending"
+            />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/trending_text"
+            android:id="@+id/trendingList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </android.support.v7.widget.RecyclerView>
+
+        <View
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@id/trendingList"
+            android:id="@+id/divider"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"/>
+
+
+        <TextView
+            android:textSize="16sp"
+            android:layout_below="@id/divider"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/open_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Offene Battles"
+            />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/open_text"
+            android:id="@+id/openList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+</ScrollView>

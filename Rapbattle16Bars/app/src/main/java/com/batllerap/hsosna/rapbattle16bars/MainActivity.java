@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putSerializable("User", aktUser);
         Fragment profileFragment = this.getFragmentManager().findFragmentById(R.id.profileFragment);
-        profileFragment.setArguments(bundle);
+        //profileFragment.setArguments(bundle);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -66,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
+        if(getIntent().getExtras() != null){
+            if(getIntent().getExtras().getInt("Tab") == 3){
+                viewPager.setCurrentItem(2);
+            }
+        }
     }
 
     @Override

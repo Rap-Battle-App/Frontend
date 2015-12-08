@@ -18,7 +18,13 @@
         </activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".EditProfileActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.MainActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Register" />
         <activity android:name=".Logout" />
         <activity android:name=".TrendingActivity">

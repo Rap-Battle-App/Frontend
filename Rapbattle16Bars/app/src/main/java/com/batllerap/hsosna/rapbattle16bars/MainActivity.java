@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Creating Tabs
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setContentDescription("HOME").setIcon(R.mipmap.ic_home_black_24dp)); //setText("Home")); //.setIcon(R.mipmap.ic_home_black_24dp));
-        tabLayout.addTab(tabLayout.newTab().setContentDescription("BATTLE").setIcon(R.mipmap.ic_settings_voice_black_24dp));
-        tabLayout.addTab(tabLayout.newTab().setContentDescription("PROFILE").setIcon(R.mipmap.ic_face_black_24dp));
+        tabLayout.addTab(tabLayout.newTab().setContentDescription("HOME").setIcon(R.mipmap.ic_home_white_48dp)); //setText("Home")); //.setIcon(R.mipmap.ic_home_black_24dp));
+        tabLayout.addTab(tabLayout.newTab().setContentDescription("BATTLE").setIcon(R.mipmap.ic_settings_voice_white_48dp));
+        tabLayout.addTab(tabLayout.newTab().setContentDescription("PROFILE").setIcon(R.mipmap.ic_account_circle_white_48dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         getSupportActionBar().setTitle("HOME");

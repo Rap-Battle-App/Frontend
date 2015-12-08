@@ -26,7 +26,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        etName = (EditText) findViewById(R.id.etName);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
@@ -64,9 +63,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                             Intent i = new Intent(this, MainActivity.class);
                             i.putExtra("User", testUser);
                             startActivity(i);
-                            break;
                         }
-                        break;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -74,6 +71,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 break;
             case R.id.tvBackToLogin:
                 super.onBackPressed();
+                break;
         }
     }
 }

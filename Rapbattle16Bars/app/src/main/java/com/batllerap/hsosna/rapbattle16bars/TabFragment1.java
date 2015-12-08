@@ -38,6 +38,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         TextView tview = (TextView) layout.findViewById(R.id.trending_text);
         TextView oView = (TextView) layout.findViewById(R.id.open_text);
 
+
         tview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

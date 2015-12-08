@@ -1,5 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.app.Fragment;
 import android.content.Intent;
         import android.os.Bundle;
         import android.support.design.widget.TabLayout;
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("User", aktUser);
+        Fragment profileFragment = this.getFragmentManager().findFragmentById(R.id.profileFragment);
+        profileFragment.setArguments(bundle);
+
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

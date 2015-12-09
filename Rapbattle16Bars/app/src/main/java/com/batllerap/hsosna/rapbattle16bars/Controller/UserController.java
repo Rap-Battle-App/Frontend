@@ -95,6 +95,16 @@ public class UserController {
         return true;
     }
 
+    public static boolean setLocation(User user, String location) throws JSONException {
+        UserController.setProfileInformation(user, location, user.getAboutMe());
+        return true;
+    }
+
+    public static boolean setAboutMe(User user, String aboutMe) throws JSONException {
+        UserController.setProfileInformation(user, user.getLocation(), aboutMe);
+        return true;
+    }
+
     /**
      *
      * @param userId

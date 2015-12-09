@@ -47,6 +47,8 @@ public class User implements Serializable {
         return this.profilePicture;
     }
 
+    public void setProfilePicture(String pic) { this.profilePicture = pic; }
+
     public boolean getIsRapper(){
         return this.isRapper;
     }

@@ -1,6 +1,7 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
 import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
+
+import org.json.JSONException;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -69,15 +73,22 @@ public class EditProfileActivity extends AppCompatActivity {
         txteNewLocation.setText(aktUser.getLocation());
         txteNewAboutMe.setText(aktUser.getAboutMe());
 
+        //OnClickListener zum Speichern der Daten
         this.btnSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.MainActivity");
                 //myIntent.setAction("TabFragment3");
                 //Benutzerdaten speichern
-                aktUser.setUserName(txteNewUsername.getText().toString());
+                try {
+                    UserController.setUsername(aktUser, txteNewUsername.getText().toString());
+                    UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                /*aktUser.setUserName(txteNewUsername.getText().toString());
                 aktUser.setLocation(txteNewLocation.getText().toString());
-                aktUser.setAboutMe(txteNewAboutMe.getText().toString());
+                aktUser.setAboutMe(txteNewAboutMe.getText().toString());*/
 
                 myIntent.putExtra("User", aktUser);
                 myIntent.putExtra("Tab", 3);
@@ -89,22 +100,25 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //OnClickListener um Profilbild zu ändern
+        this.btnChangeProfilePicture.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent.createChooser(intent, "Select Profile Picture"), 1);
+            }
+        });
     }
 
-    public void saveChanges(View v) {
-        Intent intent = new Intent(EditProfileActivity.this, TabFragment3.class);
-
-        //Benutzerdaten speichern
-        aktUser.setUserName(txteNewUsername.getText().toString());
-        aktUser.setLocation(txteNewLocation.getText().toString());
-        aktUser.setAboutMe(txteNewAboutMe.getText().toString());
-
-        intent.putExtra("User", aktUser);
-
-        if (aktUser.getUserName().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Benutzername darf nicht leer sein", Toast.LENGTH_LONG).show();
-        } else {
-            startActivity(intent);
+    public void onActivityResult(int reqCode, int resCode, Intent data){
+        if(resCode == RESULT_OK){
+            if(reqCode == 1){
+                imgvEditProfilePicture.setImageURI(data.getData());
+                aktUser.setProfilePicture(data.getData().toString());
+            }
         }
     }
 }

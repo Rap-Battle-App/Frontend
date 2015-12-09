@@ -106,11 +106,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_logout:
                 Intent d = new Intent(this, Login.class);
                  if(aktUser != null){
+
                      try{
                          authController.logout(aktUser.getUserName());
                      }catch (java.io.IOException exception){
 
                      }
+
+
+                     //TODO WIEDER EINKOMMENTIEREN
+                     //authController.logout(aktUser.getUserName());
 
                  }
 

@@ -1,52 +1,30 @@
 package com.batllerap.hsosna.rapbattle16bars.Model.Battle;
 
+import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
+
 import java.io.Serializable;
 
 /**
  * Created by Dennis on 03.11.2015.
  */
 public class Battle implements Serializable{
-     private String rapper1Name;
-     private String rapper2Name;
-     private Beat beat1;
-     private Beat beat2;
-     private boolean isOpen;
-     private int votes1;
-     private int votes2;
-     private int id;
-     private String videoUrl;
+    private int id;
+    private String videoUrl;
+    private ProfilePreview rapper1;
+    private ProfilePreview rapper2;
+    private Voting voting;
 
-     public String getRapper1(){
-         return  this.rapper1Name;
+    public ProfilePreview getRapper1(){
+         return  this.rapper1;
      }
 
-     public String getRapper2(){
-         return  this.rapper2Name;
+    public ProfilePreview getRapper2(){
+         return  this.rapper2;
      }
 
-    public Beat getBeat1(){
-        return this.beat1;
+    public Voting getVoting(){
+        return this.voting;
     }
-
-     public Beat getBeat2(){
-         return this.beat2;
-     }
-
-    public int getVotes2(){
-         return this.votes2;
-     }
-
-    public int getVotes1(){
-        return this.votes1;
-    }
-
-    public boolean getisOpen(){
-        return this.isOpen;
-    }
-
-    public void closeVoting(){
-         this.isOpen = false;
-     }
 
     public int getId(){
         return this.id;
@@ -56,15 +34,11 @@ public class Battle implements Serializable{
          return this.videoUrl;
      }
 
-    public Battle(int id, boolean isOpen, int votes1, int votes2, String rapper1Name, String rapper2Name, Beat beat1, Beat beat2, String videoUrl){
+    public Battle(int id, ProfilePreview rapper1, ProfilePreview rapper2, String videoUrl, Voting voting){
         this.id = id;
-        this.isOpen = isOpen;
-        this.votes1 = votes1;
-        this.votes2 = votes2;
-        this.rapper1Name = rapper1Name;
-        this.rapper2Name = rapper2Name;
-        this.beat1 = beat1;
-        this.beat2 = beat2;
+        this.rapper1 = rapper1;
+        this.rapper2 = rapper2;
+        this.voting = voting;
         this.videoUrl = videoUrl;
     }
 }

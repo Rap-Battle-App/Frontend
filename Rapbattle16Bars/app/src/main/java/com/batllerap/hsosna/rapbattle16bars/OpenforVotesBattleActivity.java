@@ -31,17 +31,16 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
         battle = (Battle) getIntent().getSerializableExtra("battle");
         if (battle != null) {
             rapper1 = (TextView) findViewById(R.id.closedBattleRapper1);
-            rapper2 = (TextView) findViewById(R.id.closedBattleRapper2);
-            pBar = (ProgressBar) findViewById(R.id.progressBar);
-            rapper1.setText(battle.getRapper1());
-            rapper2.setText(battle.getRapper2());
+            rapper2 =(TextView) findViewById(R.id.closedBattleRapper2);
+            pBar= (ProgressBar) findViewById(R.id.progressBar);
+            rapper1.setText(battle.getRapper1().getUsername());
+            rapper2.setText(battle.getRapper2().getUsername());
             video = (VideoView) findViewById(R.id.video);
-            Uri vUri = Uri.parse(battle.getVideoUrl());
+            Uri vUri =Uri.parse(battle.getVideoUrl());
             video.setVideoURI(vUri);
 
-            pBar.setMax(battle.getVotes1() + battle.getVotes2());
-            pBar.setProgress(battle.getVotes1());
-
+            pBar.setMax(battle.getVoting().getVotesRapper1() + battle.getVoting().getVotesRapper2());
+            pBar.setProgress(battle.getVoting().getVotesRapper1());
 
 
 

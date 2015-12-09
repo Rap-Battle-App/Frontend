@@ -12,6 +12,7 @@ import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.BattlePreview;
 import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +67,8 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
         }catch(org.json.JSONException exception){
             // how you handle the exception
             exception.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 

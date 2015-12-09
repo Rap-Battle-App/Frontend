@@ -16,7 +16,6 @@ import java.net.MalformedURLException;
 public class AuthentificationController {
 
     private static String token;
-    private static String serverUrl = "bla.test.de";
 
     public static String getToken(){
         return AuthentificationController.token;
@@ -29,7 +28,7 @@ public class AuthentificationController {
      * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null
      */
     public static User login(String username, String password) throws JSONException, IOException {
-        String url = serverUrl += "/auth/login";
+        String url = "/auth/login";
 
         User user;
         int userId = -1;
@@ -39,9 +38,10 @@ public class AuthentificationController {
         loginObj.put("password", password);
 
         //TODO:Einkommentieren
-
+        /*
         JSONObject response = new JSONObject(ConnectionController.getJSON(url, loginObj));
         userId = response.getInt("user_id");
+        */
 
         //TODO:Entfernen
         if(username.equals("testRapper")) {
@@ -67,7 +67,7 @@ public class AuthentificationController {
      * @return returns the new User
      */
     public static User register(String username, String email, String password) throws JSONException, IOException {
-        String url = serverUrl += "/auth/register";
+        String url = "/auth/register";
         int userId = -1;
 
         JSONObject registerJSON = new JSONObject();
@@ -102,7 +102,7 @@ public class AuthentificationController {
      * @return returns true if logout is successful, else false
      */
     public static boolean logout(String username) throws IOException {
-        String url = serverUrl += "/auth/logout";
+        String url = "/auth/logout";
         return ConnectionController.sendJSON(url,null);
     }
 
@@ -112,7 +112,7 @@ public class AuthentificationController {
      * @return returns true if reset is successful, else false
      */
     public static boolean resetPassword(String email, String passord) throws JSONException, IOException{
-        String url = serverUrl += "/password-recovery/reset";
+        String url = "/password-recovery/reset";
         JSONObject obj = new JSONObject();
         obj.put("email",email);
         obj.put("token", AuthentificationController.getToken());

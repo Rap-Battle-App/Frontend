@@ -41,16 +41,18 @@ public class SettingsActivity extends AppCompatActivity {
                         uController.setIsRapper(aktUser, aktUser.getIsRapper());
                     }catch (java.io.IOException exception){
 
+
                     } catch (JSONException e) {
-                        e.printStackTrace();
+
                     }
                 } else {
                     try {
                         uController.setIsRapper(aktUser,aktUser.getIsRapper());
                     }catch (java.io.IOException exception){
 
+
                     } catch (JSONException e) {
-                        e.printStackTrace();
+
                     }
                 }
             }
@@ -64,8 +66,9 @@ public class SettingsActivity extends AppCompatActivity {
                         uController.setNotifications(aktUser, aktUser.getNotifications());
                     }catch (java.io.IOException exception){
 
+
                     } catch (JSONException e) {
-                        e.printStackTrace();
+
                     }
                 } else if (aktUser != null){
                     try {

@@ -16,9 +16,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class UserController {
-
-    private static String serverUrl = "test.bla.de";
-
     /**
      * Changes the username in the Database
      *
@@ -26,7 +23,7 @@ public class UserController {
      * @param newUserName new Username
      */
     public static boolean setUsername(User user, String newUserName) throws JSONException, MalformedURLException, IOException {
-        String url = serverUrl += "/account/username";
+        String url = "/account/username";
         boolean success = false;
 
         JSONObject userNameObj = new JSONObject();
@@ -62,7 +59,7 @@ public class UserController {
     }
 
     public static boolean setSettings(User user, boolean notifications, boolean isRapper) throws JSONException, IOException {
-        String url = serverUrl += "/account/settings";
+        String url = "/account/settings";
         boolean success = false;
 
         JSONObject settingObj = new JSONObject();
@@ -87,7 +84,7 @@ public class UserController {
      * @return returns Setting from the User, if the User doesn't exist it returns null
      */
     public static Settings getSettings(String username) throws JSONException, IOException, MalformedURLException {
-        String url = serverUrl += "/account/settings";
+        String url = "/account/settings";
         //TODO: JSON empfangen
         /*JSONObject settingsJson = new JSONObject(ConnectionController.getJSON(url, null));
         boolean rapper = settingsJson.getBoolean("rapper");
@@ -107,14 +104,14 @@ public class UserController {
     }
 
     public static boolean setProfilPicture(byte picture) throws JSONException, IOException {
-        String url = serverUrl += "/profile/picture";
+        String url = "/profile/picture";
         JSONObject pictureJSON = new JSONObject();
         pictureJSON.put("picture", picture);
         return ConnectionController.sendJSON(url, pictureJSON);
     }
 
     public static boolean setProfileInformation(User user, String location, String aboutMe) throws JSONException, IOException {
-        String url = serverUrl += "/profile";
+        String url = "/profile";
         boolean success = false;
 
         JSONObject profilInformation = new JSONObject();
@@ -141,7 +138,7 @@ public class UserController {
      * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null
      */
     public static User getUser(int userId) throws IOException, JSONException {
-        String url = serverUrl += ("/user" + userId);
+        String url = "/user" + userId;
         User user = null;
 
         //TODO: entfernen
@@ -189,7 +186,7 @@ public class UserController {
      * @throws JSONException
      */
     public static boolean changePassword(String oldPassword, String newPassword) throws JSONException, IOException {
-        String url = serverUrl += "/account/password";
+        String url = "/account/password";
 
         JSONObject obj = new JSONObject();
         obj.put("old_password", oldPassword);

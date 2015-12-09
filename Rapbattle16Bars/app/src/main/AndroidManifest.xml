@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Register" />
-        <activity android:name=".Logout" />
+
         <activity android:name=".TrendingActivity">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.TrendingActivity" />

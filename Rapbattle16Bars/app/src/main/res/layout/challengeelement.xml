@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/challengeElement"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
+
+    <ImageView
+        android:id="@+id/ChallengeImage"
+        android:paddingLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher" />
+    <TextView
+        android:id="@+id/ListText"
+        android:textSize="16sp"
+        android:paddingTop="16dp"
+        android:paddingLeft="72dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="RAPPER Y"/>
+
+    <ImageView android:id="@+id/challenge_accepted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/challenge_accepted"
+        android:layout_margin="8dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/challenge_declined"/>
+
+
+    <ImageView  android:id="@+id/challenge_declined"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/challenge_declined"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="8dp"
+        />
+
+
+
+
+</RelativeLayout>

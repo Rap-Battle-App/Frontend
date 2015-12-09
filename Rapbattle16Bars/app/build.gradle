@@ -31,5 +31,6 @@ dependencies {
     compile 'com.android.support:design:+'
     compile "com.google.android.gms:play-services:8.3.0"
 
+
     compile 'org.hamcrest:hamcrest-core:1.3'
 }

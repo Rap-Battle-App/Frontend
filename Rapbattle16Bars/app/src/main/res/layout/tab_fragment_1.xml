@@ -20,7 +20,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp"
-            android:id="@+id/trending_text"
+            android:id="@+id/txtvClosedBattles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Trending"
@@ -29,8 +29,8 @@
 
         <android.support.v7.widget.RecyclerView
             android:layout_marginTop="8dp"
-            android:layout_below="@id/trending_text"
-            android:id="@+id/trendingList"
+            android:layout_below="@id/txtvClosedBattles"
+            android:id="@+id/profileClosedBattlesList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -40,8 +40,8 @@
         <View
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_below="@id/trendingList"
-            android:id="@+id/divider"
+            android:layout_below="@id/profileClosedBattlesList"
+            android:id="@+id/profileDivider"
             android:layout_width="fill_parent"
             android:layout_height="2dp"
             android:background="#c0c0c0"/>
@@ -49,11 +49,11 @@
 
         <TextView
             android:textSize="16sp"
-            android:layout_below="@id/divider"
+            android:layout_below="@id/profileDivider"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp"
-            android:id="@+id/open_text"
+            android:id="@+id/txtvOpenBattles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Offene Battles"
@@ -62,7 +62,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:layout_marginTop="8dp"
-            android:layout_below="@id/open_text"
+            android:layout_below="@id/txtvOpenBattles"
             android:id="@+id/openList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

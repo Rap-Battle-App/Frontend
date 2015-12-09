@@ -3,7 +3,6 @@ package com.batllerap.hsosna.rapbattle16bars;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,13 +14,12 @@ import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.BattlePreview;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.Rapper;
 import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabFragment3 extends Fragment {
+public class TabFragment3 extends Fragment implements CustomAdapter.ClickListener {
 
     //aktueller User
     private User aktUser = null;
@@ -95,10 +93,10 @@ public class TabFragment3 extends Fragment {
             this.txtvLoosesValue.setText(Integer.toString(aktUser.getRapper().getLooses()));
 
             //Battles des Rappers
-            tList = (RecyclerView) layout.findViewById(R.id.trendingList);
-            oList = (RecyclerView) layout.findViewById(R.id.openList);
-            TextView tview = (TextView) layout.findViewById(R.id.trending_text);
-            TextView oView = (TextView) layout.findViewById(R.id.open_text);
+            tList = (RecyclerView) layout.findViewById(R.id.profileClosedBattlesList);
+            oList = (RecyclerView) layout.findViewById(R.id.profileOpenBattlesList);
+            TextView tview = (TextView) layout.findViewById(R.id.txtvClosedBattles);
+            TextView oView = (TextView) layout.findViewById(R.id.txtvOpenBattles);
 
 
             tview.setOnClickListener(new View.OnClickListener() {
@@ -130,9 +128,8 @@ public class TabFragment3 extends Fragment {
             tAdapter = new CustomAdapter(getActivity(),getTrendingList());
             oAdapter = new CustomAdapter(getActivity(),getOpenBattlesList());
 
-            //TODO Mit Alberts Hilfe fertig machen (Fehler beheben)
-            /*tAdapter.setClickListener(this);
-            oAdapter.setClickListener(this);*/
+            tAdapter.setClickListener(this);
+            oAdapter.setClickListener(this);
 
             tList.setAdapter(tAdapter);
             oList.setAdapter(oAdapter);
@@ -149,19 +146,12 @@ public class TabFragment3 extends Fragment {
     public static List<ListElement> getTrendingList(){
 
         List<ListElement> data = new ArrayList<>();
-
         try {
             BattlePreview[] trending = BattleController.getTrendingBattles(1, 5);
         }catch(org.json.JSONException exception){
             // how you handle the exception
             exception.printStackTrace();
         }
-
-
-
-
-
-
         for (int i=0;i <5; i++ ){
 
             ListElement current = new ListElement();
@@ -186,12 +176,6 @@ public class TabFragment3 extends Fragment {
             // how you handle the exception
             exception.printStackTrace();
         }
-
-
-
-
-
-
         for (int i=0;i <5; i++ ){
 
             ListElement current = new ListElement();
@@ -206,8 +190,7 @@ public class TabFragment3 extends Fragment {
         return data;
     }
 
-    //TODO Abert muss das Override da hin?
-    //@Override
+    @Override
     public void itemClicked(View view, int position) {
         View v =view;
         System.out.println(v.getParent());

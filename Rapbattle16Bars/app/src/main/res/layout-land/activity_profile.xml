@@ -101,7 +101,7 @@
         android:id="@+id/txtvClosedBattles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Abgeschlossene Battles"
+        android:text="Trending"
         android:layout_below="@+id/txtvWinsValue"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
@@ -138,7 +138,7 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/profileOpenBattlesList"
+        android:id="@+id/openList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtvOpenBattles"

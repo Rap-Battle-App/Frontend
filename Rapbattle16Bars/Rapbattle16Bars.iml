@@ -13,7 +13,11 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
     </content>
+<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
+=======
+    <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
+>>>>>>> 5417c936387f868ffd76e686f7b3a7f5a23f9041
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

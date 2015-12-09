@@ -6,8 +6,6 @@ import android.os.Bundle;
         import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
         import android.view.ViewGroup;
 import android.widget.TextView;
@@ -33,10 +31,10 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.tab_fragment_1, container, false);
-        tList = (RecyclerView) layout.findViewById(R.id.trendingList);
+        tList = (RecyclerView) layout.findViewById(R.id.profileClosedBattlesList);
         oList = (RecyclerView) layout.findViewById(R.id.openList);
-        TextView tview = (TextView) layout.findViewById(R.id.trending_text);
-        TextView oView = (TextView) layout.findViewById(R.id.open_text);
+        TextView tview = (TextView) layout.findViewById(R.id.txtvClosedBattles);
+        TextView oView = (TextView) layout.findViewById(R.id.txtvOpenBattles);
 
 
         tview.setOnClickListener(new View.OnClickListener() {

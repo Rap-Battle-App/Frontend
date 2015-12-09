@@ -1,3 +1,4 @@
+/*
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.content.Intent;
@@ -88,3 +89,4 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 }
+*/

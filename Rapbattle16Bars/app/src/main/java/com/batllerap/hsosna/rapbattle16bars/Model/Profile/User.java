@@ -10,7 +10,7 @@ public class User implements Serializable {
     String userName;
     String location;
     String aboutMe;
-    String profilePicture;
+    String profilePicture = "";
     boolean isRapper;
     boolean notifications;
     Rapper rapper;
@@ -46,6 +46,8 @@ public class User implements Serializable {
     public String getProfilePicture(){
         return this.profilePicture;
     }
+
+    public void setProfilePicture(String pic) { this.profilePicture = pic; }
 
     public boolean getIsRapper(){
         return this.isRapper;

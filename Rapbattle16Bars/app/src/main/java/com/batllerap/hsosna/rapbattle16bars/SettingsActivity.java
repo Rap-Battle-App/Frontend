@@ -10,6 +10,8 @@ import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
 
 import org.json.JSONException;
 
+import java.io.IOException;
+
 public class SettingsActivity extends AppCompatActivity {
     private Switch switch1;
     private Switch switch2;
@@ -39,12 +41,16 @@ public class SettingsActivity extends AppCompatActivity {
                         uController.setIsRapper(aktUser, aktUser.getIsRapper());
                     }catch (JSONException exception){
 
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 } else {
                     try {
                         uController.setIsRapper(aktUser,aktUser.getIsRapper());
                     }catch (JSONException exception){
 
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -58,12 +64,16 @@ public class SettingsActivity extends AppCompatActivity {
                         uController.setNotifications(aktUser, aktUser.getNotifications());
                     }catch (JSONException exception){
 
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 } else if (aktUser != null){
                     try {
                         uController.setNotifications(aktUser,aktUser.getNotifications());
                     }catch (JSONException exception){
 
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             }

@@ -16,6 +16,9 @@ import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
 
 import org.json.JSONException;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 public class EditProfileActivity extends AppCompatActivity {
 
   /*  public final static String NEW_USERNAME = "com.batllerap.hsosna.rapbattle16bars.USERNAME";
@@ -90,6 +93,10 @@ public class EditProfileActivity extends AppCompatActivity {
                         UserController.setLocation(aktUser, txteNewAboutMe.getText().toString());
                     }
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 /*aktUser.setUserName(txteNewUsername.getText().toString());

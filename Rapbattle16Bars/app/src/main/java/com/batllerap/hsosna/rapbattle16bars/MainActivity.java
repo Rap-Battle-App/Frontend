@@ -114,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_logout:
                 Intent d = new Intent(this, Login.class);
                  if(aktUser != null){
-                     authController.logout(aktUser.getUserName());
+                     //TODO WIEDER EINKOMMENTIEREN
+                     //authController.logout(aktUser.getUserName());
                  }
 
                 startActivity(d);

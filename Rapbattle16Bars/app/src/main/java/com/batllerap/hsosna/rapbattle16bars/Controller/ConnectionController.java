@@ -16,17 +16,21 @@ import java.util.logging.Logger;
  * Created by woors on 09.12.2015.
  */
 public class ConnectionController {
+
+    //TODO: Serveradresse einfügen
+    private static String serverUrl = "bla.test.blub";
+
+
     /**
      * Sends a JSON Object to the server
      * @param url the url
      * @param obj the JSON Object
-     * @param disconnect true if the connection should close after sending
      * @return returns true if successfull
      * @throws MalformedURLException
      * @throws IOException
      */
     public static boolean sendJSON(String url, JSONObject obj) throws MalformedURLException, IOException {
-        URL link = new URL(url);
+        URL link = new URL(serverUrl + url);
         HttpURLConnection connection = (HttpURLConnection) link.openConnection();
 
         connection.setDoOutput(true);
@@ -53,13 +57,14 @@ public class ConnectionController {
 
     /**
      * Requests a JSON Object from the Server
-     * @param url the URL
+     * @param _url the URL
      * @param requestJSON an Request JSON, if the Server doesnt need a Request, else null
      * @return true if succesfull
      * @throws MalformedURLException
      * @throws IOException
      */
-    public static String getJSON(String url, JSONObject requestJSON) throws MalformedURLException, IOException {
+    public static String getJSON(String _url, JSONObject requestJSON) throws MalformedURLException, IOException {
+        String url = serverUrl + _url;
         if(requestJSON != null){
             sendJSON(url,requestJSON);
         }

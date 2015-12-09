@@ -6,12 +6,18 @@ import com.batllerap.hsosna.rapbattle16bars.Model.Battle.OpenBattle;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.PhaseInfo.Phase1Info;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.PhaseInfo.Phase2Info;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.PhaseInfo.PhaseInfo;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Request;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Voting;
 import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.RequestList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.Date;
 
 /**
  * Created by Dennis on 03.11.2015.
@@ -49,20 +55,15 @@ public class BattleController {
      * @param count maximum of Battles in the BattleList
      * @return
      */
-    public static BattlePreview[] getTrendingBattles(int page, int amount) throws JSONException {
+    public static BattlePreview[] getTrendingBattles(int page, int amount) throws JSONException, IOException {
+        String url = "/battles/trending";
         JSONObject request = new JSONObject();
         request.put("page",page);
         request.put("amount", amount);
 
+        JSONObject response = new JSONObject(ConnectionController.getJSON(url, request));
 
-        //TODO: Request senden und JSON empfangen
-
-
-        JSONObject trendingBattles = new JSONObject("{\"total\":\"3\", \"per_page\":\"4\", \"current_page\":\"0\", \"last_page\":\"0\",\"next_page_url\":\"blablabla\","
-                + " \"prev_page_url\":\"albalbalb\", \"from\":\"0\", \"to\":\"0\", \"data\":[{\"battle_id\":\"1\",\"rapper1\":{\"user_id\":\"3\", \"username\":\"testRapper\", "
-                + "\"profile_picture\":\"blablabla1\"}, \"rapper2\":{\"user_id\":\"2\", \"username\":\"testRapper2\", \"profile_picture\":\"blablabla2\"}}]}");
-
-        return parseBattleList(trendingBattles);
+        return parseBattleList(response);
     }
 
     /**
@@ -70,19 +71,16 @@ public class BattleController {
      * @param count maximum of Battles in the BattleList
      * @return
      */
-    public static BattlePreview[] getOpenForVotingBattles(int userId, int page, int amount) throws JSONException {
+    public static BattlePreview[] getOpenForVotingBattles(int userId, int page, int amount) throws JSONException, IOException {
+        String url = "/battles/open-voting";
         JSONObject request = new JSONObject();
         request.put("user_id",userId);
         request.put("page", page);
         request.put("amount", amount);
 
-        //TODO: Request senden und JSON empfangen
+        JSONObject response = new JSONObject(ConnectionController.getJSON(url, request));
 
-        JSONObject trendingBattles = new JSONObject("{\"total\":\"3\", \"per_page\":\"4\", \"current_page\":\"0\", \"last_page\":\"0\",\"next_page_url\":\"blablabla\","
-                + " \"prev_page_url\":\"albalbalb\", \"from\":\"0\", \"to\":\"0\", \"data\":[{\"battle_id\":\"1\",\"rapper1\":{\"user_id\":\"3\", \"username\":\"testRapper\", "
-                + "\"profile_picture\":\"blablabla1\"}, \"rapper2\":{\"user_id\":\"2\", \"username\":\"testRapper2\", \"profile_picture\":\"blablabla2\"}}]}");
-
-        return parseBattleList(trendingBattles);
+        return parseBattleList(response);
     }
 
     /**
@@ -90,19 +88,16 @@ public class BattleController {
      * @param count maximum of Battles in the BattleList
      * @return
      */
-    public static BattlePreview[] getCompletedBattles(int userId, int page, int amount) throws JSONException {
+    public static BattlePreview[] getCompletedBattles(int userId, int page, int amount) throws JSONException, IOException {
+        String url = "/battles/completed";
         JSONObject request = new JSONObject();
         request.put("user_id", userId);
         request.put("page", page);
         request.put("amount", amount);
 
-        //TODO: Request senden und JSON empfangen
+        JSONObject response = new JSONObject(ConnectionController.getJSON(url, request));
 
-        JSONObject trendingBattles = new JSONObject("{\"total\":\"3\", \"per_page\":\"4\", \"current_page\":\"0\", \"last_page\":\"0\",\"next_page_url\":\"blablabla\","
-                + " \"prev_page_url\":\"albalbalb\", \"from\":\"0\", \"to\":\"0\", \"data\":[{\"battle_id\":\"1\",\"rapper1\":{\"user_id\":\"3\", \"username\":\"testRapper\", "
-                + "\"profile_picture\":\"blablabla1\"}, \"rapper2\":{\"user_id\":\"2\", \"username\":\"testRapper2\", \"profile_picture\":\"blablabla2\"}}]}");
-
-        return parseBattleList(trendingBattles);
+        return parseBattleList(response);
     }
 
     /**
@@ -110,17 +105,14 @@ public class BattleController {
      * @param count maximum of Battles in the BattleList
      * @return
      */
-    public static BattlePreview[] getOpenBattles(int page) throws JSONException {
+    public static BattlePreview[] getOpenBattles(int page) throws JSONException, IOException {
+        String url = "/battles/open";
         JSONObject request = new JSONObject();
         request.put("page", page);
 
-        //TODO: Request senden und JSON empfangen
+        JSONObject response = new JSONObject(ConnectionController.getJSON(url, request));
 
-        JSONObject trendingBattles = new JSONObject("{\"total\":\"3\", \"per_page\":\"4\", \"current_page\":\"0\", \"last_page\":\"0\",\"next_page_url\":\"blablabla\","
-                + " \"prev_page_url\":\"albalbalb\", \"from\":\"0\", \"to\":\"0\", \"data\":[{\"battle_id\":\"1\",\"rapper1\":{\"user_id\":\"3\", \"username\":\"testRapper\", "
-                + "\"profile_picture\":\"blablabla1\"}, \"rapper2\":{\"user_id\":\"2\", \"username\":\"testRapper2\", \"profile_picture\":\"blablabla2\"}}]}");
-
-        return parseBattleList(trendingBattles);
+        return parseBattleList(response);
     }
 
 
@@ -129,77 +121,43 @@ public class BattleController {
      * @param battleId if id == 0 returns a completed Battle, if id==1 returns a open for Voting battle else null
      * @return
      */
-    public static Battle getBattle(int battleId) throws JSONException{
-        //TODO: JSON Empfangen
-        JSONObject battleJSON;
-        if(battleId == 0) {
-            battleJSON = new JSONObject("{  \n" +
-                    "   \"id\":\"0\",\n" +
-                    "   \"video_url\":\"blublbulblub\",\n" +
-                    "   \"rapper1\":{  \n" +
-                    "      \"user_id\":\"3\",\n" +
-                    "      \"username\":\"testRapper\",\n" +
-                    "      \"profile_picture\":\"blablabla1\"\n" +
-                    "   },\n" +
-                    "   \"rapper2\":{  \n" +
-                    "      \"user_id\":\"2\",\n" +
-                    "      \"username\":\"testRapper2\",\n" +
-                    "      \"profile_picture\":\"blablabla2\"\n" +
-                    "   },\n" +
-                    "   \"voting\":{  \n" +
-                    "      \"votes_rapper1\":\"10\",\n" +
-                    "      \"votes_rapper2\":\"8\",\n" +
-                    "      \"voted_for\":\"1\",\n" +
-                    "      \"open\":\"false\"\n" +
-                    "   }\n" +
-                    "}");
-        }
-        else if(battleId == 1){
-            battleJSON = new JSONObject("{  \n" +
-                    "   \"id\":\"1\",\n" +
-                    "   \"video_url\":\"blublbulblub\",\n" +
-                    "   \"rapper1\":{  \n" +
-                    "      \"user_id\":\"3\",\n" +
-                    "      \"username\":\"testRapper\",\n" +
-                    "      \"profile_picture\":\"blablabla1\"\n" +
-                    "   },\n" +
-                    "   \"rapper2\":{  \n" +
-                    "      \"user_id\":\"2\",\n" +
-                    "      \"username\":\"testRapper2\",\n" +
-                    "      \"profile_picture\":\"blablabla2\"\n" +
-                    "   },\n" +
-                    "   \"voting\":{  \n" +
-                    "      \"votes_rapper1\":\"10\",\n" +
-                    "      \"votes_rapper2\":\"8\",\n" +
-                    "      \"voted_for\":\"1\",\n" +
-                    "      \"open\":\"true\"\n" +
-                    "   }\n" +
-                    "}");
-        }
-        else{
-            return null;
-        }
-        JSONObject rapper1 = battleJSON.getJSONObject("rapper1");
-        JSONObject rapper2 = battleJSON.getJSONObject("rapper2");
-        JSONObject voting = battleJSON.getJSONObject("voting");
-        int id = battleJSON.getInt("id");
-        boolean isOpen = voting.getBoolean("open");
-        int votes1 = voting.getInt("votes_rapper1");
-        int votes2 = voting.getInt("votes_rapper2");
-        String rapper1Name = rapper1.getString("username");
-        String rapper2Name = rapper2.getString("username");
-        String videoUrl = battleJSON.getString("video_url");
+    public static Battle getBattle(int battleId) throws JSONException, IOException {
+        String url = "/battle/" + battleId;
+        JSONObject response = new JSONObject(ConnectionController.getJSON(url,null));
 
-        return new Battle(id, isOpen, votes1, votes2, rapper1Name, rapper2Name, null, null, videoUrl);
+        JSONObject rapper1 = response.getJSONObject("rapper1");
+        JSONObject rapper2 = response.getJSONObject("rapper2");
+        JSONObject voting = response.getJSONObject("voting");
+        int id = response.getInt("id");
+        ProfilePreview rapper1PP = parseProfliePreview(rapper1);
+        ProfilePreview rapper2PP = parseProfliePreview(rapper2);
+        String videoUrl = response.getString("video_url");
+        Voting votings = parseVoting(voting);
+
+        return new Battle(id, rapper1PP, rapper2PP, videoUrl, votings);
     }
 
-    public static OpenBattle getOpenBattle(int battleId) throws JSONException{
+    private static Voting parseVoting(JSONObject json) throws JSONException{
+        int votesRapper1 = json.getInt("votes_rapper1");
+        int votesRapper2 = json.getInt("votes_rapper2");
+        int votedFor = json.getInt("voted_for");
+        boolean open = json.getBoolean("open");
+        return new Voting(votesRapper1,votesRapper2,votedFor,open);
+    }
+
+    private static ProfilePreview parseProfliePreview(JSONObject json) throws JSONException{
+        int id = json.getInt("user_id");
+        String name = json.getString("username");
+        String profilePicture = json.getString("profile_picture");
+
+        return new ProfilePreview(id,name,profilePicture);
+    }
+
+    public static OpenBattle getOpenBattle(int battleId) throws JSONException, IOException {
+        String url = "/open-battle/" + battleId;
         OpenBattle openBattle = null;
 
-        //TODO: JSON Empfangen
-        JSONObject response = new JSONObject("{\"id\":3, " +
-                "\"opponent\":{\"user_id\":1, \"username\": \"testRapper\", \"profile_picture\":\"blskjdtfösa\"}, \"phase\": 1, \"info\":" +
-                " {\"time_left\":561, \"round1_url\":\"irgendwo\", \"beat_id\": 4, \"opponent_round1_url\":\"nirgendwo\", \"round2_url\": \"nochwoanders\"}}");
+        JSONObject response = new JSONObject(ConnectionController.getJSON(url, null));
 
         JSONObject opponent = response.getJSONObject("opponent");
         int phase = response.getInt("phase");
@@ -228,13 +186,14 @@ public class BattleController {
         return openBattle;
     }
 
-    public static boolean uploadRound(int battleId, int beatId, byte[] video) throws JSONException {
-        //TODO: Logik erstellen
+    public static boolean uploadRound(int battleId, int beatId, byte[] video) throws JSONException, IOException {
+        String url = "/open-battle/" + battleId + "/round";
+
         JSONObject obj = new JSONObject();
         obj.put("beat_id",beatId);
         obj.put("video", video);
 
-        return true;
+        return ConnectionController.sendJSON(url, obj);
     }
 
     /**
@@ -242,9 +201,31 @@ public class BattleController {
      * @param rapperName the name of the Rapper
      * @return
      */
-    public static RequestList getRequestList(String rapperName){
-        //TODO: Logik erstellen
-        RequestList rqList;
+    public static RequestList getRequestList(String rapperName) throws IOException, JSONException {
+        String url = "/requests";
+
+        JSONObject response = new JSONObject(ConnectionController.getJSON(url,null));
+        JSONArray requestsJson = response.getJSONArray("requests");
+        JSONArray opRqJson = response.getJSONArray("opponent_requests");
+
+        Request[] requests = new Request[requestsJson.length()];
+        Request[] oppRequests = new Request[opRqJson.length()];
+
+        for(int i = 0; i < requestsJson.length(); i++){
+            JSONObject currObj = requestsJson.getJSONObject(i);
+            int id = currObj.getInt("id");
+            ProfilePreview profile = parseProfliePreview(currObj.getJSONObject("opponent"));
+            Date date = new Date(currObj.getInt("date"));
+            requests[i] = new Request(id, profile, date);
+        }
+        for (int j = 0; j < opRqJson.length(); j++){
+            JSONObject currObj = opRqJson.getJSONObject(j);
+            int id = currObj.getInt("id");
+            ProfilePreview profile = parseProfliePreview(currObj.getJSONObject("opponent"));
+            Date date = new Date(currObj.getInt("date"));
+            oppRequests[j] = new Request(id, profile, date);
+        }
+        RequestList rqList = new RequestList(requests, oppRequests);
         rqList = null;
         return rqList;
     }
@@ -254,25 +235,25 @@ public class BattleController {
      * @param rapperName
      * @param opponentName
      */
-    public static boolean sendRequest(String rapperName, String opponentName) throws JSONException {
-        //TODO: Logik erstellen
-        JSONObject json = new JSONObject();
-        json.put("user_id", opponentName);
+    public static ProfilePreview sendRequest() throws JSONException, IOException {
+        String url = "/request/random";
 
-        return true;
+        JSONObject json = new JSONObject(ConnectionController.getJSON(url, null));
+        ProfilePreview opponent = parseProfliePreview(json);
+
+        return opponent;
     }
 
     /**
      * sends a Request to a random Rapper
      * @param rapperName
      */
-    public static void sendRequest(String rapperName) throws JSONException {
-        //TODO: Logik erstellen
-        JSONObject answerr = new JSONObject("{\"opponent\":{\"user_id\":1, \"username\":\"testRapper\",\"profile_picture\":\"blablabla\"}}");
-        JSONObject opponent = answerr.getJSONObject("opponent");
+    public static boolean sendRequest(int userId) throws JSONException, IOException {
+        String url = "/request";
+        JSONObject request = new JSONObject();
+        request.put("user_id", userId);
 
-
-        ProfilePreview opponentProfile = new ProfilePreview(opponent.getInt("user_id"),opponent.getString("username"), opponent.getString("profile_picture"));
+        return ConnectionController.sendJSON(url, request);
 
     }
 
@@ -280,13 +261,12 @@ public class BattleController {
      * gives a vote for a Battle to the Database
      * @param rapper_number the name of the rapper, who gets the Vote
      */
-    public static boolean voteBattle(int battleId, int rapperNumber) throws JSONException {
-        JSONObject request = new JSONObject();
+    public static boolean voteBattle(int battleId, int rapperNumber) throws JSONException, IOException {
+        String url = "/battle" + battleId + "/vote";
+        JSONObject request= new JSONObject();
         request.put("rapper_numer", rapperNumber);
 
-        //TODO: Logik erstellen
-
-        return true;
+        return ConnectionController.sendJSON(url, request);
     }
 
     /**
@@ -295,7 +275,11 @@ public class BattleController {
      * @param opponentName
      * @param accepted true if the request is accepted, else false
      */
-    public static void answerRequest(int requestId, boolean accepted){
-        //TODO: Logik erstellen
+    public static boolean answerRequest(int id, boolean accepted) throws JSONException, IOException {
+        String url = "/request" + id;
+        JSONObject obj = new JSONObject();
+        obj.put("accepted", accepted);
+
+        return ConnectionController.sendJSON(url, obj);
     }
 }

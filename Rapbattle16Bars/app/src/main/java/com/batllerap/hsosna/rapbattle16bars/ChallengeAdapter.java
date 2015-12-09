@@ -80,6 +80,7 @@ public class ChallengeAdapter  extends RecyclerView.Adapter<ChallengeAdapter.Cha
             if (cListener != null){
                 if (v.equals(cAccepted)){
                     cListener.itemAccepted(v, getAdapterPosition());
+                    
 
                 }
 
@@ -101,5 +102,11 @@ public class ChallengeAdapter  extends RecyclerView.Adapter<ChallengeAdapter.Cha
 
     public void setClickListener(ClickListener clickListener){
         this.cListener = clickListener;
+    }
+
+    public void removeAt(int position) {
+        data.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, data.size());
     }
 }

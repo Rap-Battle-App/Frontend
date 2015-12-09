@@ -90,6 +90,19 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
 
         List<ChallengeElement> data = new ArrayList<>();
 
+
+        for (int i=0;i <5; i++ ){
+
+            ChallengeElement current = new ChallengeElement();
+            current.imgRapper =R.mipmap.ic_launcher;
+            current.imgAccepted= R.mipmap.challenge_accepted;
+            current.imgDeclined= R.mipmap.challenge_declined;
+            current.rapper="john";
+
+
+            data.add(current);
+        }
+
         return data;
     }
 

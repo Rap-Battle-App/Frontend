@@ -27,15 +27,18 @@ public class UserController {
      */
     public static boolean setUsername(User user, String newUserName) throws JSONException, MalformedURLException, IOException {
         String url = serverUrl += "/account/username";
+        boolean success = false;
 
         JSONObject userNameObj = new JSONObject();
         userNameObj.put("username", newUserName);
 
         //TODO: JSON verschicken
-        //ConnectionController.sendJSON(url, userNameObj, true);
+        //success = ConnectionController.sendJSON(url, userNameObj);
+        //TODO: entfernen:
+        success = true;
 
         user.setUserName(newUserName);
-        return true;
+        return success;
     }
 
     /**
@@ -60,17 +63,21 @@ public class UserController {
 
     public static boolean setSettings(User user, boolean notifications, boolean isRapper) throws JSONException, IOException {
         String url = serverUrl += "/account/settings";
+        boolean success = false;
 
         JSONObject settingObj = new JSONObject();
         settingObj.put("rapper", isRapper);
         settingObj.put("notifications", notifications);
 
-        //TODO:JSON verschicken
-        //ConnectionController.sendJSON(url, settingObj, true);
+        //TODO:Kommentar entfernen
+        //success = ConnectionController.sendJSON(url, settingObj);
+
+        //TODO:Entfernen:
+        success = true;
 
         user.setIsRapper(isRapper);
         user.setNotifications(notifications);
-        return true;
+        return success;
     }
 
     /**
@@ -89,55 +96,51 @@ public class UserController {
 
         //TODO: entfernen!
         Settings settings;
-
         if (username.equals("testRapper")) {
-
-            //TODO: entfernen
             return new Settings(true, true);
         } else if (username.equals("testViewer")) {
-            //TODO: entfernen
             return new Settings(true, false);
         } else {
             return null;
         }
+        // bis hier
     }
 
     public static boolean setProfilPicture(byte picture) throws JSONException, IOException {
         String url = serverUrl += "/profile/picture";
         JSONObject pictureJSON = new JSONObject();
         pictureJSON.put("picture", picture);
-        return ConnectionController.sendJSON(url, pictureJSON, true);
+        return ConnectionController.sendJSON(url, pictureJSON);
     }
 
     public static boolean setProfileInformation(User user, String location, String aboutMe) throws JSONException, IOException {
         String url = serverUrl += "/profile";
+        boolean success = false;
 
         JSONObject profilInformation = new JSONObject();
         profilInformation.put("city", location);
         profilInformation.put("about_me", aboutMe);
 
-        ConnectionController.sendJSON(url, profilInformation, true);
+        success = ConnectionController.sendJSON(url, profilInformation);
 
         user.setAboutMe(aboutMe);
         user.setLocation(location);
-        return true;
+        return success;
     }
 
     public static boolean setLocation(User user, String location) throws JSONException, IOException {
-        UserController.setProfileInformation(user, location, user.getAboutMe());
-        return true;
+        return UserController.setProfileInformation(user, location, user.getAboutMe());
     }
 
     public static boolean setAboutMe(User user, String aboutMe) throws JSONException, IOException {
-        UserController.setProfileInformation(user, user.getLocation(), aboutMe);
-        return true;
+        return UserController.setProfileInformation(user, user.getLocation(), aboutMe);
     }
 
     /**
      * @param userId
      * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null
      */
-    public static User getUser(int userId) throws UserControllerException, IOException, JSONException {
+    public static User getUser(int userId) throws IOException, JSONException {
         String url = serverUrl += ("/user" + userId);
         User user = null;
 
@@ -153,6 +156,7 @@ public class UserController {
             System.out.println("Kein User gefunden");
             return null;
         }
+        // bis hier
 
         //TODO: einkommentieren
         /*JSONObject UserJSON = new JSONObject(ConnectionController.getJSON(url, null));
@@ -191,7 +195,6 @@ public class UserController {
         obj.put("old_password", oldPassword);
         obj.put("password", newPassword);
 
-        ConnectionController.sendJSON(url, obj, true);
-        return true;
+        return ConnectionController.sendJSON(url, obj);
     }
 }

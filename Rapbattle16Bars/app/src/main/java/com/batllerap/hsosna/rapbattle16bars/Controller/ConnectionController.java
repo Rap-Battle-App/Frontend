@@ -25,7 +25,7 @@ public class ConnectionController {
      * @throws MalformedURLException
      * @throws IOException
      */
-    public static boolean sendJSON(String url, JSONObject obj, boolean disconnect) throws MalformedURLException, IOException {
+    public static boolean sendJSON(String url, JSONObject obj) throws MalformedURLException, IOException {
         URL link = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) link.openConnection();
 
@@ -61,10 +61,10 @@ public class ConnectionController {
      */
     public static String getJSON(String url, JSONObject requestJSON) throws MalformedURLException, IOException {
         if(requestJSON != null){
-            sendJSON(url,requestJSON,false);
+            sendJSON(url,requestJSON);
         }
 
-        int timeout = 20;
+        int timeout = 30;
 
         HttpURLConnection c = null;
         URL u = new URL(url);

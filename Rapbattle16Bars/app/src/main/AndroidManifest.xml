@@ -20,7 +20,7 @@
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Register" />
-        <activity android:name=".Logout" />
+
         <activity android:name=".TrendingActivity">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.TrendingActivity" />

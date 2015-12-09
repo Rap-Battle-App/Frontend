@@ -58,6 +58,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         tList.setHasFixedSize(true);
+        oList.setHasFixedSize(true);
 
         wrvLayoutManager = new WrappingRecyclerViewLayoutManager(getActivity());
         wrv2LayoutManager = new WrappingRecyclerViewLayoutManager(getActivity());

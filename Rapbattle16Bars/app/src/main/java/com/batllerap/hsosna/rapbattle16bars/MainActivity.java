@@ -1,6 +1,7 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
         import android.os.Bundle;
         import android.support.design.widget.TabLayout;
@@ -23,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Holt sich den User über das Login
          aktUser = (User) getIntent().getSerializableExtra("User");
+         //System.out.print(aktUser.getUserName());
+
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -44,10 +48,7 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("User", aktUser);
-        Fragment profileFragment = this.getFragmentManager().findFragmentById(R.id.profileFragment);
-        profileFragment.setArguments(bundle);
+
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -65,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
             }
+
         });
+
     }
 
     @Override

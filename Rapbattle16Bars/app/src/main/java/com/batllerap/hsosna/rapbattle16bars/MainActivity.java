@@ -48,14 +48,7 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
-<<<<<<< HEAD
 
-=======
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("User", aktUser);
-        Fragment profileFragment = this.getFragmentManager().findFragmentById(R.id.profileFragment);
-        //profileFragment.setArguments(bundle);
->>>>>>> 5417c936387f868ffd76e686f7b3a7f5a23f9041
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -76,14 +69,13 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-<<<<<<< HEAD
-=======
+
         if(getIntent().getExtras() != null){
             if(getIntent().getExtras().getInt("Tab") == 3){
                 viewPager.setCurrentItem(2);
             }
         }
->>>>>>> 5417c936387f868ffd76e686f7b3a7f5a23f9041
+
     }
 
     @Override
@@ -114,7 +106,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_logout:
                 Intent d = new Intent(this, Login.class);
                  if(aktUser != null){
-                     authController.logout(aktUser.getUserName());
+                     try{
+                         authController.logout(aktUser.getUserName());
+                     }catch (java.io.IOException exception){
+
+                     }
+
                  }
 
                 startActivity(d);

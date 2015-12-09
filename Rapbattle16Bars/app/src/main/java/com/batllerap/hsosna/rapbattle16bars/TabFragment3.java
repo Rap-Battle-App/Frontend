@@ -19,10 +19,7 @@ import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-public class TabFragment3 extends Fragment {
 
-=======
 public class TabFragment3 extends Fragment implements CustomAdapter.ClickListener {
 
     //aktueller User
@@ -54,7 +51,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
     private CustomAdapter oAdapter;
     private BattleController bController;
     private  static BattlePreview[] trending ={};
->>>>>>> 5417c936387f868ffd76e686f7b3a7f5a23f9041
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -195,8 +192,6 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         return data;
     }
 
-<<<<<<< HEAD
-=======
     @Override
     public void itemClicked(View view, int position) {
         View v =view;
@@ -238,5 +233,5 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         }
 
     }
->>>>>>> 5417c936387f868ffd76e686f7b3a7f5a23f9041
+
 }

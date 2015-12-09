@@ -10,7 +10,7 @@ public class User implements Serializable {
     String userName;
     String location;
     String aboutMe;
-    String profilePicture;
+    String profilePicture = "";
     boolean isRapper;
     boolean notifications;
     Rapper rapper;

@@ -29,7 +29,7 @@ public class UserController {
         JSONObject userNameObj = new JSONObject();
         userNameObj.put("username", newUserName);
 
-        //TODO: JSON verschicken
+        //TODO: Kommentar entfernen
         //success = ConnectionController.sendJSON(url, userNameObj);
         //TODO: entfernen:
         success = true;
@@ -85,7 +85,7 @@ public class UserController {
      */
     public static Settings getSettings(String username) throws JSONException, IOException, MalformedURLException {
         String url = "/account/settings";
-        //TODO: JSON empfangen
+        //TODO: Kommentar entfernen
         /*JSONObject settingsJson = new JSONObject(ConnectionController.getJSON(url, null));
         boolean rapper = settingsJson.getBoolean("rapper");
         boolean notifications = settingsJson.getBoolean("notifications");

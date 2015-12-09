@@ -129,28 +129,12 @@ public class BattleController {
         JSONObject rapper2 = response.getJSONObject("rapper2");
         JSONObject voting = response.getJSONObject("voting");
         int id = response.getInt("id");
-        ProfilePreview rapper1PP = parseProfliePreview(rapper1);
-        ProfilePreview rapper2PP = parseProfliePreview(rapper2);
+        ProfilePreview rapper1PP = ObjectParser.parseProfliePreview(rapper1);
+        ProfilePreview rapper2PP = ObjectParser.parseProfliePreview(rapper2);
         String videoUrl = response.getString("video_url");
-        Voting votings = parseVoting(voting);
+        Voting votings = ObjectParser.parseVoting(voting);
 
         return new Battle(id, rapper1PP, rapper2PP, videoUrl, votings);
-    }
-
-    private static Voting parseVoting(JSONObject json) throws JSONException{
-        int votesRapper1 = json.getInt("votes_rapper1");
-        int votesRapper2 = json.getInt("votes_rapper2");
-        int votedFor = json.getInt("voted_for");
-        boolean open = json.getBoolean("open");
-        return new Voting(votesRapper1,votesRapper2,votedFor,open);
-    }
-
-    private static ProfilePreview parseProfliePreview(JSONObject json) throws JSONException{
-        int id = json.getInt("user_id");
-        String name = json.getString("username");
-        String profilePicture = json.getString("profile_picture");
-
-        return new ProfilePreview(id,name,profilePicture);
     }
 
     public static OpenBattle getOpenBattle(int battleId) throws JSONException, IOException {
@@ -214,14 +198,14 @@ public class BattleController {
         for(int i = 0; i < requestsJson.length(); i++){
             JSONObject currObj = requestsJson.getJSONObject(i);
             int id = currObj.getInt("id");
-            ProfilePreview profile = parseProfliePreview(currObj.getJSONObject("opponent"));
+            ProfilePreview profile = ObjectParser.parseProfliePreview(currObj.getJSONObject("opponent"));
             Date date = new Date(currObj.getInt("date"));
             requests[i] = new Request(id, profile, date);
         }
         for (int j = 0; j < opRqJson.length(); j++){
             JSONObject currObj = opRqJson.getJSONObject(j);
             int id = currObj.getInt("id");
-            ProfilePreview profile = parseProfliePreview(currObj.getJSONObject("opponent"));
+            ProfilePreview profile = ObjectParser.parseProfliePreview(currObj.getJSONObject("opponent"));
             Date date = new Date(currObj.getInt("date"));
             oppRequests[j] = new Request(id, profile, date);
         }
@@ -239,7 +223,7 @@ public class BattleController {
         String url = "/request/random";
 
         JSONObject json = new JSONObject(ConnectionController.getJSON(url, null));
-        ProfilePreview opponent = parseProfliePreview(json);
+        ProfilePreview opponent = ObjectParser.parseProfliePreview(json);
 
         return opponent;
     }

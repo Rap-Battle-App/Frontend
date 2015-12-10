@@ -1,4 +1,4 @@
-/*
+
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.content.Context;
@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-*/
+
 /**
  * Created by Albert on 09.12.2015.
- *//*
+ */
 
 public class ChallengeAdapter  extends RecyclerView.Adapter<ChallengeAdapter.ChallengeViewHolder>  {
 
@@ -116,4 +116,4 @@ public class ChallengeAdapter  extends RecyclerView.Adapter<ChallengeAdapter.Cha
         notifyItemRangeChanged(position, data.size());
     }
 }
-*/
+

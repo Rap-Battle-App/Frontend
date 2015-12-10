@@ -31,7 +31,7 @@ public class ChallengeAdapter  extends RecyclerView.Adapter<ChallengeAdapter.Cha
 
     @Override
     public ChallengeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view =inflater.inflate(R.layout.customelement, parent, false);
+        View view =inflater.inflate(R.layout.challengeelement, parent, false);
 
         ChallengeViewHolder holder = new ChallengeViewHolder(view);
         return holder;
@@ -54,10 +54,10 @@ public class ChallengeAdapter  extends RecyclerView.Adapter<ChallengeAdapter.Cha
     }
 
     class ChallengeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView rname;
-        private ImageView rProfilePic;
-        private ImageView cAccepted;
-        private ImageView cDeclined;
+        public TextView rname;
+        public ImageView rProfilePic;
+        public ImageView cAccepted;
+        public ImageView cDeclined;
 
         public ChallengeViewHolder(View itemView) {
             super(itemView);
@@ -80,12 +80,15 @@ public class ChallengeAdapter  extends RecyclerView.Adapter<ChallengeAdapter.Cha
             if (cListener != null){
                 if (v.equals(cAccepted)){
                     cListener.itemAccepted(v, getAdapterPosition());
-                    
+                    removeAt(getAdapterPosition());
+                    return;
 
                 }
 
                 if (v.equals(cDeclined)){
                     cListener.itemDeclined(v, getAdapterPosition());
+                    removeAt(getAdapterPosition());
+                    return;
 
                 }
 

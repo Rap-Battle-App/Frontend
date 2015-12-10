@@ -1,5 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.BattlePreview;
@@ -108,21 +110,51 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
 
     @Override
     public void itemClicked(View view, int position) {
+        View v =view;
+        Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
+        startActivity(intent);
+        //
+        //Works after Controllers are finished
+                /*
+                try{
+                    Intent intent = new Intent("com.albert.testbattle.ClosedBattleActivity");
+                    Battle battle = bController.getBattle(trending[position].getBattleId());
+                    intent.putExtra("battle",battle);
+                    startActivity(intent);
+                }catch(org.json.JSONException exception) {
+                    exception.printStackTrace();
+                }*/
 
     }
 
     @Override
     public void ChallengeClicked(View view, int position) {
+        Context context = getActivity().getApplicationContext();
+        CharSequence text = "Rapper Profil öffnet sich genau jetzt! ;)";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
 
     }
 
     @Override
     public void itemAccepted(View view, int position) {
+        Context context = getActivity().getApplicationContext();
+        CharSequence text = "Challenge angenommen! ;)";
+        int duration = Toast.LENGTH_SHORT;
 
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     @Override
     public void itemDeclined(View view, int position) {
+        Context context = getActivity().getApplicationContext();
+        CharSequence text = "Challenge abgelehnt! ;)";
+        int duration = Toast.LENGTH_SHORT;
 
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }

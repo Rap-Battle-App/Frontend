@@ -2,7 +2,9 @@
 <RelativeLayout android:id="@+id/challengeElement"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp">
+    android:layout_height="48dp"
+    android:background="@drawable/ripple"
+    android:clickable="true">
 
     <ImageView
         android:id="@+id/ChallengeImage"
@@ -25,6 +27,7 @@
         android:src="@mipmap/challenge_accepted"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/challenge_declined"
+        android:padding="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"/>
 
@@ -35,6 +38,7 @@
         android:src="@mipmap/challenge_declined"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:padding="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"/>
 

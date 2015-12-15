@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -68,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
 
         if(getIntent().getExtras() != null){
             if(getIntent().getExtras().getInt("Tab") == 3){
@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
 
         switch (item.getItemId()) {
             case R.id.action_settings:
@@ -126,9 +125,5 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
-    }
-
-    public void setActionBarTitle(String title){
-        getSupportActionBar().setTitle(title);
     }
 }

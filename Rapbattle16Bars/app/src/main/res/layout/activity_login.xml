@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/etUsername"
         android:background="@color/white"
-        android:hint="Username"
+        android:hint="@string/login_username"
         android:padding="10dp"
         android:singleLine="true" />
 
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/etPassword"
         android:background="@color/white"
-        android:hint="Password"
+        android:hint="@string/login_password_hint"
         android:inputType="textPassword"
         android:padding="10dp"
         android:singleLine="true"
@@ -55,12 +55,12 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:padding="12dp"
-        android:text="Login"
+        android:text="@string/login_login"
         android:background="@color/white"/>
 
     <TextView
         android:id="@+id/tvRegisterLink"
-        android:text="No account yet? Create one"
+        android:text="@string/login_new_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

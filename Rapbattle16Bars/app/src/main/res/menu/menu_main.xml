@@ -20,6 +20,6 @@
         android:orderInCategory="200"
         android:title="Search"
         app:showAsAction="ifRoom"
-        ></item>
+        />
 
 </menu>

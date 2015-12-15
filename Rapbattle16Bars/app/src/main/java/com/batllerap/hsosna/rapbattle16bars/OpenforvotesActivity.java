@@ -15,7 +15,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpenforvotesActivity extends Activity implements MyAdapter.ClickListener{
+public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter.ClickListener{
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private MyAdapter mAdapter;
@@ -26,6 +26,12 @@ public class OpenforvotesActivity extends Activity implements MyAdapter.ClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trending);
+
+        // Set up Toolbar for Navigation
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("OFFENE BATTLES");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         handler = new Handler();
         getTrendingList();

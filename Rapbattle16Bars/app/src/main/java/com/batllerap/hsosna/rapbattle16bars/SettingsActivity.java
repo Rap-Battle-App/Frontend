@@ -2,6 +2,7 @@ package com.batllerap.hsosna.rapbattle16bars;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -23,6 +24,12 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         aktUser =(User) getIntent().getSerializableExtra("User");
+
+        // Set up Toolbar for Navigation
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("EINSTELLUNGEN");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         switch1 = (Switch) findViewById(R.id.battles_switch);
         switch2 = (Switch) findViewById(R.id.notifications_switch);

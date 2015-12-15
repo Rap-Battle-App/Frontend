@@ -7,12 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrendingActivity extends Activity  implements MyAdapter.ClickListener{
+public class TrendingActivity extends AppCompatActivity  implements MyAdapter.ClickListener{
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private MyAdapter mAdapter;
@@ -24,6 +25,12 @@ public class TrendingActivity extends Activity  implements MyAdapter.ClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trending);
+
+        // Set up Toolbar for Navigation
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("TRENDING");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         handler = new Handler();
         getTrendingList();

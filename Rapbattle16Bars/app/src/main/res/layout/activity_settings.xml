@@ -5,7 +5,19 @@
     android:layout_height="match_parent"
     tools:context="com.batllerap.hsosna.rapbattle16bars.SettingsActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        />
+
     <RelativeLayout android:id="@+id/notifications_row"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="16dp">

@@ -16,7 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfileActivity" />
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -27,7 +26,8 @@
         </activity>
         <activity android:name=".Register" />
 
-        <activity android:name=".TrendingActivity">
+        <activity android:name=".TrendingActivity"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.TrendingActivity" />
 
@@ -36,7 +36,9 @@
         </activity>
         <activity
             android:name=".OpenforvotesActivity"
-            android:label="OpenforvotesActivity">
+            android:label="OpenforvotesActivity"
+            android:parentActivityName=".MainActivity">
+            >
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.OpenforvotesActivity" />
 
@@ -59,14 +61,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity">
+        <activity android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.SettingsActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".InfoActivity">
+        <activity android:name=".InfoActivity"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.InfoActivity" />
 

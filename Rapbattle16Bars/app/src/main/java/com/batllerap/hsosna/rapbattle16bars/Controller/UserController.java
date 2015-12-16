@@ -118,19 +118,11 @@ public class UserController {
         profilInformation.put("city", location);
         profilInformation.put("about_me", aboutMe);
 
-        success = ConnectionController.sendJSON(url, profilInformation);
+        //success = ConnectionController.sendJSON(url, profilInformation);
 
         user.setAboutMe(aboutMe);
         user.setLocation(location);
         return success;
-    }
-
-    public static boolean setLocation(User user, String location) throws JSONException, IOException {
-        return UserController.setProfileInformation(user, location, user.getAboutMe());
-    }
-
-    public static boolean setAboutMe(User user, String aboutMe) throws JSONException, IOException {
-        return UserController.setProfileInformation(user, user.getLocation(), aboutMe);
     }
 
     /**

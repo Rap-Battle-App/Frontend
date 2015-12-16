@@ -85,13 +85,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 //Benutzerdaten speichern
                 try {
                     UserController.setUsername(aktUser, txteNewUsername.getText().toString());
-                    if(!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
-                        UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    }else if(txteNewAboutMe.getText().toString().isEmpty()){
-                        UserController.setLocation(aktUser, txteNewLocation.getText().toString());
-                    } else if(txteNewLocation.getText().toString().isEmpty()){
-                        UserController.setLocation(aktUser, txteNewAboutMe.getText().toString());
-                    }
+                    UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (MalformedURLException e) {

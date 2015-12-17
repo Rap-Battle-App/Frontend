@@ -1,7 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars.Controller;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
-import com.batllerap.hsosna.rapbattle16bars.Model.Battle.BattlePreview;
 
 import junit.framework.Assert;
 
@@ -11,42 +10,6 @@ import org.junit.Test;
  * Created by woors on 15.11.2015.
  */
 public class BattleControllerTest {
-
-    @Test
-    public void testGetTrendingBattles() throws Exception {
-        BattlePreview[] prev = BattleController.getTrendingBattles(5,1);
-        if (prev.length > 5){
-            Assert.fail();
-        }
-    }
-
-    @Test
-    public void testGetOpenForVotingBattles() throws Exception {
-
-        BattlePreview[] prev = BattleController.getOpenForVotingBattles(5,1,1);
-        if (prev.length > 5){
-            Assert.fail();
-        }
-    }
-
-    @Test
-    public void testGetCompletedBattles() throws Exception {
-
-        BattlePreview[] prev = BattleController.getCompletedBattles(5,1,1);
-        if (prev.length > 5){
-            Assert.fail();
-        }
-    }
-
-    @Test
-    public void testGetOpenBattles() throws Exception {
-
-        BattlePreview[] prev = BattleController.getOpenBattles(5);
-        if (prev.length > 5){
-            Assert.fail();
-        }
-    }
-
     @Test
     public void testVoteBattle() throws Exception {
         Assert.assertTrue(BattleController.voteBattle(2,1));

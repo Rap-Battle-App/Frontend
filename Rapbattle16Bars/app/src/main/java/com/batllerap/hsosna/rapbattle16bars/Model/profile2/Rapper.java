@@ -1,4 +1,4 @@
-package com.batllerap.hsosna.rapbattle16bars.Model.Profile;
+package com.batllerap.hsosna.rapbattle16bars.Model.profile2;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
 
 import java.io.Serializable;

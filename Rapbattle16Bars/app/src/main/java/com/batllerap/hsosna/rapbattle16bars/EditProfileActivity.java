@@ -1,7 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,9 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
-
-import org.json.JSONException;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -92,8 +89,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     } else if(txteNewLocation.getText().toString().isEmpty()){
                         UserController.setLocation(aktUser, txteNewAboutMe.getText().toString());
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

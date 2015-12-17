@@ -1,36 +1,46 @@
 package com.batllerap.hsosna.rapbattle16bars.Model.Battle;
 
+import java.io.Serializable;
+
 /**
  * Created by woors on 09.12.2015.
  */
-public class Voting {
-    private int votesRapper1;
-    private int votesRapper2;
-    private int votedFor;
+public class Voting implements Serializable{
+    private int votes_rapper1;
+    private int votes_rapper2;
+    private int voted_for;
     private boolean isOpen;
 
-    public int getVotesRapper1() {
-        return votesRapper1;
+
+    public Voting(int votesRapper1, int votesRapper2, int votedFor, boolean isOpen){
+        this.setVotes_rapper1(votesRapper1);
+        this.setVotes_rapper2(votesRapper2);
+        this.setVoted_for(votedFor);
+        this.setIsOpen(isOpen);
     }
 
-    public void setVotesRapper1(int votesRapper1) {
-        this.votesRapper1 = votesRapper1;
+    public int getVotes_rapper1() {
+        return votes_rapper1;
     }
 
-    public int getVotesRapper2() {
-        return votesRapper2;
+    public void setVotes_rapper1(int votes_rapper1) {
+        this.votes_rapper1 = votes_rapper1;
     }
 
-    public void setVotesRapper2(int votesRapper2) {
-        this.votesRapper2 = votesRapper2;
+    public int getVotes_rapper2() {
+        return votes_rapper2;
     }
 
-    public int getVotedFor() {
-        return votedFor;
+    public void setVotes_rapper2(int votes_rapper2) {
+        this.votes_rapper2 = votes_rapper2;
     }
 
-    public void setVotedFor(int votedFor) {
-        this.votedFor = votedFor;
+    public int getVoted_for() {
+        return voted_for;
+    }
+
+    public void setVoted_for(int voted_for) {
+        this.voted_for = voted_for;
     }
 
     public boolean isOpen() {
@@ -38,13 +48,6 @@ public class Voting {
     }
 
     public void setIsOpen(boolean isOpen) {
-        this.isOpen = isOpen;
-    }
-
-    public Voting(int votesRapper1, int votesRapper2, int votedFor, boolean isOpen){
-        this.votesRapper1 = votesRapper1;
-        this.votesRapper2 = votesRapper2;
-        this.votedFor = votedFor;
         this.isOpen = isOpen;
     }
 }

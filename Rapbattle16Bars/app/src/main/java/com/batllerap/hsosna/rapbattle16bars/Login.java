@@ -1,7 +1,7 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationController;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

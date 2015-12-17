@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
-import com.batllerap.hsosna.rapbattle16bars.Model.Battle.BattlePreview;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
     private CustomAdapter oAdapter;
     private BattleController bController;
     private User aktUser;
-    private  static BattlePreview[] trending ={};
+    private  static BattleListResponse trending;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -85,10 +85,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         List<ListElement> data = new ArrayList<>();
 
         try {
-            BattlePreview[] trending = BattleController.getTrendingBattles(1, 5);
-        }catch(org.json.JSONException exception){
-            // how you handle the exception
-            exception.printStackTrace();
+            BattleListResponse trending = BattleController.getTrendingBattles(1, 5);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -113,11 +110,8 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         List<ListElement> data = new ArrayList<>();
 
         try {
-            BattlePreview[] trending = BattleController.getTrendingBattles(1, 5);
-        }catch(org.json.JSONException exception){
-            // how you handle the exception
-            exception.printStackTrace();
-        } catch (IOException e) {
+            BattleListResponse trending = BattleController.getTrendingBattles(1, 5);
+        }catch (IOException e) {
             e.printStackTrace();
         }
 

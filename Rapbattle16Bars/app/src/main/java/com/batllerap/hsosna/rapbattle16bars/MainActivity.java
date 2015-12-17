@@ -1,7 +1,5 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
-import android.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
         import android.os.Bundle;
         import android.support.design.widget.TabLayout;
@@ -12,7 +10,7 @@ import android.content.Intent;
         import android.view.MenuItem;
 
         import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationController;
-        import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
+        import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 
 public class MainActivity extends AppCompatActivity {

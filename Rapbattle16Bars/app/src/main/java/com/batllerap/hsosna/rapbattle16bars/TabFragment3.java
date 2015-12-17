@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
-import com.batllerap.hsosna.rapbattle16bars.Model.Battle.BattlePreview;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
     private CustomAdapter tAdapter;
     private CustomAdapter oAdapter;
     private BattleController bController;
-    private  static BattlePreview[] trending ={};
+    private  static BattleListResponse trending;
 
 
     @Override
@@ -91,7 +91,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         if(aktUser.getProfilePicture() != null) {
             this.imgvProfilePicture.setImageURI(Uri.parse(aktUser.getProfilePicture()));
         }
-        if(aktUser.getIsRapper()){
+        if(aktUser.isRapper()){
             this.txtvWinsValue.setText(Integer.toString(aktUser.getRapper().getWins()));
             this.txtvLoosesValue.setText(Integer.toString(aktUser.getRapper().getLooses()));
 
@@ -150,11 +150,8 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
 
         List<ListElement> data = new ArrayList<>();
         try {
-            BattlePreview[] trending = BattleController.getTrendingBattles(1, 5);
-        }catch(org.json.JSONException exception){
-            // how you handle the exception
-            exception.printStackTrace();
-        } catch (IOException e) {
+            BattleListResponse trending = BattleController.getTrendingBattles(1, 5);
+        }catch (IOException e) {
             e.printStackTrace();
         }
         for (int i=0;i <5; i++ ){
@@ -176,11 +173,8 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         List<ListElement> data = new ArrayList<>();
 
         try {
-            BattlePreview[] trending = BattleController.getTrendingBattles(1, 5);
-        }catch(org.json.JSONException exception){
-            // how you handle the exception
-            exception.printStackTrace();
-        } catch (IOException e) {
+            BattleListResponse trending = BattleController.getTrendingBattles(1, 5);
+        }catch (IOException e) {
             e.printStackTrace();
         }
         for (int i=0;i <5; i++ ){

@@ -1,13 +1,13 @@
 package com.batllerap.hsosna.rapbattle16bars.Controller;
 
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
+import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
+import com.batllerap.hsosna.rapbattle16bars.Model.request.SearchRequest;
+import com.batllerap.hsosna.rapbattle16bars.Model.response.SearchResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 /**
  * Created by woors on 23.11.2015.
@@ -18,22 +18,24 @@ public class SearchController {
      * Searches for Users in the Database
      * @param searchString The Argument to search for
      * @return returns an Array of Profiles wich are similar to searchString
-     * @throws JSONException
+     * @throws IOException
      */
-    public static ProfilePreview[] profileSearch(String searchString) throws JSONException, IOException {
+    public static ProfilePreview[] profileSearch(String searchString) throws IOException {
         String url = "/search";
-        JSONObject request = new JSONObject();
-        request.put("search_string", searchString);
 
-        JSONObject response = new JSONObject(ConnectionController.getJSON(url, request));
-        JSONArray responses = response.getJSONArray("profiles");
+        SearchRequest request = new SearchRequest();
+        request.setSearch_string(searchString);
 
-        ProfilePreview[] previews = new ProfilePreview[responses.length()];
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
 
-        for(int i = 0; i < response.length(); i++) {
-            previews[i] = ObjectParser.parseProfliePreview(responses.getJSONObject(i));
-        }
+        String requestString = gson.toJson(request);
 
-        return previews;
+        String responseString = ConnectionController.postJSON(url, requestString);
+        System.out.println("profileSearch response: " + responseString);
+
+        SearchResponse response = gson.fromJson(responseString, SearchResponse.class);
+
+        return response.getProfiles();
     }
 }

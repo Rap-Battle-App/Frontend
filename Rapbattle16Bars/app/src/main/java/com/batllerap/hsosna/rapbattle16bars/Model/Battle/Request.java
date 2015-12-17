@@ -1,7 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars.Model.Battle;
 
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.Rapper;
+import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
 
 import java.io.Serializable;
 import java.util.Date;

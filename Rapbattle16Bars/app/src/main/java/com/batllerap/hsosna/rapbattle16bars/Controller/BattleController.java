@@ -1,69 +1,47 @@
 package com.batllerap.hsosna.rapbattle16bars.Controller;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
-import com.batllerap.hsosna.rapbattle16bars.Model.Battle.BattlePreview;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.OpenBattle;
-import com.batllerap.hsosna.rapbattle16bars.Model.Battle.PhaseInfo.Phase1Info;
-import com.batllerap.hsosna.rapbattle16bars.Model.Battle.PhaseInfo.Phase2Info;
-import com.batllerap.hsosna.rapbattle16bars.Model.Battle.PhaseInfo.PhaseInfo;
-import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Request;
-import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Voting;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
+import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.RequestList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.batllerap.hsosna.rapbattle16bars.Model.request.AnswerRequest;
+import com.batllerap.hsosna.rapbattle16bars.Model.request.RequestRequest;
+import com.batllerap.hsosna.rapbattle16bars.Model.request.RoundRequest;
+import com.batllerap.hsosna.rapbattle16bars.Model.request.VoteRequest;
+import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
+import com.batllerap.hsosna.rapbattle16bars.Model.response.RandomOpponentResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.Date;
+import java.io.Serializable;
 
 /**
  * Created by Dennis on 03.11.2015.
  */
 public class BattleController {
 
-    /**
-     * parse a JSONObject to an Array of BattlePreview
-     * @param obj
-     * @return
-     * @throws JSONException
-     */
-    private static BattlePreview[] parseBattleList(JSONObject obj) throws JSONException {
-        JSONArray battlesJSON = obj.getJSONArray("data");
-        BattlePreview[] battles = new BattlePreview[battlesJSON.length()];
-        for(int i = 0; i < battlesJSON.length(); i++){
-            JSONObject battle = battlesJSON.getJSONObject(i);
-            int battleId = battle.getInt("battle_id");
-            JSONObject user1 = battle.getJSONObject("rapper1");
-            JSONObject user2 = battle.getJSONObject("rapper2");
-            int userId1 = user1.getInt("user_id");
-            int userId2 = user2.getInt("user_id");
-            String username1 = user1.getString("username");
-            String username2 = user2.getString("username");
-            String profilePicture1 = user1.getString("profile_picture");
-            String profilePicture2 = user2.getString("profile_picture");
-
-            battles[i] = new BattlePreview(battleId, userId1, username1,profilePicture1, userId2, username2, profilePicture2);
-        }
-        return battles;
+    private static String getRequestString(Serializable obj){
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        return gson.toJson(obj);
     }
 
     /**
      * Returns a BattleList Array with trendingBattles
-     * @param count maximum of Battles in the BattleList
+     * @param amount maximum of Battles in the BattleList
      * @return
      */
-    public static BattlePreview[] getTrendingBattles(int page, int amount) throws JSONException, IOException {
+    public static BattleListResponse getTrendingBattles(int page, int amount) throws IOException {
         String url = "/battles/trending";
-        JSONObject request = new JSONObject();
-        request.put("page",page);
-        request.put("amount", amount);
 
-        JSONObject response = new JSONObject(ConnectionController.getJSON(url, request));
+        String responseString = ConnectionController.getJSON(url);
 
-        return parseBattleList(response);
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        BattleListResponse response = gson.fromJson(responseString, BattleListResponse.class);
+
+        return response;
     }
 
     /**
@@ -71,16 +49,16 @@ public class BattleController {
      * @param count maximum of Battles in the BattleList
      * @return
      */
-    public static BattlePreview[] getOpenForVotingBattles(int userId, int page, int amount) throws JSONException, IOException {
+    public static BattleListResponse getOpenForVotingBattles(int userId, int page, int amount) throws IOException {
         String url = "/battles/open-voting";
-        JSONObject request = new JSONObject();
-        request.put("user_id",userId);
-        request.put("page", page);
-        request.put("amount", amount);
 
-        JSONObject response = new JSONObject(ConnectionController.getJSON(url, request));
+        String responseString = ConnectionController.getJSON(url);
 
-        return parseBattleList(response);
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        BattleListResponse response = gson.fromJson(responseString, BattleListResponse.class);
+
+        return response;
     }
 
     /**
@@ -88,16 +66,16 @@ public class BattleController {
      * @param count maximum of Battles in the BattleList
      * @return
      */
-    public static BattlePreview[] getCompletedBattles(int userId, int page, int amount) throws JSONException, IOException {
-        String url = "/battles/completed";
-        JSONObject request = new JSONObject();
-        request.put("user_id", userId);
-        request.put("page", page);
-        request.put("amount", amount);
+    public static BattleListResponse getCompletedBattles(int userId, int page, int amount) throws IOException {
+        String url = "/battles/open-voting";
 
-        JSONObject response = new JSONObject(ConnectionController.getJSON(url, request));
+        String responseString = ConnectionController.getJSON(url);
 
-        return parseBattleList(response);
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        BattleListResponse response = gson.fromJson(responseString, BattleListResponse.class);
+
+        return response;
     }
 
     /**
@@ -105,14 +83,16 @@ public class BattleController {
      * @param count maximum of Battles in the BattleList
      * @return
      */
-    public static BattlePreview[] getOpenBattles(int page) throws JSONException, IOException {
-        String url = "/battles/open";
-        JSONObject request = new JSONObject();
-        request.put("page", page);
+    public static BattleListResponse getOpenBattles(int page) throws IOException {
+        String url = "/battles/open-voting";
 
-        JSONObject response = new JSONObject(ConnectionController.getJSON(url, request));
+        String responseString = ConnectionController.getJSON(url);
 
-        return parseBattleList(response);
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        BattleListResponse response = gson.fromJson(responseString, BattleListResponse.class);
+
+        return response;
     }
 
 
@@ -121,63 +101,42 @@ public class BattleController {
      * @param battleId if id == 0 returns a completed Battle, if id==1 returns a open for Voting battle else null
      * @return
      */
-    public static Battle getBattle(int battleId) throws JSONException, IOException {
+    public static Battle getBattle(int battleId) throws IOException {
         String url = "/battle/" + battleId;
-        JSONObject response = new JSONObject(ConnectionController.getJSON(url,null));
+        String responseString = ConnectionController.getJSON(url);
+        System.out.println("GetBattle response: " + responseString);
 
-        JSONObject rapper1 = response.getJSONObject("rapper1");
-        JSONObject rapper2 = response.getJSONObject("rapper2");
-        JSONObject voting = response.getJSONObject("voting");
-        int id = response.getInt("id");
-        ProfilePreview rapper1PP = ObjectParser.parseProfliePreview(rapper1);
-        ProfilePreview rapper2PP = ObjectParser.parseProfliePreview(rapper2);
-        String videoUrl = response.getString("video_url");
-        Voting votings = ObjectParser.parseVoting(voting);
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
 
-        return new Battle(id, rapper1PP, rapper2PP, videoUrl, votings);
+        return gson.fromJson(responseString, Battle.class);
     }
 
-    public static OpenBattle getOpenBattle(int battleId) throws JSONException, IOException {
+    public static OpenBattle getOpenBattle(int battleId) throws IOException {
         String url = "/open-battle/" + battleId;
-        OpenBattle openBattle = null;
 
-        JSONObject response = new JSONObject(ConnectionController.getJSON(url, null));
+        String responseString = ConnectionController.getJSON(url);
+        System.out.println("getOpenBattle response: " + responseString);
 
-        JSONObject opponent = response.getJSONObject("opponent");
-        int phase = response.getInt("phase");
-        JSONObject info = response.getJSONObject("info");
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
 
-        int userId = opponent.getInt("user_id");
-        String userName = opponent.getString("username");
-        String profilePicture = opponent.getString("profile_picture");
-
-        int timeLeft = info.getInt("time_left");
-        String round1Url = info.getString("round1_url");
-
-        PhaseInfo phaseInfo;
-
-        if(phase == 2) {
-            int beatId = info.getInt("beat_id");
-            String opponent_round1Url = info.getString("opponent_round1_url");
-            String round2Url = info.getString("round2_url");
-            phaseInfo = new Phase2Info(timeLeft,round1Url,beatId,opponent_round1Url,round2Url);
-        }
-        else{
-            phaseInfo = new Phase1Info(round1Url,timeLeft);
-        }
-        openBattle = new OpenBattle(battleId,userId,userName,profilePicture,phase,phaseInfo);
-
-        return openBattle;
+        return gson.fromJson(responseString, OpenBattle.class);
     }
 
-    public static boolean uploadRound(int battleId, int beatId, byte[] video) throws JSONException, IOException {
+    public static boolean uploadRound(int battleId, int beatId, byte video) throws IOException {
         String url = "/open-battle/" + battleId + "/round";
 
-        JSONObject obj = new JSONObject();
-        obj.put("beat_id",beatId);
-        obj.put("video", video);
+        RoundRequest request = new RoundRequest();
+        request.setBeat_id(beatId);
+        request.setVideo(video);
 
-        return ConnectionController.sendJSON(url, obj);
+        String requestString = getRequestString(request);
+
+        String responseString =  ConnectionController.postJSON(url, requestString);
+        System.out.println("UploadRound response: " + responseString);
+
+        return true;
     }
 
     /**
@@ -185,33 +144,15 @@ public class BattleController {
      * @param rapperName the name of the Rapper
      * @return
      */
-    public static RequestList getRequestList(String rapperName) throws IOException, JSONException {
+    public static RequestList getRequestList(String rapperName) throws IOException {
         String url = "/requests";
 
-        JSONObject response = new JSONObject(ConnectionController.getJSON(url,null));
-        JSONArray requestsJson = response.getJSONArray("requests");
-        JSONArray opRqJson = response.getJSONArray("opponent_requests");
+        String responseString = ConnectionController.getJSON(url);
+        System.out.println("getRequestList response: " + responseString);
 
-        Request[] requests = new Request[requestsJson.length()];
-        Request[] oppRequests = new Request[opRqJson.length()];
-
-        for(int i = 0; i < requestsJson.length(); i++){
-            JSONObject currObj = requestsJson.getJSONObject(i);
-            int id = currObj.getInt("id");
-            ProfilePreview profile = ObjectParser.parseProfliePreview(currObj.getJSONObject("opponent"));
-            Date date = new Date(currObj.getInt("date"));
-            requests[i] = new Request(id, profile, date);
-        }
-        for (int j = 0; j < opRqJson.length(); j++){
-            JSONObject currObj = opRqJson.getJSONObject(j);
-            int id = currObj.getInt("id");
-            ProfilePreview profile = ObjectParser.parseProfliePreview(currObj.getJSONObject("opponent"));
-            Date date = new Date(currObj.getInt("date"));
-            oppRequests[j] = new Request(id, profile, date);
-        }
-        RequestList rqList = new RequestList(requests, oppRequests);
-        rqList = null;
-        return rqList;
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        return gson.fromJson(responseString,RequestList.class);
     }
 
     /**
@@ -219,38 +160,51 @@ public class BattleController {
      * @param rapperName
      * @param opponentName
      */
-    public static ProfilePreview sendRequest() throws JSONException, IOException {
+    public static ProfilePreview sendRequest() throws IOException {
         String url = "/request/random";
 
-        JSONObject json = new JSONObject(ConnectionController.getJSON(url, null));
-        ProfilePreview opponent = ObjectParser.parseProfliePreview(json);
+        String responseString = ConnectionController.getJSON(url);
+        System.out.println("sendRequest response: " + responseString);
 
-        return opponent;
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        RandomOpponentResponse response = gson.fromJson(responseString, RandomOpponentResponse.class);
+
+        return response.getOpponent();
     }
 
     /**
      * sends a Request to a random Rapper
      * @param rapperName
      */
-    public static boolean sendRequest(int userId) throws JSONException, IOException {
+    public static boolean sendRequest(int userId) throws IOException {
         String url = "/request";
-        JSONObject request = new JSONObject();
-        request.put("user_id", userId);
+        RequestRequest request = new RequestRequest();
+        request.setUser_id(userId);
 
-        return ConnectionController.sendJSON(url, request);
+        String requestString = getRequestString(request);
 
+        String responseString = ConnectionController.postJSON(url, requestString);
+        System.out.println(responseString);
+        return true;
     }
 
     /**
      * gives a vote for a Battle to the Database
      * @param rapper_number the name of the rapper, who gets the Vote
      */
-    public static boolean voteBattle(int battleId, int rapperNumber) throws JSONException, IOException {
+    public static boolean voteBattle(int battleId, int rapperNumber) throws IOException {
         String url = "/battle" + battleId + "/vote";
-        JSONObject request= new JSONObject();
-        request.put("rapper_numer", rapperNumber);
+        VoteRequest request = new VoteRequest();
+        request.setRapper_numer(rapperNumber);
 
-        return ConnectionController.sendJSON(url, request);
+        String requestString = getRequestString(request);
+
+        String responseString = ConnectionController.postJSON(url, requestString);
+        System.out.println("voteBattle response: " +responseString);
+
+        return true;
     }
 
     /**
@@ -259,11 +213,16 @@ public class BattleController {
      * @param opponentName
      * @param accepted true if the request is accepted, else false
      */
-    public static boolean answerRequest(int id, boolean accepted) throws JSONException, IOException {
+    public static boolean answerRequest(int id, boolean accepted) throws IOException {
         String url = "/request" + id;
-        JSONObject obj = new JSONObject();
-        obj.put("accepted", accepted);
+        AnswerRequest request = new AnswerRequest();
+        request.setAccepted(accepted);
 
-        return ConnectionController.sendJSON(url, obj);
+        String requestString = getRequestString(request);
+
+        String responseString = ConnectionController.postJSON(url, requestString);
+        System.out.println("AnswerRequest response: " + responseString);
+
+        return true;
     }
 }

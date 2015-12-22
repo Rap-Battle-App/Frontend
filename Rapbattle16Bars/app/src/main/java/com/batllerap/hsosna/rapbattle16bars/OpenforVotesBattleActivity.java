@@ -36,11 +36,11 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
             rapper1.setText(battle.getRapper1().getUsername());
             rapper2.setText(battle.getRapper2().getUsername());
             video = (VideoView) findViewById(R.id.video);
-            Uri vUri =Uri.parse(battle.getVideoUrl());
+            Uri vUri =Uri.parse(battle.getVideo_url());
             video.setVideoURI(vUri);
 
-            pBar.setMax(battle.getVoting().getVotesRapper1() + battle.getVoting().getVotesRapper2());
-            pBar.setProgress(battle.getVoting().getVotesRapper1());
+            pBar.setMax(battle.getVoting().getVotes_rapper1() + battle.getVoting().getVotes_rapper2());
+            pBar.setProgress(battle.getVoting().getVotes_rapper1());
 
 
 

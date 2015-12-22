@@ -1,7 +1,7 @@
 package com.batllerap.hsosna.rapbattle16bars.Controller;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Voting;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
+import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
 
 import org.json.JSONException;
 import org.json.JSONObject;

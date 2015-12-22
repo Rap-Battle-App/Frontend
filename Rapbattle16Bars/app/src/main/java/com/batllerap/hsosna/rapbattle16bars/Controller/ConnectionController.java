@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.CookieHandler;
+import java.net.CookieManager;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,8 +20,8 @@ import java.util.logging.Logger;
 public class ConnectionController {
 
     //TODO: Serveradresse einfügen
-    private static String serverUrl = "bla.test.blub";
-
+    private static String serverUrl = "http://46.101.216.34";
+    private static CookieManager cookieManager;
 
     /**
      * Sends a JSON Object to the server
@@ -29,9 +31,14 @@ public class ConnectionController {
      * @throws MalformedURLException
      * @throws IOException
      */
-    public static boolean sendJSON(String url, JSONObject obj) throws MalformedURLException, IOException {
+    public static String postJSON(String url, String obj) throws MalformedURLException, IOException {
         URL link = new URL(serverUrl + url);
+
         HttpURLConnection connection = (HttpURLConnection) link.openConnection();
+        if(cookieManager == null) {
+            cookieManager = new CookieManager();
+            CookieHandler.setDefault(new CookieManager());
+        }
 
         connection.setDoOutput(true);
         connection.setDoInput(true);
@@ -40,65 +47,61 @@ public class ConnectionController {
         connection.setRequestMethod("POST");
 
         OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
-        wr.write(obj.toString());
+        System.out.println("Send: url: " + link + " JSON: " + obj);
+        wr.write(obj);
         wr.flush();
 
-        int response = connection.getResponseCode();
-        if (response == HttpURLConnection.HTTP_OK) {
-            connection.disconnect();
-            return true;
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+            return response.toString();
         }
         System.out.println("Fehler beim Senden: " + connection.getResponseMessage());
-        if(connection != null) {
-            connection.disconnect();
-        }
-        return false;
+        return "Fehler";
     }
 
     /**
      * Requests a JSON Object from the Server
-     * @param _url the URL
-     * @param requestJSON an Request JSON, if the Server doesnt need a Request, else null
-     * @return true if succesfull
+     * @param url the URL
+     * @return the Response in JSON format
      * @throws MalformedURLException
      * @throws IOException
      */
-    public static String getJSON(String _url, JSONObject requestJSON) throws MalformedURLException, IOException {
-        String url = serverUrl + _url;
-        if(requestJSON != null){
-            sendJSON(url,requestJSON);
+    public static String getJSON(String url) throws MalformedURLException, IOException {
+        URL link = new URL(serverUrl + url);
+        HttpURLConnection con = (HttpURLConnection) link.openConnection();
+
+        if(cookieManager == null) {
+            cookieManager = new CookieManager();
+            CookieHandler.setDefault(new CookieManager());
         }
 
-        int timeout = 30;
+        con.setRequestMethod("GET");
 
-        HttpURLConnection c = null;
-        URL u = new URL(url);
-        c = (HttpURLConnection) u.openConnection();
-        c.setRequestMethod("GET");
-        c.setRequestProperty("Content-length", "0");
-        c.setUseCaches(false);
-        c.setAllowUserInteraction(false);
-        c.setConnectTimeout(timeout);
-        c.setReadTimeout(timeout);
-        c.connect();
-        int status = c.getResponseCode();
+        int responseCode = con.getResponseCode();
+        System.out.println("\nSending 'GET' request to URL : " + link);
+        System.out.println("Response Code : " + responseCode);
 
-        switch (status) {
-            case 200:
-            case 201:
-                BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                br.close();
-                return sb.toString();
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
         }
+        in.close();
 
-        if (c != null){
-            c.disconnect();
-        }
-        return null;
+        //print result
+        System.out.println("GET Response: " + response.toString());
+        return response.toString();
     }
 }

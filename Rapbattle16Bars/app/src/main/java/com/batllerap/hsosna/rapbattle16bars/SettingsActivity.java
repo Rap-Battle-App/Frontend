@@ -7,9 +7,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
-
-import org.json.JSONException;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 import java.io.IOException;
 
@@ -36,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         if(aktUser != null){
             switch1.setChecked(aktUser.getNotifications());
-            switch2.setChecked(aktUser.getIsRapper());
+            switch2.setChecked(aktUser.isRapper());
         }
 
 
@@ -45,20 +43,16 @@ public class SettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     try{
-                        uController.setIsRapper(aktUser, aktUser.getIsRapper());
+                        uController.setIsRapper(aktUser, aktUser.isRapper());
                     }catch (java.io.IOException exception){
 
-
-                    } catch (JSONException e) {
 
                     }
                 } else {
                     try {
-                        uController.setIsRapper(aktUser,aktUser.getIsRapper());
+                        uController.setIsRapper(aktUser,aktUser.isRapper());
                     }catch (java.io.IOException exception){
 
-
-                    } catch (JSONException e) {
 
                     }
                 }
@@ -74,14 +68,10 @@ public class SettingsActivity extends AppCompatActivity {
                     }catch (java.io.IOException exception){
 
 
-                    } catch (JSONException e) {
-
                     }
                 } else if (aktUser != null){
                     try {
                         uController.setNotifications(aktUser,aktUser.getNotifications());
-                    }catch (JSONException exception){
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

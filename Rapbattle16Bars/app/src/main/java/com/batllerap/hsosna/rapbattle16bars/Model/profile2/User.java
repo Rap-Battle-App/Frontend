@@ -1,4 +1,4 @@
-package com.batllerap.hsosna.rapbattle16bars.Model.Profile;
+package com.batllerap.hsosna.rapbattle16bars.Model.profile2;
 
 import java.io.Serializable;
 
@@ -6,14 +6,14 @@ import java.io.Serializable;
  * Created by Dennis on 03.11.2015.
  */
 public class User implements Serializable {
-    int id;
-    String userName;
-    String location;
-    String aboutMe;
-    String profilePicture = "";
-    boolean isRapper;
-    boolean notifications;
-    Rapper rapper;
+    private int id;
+    private String userName;
+    private String location;
+    private String aboutMe;
+    private String profilePicture = "";
+    private boolean isRapper;
+    private boolean notifications;
+    private Rapper rapper;
 
     public int getId(){
         return this.id;
@@ -49,16 +49,12 @@ public class User implements Serializable {
 
     public void setProfilePicture(String pic) { this.profilePicture = pic; }
 
-    public boolean getIsRapper(){
-        return this.isRapper;
-    }
-
     public void setIsRapper(boolean isRapper){
         this.isRapper = isRapper;
     }
 
     public boolean getNotifications(){
-        return this.notifications;
+        return this.isNotifications();
     }
 
     public void setNotifications(boolean notifications){
@@ -70,12 +66,32 @@ public class User implements Serializable {
     }
 
     public User(int id, String userName, String location, String aboutMe, String profilePicture, boolean isRapper, boolean notifications, Rapper rapper){
-        this.userName = userName;
-        this.location = location;
-        this.aboutMe = aboutMe;
-        this.profilePicture = profilePicture;
-        this.isRapper = isRapper;
-        this.notifications = notifications;
+        this.setUserName(userName);
+        this.setLocation(location);
+        this.setAboutMe(aboutMe);
+        this.setProfilePicture(profilePicture);
+        this.setIsRapper(isRapper);
+        this.setNotifications(notifications);
+        this.setRapper(rapper);
+    }
+
+    public User(){
+
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isRapper() {
+        return isRapper;
+    }
+
+    public boolean isNotifications() {
+        return notifications;
+    }
+
+    public void setRapper(Rapper rapper) {
         this.rapper = rapper;
     }
 }

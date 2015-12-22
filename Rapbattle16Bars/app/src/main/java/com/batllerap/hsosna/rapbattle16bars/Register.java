@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationController;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

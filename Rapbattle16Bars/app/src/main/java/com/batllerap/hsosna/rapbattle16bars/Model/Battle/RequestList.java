@@ -6,19 +6,31 @@ import java.io.Serializable;
  * Created by Dennis on 03.11.2015.
  */
 public class RequestList implements Serializable{
-    Request[] requests;
-    Request[] opponentRequests;
+    private Request[] requests;
+    private Request[] opponent_requests;
 
-    public Request[] getRequests(){
-        return this.requests;
-    }
+    public RequestList(){
 
-    public Request[] getOpponentRequests(){
-        return this.opponentRequests;
     }
 
     public RequestList(Request[] requests, Request[] opponentRequests){
+        this.setRequests(requests);
+        this.setOpponent_requests(opponentRequests);
+    }
+
+    public Request[] getRequests() {
+        return requests;
+    }
+
+    public void setRequests(Request[] requests) {
         this.requests = requests;
-        this.opponentRequests = opponentRequests;
+    }
+
+    public Request[] getOpponent_requests() {
+        return opponent_requests;
+    }
+
+    public void setOpponent_requests(Request[] opponent_requests) {
+        this.opponent_requests = opponent_requests;
     }
 }

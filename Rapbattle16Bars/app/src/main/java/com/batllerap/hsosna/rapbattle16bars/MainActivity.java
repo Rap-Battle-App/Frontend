@@ -1,7 +1,5 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
-import android.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
         import android.os.Bundle;
         import android.support.design.widget.TabLayout;
@@ -15,7 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationController;
-        import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
+        import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -127,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                  if(aktUser != null){
 
                      try{
-                         authController.logout(aktUser.getUserName());
+                         authController.logout();
                      }catch (java.io.IOException exception){
 
                      }

@@ -4,13 +4,16 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
  * Created by Dennis on 03.11.2015.
  */
 
-import com.batllerap.hsosna.rapbattle16bars.Exceptions.UserControllerException;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.Rapper;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.Settings;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.Rapper;
+import com.batllerap.hsosna.rapbattle16bars.Model.request.PasswordRequest;
+import com.batllerap.hsosna.rapbattle16bars.Model.request.ProfileInformationRequest;
+import com.batllerap.hsosna.rapbattle16bars.Model.request.ProfilePictureRequest;
+import com.batllerap.hsosna.rapbattle16bars.Model.Settings;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.Profile;
+import com.batllerap.hsosna.rapbattle16bars.Model.request.UsernameRequest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -22,20 +25,21 @@ public class UserController {
      * @param user        user to find in Database
      * @param newUserName new Username
      */
-    public static boolean setUsername(User user, String newUserName) throws JSONException, MalformedURLException, IOException {
+    public static boolean setUsername(User user, String newUserName) throws  MalformedURLException, IOException {
         String url = "/account/username";
-        boolean success = false;
 
-        JSONObject userNameObj = new JSONObject();
-        userNameObj.put("username", newUserName);
+        UsernameRequest request = new UsernameRequest();
+        request.setUsername(newUserName);
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
 
-        //TODO: Kommentar entfernen
-        //success = ConnectionController.sendJSON(url, userNameObj);
-        //TODO: entfernen:
-        success = true;
+        String requestString = gson.toJson(request);
 
+        String responseString = ConnectionController.postJSON(url, requestString);
+
+        System.out.println("SetUsername: response: " + responseString);
         user.setUserName(newUserName);
-        return success;
+        return true;
     }
 
     /**
@@ -44,7 +48,7 @@ public class UserController {
      * @param user     the User
      * @param isRapper the new status
      */
-    public static boolean setIsRapper(User user, boolean isRapper) throws JSONException, IOException {
+    public static boolean setIsRapper(User user, boolean isRapper) throws  IOException {
         return setSettings(user, user.getNotifications(), isRapper);
     }
 
@@ -54,119 +58,116 @@ public class UserController {
      * @param user          the User
      * @param notifications the new status
      */
-    public static boolean setNotifications(User user, boolean notifications) throws JSONException, IOException {
-        return setSettings(user, notifications, user.getIsRapper());
+    public static boolean setNotifications(User user, boolean notifications) throws  IOException {
+        return setSettings(user, notifications, user.isRapper());
     }
 
-    public static boolean setSettings(User user, boolean notifications, boolean isRapper) throws JSONException, IOException {
+    public static boolean setSettings(User user, boolean notifications, boolean isRapper) throws  IOException {
         String url = "/account/settings";
-        boolean success = false;
+        Settings settings = new Settings(notifications,isRapper);
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
 
-        JSONObject settingObj = new JSONObject();
-        settingObj.put("rapper", isRapper);
-        settingObj.put("notifications", notifications);
+        String requestString = gson.toJson(settings);
 
-        //TODO:Kommentar entfernen
-        //success = ConnectionController.sendJSON(url, settingObj);
-
-        //TODO:Entfernen:
-        success = true;
+        String responseString = ConnectionController.postJSON(url, requestString);
+        System.out.println(responseString);
 
         user.setIsRapper(isRapper);
         user.setNotifications(notifications);
-        return success;
+        return true;
     }
 
     /**
      * get Settings from an User
      *
-     * @param username username
      * @return returns Setting from the User, if the User doesn't exist it returns null
      */
-    public static Settings getSettings(String username) throws JSONException, IOException, MalformedURLException {
+    public static Settings getSettings() throws  IOException, MalformedURLException {
         String url = "/account/settings";
-        //TODO: Kommentar entfernen
-        /*JSONObject settingsJson = new JSONObject(ConnectionController.getJSON(url, null));
-        boolean rapper = settingsJson.getBoolean("rapper");
-        boolean notifications = settingsJson.getBoolean("notifications");
-        return new Settings(notifications, rapper);*/
 
-        //TODO: entfernen!
-        Settings settings;
-        if (username.equals("testRapper")) {
-            return new Settings(true, true);
-        } else if (username.equals("testViewer")) {
-            return new Settings(true, false);
-        } else {
-            return null;
-        }
-        // bis hier
+        String responseString = ConnectionController.getJSON(url);
+        System.out.println("getSettings response: " + responseString);
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        return gson.fromJson(responseString, Settings.class);
     }
 
-    public static boolean setProfilPicture(byte picture) throws JSONException, IOException {
+    public static boolean setProfilPicture(byte picture) throws  IOException {
         String url = "/profile/picture";
-        JSONObject pictureJSON = new JSONObject();
-        pictureJSON.put("picture", picture);
-        return ConnectionController.sendJSON(url, pictureJSON);
+
+        ProfilePictureRequest request = new ProfilePictureRequest();
+        request.setPicture(picture);
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        String requestString = gson.toJson(request);
+
+        String responseString =  ConnectionController.postJSON(url, requestString);
+        System.out.println("setProfilePicture: " + responseString);
+        return true;
     }
 
-    public static boolean setProfileInformation(User user, String location, String aboutMe) throws JSONException, IOException {
+    public static boolean setProfileInformation(User user, String location, String aboutMe) throws  IOException {
         String url = "/profile";
-        boolean success = false;
 
-        JSONObject profilInformation = new JSONObject();
-        profilInformation.put("city", location);
-        profilInformation.put("about_me", aboutMe);
+        ProfileInformationRequest request = new ProfileInformationRequest();
+        request.setAbout_me(aboutMe);
+        request.setCity(location);
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        String requestString = gson.toJson(request);
+
+        String responseString =  ConnectionController.postJSON(url, requestString);
+        System.out.println("setProfileInformation: response: " + responseString);
 
         //success = ConnectionController.sendJSON(url, profilInformation);
 
         user.setAboutMe(aboutMe);
         user.setLocation(location);
-        return success;
+        return true;
+    }
+
+    public static boolean setLocation(User user, String location) throws  IOException {
+        return UserController.setProfileInformation(user, location, user.getAboutMe());
+    }
+
+    public static boolean setAboutMe(User user, String aboutMe) throws IOException {
+        return UserController.setProfileInformation(user, user.getLocation(), aboutMe);
     }
 
     /**
      * @param userId
      * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null
      */
-    public static User getUser(int userId) throws IOException, JSONException {
-        String url = "/user" + userId;
-        User user = null;
+    public static User getUser(int userId) throws IOException{
+        System.out.println("GetUser: userId: " + userId);
+        String url = "/user/" + userId;
 
-        //TODO: entfernen
-        if (userId == 0) {
-            System.out.println("rapper");
-                Rapper rapper = new Rapper("testRapper", 10, 22);
-                return new User(0, "testRapper", null, null, null, true, true, rapper);
-        } else if (userId == 1) {
-            System.out.println("viewer");
-                return new User(1, "testViewer", null, null, null, false, true, null);
-        } else {
-            System.out.println("Kein User gefunden");
-            return null;
-        }
-        // bis hier
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
 
-        //TODO: einkommentieren
-        /*JSONObject UserJSON = new JSONObject(ConnectionController.getJSON(url, null));
 
-        int id = UserJSON.getInt("id");
-        String newUsername = UserJSON.getString("username");
-        String profilePicture = UserJSON.getString("profile_picture");
-        String location = UserJSON.getString("city");
-        String aboutMe = UserJSON.getString("about_me");
-        boolean isRapper = UserJSON.getBoolean("rapper");
-        System.out.println("Rapper: " + isRapper);
+        String userJSON = ConnectionController.getJSON(url);
+
+        Profile prof = gson.fromJson(userJSON, Profile.class);
+
+        User user = new User();
+        user.setId(prof.getId());
+        user.setUserName(prof.getUsername());
+        user.setAboutMe(prof.getAbout_me());
+        user.setIsRapper(prof.isRapper());
+        user.setLocation(prof.getCity());
+        user.setProfilePicture(prof.getProfile_picture());
         Rapper rapper = null;
-        if (isRapper) {
-            JSONObject stats = UserJSON.getJSONObject("statistics");
-            int wins = stats.getInt("wins");
-            int looses = stats.getInt("looses");
-            rapper = new Rapper(newUsername, wins, looses);
+        if(user.isRapper()){
+            rapper = new Rapper(user.getUserName(),prof.getStatistics().getWins(),prof.getStatistics().getDefeats());
         }
-        user = new User(id, newUsername, location, aboutMe, profilePicture, isRapper, true, rapper);
-
-        return user;*/
+        user.setRapper(rapper);
+        return user;
     }
 
     /**
@@ -175,15 +176,22 @@ public class UserController {
      * @param oldPassword oldPassword of the current User
      * @param newPassword the new Password
      * @return returns true if successfull
-     * @throws JSONException
      */
-    public static boolean changePassword(String oldPassword, String newPassword) throws JSONException, IOException {
+    public static boolean changePassword(String oldPassword, String newPassword) throws IOException {
         String url = "/account/password";
 
-        JSONObject obj = new JSONObject();
-        obj.put("old_password", oldPassword);
-        obj.put("password", newPassword);
+        PasswordRequest request = new PasswordRequest();
+        request.setPassword(newPassword);
+        request.setOld_password(oldPassword);
 
-        return ConnectionController.sendJSON(url, obj);
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        String requestString = gson.toJson(request);
+
+        String responseString = ConnectionController.postJSON(url, requestString);
+        System.out.println("ChangePassword response: " + responseString);
+
+        return true;
     }
 }

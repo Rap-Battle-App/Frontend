@@ -1,6 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars.Controller;
 
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 import junit.framework.Assert;
 
@@ -23,7 +23,7 @@ public class AuthentificationControllerTest {
         try {
             user = AuthentificationController.login("testRapper", "abc123");
             Assert.assertNotNull("User is not null", user);
-            Assert.assertTrue("Rapper is no Rapper", user.getIsRapper());
+            Assert.assertTrue("Rapper is no Rapper", user.isRapper());
             Assert.assertTrue("Rapper has no Rapper", user.getRapper() != null);
         }
         catch(Exception e){
@@ -32,7 +32,7 @@ public class AuthentificationControllerTest {
         try{
 
             user = AuthentificationController.login("testViewer", "abc123");
-            Assert.assertTrue("Viewer is a Rapper", !user.getIsRapper());
+            Assert.assertTrue("Viewer is a Rapper", !user.isRapper());
             Assert.assertTrue("Viewer has a Rapper", user.getRapper() == null);
 
             user = AuthentificationController.login("testtesttest", "abc123");

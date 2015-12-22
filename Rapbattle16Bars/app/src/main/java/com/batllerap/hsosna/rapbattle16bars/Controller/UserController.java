@@ -124,6 +124,8 @@ public class UserController {
         String responseString =  ConnectionController.postJSON(url, requestString);
         System.out.println("setProfileInformation: response: " + responseString);
 
+        //success = ConnectionController.sendJSON(url, profilInformation);
+
         user.setAboutMe(aboutMe);
         user.setLocation(location);
         return true;

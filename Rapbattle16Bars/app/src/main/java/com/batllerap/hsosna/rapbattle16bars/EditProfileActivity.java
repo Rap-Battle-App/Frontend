@@ -1,6 +1,7 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,9 @@ import android.widget.Toast;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -43,6 +47,11 @@ public class EditProfileActivity extends AppCompatActivity {
     //Button
     private Button btnSaveChanges = null;
     private Button btnChangeProfilePicture = null;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
 
     @Override
@@ -83,10 +92,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 try {
                     UserController.setUsername(aktUser, txteNewUsername.getText().toString());
                     if(!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
+                    if (!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
                         UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    }else if(txteNewAboutMe.getText().toString().isEmpty()){
+                    } else if (txteNewAboutMe.getText().toString().isEmpty()) {
                         UserController.setLocation(aktUser, txteNewLocation.getText().toString());
-                    } else if(txteNewLocation.getText().toString().isEmpty()){
+                    } else if (txteNewLocation.getText().toString().isEmpty()) {
                         UserController.setLocation(aktUser, txteNewAboutMe.getText().toString());
                     }
                     UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
@@ -111,23 +121,66 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
         //OnClickListener um Profilbild zu ändern
-        this.btnChangeProfilePicture.setOnClickListener(new View.OnClickListener(){
+        this.btnChangeProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent.createChooser(intent, "Select Profile Picture"), 1);
             }
         });
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public void onActivityResult(int reqCode, int resCode, Intent data){
-        if(resCode == RESULT_OK){
-            if(reqCode == 1){
+    public void onActivityResult(int reqCode, int resCode, Intent data) {
+        if (resCode == RESULT_OK) {
+            if (reqCode == 1) {
                 imgvEditProfilePicture.setImageURI(data.getData());
                 aktUser.setProfilePicture(data.getData().toString());
             }
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "EditProfile Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.batllerap.hsosna.rapbattle16bars/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "EditProfile Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.batllerap.hsosna.rapbattle16bars/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 }

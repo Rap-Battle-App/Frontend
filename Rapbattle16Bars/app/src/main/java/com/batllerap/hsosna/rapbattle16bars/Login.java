@@ -4,6 +4,7 @@ import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationControlle
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +24,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
         tvRegisterLink = (TextView) findViewById(R.id.tvRegisterLink);
 
         etUserName = (EditText) findViewById(R.id.etUsername);
@@ -40,6 +46,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.bLogin:
                 User testUser = null;
+                AuthentificationController.logout();
                 try {
                     testUser = AuthentificationController.login(etUserName.getText().toString(), etPassword.getText().toString());
                 } catch (Exception e) {

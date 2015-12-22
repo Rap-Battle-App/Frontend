@@ -16,7 +16,7 @@ import java.net.MalformedURLException;
  * Created by woors on 23.11.2015.
  */
 
-public class dataAccessControler {
+class dataAccessControler {
 
     public static byte getPicture(int pictureId) throws JSONException, IOException {
         String url = "/picture/" + pictureId;

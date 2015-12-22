@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
+import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -55,7 +55,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             public void run() {
                 try {
                     try {
-                        newurl = new URL(current.getProfilePicture());
+                        newurl = new URL(current.getProfile_picture());
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
@@ -71,7 +71,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         });
 
         holder.rProfilePic.setImageBitmap(bmp);
-        holder.profileId = current.getUserId();
+        holder.profileId = current.getUser_id();
     }
 
     @Override

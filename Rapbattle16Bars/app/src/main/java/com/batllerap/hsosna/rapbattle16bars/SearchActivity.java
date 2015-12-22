@@ -16,15 +16,9 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.batllerap.hsosna.rapbattle16bars.Controller.SearchController;
-<<<<<<< HEAD
 import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
-=======
 import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
->>>>>>> 85c830b1bc2cdcc200f27de296d80cee4209a6da
 
 import org.json.JSONException;
 
@@ -140,12 +134,10 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
         Intent intent = new Intent(this, ProfileActivity.class);
         User user = null;
         try {
-            user = UserController.getUser(searchResults[position].getUserId());
+            user = UserController.getUser(searchResults[position].getUser_id());
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        } 
         intent.putExtra("user", user);
         startActivity(intent);
     }

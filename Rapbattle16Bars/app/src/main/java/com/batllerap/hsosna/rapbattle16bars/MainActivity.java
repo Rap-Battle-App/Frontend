@@ -1,19 +1,19 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.content.Intent;
-        import android.os.Bundle;
-        import android.support.design.widget.TabLayout;
-        import android.support.v4.view.ViewPager;
-        import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
-        import android.view.MenuItem;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationController;
-        import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,9 +25,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // Holt sich den User über das Login
-         aktUser = (User) getIntent().getSerializableExtra("User");
-         //System.out.print(aktUser.getUserName());
-
+        aktUser = (User) getIntent().getSerializableExtra("User");
+        //System.out.print(aktUser.getUserName());
 
 
         super.onCreate(savedInstanceState);
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Creating Viewpager
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount());
+        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -88,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        if(getIntent().getExtras() != null){
-            if(getIntent().getExtras().getInt("Tab") == 3){
+        if (getIntent().getExtras() != null) {
+            if (getIntent().getExtras().getInt("Tab") == 3) {
                 viewPager.setCurrentItem(2);
             }
         }
@@ -122,22 +121,21 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_logout:
                 Intent d = new Intent(this, Login.class);
-                 if(aktUser != null){
-                     try{
-<<<<<<< HEAD
-                         authController.logout();
-=======
-                         AuthentificationController.logout();
->>>>>>> 063fa292bf8f21003b20e2e1c78284af34c57702
-                     }catch (java.io.IOException exception){
+                if (aktUser != null) {
+                    try {
 
-                     }
+                        authController.logout();
+
+                        AuthentificationController.logout();
+                    } catch (java.io.IOException exception) {
+
+                    }
 
 
-                     //TODO WIEDER EINKOMMENTIEREN
-                     //authController.logout(aktUser.getUserName());
+                    //TODO WIEDER EINKOMMENTIEREN
+                    //authController.logout(aktUser.getUserName());
 
-                 }
+                }
 
                 startActivity(d);
                 return true;

@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.CookieHandler;
+import java.net.CookieManager;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,7 +21,7 @@ public class ConnectionController {
 
     //TODO: Serveradresse einfügen
     private static String serverUrl = "http://46.101.216.34";
-
+    private static CookieManager cookieManager;
 
     /**
      * Sends a JSON Object to the server
@@ -31,7 +33,12 @@ public class ConnectionController {
      */
     public static String postJSON(String url, String obj) throws MalformedURLException, IOException {
         URL link = new URL(serverUrl + url);
+
         HttpURLConnection connection = (HttpURLConnection) link.openConnection();
+        if(cookieManager == null) {
+            cookieManager = new CookieManager();
+            CookieHandler.setDefault(new CookieManager());
+        }
 
         connection.setDoOutput(true);
         connection.setDoInput(true);
@@ -72,6 +79,11 @@ public class ConnectionController {
         URL link = new URL(serverUrl + url);
         HttpURLConnection con = (HttpURLConnection) link.openConnection();
 
+        if(cookieManager == null) {
+            cookieManager = new CookieManager();
+            CookieHandler.setDefault(new CookieManager());
+        }
+
         con.setRequestMethod("GET");
 
         int responseCode = con.getResponseCode();
@@ -90,6 +102,6 @@ public class ConnectionController {
 
         //print result
         System.out.println("GET Response: " + response.toString());
-        return "not implementet";
+        return response.toString();
     }
 }

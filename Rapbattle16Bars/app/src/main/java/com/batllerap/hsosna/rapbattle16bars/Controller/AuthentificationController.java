@@ -7,6 +7,7 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.LoginRequest;
+import com.batllerap.hsosna.rapbattle16bars.Model.request.ResetRequest;
 import com.batllerap.hsosna.rapbattle16bars.Model.response.LoginResponse;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.RegisterRequest;
 import com.google.gson.Gson;
@@ -97,7 +98,7 @@ public class AuthentificationController {
      */
     public static boolean logout(String username) throws IOException {
         String url = "/auth/logout";
-        //return ConnectionController.sendJSON(url,null);
+        String responseString = ConnectionController.getJSON(url);
         return true;
     }
 
@@ -106,10 +107,19 @@ public class AuthentificationController {
      * @param email Email to find the Account
      * @return returns true if reset is successful, else false
      */
-    public static boolean resetPassword(String email, String password) throws IOException{
+    public static boolean resetPassword(String email, String password, String token) throws IOException{
         String url = "/password-recovery/reset";
+        ResetRequest request = new ResetRequest();
+        request.setEmail(email);
+        request.setPassword(password);
+        request.setToken(token);
 
-        //ConnectionController.sendJSON(url, obj.toString());
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        String requestString = gson.toJson(request);
+        String responseString = ConnectionController.postJSON(url,requestString);
+        System.out.println("ResetPassword response: " + responseString);
 
         return true;
     }

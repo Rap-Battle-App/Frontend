@@ -13,16 +13,6 @@ import org.junit.Test;
  */
 public class ConnectionControllerTest {
 
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
-
     @Test
     public void testRegister() throws Exception {
         /*User u = new User(1,"testuser","hier", "so", null,false,false,null);
@@ -30,15 +20,17 @@ public class ConnectionControllerTest {
         Gson gson = builder.create();
         System.out.println(gson.toJson(u));
 
-        User user = AuthentificationController.register("tesfsarradaasfsfsatUssdflkjn", "aslkdrwafvare@bla.de",  "bla123");
+        User user = AuthentificationController.register("testUser123", "testUser123@bla.de",  "bla123");
         System.out.println(user);
+        */
 
-    */
     }
 
     @Test
     public void testLogin() throws Exception {
-        User user = AuthentificationController.login("tesfsarradaasfsfsatUssdflkjn", "bla123");
+        AuthentificationController.logout("bla123");
+        User user = AuthentificationController.login("bla123", "bla123");
         System.out.println("ERgebnis: " +user);
+        //UserController.getSettings();
     }
 }

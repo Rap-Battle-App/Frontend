@@ -5,12 +5,22 @@ import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 import junit.framework.Assert;
 
+import org.json.JSONException;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
 
 /**
  * Created by woors on 05.11.2015.
  */
 public class UserControllerTest {
+
+    @Before
+    public void setUp() throws IOException, JSONException {
+        AuthentificationController.logout("testUser123");
+        User user = AuthentificationController.login("testUser123", "bla123");
+    }
 
     @Test
     public void testSetUsername() throws Exception {

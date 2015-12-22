@@ -81,10 +81,9 @@ public class UserController {
     /**
      * get Settings from an User
      *
-     * @param username username
      * @return returns Setting from the User, if the User doesn't exist it returns null
      */
-    public static Settings getSettings(String username) throws  IOException, MalformedURLException {
+    public static Settings getSettings() throws  IOException, MalformedURLException {
         String url = "/account/settings";
 
         String responseString = ConnectionController.getJSON(url);

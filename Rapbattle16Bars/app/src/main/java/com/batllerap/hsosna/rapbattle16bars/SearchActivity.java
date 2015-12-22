@@ -137,7 +137,7 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
             user = UserController.getUser(searchResults[position].getUser_id());
         } catch (IOException e) {
             e.printStackTrace();
-        } 
+        }
         intent.putExtra("user", user);
         startActivity(intent);
     }

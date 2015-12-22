@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         final PagerAdapter adapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
-
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
@@ -117,6 +116,12 @@ public class MainActivity extends AppCompatActivity {
                  }
 
                 startActivity(d);
+                return true;
+
+            case R.id.action_search:
+                Intent s = new Intent(this, SearchActivity.class);
+                s.putExtra("User", aktUser);
+                startActivity(s);
                 return true;
 
             default:

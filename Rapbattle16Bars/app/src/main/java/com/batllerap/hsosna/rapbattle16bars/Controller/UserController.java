@@ -121,14 +121,19 @@ public class UserController {
 
         String requestString = gson.toJson(request);
 
+<<<<<<< HEAD
         String responseString =  ConnectionController.postJSON(url, requestString);
         System.out.println("setProfileInformation: response: " + responseString);
+=======
+        //success = ConnectionController.sendJSON(url, profilInformation);
+>>>>>>> ce38a4a8b9cb3c4c8d472bcb8ec691d9ea2c620d
 
         user.setAboutMe(aboutMe);
         user.setLocation(location);
         return true;
     }
 
+<<<<<<< HEAD
     public static boolean setLocation(User user, String location) throws  IOException {
         return UserController.setProfileInformation(user, location, user.getAboutMe());
     }
@@ -137,6 +142,8 @@ public class UserController {
         return UserController.setProfileInformation(user, user.getLocation(), aboutMe);
     }
 
+=======
+>>>>>>> ce38a4a8b9cb3c4c8d472bcb8ec691d9ea2c620d
     /**
      * @param userId
      * @return returns a Rapper if username equals "testRapper", returns a Viewer if username equals "testViewer", esle null

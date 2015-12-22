@@ -25,8 +25,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Register" />
-
-        <activity android:name=".TrendingActivity"
+        <activity
+            android:name=".TrendingActivity"
             android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.TrendingActivity" />
@@ -61,7 +61,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity"
+        <activity
+            android:name=".SettingsActivity"
             android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.SettingsActivity" />
@@ -69,15 +70,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".InfoActivity"
+        <activity
+            android:name=".InfoActivity"
             android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.InfoActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>

@@ -1,10 +1,12 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.SearchController;
+import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
 import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
 import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
 
@@ -22,7 +25,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements SearchAdapter.ClickListener {
 
     //aktueller User
     private User aktUser = null;
@@ -36,7 +39,16 @@ public class SearchActivity extends AppCompatActivity {
     private Button btnStartSearch = null;
 
     //ProfilePreview
-    private ProfilePreview[] searchResults = null;
+    private ProfilePreview[] searchResults = {};
+
+    //RecyclerView
+    private RecyclerView searchView;
+
+    //LayoutManager
+    private WrappingRecyclerViewLayoutManager wrvLayoutManager;
+
+    //SearchAdapter
+    private SearchAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +62,13 @@ public class SearchActivity extends AppCompatActivity {
 
         //Button
         this.btnStartSearch = (Button) findViewById(R.id.btnStartSearch);
+
+        this.searchView = (RecyclerView) findViewById(R.id.searchResultView);
+        this.wrvLayoutManager = new WrappingRecyclerViewLayoutManager(this);
+        this.searchView.setLayoutManager(this.wrvLayoutManager);
+        adapter = new SearchAdapter(getApplicationContext(), searchResults);
+        adapter.setClickListener(SearchActivity.this);
+        searchView.setAdapter(adapter);
 
         this.btnStartSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,13 +84,16 @@ public class SearchActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }*/
 
-                    searchResults = new ProfilePreview[1];
-                    searchResults[0] = new ProfilePreview(0, "testRapper", "@drawable/default_profile_pic");
-                    /*searchResults[1] = new ProfilePreview(1, "testViewer", "@drawable/default_profile_pic");
-                    searchResults[2] = new ProfilePreview(2, "testViewer1", "@drawable/default_profile_pic");
-                    searchResults[3] = new ProfilePreview(3, "testViewer2", "@drawable/default_profile_pic");
-                    searchResults[4] = new ProfilePreview(4, "testViewer3", "@drawable/default_profile_pic");*/
+                    searchResults = new ProfilePreview[5];
+                    searchResults[0] = new ProfilePreview(0, "testRapper", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
+                    searchResults[1] = new ProfilePreview(1, "testViewer", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
+                    searchResults[2] = new ProfilePreview(1, "testViewer1", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
+                    searchResults[3] = new ProfilePreview(1, "testViewer2", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
+                    searchResults[4] = new ProfilePreview(1, "testViewer3", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
 
+                    adapter.notifyDataSetChanged();
+
+                    /*
                     ImageView[] images = new ImageView[searchResults.length];
                     TextView[] texts = new TextView[searchResults.length];
                     for (int i = 0; i < searchResults.length; i++) {
@@ -94,17 +116,32 @@ public class SearchActivity extends AppCompatActivity {
 
                         //TODO  Text anzeigen
                         //TextView
-                        /*texts[i] = new TextView(getApplicationContext());
+                        texts[i] = new TextView(getApplicationContext());
                         texts[i].setText(searchResults[i].getUsername().toString());
                         texts[i].setId(i+1+searchResults.length);
                         RelativeLayout.LayoutParams lpTxt = new RelativeLayout.LayoutParams((int)RelativeLayout.LayoutParams.WRAP_CONTENT, (int)RelativeLayout.LayoutParams.WRAP_CONTENT);
                         lpTxt.addRule(RelativeLayout.BELOW, images[i].getId());
                         lpTxt.topMargin = 40;
                         lpTxt.leftMargin = 30;
-                        rl.addView(texts[i], lpTxt);*/
-                    }
+                        rl.addView(texts[i], lpTxt);
+                    }*/
                 }
             }
         });
+    }
+
+    @Override
+    public void searchProfileClicked(View view, int position) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        User user = null;
+        try {
+            user = UserController.getUser(searchResults[position].getUserId());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 }

@@ -8,16 +8,20 @@ import android.content.Intent;
         import android.support.v4.view.ViewPager;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.Toolbar;
-        import android.view.Menu;
+import android.view.KeyEvent;
+import android.view.Menu;
         import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
-        import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationController;
+import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationController;
         import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
 
 
 public class MainActivity extends AppCompatActivity {
     private User aktUser;
     private AuthentificationController authController;
+    private EditText etxtSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,23 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Search EditText
+        etxtSearch = (EditText) findViewById(R.id.etxtSearch);
+        etxtSearch.setOnKeyListener(new View.OnKeyListener() {
+
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    etxtSearch.setVisibility(View.INVISIBLE);
+                    Intent s = new Intent(MainActivity.this, SearchActivity.class);
+                    s.putExtra("User", aktUser);
+                    startActivity(s);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         // Toolbar
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -121,9 +142,13 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_search:
-                Intent s = new Intent(this, SearchActivity.class);
+                getSupportActionBar().setTitle("");
+                etxtSearch.setVisibility(View.VISIBLE);
+                System.out.println("Sichtbarkeit: " + etxtSearch.getVisibility());
+                etxtSearch.bringToFront();
+                /*Intent s = new Intent(this, SearchActivity.class);
                 s.putExtra("User", aktUser);
-                startActivity(s);
+                startActivity(s);*/
                 return true;
 
             default:

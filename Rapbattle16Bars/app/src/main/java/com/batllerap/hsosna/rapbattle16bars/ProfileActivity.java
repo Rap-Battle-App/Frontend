@@ -1,4 +1,4 @@
-/*
+
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.content.Intent;
@@ -54,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         this.btnEditProfile = (Button) findViewById(R.id.btnEditProfile);
 
         //TODO sichtbarkeit, wenn leer
-        if ((intent.getExtras() != null)) {
+        /*if ((intent.getExtras() != null)) {
             if(!intent.getStringExtra(EditProfileActivity.NEW_USERNAME).equals("")) {
                 this.txtvUsername.setText(intent.getStringExtra(EditProfileActivity.NEW_USERNAME));
             }
@@ -69,7 +69,7 @@ public class ProfileActivity extends AppCompatActivity {
             if(!intent.getStringExtra(EditProfileActivity.NEW_ABOUT_ME).equals("")) {
                 this.txtvAboutMe.setText(intent.getStringExtra(EditProfileActivity.NEW_ABOUT_ME));
             }
-        }
+        }*/
     }
 
     public void editProfil(View v) {
@@ -89,4 +89,4 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 }
-*/
+

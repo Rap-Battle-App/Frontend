@@ -58,7 +58,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 User testUser = null;
                 if (isPasswordMatching(etPassword.getText().toString(), etPasswordConfirm.getText().toString())) {
                     try {
-                        AuthentificationController.register(etUsername.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString());
+                        testUser = AuthentificationController.register(etUsername.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString());
                         if (testUser != null) {
                             Intent i = new Intent(this, MainActivity.class);
                             i.putExtra("User", testUser);

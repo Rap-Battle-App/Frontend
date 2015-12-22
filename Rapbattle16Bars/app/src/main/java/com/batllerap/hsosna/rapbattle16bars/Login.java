@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     Button bLogin;
@@ -35,6 +37,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         etPassword = (EditText) findViewById(R.id.etPassword);
         bLogin = (Button) findViewById(R.id.bLogin);
 
+        try {
+            AuthentificationController.logout();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         bLogin.setOnClickListener(this);
         tvRegisterLink.setOnClickListener(this);
 
@@ -46,7 +54,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.bLogin:
                 User testUser = null;
-                AuthentificationController.logout();
+                try {
+                    AuthentificationController.logout();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 try {
                     testUser = AuthentificationController.login(etUserName.getText().toString(), etPassword.getText().toString());
                 } catch (Exception e) {

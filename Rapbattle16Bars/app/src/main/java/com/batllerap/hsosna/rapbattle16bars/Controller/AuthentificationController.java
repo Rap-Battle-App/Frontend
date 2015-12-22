@@ -12,6 +12,7 @@ import com.batllerap.hsosna.rapbattle16bars.Model.response.LoginResponse;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.RegisterRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 
 import org.json.JSONException;
 
@@ -80,23 +81,27 @@ public class AuthentificationController {
         String requestJSON = gson.toJson(request);
 
         String responseString = ConnectionController.postJSON(url, requestJSON);
-
-        LoginResponse login = gson.fromJson(responseString, LoginResponse.class);
-        System.out.println("Auth: RegisterResponseID: " + login.getUser_id() + " from JSON: " +responseString);
-        userId = login.getUser_id();
-        if(userId >= 0) {
-            System.out.println("Register ERFOLGREICH!!");
-            return UserController.getUser(userId);
+        System.out.println( "Auth response: " +responseString);
+        try {
+            LoginResponse login = gson.fromJson(responseString, LoginResponse.class);
+            System.out.println("Auth: RegisterResponseID: " + login.getUser_id());
+            userId = login.getUser_id();
+            if (userId >= 0) {
+                System.out.println("Register ERFOLGREICH!!");
+                return UserController.getUser(userId);
+            }
+        }
+        catch(Exception ex) {
+            throw ex;
         }
         return null;
     }
 
     /**
      * Logout
-     * @param username username
      * @return returns true if logout is successful, else false
      */
-    public static boolean logout(String username) throws IOException {
+    public static boolean logout() throws IOException {
         String url = "/auth/logout";
         String responseString = ConnectionController.getJSON(url);
         return true;

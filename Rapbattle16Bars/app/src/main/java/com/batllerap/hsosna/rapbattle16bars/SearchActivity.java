@@ -15,8 +15,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.SearchController;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.ProfilePreview;
-import com.batllerap.hsosna.rapbattle16bars.Model.Profile.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 import org.json.JSONException;
 

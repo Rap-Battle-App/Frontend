@@ -82,7 +82,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 //Benutzerdaten speichern
                 try {
                     UserController.setUsername(aktUser, txteNewUsername.getText().toString());
-<<<<<<< HEAD
                     if(!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
                         UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
                     }else if(txteNewAboutMe.getText().toString().isEmpty()){
@@ -90,11 +89,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     } else if(txteNewLocation.getText().toString().isEmpty()){
                         UserController.setLocation(aktUser, txteNewAboutMe.getText().toString());
                     }
-=======
                     UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
->>>>>>> ce38a4a8b9cb3c4c8d472bcb8ec691d9ea2c620d
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

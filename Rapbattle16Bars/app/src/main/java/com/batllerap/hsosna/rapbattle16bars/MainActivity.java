@@ -123,9 +123,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_logout:
                 Intent d = new Intent(this, Login.class);
                  if(aktUser != null){
-
                      try{
+<<<<<<< HEAD
                          authController.logout();
+=======
+                         AuthentificationController.logout();
+>>>>>>> 063fa292bf8f21003b20e2e1c78284af34c57702
                      }catch (java.io.IOException exception){
 
                      }

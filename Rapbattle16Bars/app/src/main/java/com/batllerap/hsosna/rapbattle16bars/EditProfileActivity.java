@@ -100,6 +100,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         UserController.setLocation(aktUser, txteNewAboutMe.getText().toString());
                     }
                     UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
+                    }
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

@@ -80,6 +80,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if(aktUser.getProfilePicture() != null) {
             this.imgvEditProfilePicture.setImageURI(Uri.parse(aktUser.getProfilePicture()));
+        }else {
+            this.imgvEditProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
 
         txteNewUsername.setText(aktUser.getUserName());

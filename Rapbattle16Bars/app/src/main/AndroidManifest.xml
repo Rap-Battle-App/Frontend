@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditProfileActivity" />
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.MainActivity" />

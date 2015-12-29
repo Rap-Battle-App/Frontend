@@ -42,6 +42,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
 
     //Button
     private Button btnEditProfile = null;
+    private Button btnHerausfordern = null;
 
     //Battles
     private RecyclerView tList;
@@ -85,12 +86,18 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
             }
         });
 
+        this.btnHerausfordern = (Button) layout.findViewById(R.id.btnHerausfordern);
+        this.btnHerausfordern.setVisibility(View.INVISIBLE);
+
         this.txtvUsername.setText(aktUser.getUserName());
         this.txtvLocation.setText(aktUser.getLocation());
         this.txtvAboutMe.setText(aktUser.getAboutMe());
         if(aktUser.getProfilePicture() != null) {
             this.imgvProfilePicture.setImageURI(Uri.parse(aktUser.getProfilePicture()));
+        }else {
+            this.imgvProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
+
         if(aktUser.isRapper()){
             this.txtvWinsValue.setText(Integer.toString(aktUser.getRapper().getWins()));
             this.txtvLoosesValue.setText(Integer.toString(aktUser.getRapper().getLooses()));

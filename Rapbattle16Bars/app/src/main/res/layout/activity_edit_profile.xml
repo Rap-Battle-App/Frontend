@@ -85,6 +85,8 @@
         android:text="@string/strSaveChangesDescription"
         android:id="@+id/btnSaveChanges"
         android:layout_alignParentBottom="true"
+        android:background="?attr/colorPrimary"
+        android:textColor="#ffff"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -97,6 +99,8 @@
         android:layout_alignStart="@+id/btnSaveChanges"
         android:layout_marginLeft="38dp"
         android:layout_marginStart="38dp"
+        android:background="?attr/colorPrimary"
+        android:textColor="#ffff"
         android:layout_marginBottom="27dp" />
 
 </RelativeLayout>

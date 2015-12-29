@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER) && !etxtSearch.getText().toString().isEmpty()) {
                     etxtSearch.setVisibility(View.INVISIBLE);
-                    etxtSearch.getText().clear();
                     Intent s = new Intent(MainActivity.this, SearchActivity.class);
                     s.putExtra("User", aktUser);
                     s.putExtra("Suche", etxtSearch.getText().toString());
+                    etxtSearch.getText().clear();
                     startActivity(s);
                     return true;
                 }
@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_search:
                 etxtSearch.setVisibility(View.VISIBLE);
+                etxtSearch.setEnabled(true);
                 return true;
 
             default:

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProfileActivity extends Fragment implements CustomAdapter.ClickListener {
+public class ProfileActivity extends AppCompatActivity implements CustomAdapter.ClickListener {
 
     //aktueller User
     private User aktUser = null;
+
+    //gesuchter User
+    private User searchUser = null;
 
     //Widgets Deklarieren und Initialisieren
 
@@ -40,6 +44,10 @@ public class ProfileActivity extends Fragment implements CustomAdapter.ClickList
     //ImageView
     private ImageView imgvProfilePicture = null;
 
+    //Button
+    private Button editProfile = null;
+    private Button btnHerausfordern = null;
+
     //Battles
     private RecyclerView tList;
     private RecyclerView oList;
@@ -50,41 +58,54 @@ public class ProfileActivity extends Fragment implements CustomAdapter.ClickList
     private BattleController bController;
     private  static BattleListResponse trending;
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.activity_profile, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
 
-
-        aktUser = (User) getActivity().getIntent().getSerializableExtra("User");
+        aktUser = (User) getIntent().getSerializableExtra("User");
+        searchUser = (User) getIntent().getSerializableExtra("Searchuser");
 
         //TextView
-        this.txtvUsername = (TextView) layout.findViewById(R.id.txtvUsername);
-        this.txtvLocation = (TextView) layout.findViewById(R.id.txtvLocation);
-        this.txtvAboutMe = (TextView) layout.findViewById(R.id.txtvAboutMe);
-        this.txtvWins = (TextView) layout.findViewById(R.id.txtvWins);
-        this.txtvLooses = (TextView) layout.findViewById(R.id.txtvLooses);
-        this.txtvWinsValue = (TextView) layout.findViewById(R.id.txtvWinsValue);
-        this.txtvLoosesValue = (TextView) layout.findViewById(R.id.txtvLoosesValue);
+        this.txtvUsername = (TextView) findViewById(R.id.txtvUsername);
+        this.txtvLocation = (TextView) findViewById(R.id.txtvLocation);
+        this.txtvAboutMe = (TextView) findViewById(R.id.txtvAboutMe);
+        this.txtvWins = (TextView) findViewById(R.id.txtvWins);
+        this.txtvLooses = (TextView) findViewById(R.id.txtvLooses);
+        this.txtvWinsValue = (TextView) findViewById(R.id.txtvWinsValue);
+        this.txtvLoosesValue = (TextView) findViewById(R.id.txtvLoosesValue);
+
+        //Button
+        this.editProfile = (Button) findViewById(R.id.btnEditProfile);
+        this.editProfile.setVisibility(View.INVISIBLE);
+        this.btnHerausfordern = (Button) findViewById(R.id.btnHerausfordern);
+        this.btnHerausfordern.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Dennis fragen wie Herausforderung funktioniert
+            }
+        });
 
         //ImageView
-        this.imgvProfilePicture = (ImageView) layout.findViewById(R.id.imgvProfilePicture);
+        this.imgvProfilePicture = (ImageView) findViewById(R.id.imgvProfilePicture);
 
-        this.txtvUsername.setText(aktUser.getUserName());
-        this.txtvLocation.setText(aktUser.getLocation());
-        this.txtvAboutMe.setText(aktUser.getAboutMe());
-        if(aktUser.getProfilePicture() != null) {
-            this.imgvProfilePicture.setImageURI(Uri.parse(aktUser.getProfilePicture()));
+        this.txtvUsername.setText(searchUser.getUserName());
+        this.txtvLocation.setText(searchUser.getLocation());
+        this.txtvAboutMe.setText(searchUser.getAboutMe());
+        if(searchUser.getProfilePicture() != null) {
+            this.imgvProfilePicture.setImageURI(Uri.parse(searchUser.getProfilePicture()));
+        }else {
+            this.imgvProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
-        if(aktUser.isRapper()){
-            this.txtvWinsValue.setText(Integer.toString(aktUser.getRapper().getWins()));
-            this.txtvLoosesValue.setText(Integer.toString(aktUser.getRapper().getLooses()));
+        if(searchUser.isRapper()){
+            this.txtvWinsValue.setText(Integer.toString(searchUser.getRapper().getWins()));
+            this.txtvLoosesValue.setText(Integer.toString(searchUser.getRapper().getLooses()));
 
             //Battles des Rappers
-            tList = (RecyclerView) layout.findViewById(R.id.profileClosedBattlesList);
-            oList = (RecyclerView) layout.findViewById(R.id.profileOpenBattlesList);
-            TextView tview = (TextView) layout.findViewById(R.id.txtvClosedBattles);
-            TextView oView = (TextView) layout.findViewById(R.id.txtvOpenBattles);
+            tList = (RecyclerView) findViewById(R.id.profileClosedBattlesList);
+            oList = (RecyclerView) findViewById(R.id.profileOpenBattlesList);
+            TextView tview = (TextView) findViewById(R.id.txtvClosedBattles);
+            TextView oView = (TextView) findViewById(R.id.txtvOpenBattles);
 
 
             tview.setOnClickListener(new View.OnClickListener() {
@@ -107,14 +128,14 @@ public class ProfileActivity extends Fragment implements CustomAdapter.ClickList
             // in content do not change the layout size of the RecyclerView
             tList.setHasFixedSize(true);
 
-            wrvLayoutManager = new WrappingRecyclerViewLayoutManager(getActivity());
-            wrv2LayoutManager = new WrappingRecyclerViewLayoutManager(getActivity());
+            wrvLayoutManager = new WrappingRecyclerViewLayoutManager(this);
+            wrv2LayoutManager = new WrappingRecyclerViewLayoutManager(this);
 
             tList.setLayoutManager(wrvLayoutManager);
             oList.setLayoutManager(wrv2LayoutManager);
 
-            tAdapter = new CustomAdapter(getActivity(),getTrendingList());
-            oAdapter = new CustomAdapter(getActivity(),getOpenBattlesList());
+            tAdapter = new CustomAdapter(this,getTrendingList());
+            oAdapter = new CustomAdapter(this,getOpenBattlesList());
 
             tAdapter.setClickListener(this);
             oAdapter.setClickListener(this);
@@ -127,8 +148,6 @@ public class ProfileActivity extends Fragment implements CustomAdapter.ClickList
             this.txtvWinsValue.setVisibility(View.INVISIBLE);
             this.txtvLoosesValue.setVisibility(View.INVISIBLE);
         }
-
-        return layout;
     }
 
     public static List<ListElement> getTrendingList(){

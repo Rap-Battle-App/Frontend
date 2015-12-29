@@ -33,7 +33,7 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
     //Widgets Deklarieren und Initialisieren
 
     //ProfilePreview
-    private ProfilePreview[] searchResults;
+    private ProfilePreview[] searchResults = {};
 
     //RecyclerView
     private RecyclerView searchView;
@@ -49,14 +49,11 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        //TODO Benutzen, wenn SearchController tut
         try {
             searchResults = SearchController.profileSearch((String) getIntent().getSerializableExtra("Suche"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println((String) getIntent().getSerializableExtra("Suche"));
 
         /*searchResults = new ProfilePreview[5];
         searchResults[0] = new ProfilePreview(0, "testRapper", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
@@ -87,7 +84,8 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
         } catch (IOException e) {
             e.printStackTrace();
         }
-        intent.putExtra("user", user);
+        intent.putExtra("Searchuser", user);
+        intent.putExtra("User", aktUser);
         startActivity(intent);
     }
 }

@@ -1,6 +1,8 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.app.Service;
 import android.content.Intent;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -10,7 +12,9 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationController;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
@@ -40,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     etxtSearch.setVisibility(View.INVISIBLE);
+                    etxtSearch.getText().clear();
                     Intent s = new Intent(MainActivity.this, SearchActivity.class);
                     s.putExtra("User", aktUser);
+                    s.putExtra("Suche", etxtSearch.getText().toString());
                     startActivity(s);
                     return true;
                 }
@@ -141,13 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_search:
-                getSupportActionBar().setTitle("");
                 etxtSearch.setVisibility(View.VISIBLE);
-                System.out.println("Sichtbarkeit: " + etxtSearch.getVisibility());
-                etxtSearch.bringToFront();
-                /*Intent s = new Intent(this, SearchActivity.class);
-                s.putExtra("User", aktUser);
-                startActivity(s);*/
                 return true;
 
             default:

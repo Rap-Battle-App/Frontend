@@ -78,6 +78,10 @@ public class EditProfileActivity extends AppCompatActivity {
         this.btnSaveChanges = (Button) findViewById(R.id.btnSaveChanges);
         this.btnChangeProfilePicture = (Button) findViewById(R.id.btnChangeProfilePicture);
 
+        if(aktUser.getProfilePicture() != null) {
+            this.imgvEditProfilePicture.setImageURI(Uri.parse(aktUser.getProfilePicture()));
+        }
+
         txteNewUsername.setText(aktUser.getUserName());
         txteNewLocation.setText(aktUser.getLocation());
         txteNewAboutMe.setText(aktUser.getAboutMe());
@@ -91,7 +95,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 //Benutzerdaten speichern
                 try {
                     UserController.setUsername(aktUser, txteNewUsername.getText().toString());
-                    if(!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
+                    UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
+                    /*if(!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
                     if (!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
                         UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
                     } else if (txteNewAboutMe.getText().toString().isEmpty()) {
@@ -100,7 +105,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         UserController.setLocation(aktUser, txteNewAboutMe.getText().toString());
                     }
                     UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    }
+                    }*/
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

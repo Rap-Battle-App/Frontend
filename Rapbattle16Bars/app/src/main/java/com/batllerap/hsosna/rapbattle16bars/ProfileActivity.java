@@ -1,19 +1,30 @@
-
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ProfileActivity extends AppCompatActivity {
+import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
+import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
 
-    public final static String OLD_USERNAME = "com.batllerap.hsosna.rapbattle16bars.USERNAME";
-    public final static String OLD_LOCATION = "com.batllerap.hsosna.rapbattle16bars.LOCATION";
-    public final static String OLD_ABOUT_ME = "com.batllerap.hsosna.rapbattle16bars.ABOUTME";
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class ProfileActivity extends Fragment implements CustomAdapter.ClickListener {
+
+    //aktueller User
+    private User aktUser = null;
 
     //Widgets Deklarieren und Initialisieren
 
@@ -23,70 +34,188 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView txtvAboutMe = null;
     private TextView txtvWins = null;
     private TextView txtvLooses = null;
+    private TextView txtvLoosesValue = null;
+    private TextView txtvWinsValue = null;
 
     //ImageView
     private ImageView imgvProfilePicture = null;
 
-    //Button
-    private Button btnEditProfile = null;
+    //Battles
+    private RecyclerView tList;
+    private RecyclerView oList;
+    private WrappingRecyclerViewLayoutManager wrvLayoutManager;
+    private WrappingRecyclerViewLayoutManager wrv2LayoutManager;
+    private CustomAdapter tAdapter;
+    private CustomAdapter oAdapter;
+    private BattleController bController;
+    private  static BattleListResponse trending;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View layout = inflater.inflate(R.layout.activity_profile, container, false);
 
-        Intent intent = getIntent();
 
-        // Musste ich eben auskommentieren, hat mir die ganze Zeit Fehler geworden - Robert
-        // User rapper = UserController.getUser("testRapper");
+        aktUser = (User) getActivity().getIntent().getSerializableExtra("User");
 
         //TextView
-        this.txtvUsername = (TextView) findViewById(R.id.txtvUsername);
-        this.txtvLocation = (TextView) findViewById(R.id.txtvLocation);
-        this.txtvAboutMe = (TextView) findViewById(R.id.txtvAboutMe);
-        this.txtvWins = (TextView) findViewById(R.id.txtvWins);
-        this.txtvLooses = (TextView) findViewById(R.id.txtvLooses);
+        this.txtvUsername = (TextView) layout.findViewById(R.id.txtvUsername);
+        this.txtvLocation = (TextView) layout.findViewById(R.id.txtvLocation);
+        this.txtvAboutMe = (TextView) layout.findViewById(R.id.txtvAboutMe);
+        this.txtvWins = (TextView) layout.findViewById(R.id.txtvWins);
+        this.txtvLooses = (TextView) layout.findViewById(R.id.txtvLooses);
+        this.txtvWinsValue = (TextView) layout.findViewById(R.id.txtvWinsValue);
+        this.txtvLoosesValue = (TextView) layout.findViewById(R.id.txtvLoosesValue);
 
         //ImageView
-        this.imgvProfilePicture = (ImageView) findViewById(R.id.imgvProfilePicture);
+        this.imgvProfilePicture = (ImageView) layout.findViewById(R.id.imgvProfilePicture);
 
-        //Button
-        this.btnEditProfile = (Button) findViewById(R.id.btnEditProfile);
+        this.txtvUsername.setText(aktUser.getUserName());
+        this.txtvLocation.setText(aktUser.getLocation());
+        this.txtvAboutMe.setText(aktUser.getAboutMe());
+        if(aktUser.getProfilePicture() != null) {
+            this.imgvProfilePicture.setImageURI(Uri.parse(aktUser.getProfilePicture()));
+        }
+        if(aktUser.isRapper()){
+            this.txtvWinsValue.setText(Integer.toString(aktUser.getRapper().getWins()));
+            this.txtvLoosesValue.setText(Integer.toString(aktUser.getRapper().getLooses()));
 
-        //TODO sichtbarkeit, wenn leer
-        /*if ((intent.getExtras() != null)) {
-            if(!intent.getStringExtra(EditProfileActivity.NEW_USERNAME).equals("")) {
-                this.txtvUsername.setText(intent.getStringExtra(EditProfileActivity.NEW_USERNAME));
-            }
-            if(!intent.getStringExtra(EditProfileActivity.NEW_LOCATION).equals("")) {
-                this.txtvLocation.setText(intent.getStringExtra(EditProfileActivity.NEW_LOCATION));
-                this.txtvLocation.setVisibility(1);
-            }else{
-                if(txtvLocation.equals("")) {
-                    this.txtvLocation.setVisibility(1);
+            //Battles des Rappers
+            tList = (RecyclerView) layout.findViewById(R.id.profileClosedBattlesList);
+            oList = (RecyclerView) layout.findViewById(R.id.profileOpenBattlesList);
+            TextView tview = (TextView) layout.findViewById(R.id.txtvClosedBattles);
+            TextView oView = (TextView) layout.findViewById(R.id.txtvOpenBattles);
+
+
+            tview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.TrendingActivity");
+                    startActivity(myIntent);
                 }
-            }
-            if(!intent.getStringExtra(EditProfileActivity.NEW_ABOUT_ME).equals("")) {
-                this.txtvAboutMe.setText(intent.getStringExtra(EditProfileActivity.NEW_ABOUT_ME));
-            }
-        }*/
+            });
+
+            oView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforvotesActivity");
+                    startActivity(myIntent);
+                }
+            });
+
+            // use this setting to improve performance if you know that changes
+            // in content do not change the layout size of the RecyclerView
+            tList.setHasFixedSize(true);
+
+            wrvLayoutManager = new WrappingRecyclerViewLayoutManager(getActivity());
+            wrv2LayoutManager = new WrappingRecyclerViewLayoutManager(getActivity());
+
+            tList.setLayoutManager(wrvLayoutManager);
+            oList.setLayoutManager(wrv2LayoutManager);
+
+            tAdapter = new CustomAdapter(getActivity(),getTrendingList());
+            oAdapter = new CustomAdapter(getActivity(),getOpenBattlesList());
+
+            tAdapter.setClickListener(this);
+            oAdapter.setClickListener(this);
+
+            tList.setAdapter(tAdapter);
+            oList.setAdapter(oAdapter);
+        }else{
+            this.txtvWins.setVisibility(View.INVISIBLE);
+            this.txtvLooses.setVisibility(View.INVISIBLE);
+            this.txtvWinsValue.setVisibility(View.INVISIBLE);
+            this.txtvLoosesValue.setVisibility(View.INVISIBLE);
+        }
+
+        return layout;
     }
 
-    public void editProfil(View v) {
+    public static List<ListElement> getTrendingList(){
 
-        Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+        List<ListElement> data = new ArrayList<>();
+        try {
+            BattleListResponse trending = BattleController.getTrendingBattles(1, 5);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (int i=0;i <5; i++ ){
 
-        //Zu übergebene Strings
-        String userName = txtvUsername.getText().toString();
-        String location = txtvLocation.getText().toString();
-        String aboutMe = txtvAboutMe.getText().toString();
+            ListElement current = new ListElement();
+            current.imgRapper1 =R.mipmap.ic_launcher;
+            current.imgRapper2= R.mipmap.ic_launcher;
+            current.name1="john";
+            current.name2 = "peter";
 
-        intent.putExtra(OLD_USERNAME, userName);
-        intent.putExtra(OLD_LOCATION, location);
-        intent.putExtra(OLD_ABOUT_ME, aboutMe);
+            data.add(current);
+        }
 
-        startActivity(intent);
+        return data;
+    }
+
+    public static List<ListElement> getOpenBattlesList(){
+
+        List<ListElement> data = new ArrayList<>();
+
+        try {
+            BattleListResponse trending = BattleController.getTrendingBattles(1, 5);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (int i=0;i <5; i++ ){
+
+            ListElement current = new ListElement();
+            current.imgRapper1 =R.mipmap.ic_launcher;
+            current.imgRapper2= R.mipmap.ic_launcher;
+            current.name1="john";
+            current.name2 = "peter";
+
+            data.add(current);
+        }
+
+        return data;
+    }
+
+    @Override
+    public void itemClicked(View view, int position) {
+        View v =view;
+        System.out.println(v.getParent());
+        if(v.getParent()== tList){
+            System.out.println("Trending List Angeklickt");
+            Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
+            startActivity(intent);
+            //
+            //Works after Controllers are finished
+                /*
+                try{
+                    Intent intent = new Intent("com.albert.testbattle.ClosedBattleActivity");
+                    Battle battle = bController.getBattle(trending[position].getBattleId());
+                    intent.putExtra("battle",battle);
+                    startActivity(intent);
+                }catch(org.json.JSONException exception) {
+                    exception.printStackTrace();
+                }*/
+
+        }else if(v.getParent()== oList){
+            System.out.println("Open for Votes List Angeklickt");
+            Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
+            startActivity(intent);
+
+            //
+            //Works after Controllers are finished
+
+               /* try{
+                    Intent intent = new Intent("com.albert.testbattle.OpenforVotesBattleActivity");
+                    Battle battle = bController.getBattle(trending[position].getBattleId());
+                    intent.putExtra("battle",battle);
+                    startActivity(intent);
+                }catch(org.json.JSONException exception) {
+                    exception.printStackTrace();
+                }
+                */
+
+        }
 
     }
+
 }
-

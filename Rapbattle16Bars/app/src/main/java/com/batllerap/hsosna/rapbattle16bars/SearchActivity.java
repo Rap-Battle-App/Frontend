@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +49,12 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        // Set up Toolbar for Navigation
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.searchToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("SUCHE");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         try {
             searchResults = SearchController.profileSearch((String) getIntent().getSerializableExtra("Suche"));

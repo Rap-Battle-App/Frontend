@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,11 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
     private TextView txtvLooses = null;
     private TextView txtvLoosesValue = null;
     private TextView txtvWinsValue = null;
+    private TextView txtvClosedBattles = null;
+    private TextView txtvOpenBattles = null;
+
+    //View
+    private View profileDivider = null;
 
     //ImageView
     private ImageView imgvProfilePicture = null;
@@ -63,6 +69,12 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        // Set up Toolbar for Navigation
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.profileToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("PROFIL");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         aktUser = (User) getIntent().getSerializableExtra("User");
         searchUser = (User) getIntent().getSerializableExtra("Searchuser");
 
@@ -74,6 +86,11 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         this.txtvLooses = (TextView) findViewById(R.id.txtvLooses);
         this.txtvWinsValue = (TextView) findViewById(R.id.txtvWinsValue);
         this.txtvLoosesValue = (TextView) findViewById(R.id.txtvLoosesValue);
+        this.txtvClosedBattles = (TextView) findViewById(R.id.txtvClosedBattles);
+        this.txtvOpenBattles = (TextView) findViewById(R.id.txtvOpenBattles);
+
+        //View
+        this.profileDivider = (View) findViewById(R.id.profileDivider);
 
         //Button
         this.editProfile = (Button) findViewById(R.id.btnEditProfile);
@@ -82,7 +99,12 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         this.btnHerausfordern.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Dennis fragen wie Herausforderung funktioniert
+                try {
+                    BattleController.sendRequest(searchUser.getId());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            btnHerausfordern.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -98,8 +120,8 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             this.imgvProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
         if(searchUser.isRapper()){
-            this.txtvWinsValue.setText(Integer.toString(searchUser.getRapper().getWins()));
-            this.txtvLoosesValue.setText(Integer.toString(searchUser.getRapper().getLooses()));
+            this.txtvWinsValue.setText(String.valueOf(searchUser.getRapper().getWins()));
+            this.txtvLoosesValue.setText(String.valueOf(searchUser.getRapper().getLooses()));
 
             //Battles des Rappers
             tList = (RecyclerView) findViewById(R.id.profileClosedBattlesList);
@@ -147,6 +169,10 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             this.txtvLooses.setVisibility(View.INVISIBLE);
             this.txtvWinsValue.setVisibility(View.INVISIBLE);
             this.txtvLoosesValue.setVisibility(View.INVISIBLE);
+            this.btnHerausfordern.setVisibility(View.INVISIBLE);
+            this.txtvClosedBattles.setVisibility(View.INVISIBLE);
+            this.txtvOpenBattles.setVisibility(View.INVISIBLE);
+            this.profileDivider.setVisibility(View.INVISIBLE);
         }
     }
 

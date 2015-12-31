@@ -5,9 +5,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +38,11 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
     private TextView txtvLooses = null;
     private TextView txtvLoosesValue = null;
     private TextView txtvWinsValue = null;
+    private TextView txtvClosedBattles = null;
+    private TextView txtvOpenBattles = null;
+
+    //View
+    private View profileDivider = null;
 
     //ImageView
     private ImageView imgvProfilePicture = null;
@@ -60,6 +67,9 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         View layout = inflater.inflate(R.layout.activity_profile, container, false);
 
 
+        final Toolbar toolbar = (Toolbar) layout.findViewById(R.id.profileToolbar);
+        toolbar.setVisibility(View.GONE);
+
         aktUser = (User) getActivity().getIntent().getSerializableExtra("User");
 
         //TextView
@@ -70,6 +80,11 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         this.txtvLooses = (TextView) layout.findViewById(R.id.txtvLooses);
         this.txtvWinsValue = (TextView) layout.findViewById(R.id.txtvWinsValue);
         this.txtvLoosesValue = (TextView) layout.findViewById(R.id.txtvLoosesValue);
+        this.txtvClosedBattles = (TextView) layout.findViewById(R.id.txtvClosedBattles);
+        this.txtvOpenBattles = (TextView) layout.findViewById(R.id.txtvOpenBattles);
+
+        //View
+        this.profileDivider = (View) layout.findViewById(R.id.profileDivider);
 
         //ImageView
         this.imgvProfilePicture = (ImageView) layout.findViewById(R.id.imgvProfilePicture);
@@ -148,6 +163,9 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
             this.txtvLooses.setVisibility(View.INVISIBLE);
             this.txtvWinsValue.setVisibility(View.INVISIBLE);
             this.txtvLoosesValue.setVisibility(View.INVISIBLE);
+            this.txtvClosedBattles.setVisibility(View.INVISIBLE);
+            this.txtvOpenBattles.setVisibility(View.INVISIBLE);
+            this.profileDivider.setVisibility(View.INVISIBLE);
         }
 
         return layout;

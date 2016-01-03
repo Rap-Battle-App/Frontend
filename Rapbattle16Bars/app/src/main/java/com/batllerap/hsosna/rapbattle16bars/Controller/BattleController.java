@@ -124,7 +124,7 @@ public class BattleController {
         return gson.fromJson(responseString, OpenBattle.class);
     }
 
-    public static boolean uploadRound(int battleId, int beatId, byte video) throws IOException {
+    public static void uploadRound(int battleId, int beatId, byte video) throws IOException {
         String url = "/open-battle/" + battleId + "/round";
 
         RoundRequest request = new RoundRequest();
@@ -135,8 +135,6 @@ public class BattleController {
 
         String responseString =  ConnectionController.postJSON(url, requestString);
         System.out.println("UploadRound response: " + responseString);
-
-        return true;
     }
 
     /**
@@ -156,9 +154,7 @@ public class BattleController {
     }
 
     /**
-     * Sends a Request to an opponent
-     * @param rapperName
-     * @param opponentName
+     * Sends a Request to an random opponent
      */
     public static ProfilePreview sendRequest() throws IOException {
         String url = "/request/random";
@@ -175,10 +171,10 @@ public class BattleController {
     }
 
     /**
-     * sends a Request to a random Rapper
-     * @param rapperName
+     * sends a Request to a Rapper
+     * @param userId
      */
-    public static boolean sendRequest(int userId) throws IOException {
+    public static void sendRequest(int userId) throws IOException {
         String url = "/request";
         RequestRequest request = new RequestRequest();
         request.setUser_id(userId);
@@ -187,14 +183,14 @@ public class BattleController {
 
         String responseString = ConnectionController.postJSON(url, requestString);
         System.out.println(responseString);
-        return true;
     }
 
     /**
      * gives a vote for a Battle to the Database
-     * @param rapper_number the name of the rapper, who gets the Vote
+     * @param battleId
+     * @param rapperNumber the name of the rapper, who gets the Vote
      */
-    public static boolean voteBattle(int battleId, int rapperNumber) throws IOException {
+    public static void voteBattle(int battleId, int rapperNumber) throws IOException {
         String url = "/battle" + battleId + "/vote";
         VoteRequest request = new VoteRequest();
         request.setRapper_numer(rapperNumber);
@@ -203,8 +199,6 @@ public class BattleController {
 
         String responseString = ConnectionController.postJSON(url, requestString);
         System.out.println("voteBattle response: " +responseString);
-
-        return true;
     }
 
     /**
@@ -213,7 +207,7 @@ public class BattleController {
      * @param opponentName
      * @param accepted true if the request is accepted, else false
      */
-    public static boolean answerRequest(int id, boolean accepted) throws IOException {
+    public static void answerRequest(int id, boolean accepted) throws IOException {
         String url = "/request" + id;
         AnswerRequest request = new AnswerRequest();
         request.setAccepted(accepted);
@@ -222,7 +216,5 @@ public class BattleController {
 
         String responseString = ConnectionController.postJSON(url, requestString);
         System.out.println("AnswerRequest response: " + responseString);
-
-        return true;
     }
 }

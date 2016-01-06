@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class RoundRequest implements Serializable{
     private int beat_id;
-    private byte video;
+    private byte[] video;
 
     public RoundRequest(){
 
@@ -21,11 +21,11 @@ public class RoundRequest implements Serializable{
         this.beat_id = beat_id;
     }
 
-    public byte getVideo() {
+    public byte[] getVideo() {
         return video;
     }
 
-    public void setVideo(byte video) {
+    public void setVideo( byte[] video) {
         this.video = video;
     }
 }

@@ -124,7 +124,7 @@ public class BattleController {
         return gson.fromJson(responseString, OpenBattle.class);
     }
 
-    public static void uploadRound(int battleId, int beatId, byte video) throws IOException {
+    public static void uploadRound(int battleId, int beatId, byte[] video) throws IOException {
         String url = "/open-battle/" + battleId + "/round";
 
         RoundRequest request = new RoundRequest();
@@ -203,8 +203,8 @@ public class BattleController {
 
     /**
      * answers a Request
-     * @param rapperName
-     * @param opponentName
+     * @param id
+     * @param accepted
      * @param accepted true if the request is accepted, else false
      */
     public static void answerRequest(int id, boolean accepted) throws IOException {

@@ -100,24 +100,12 @@ public class EditProfileActivity extends AppCompatActivity {
                 try {
                     UserController.setUsername(aktUser, txteNewUsername.getText().toString());
                     UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    /*if(!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
-                    if (!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
-                        UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    } else if (txteNewAboutMe.getText().toString().isEmpty()) {
-                        UserController.setLocation(aktUser, txteNewLocation.getText().toString());
-                    } else if (txteNewLocation.getText().toString().isEmpty()) {
-                        UserController.setLocation(aktUser, txteNewAboutMe.getText().toString());
-                    }
-                    UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    }*/
+                    // TODO UserController.setProfilPicture()
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                /*aktUser.setUserName(txteNewUsername.getText().toString());
-                aktUser.setLocation(txteNewLocation.getText().toString());
-                aktUser.setAboutMe(txteNewAboutMe.getText().toString());*/
 
                 myIntent.putExtra("User", aktUser);
                 myIntent.putExtra("Tab", 3);

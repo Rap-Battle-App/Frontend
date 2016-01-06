@@ -13,6 +13,8 @@ import com.batllerap.hsosna.rapbattle16bars.Model.response.RandomOpponentRespons
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -124,8 +126,13 @@ public class BattleController {
         return gson.fromJson(responseString, OpenBattle.class);
     }
 
-    public static void uploadRound(int battleId, int beatId, byte[] video) throws IOException {
+    public static void uploadRound(int battleId, int beatId, File videoFile) throws IOException {
         String url = "/open-battle/" + battleId + "/round";
+        FileInputStream stream;
+        byte[] video = new byte[(int) videoFile.length()];
+        stream = new FileInputStream(videoFile);
+        stream.read(video);
+        stream.close();
 
         RoundRequest request = new RoundRequest();
         request.setBeat_id(beatId);

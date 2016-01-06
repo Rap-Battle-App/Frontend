@@ -15,7 +15,6 @@ public class SettingsActivity extends AppCompatActivity {
     private Switch switch1;
     private Switch switch2;
     private User aktUser;
-    private UserController uController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +42,14 @@ public class SettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     try{
-                        uController.setIsRapper(aktUser, aktUser.isRapper());
+                        UserController.setIsRapper(aktUser, aktUser.isRapper());
                     }catch (java.io.IOException exception){
 
 
                     }
                 } else {
                     try {
-                        uController.setIsRapper(aktUser,aktUser.isRapper());
+                        UserController.setIsRapper(aktUser,aktUser.isRapper());
                     }catch (java.io.IOException exception){
 
 
@@ -64,14 +63,14 @@ public class SettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked && aktUser != null){
                     try{
-                        uController.setNotifications(aktUser, aktUser.getNotifications());
+                        UserController.setNotifications(aktUser, aktUser.getNotifications());
                     }catch (java.io.IOException exception){
 
 
                     }
                 } else if (aktUser != null){
                     try {
-                        uController.setNotifications(aktUser,aktUser.getNotifications());
+                        UserController.setNotifications(aktUser,aktUser.getNotifications());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

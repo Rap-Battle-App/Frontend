@@ -2,6 +2,7 @@ package com.batllerap.hsosna.rapbattle16bars;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,8 +20,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -100,10 +103,12 @@ public class EditProfileActivity extends AppCompatActivity {
                 try {
                     UserController.setUsername(aktUser, txteNewUsername.getText().toString());
                     UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    // TODO UserController.setProfilPicture()
+                    UserController.setProfilPicture(Uri.parse(aktUser.getProfilePicture()));
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
                     e.printStackTrace();
                 }
 

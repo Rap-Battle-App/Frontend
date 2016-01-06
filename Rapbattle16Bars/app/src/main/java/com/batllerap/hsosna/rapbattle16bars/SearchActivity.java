@@ -62,14 +62,6 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
             e.printStackTrace();
         }
 
-        /*searchResults = new ProfilePreview[5];
-        searchResults[0] = new ProfilePreview(0, "testRapper", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
-        searchResults[1] = new ProfilePreview(1, "testViewer", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
-        searchResults[2] = new ProfilePreview(1, "testViewer1", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
-        searchResults[3] = new ProfilePreview(1, "testViewer2", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
-        searchResults[4] = new ProfilePreview(1, "testViewer3", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");*/
-
-
         aktUser = (User) getIntent().getSerializableExtra("User");
 
         this.searchView = (RecyclerView) findViewById(R.id.searchResultView);

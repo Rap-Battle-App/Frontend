@@ -1,8 +1,10 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.inputmethodservice.Keyboard;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -40,9 +42,7 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.main_relativelayout); // You must use the layout root
         InputMethodManager im = (InputMethodManager) getSystemService(Service.INPUT_METHOD_SERVICE);
 
-        /*
-        Instantiate and pass a callback
-        */
+
         SoftKeyboard softKeyboard;
         softKeyboard = new SoftKeyboard(mainLayout, im);
         softKeyboard.setSoftKeyboardCallback(new SoftKeyboard.SoftKeyboardChanged() {
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        etxtSearch.setVisibility(View.INVISIBLE);
+                        etxtSearch.setVisibility(View.GONE);
                         etxtSearch.getText().clear();
                     }
                 });
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER) && !etxtSearch.getText().toString().isEmpty()) {
-                    etxtSearch.setVisibility(View.INVISIBLE);
+                    etxtSearch.setVisibility(View.GONE);
                     Intent s = new Intent(MainActivity.this, SearchActivity.class);
                     s.putExtra("User", aktUser);
                     s.putExtra("Suche", etxtSearch.getText().toString());
@@ -176,7 +176,10 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_search:
                 etxtSearch.setVisibility(View.VISIBLE);
-                etxtSearch.setEnabled(true);
+                etxtSearch.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(etxtSearch, InputMethodManager.SHOW_IMPLICIT);
+                etxtSearch.bringToFront();
                 return true;
 
             default:

@@ -21,6 +21,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class UserController {
     /**
@@ -95,10 +97,10 @@ public class UserController {
         return gson.fromJson(responseString, Settings.class);
     }
 
-    public static boolean setProfilPicture(Uri pictureUri) throws  IOException {
+    public static boolean setProfilPicture(Uri pictureUri) throws IOException, URISyntaxException {
         String url = "/profile/picture";
-
-        File file = new File(pictureUri.toString());
+        System.out.println(pictureUri.toString());
+        File file = new File(pictureUri.getPath());
         FileInputStream stream;
         byte[] picture = new byte[(int) file.length()];
         stream = new FileInputStream(file);

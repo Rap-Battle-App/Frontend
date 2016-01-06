@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Request;
+
 import java.util.List;
 
 
@@ -20,10 +22,10 @@ public class ChallengeAdapter  extends RecyclerView.Adapter<ChallengeAdapter.Cha
 
     private LayoutInflater inflater;
     private Context context;
-    private List<ChallengeElement> data;
+    private List<Request> data;
     private ClickListener cListener;
 
-    public ChallengeAdapter(Context context, List<ChallengeElement> data){
+    public ChallengeAdapter(Context context, List<Request> data){
 
         this.context = context;
         this.inflater = LayoutInflater.from(context);
@@ -42,12 +44,9 @@ public class ChallengeAdapter  extends RecyclerView.Adapter<ChallengeAdapter.Cha
 
     @Override
     public void onBindViewHolder(ChallengeViewHolder holder, int position) {
-        ChallengeElement current = data.get(position);
-        holder.rname.setText(current.rapper);
-        holder.rProfilePic.setImageResource(current.imgRapper);
-        holder.cAccepted.setImageResource(current.imgAccepted);
-        holder.cDeclined.setImageResource(current.imgDeclined);
-
+        Request current = data.get(position);
+        holder.rname.setText(current.getOpponent().getUsername());
+        holder.rProfilePic.setImageResource(R.mipmap.ic_launcher);
 
     }
 

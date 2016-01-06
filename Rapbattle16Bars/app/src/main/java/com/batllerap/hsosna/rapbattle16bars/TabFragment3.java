@@ -5,19 +5,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -36,12 +41,18 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
     private TextView txtvLooses = null;
     private TextView txtvLoosesValue = null;
     private TextView txtvWinsValue = null;
+    private TextView txtvClosedBattles = null;
+    private TextView txtvOpenBattles = null;
+
+    //View
+    private View profileDivider = null;
 
     //ImageView
     private ImageView imgvProfilePicture = null;
 
     //Button
     private Button btnEditProfile = null;
+    private Button btnHerausfordern = null;
 
     //Battles
     private RecyclerView tList;
@@ -59,6 +70,9 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         View layout = inflater.inflate(R.layout.activity_profile, container, false);
 
 
+        final Toolbar toolbar = (Toolbar) layout.findViewById(R.id.profileToolbar);
+        toolbar.setVisibility(View.GONE);
+
         aktUser = (User) getActivity().getIntent().getSerializableExtra("User");
 
         //TextView
@@ -69,6 +83,11 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         this.txtvLooses = (TextView) layout.findViewById(R.id.txtvLooses);
         this.txtvWinsValue = (TextView) layout.findViewById(R.id.txtvWinsValue);
         this.txtvLoosesValue = (TextView) layout.findViewById(R.id.txtvLoosesValue);
+        this.txtvClosedBattles = (TextView) layout.findViewById(R.id.txtvClosedBattles);
+        this.txtvOpenBattles = (TextView) layout.findViewById(R.id.txtvOpenBattles);
+
+        //View
+        this.profileDivider = (View) layout.findViewById(R.id.profileDivider);
 
         //ImageView
         this.imgvProfilePicture = (ImageView) layout.findViewById(R.id.imgvProfilePicture);
@@ -85,12 +104,18 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
             }
         });
 
+        this.btnHerausfordern = (Button) layout.findViewById(R.id.btnHerausfordern);
+        this.btnHerausfordern.setVisibility(View.INVISIBLE);
+
         this.txtvUsername.setText(aktUser.getUserName());
         this.txtvLocation.setText(aktUser.getLocation());
         this.txtvAboutMe.setText(aktUser.getAboutMe());
         if(aktUser.getProfilePicture() != null) {
             this.imgvProfilePicture.setImageURI(Uri.parse(aktUser.getProfilePicture()));
+        }else {
+            this.imgvProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
+
         if(aktUser.isRapper()){
             this.txtvWinsValue.setText(Integer.toString(aktUser.getRapper().getWins()));
             this.txtvLoosesValue.setText(Integer.toString(aktUser.getRapper().getLooses()));
@@ -128,8 +153,8 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
             tList.setLayoutManager(wrvLayoutManager);
             oList.setLayoutManager(wrv2LayoutManager);
 
-            tAdapter = new CustomAdapter(getActivity(),getTrendingList());
-            oAdapter = new CustomAdapter(getActivity(),getOpenBattlesList());
+            tAdapter = new CustomAdapter(getActivity(),getCompletedBattles());
+            oAdapter = new CustomAdapter(getActivity(),getOpenforVotingBattlesList());
 
             tAdapter.setClickListener(this);
             oAdapter.setClickListener(this);
@@ -141,6 +166,9 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
             this.txtvLooses.setVisibility(View.INVISIBLE);
             this.txtvWinsValue.setVisibility(View.INVISIBLE);
             this.txtvLoosesValue.setVisibility(View.INVISIBLE);
+            this.txtvClosedBattles.setVisibility(View.INVISIBLE);
+            this.txtvOpenBattles.setVisibility(View.INVISIBLE);
+            this.profileDivider.setVisibility(View.INVISIBLE);
         }
 
         return layout;
@@ -187,6 +215,41 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
 
             data.add(current);
         }
+
+        return data;
+    }
+    public  List<BattleOverview> getCompletedBattles(){
+
+        List<BattleOverview> data = Collections.emptyList();
+        BattleOverview[] bla= new BattleOverview[0];
+        try {
+            if(aktUser != null) {
+                bla = BattleController.getCompletedBattles(aktUser.getId(), 0, 50).getData();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        data.addAll(Arrays.asList(bla));
+
+        return data;
+    }
+
+    public  List<BattleOverview> getOpenforVotingBattlesList(){
+
+        List<BattleOverview> data = Collections.emptyList();
+        BattleOverview[] bla= new BattleOverview[0];
+        try {
+            if(aktUser != null) {
+                bla = BattleController.getOpenForVotingBattles(aktUser.getId(),0, 50).getData();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        data.addAll(Arrays.asList(bla));
 
         return data;
     }

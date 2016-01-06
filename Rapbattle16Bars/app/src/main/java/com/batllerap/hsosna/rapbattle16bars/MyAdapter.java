@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +25,7 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
 
-    private List<ListElement> mDataset= Collections.emptyList();
+    private List<BattleOverview> mDataset = new ArrayList<>();
 
     // The minimum amount of items to have below your current scroll position before loading more.
     private int visibleThreshold = 2;
@@ -31,9 +34,9 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private OnLoadMoreListener onLoadMoreListener;
     private static ClickListener cListener;
 
-    public MyAdapter(List<ListElement> myDataSet, RecyclerView recyclerView) {
+    public MyAdapter(List<BattleOverview> myDataSet, RecyclerView recyclerView) {
 
-        mDataset = myDataSet;
+        this.mDataset = myDataSet;
 
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
 
@@ -57,7 +60,7 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             });
         }
     }
-    public MyAdapter(List<String> myDataset) {
+    public MyAdapter(List<BattleOverview> myDataset) {
         myDataset = myDataset;
     }
 
@@ -90,13 +93,13 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         if (holder instanceof TextViewHolder) {
-            ListElement current = mDataset.get(position);
-            ((TextViewHolder) holder).imgRapper1.setImageResource(current.imgRapper1);
-            ((TextViewHolder) holder).imgRapper2.setImageResource(current.imgRapper2);
-            ((TextViewHolder) holder).rapper1.setText(current.name1);
-            ((TextViewHolder) holder).rapper2.setText(current.name2);
-            ((TextViewHolder) holder).vs.setText(current.vs);
+            BattleOverview current = mDataset.get(position);/*
+            ((TextViewHolder) holder).imgRapper1.setImageResource(R.drawable.default_profile_pic);
+            ((TextViewHolder) holder).imgRapper2.setImageResource(R.drawable.default_profile_pic);*/
+            ((TextViewHolder) holder).rapper1.setText(current.getRapper1().getUsername());
+            ((TextViewHolder) holder).rapper2.setText(current.getRapper2().getUsername());
 
+;
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
         }

@@ -8,19 +8,24 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/profileToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         <ImageView
+            android:layout_below="@+id/profileToolbar"
             android:id="@+id/imgvProfilePicture"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:contentDescription="@string/profilePictureDescription"
             android:src="@drawable/default_profile_pic" />
 
@@ -28,9 +33,10 @@
             android:id="@+id/txtvUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/profileToolbar"
             android:layout_alignLeft="@+id/txtvLocation"
-            android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/txtvLocation"
+            android:layout_marginTop="30dp"
             android:text="New Text"
             android:textStyle="bold" />
 
@@ -61,6 +67,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/imgvProfilePicture"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="22dp"
             android:text="@string/strWins" />
 
@@ -79,6 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_marginLeft="30dp"
             android:layout_below="@+id/txtvWins"
             android:text="New Text" />
 
@@ -92,6 +100,18 @@
             android:text="New Text" />
 
         <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnHerausfordern"
+            android:background="?attr/colorPrimary"
+            android:textColor="#ffffff"
+            android:text="Herausfordern"
+            android:textSize="10dp"
+            android:layout_alignTop="@+id/txtvLooses"
+            android:layout_toRightOf="@+id/txtvUsername"
+            android:layout_toEndOf="@+id/txtvUsername" />
+
+        <Button
             android:id="@+id/btnEditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,7 +119,10 @@
             android:layout_alignEnd="@+id/imgvProfilePicture"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_marginLeft="30dp"
             android:layout_alignRight="@+id/imgvProfilePicture"
+            android:background="?attr/colorPrimary"
+            android:textColor="#ffffff"
             android:text="@string/strEditProfile"
             android:textSize="10sp" />
 
@@ -110,6 +133,7 @@
             android:layout_below="@+id/txtvWinsValue"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
             android:text="Abgeschlossene Battles"
             android:textSize="16sp" />
 
@@ -127,6 +151,7 @@
             android:id="@+id/profileDivider"
             android:layout_width="fill_parent"
             android:layout_height="2dp"
+            android:layout_marginLeft="30dp"
             android:layout_below="@+id/profileClosedBattlesList"
             android:layout_centerHorizontal="true"
             android:background="#c0c0c0" />
@@ -139,6 +164,7 @@
             android:layout_below="@+id/profileDivider"
             android:layout_centerHorizontal="true"
             android:text="Offene Battles"
+            android:layout_marginLeft="30dp"
             android:textSize="16sp" />
 
 

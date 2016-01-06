@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,11 +21,11 @@ import java.util.List;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
-    private List<ListElement> data= Collections.emptyList();
+    private List<BattleOverview> data= new ArrayList<>();
     private Context context;
     private ClickListener cListener;
 
-    public CustomAdapter(Context context, List<ListElement> data){
+    public CustomAdapter(Context context, List<BattleOverview> data){
 
         this.context = context;
         this.inflater = LayoutInflater.from(context);
@@ -41,12 +44,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        ListElement current = data.get(position);
-        holder.imgRapper1.setImageResource(current.imgRapper1);
-        holder.imgRapper2.setImageResource(current.imgRapper2);
-        holder.rapper1.setText(current.name1);
-        holder.rapper2.setText(current.name2);
-        holder.vs.setText(current.vs);
+        BattleOverview current = data.get(position);/*
+        holder.imgRapper1.setImageResource(R.drawable.default_profile_pic);
+        holder.imgRapper2.setImageResource(R.drawable.default_profile_pic);*/
+        holder.rapper1.setText(current.getRapper1().getUsername());
+        holder.rapper2.setText(current.getRapper2().getUsername());
 
 
 

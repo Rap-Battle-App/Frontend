@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,12 +27,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     private LayoutInflater inflater;
     private Context context;
-    private ProfilePreview[] data;
+    private List<ProfilePreview> data= new ArrayList<>();
     private ClickListener cListener;
-    Bitmap  bmp = null;
-    URL newurl = null;
 
-    public SearchAdapter(Context context, ProfilePreview[] data) {
+    public SearchAdapter(Context context, List<ProfilePreview> data) {
 
         this.context = context;
         this.inflater = LayoutInflater.from(context);
@@ -48,35 +48,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(SearchViewHolder holder, int position) {
-        final ProfilePreview current = data[position];
+        final ProfilePreview current = data.get(position);
         holder.rname.setText(current.getUsername());
-        Thread thread = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                try {
-                    try {
-                        newurl = new URL(current.getProfile_picture());
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        bmp = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        holder.rProfilePic.setImageBitmap(bmp);
         holder.profileId = current.getUser_id();
+
     }
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size();
     }
 
     class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

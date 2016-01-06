@@ -12,15 +12,22 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter.ClickListener{
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private MyAdapter mAdapter;
-    private final List<ListElement> myDataset = new ArrayList<>();
+    private final List<BattleOverview> myDataset = new ArrayList<>();
     private Handler handler;
+    private User aktUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +40,10 @@ public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter
         getSupportActionBar().setTitle("OFFENE BATTLES");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        aktUser = (User) getIntent().getSerializableExtra("User");
+
         handler = new Handler();
-        getTrendingList();
+        getOpenforVotesList();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
@@ -73,7 +82,7 @@ public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter
                             current.name1="john";
                             current.name2 = "peter";
 
-                            myDataset.add(current);
+                           // myDataset.add(current);
                             mAdapter.notifyItemInserted(myDataset.size());
                         }
                         mAdapter.setLoaded();
@@ -85,24 +94,22 @@ public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter
         });
     }
 
-    public void getTrendingList(){
+    public void getOpenforVotesList(){
 
 
 
 
+            BattleOverview[] bla= new BattleOverview[0];
+            try {
+                if(aktUser != null) {
+                    bla = BattleController.getOpenForVotingBattles(aktUser.getId(),0, 50).getData();
+                }
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        for (int i=0;i <20; i++ ){
-
-            ListElement current = new ListElement();
-            current.imgRapper1 =R.mipmap.ic_launcher;
-            current.imgRapper2= R.mipmap.ic_launcher;
-            current.name1="john";
-            current.name2 = "peter";
-
-            myDataset.add(current);
-        }
-
+            this.myDataset.addAll(Arrays.asList(bla));
 
     }
 

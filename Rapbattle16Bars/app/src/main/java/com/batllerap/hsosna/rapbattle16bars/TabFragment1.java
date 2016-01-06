@@ -11,11 +11,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
+import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class TabFragment1 extends Fragment implements CustomAdapter.ClickListener {
@@ -27,7 +31,8 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
     private CustomAdapter oAdapter;
     private BattleController bController;
     private User aktUser;
-    private  static BattleListResponse trending;
+    private List<BattleOverview> trendingBattlesList;
+    private List<BattleOverview> openForVotesBattlesList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +41,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         oList = (RecyclerView) layout.findViewById(R.id.openList);
         TextView tview = (TextView) layout.findViewById(R.id.txtvClosedBattles);
         TextView oView = (TextView) layout.findViewById(R.id.txtvOpenBattles);
+        aktUser = (User) getActivity().getIntent().getSerializableExtra("User");
 
 
         tview.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +56,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforvotesActivity");
+                myIntent.putExtra("User", aktUser);
                 startActivity(myIntent);
             }
         });
@@ -65,8 +72,10 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         tList.setLayoutManager(wrvLayoutManager);
         oList.setLayoutManager(wrv2LayoutManager);
 
-        tAdapter = new CustomAdapter(getActivity(),getTrendingList());
-        oAdapter = new CustomAdapter(getActivity(),getOpenBattlesList());
+        trendingBattlesList = getTrendingList();
+        openForVotesBattlesList = getOpenBattlesList();
+        tAdapter = new CustomAdapter(getActivity(), trendingBattlesList);
+        oAdapter = new CustomAdapter(getActivity(), openForVotesBattlesList);
 
         tAdapter.setClickListener(this);
         oAdapter.setClickListener(this);
@@ -77,99 +86,70 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
     }
 
 
+    public List<BattleOverview> getTrendingList() {
 
-
-
-    public static List<ListElement> getTrendingList(){
-
-        List<ListElement> data = new ArrayList<>();
-
+        List<BattleOverview> data = new ArrayList<>();
+        BattleOverview[] bla = new BattleOverview[0];
         try {
-            BattleListResponse trending = BattleController.getTrendingBattles(1, 5);
+            if (aktUser != null) {
+                bla = BattleController.getTrendingBattles(0, 50).getData();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-        for (int i=0;i <5; i++ ){
-
-            ListElement current = new ListElement();
-            current.imgRapper1 =R.mipmap.ic_launcher;
-            current.imgRapper2= R.mipmap.ic_launcher;
-            current.name1="john";
-            current.name2 = "peter";
-
-            data.add(current);
-        }
+        data.addAll(Arrays.asList(bla));
 
         return data;
     }
 
-    public static List<ListElement> getOpenBattlesList(){
+    public List<BattleOverview> getOpenBattlesList() {
 
-        List<ListElement> data = new ArrayList<>();
-
+        List<BattleOverview> data = Collections.emptyList();
+        BattleOverview[] bla = new BattleOverview[0];
         try {
-            BattleListResponse trending = BattleController.getTrendingBattles(1, 5);
-        }catch (IOException e) {
+            if (aktUser != null) {
+                bla = BattleController.getOpenForVotingBattles(aktUser.getId(), 0, 50).getData();
+            }
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-        for (int i=0;i <5; i++ ){
-
-            ListElement current = new ListElement();
-            current.imgRapper1 =R.mipmap.ic_launcher;
-            current.imgRapper2= R.mipmap.ic_launcher;
-            current.name1="john";
-            current.name2 = "peter";
-
-            data.add(current);
-        }
+        data.addAll(Arrays.asList(bla));
 
         return data;
     }
 
     @Override
     public void itemClicked(View view, int position) {
-        View v =view;
-        System.out.println(v.getParent());
-        if(v.getParent()== tList){
+
+        if (view.getParent() == tList) {
             System.out.println("Trending List Angeklickt");
-            Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
-            startActivity(intent);
-            //
-            //Works after Controllers are finished
-                /*
-                try{
-                    Intent intent = new Intent("com.albert.testbattle.ClosedBattleActivity");
-                    Battle battle = bController.getBattle(trending[position].getBattleId());
-                    intent.putExtra("battle",battle);
-                    startActivity(intent);
-                }catch(org.json.JSONException exception) {
-                    exception.printStackTrace();
-                }*/
+            try {
+                Battle battle = BattleController.getBattle(trendingBattlesList.get(position).getBattle_id());
 
-        }else if(v.getParent()== oList){
-            System.out.println("Open for Votes List Angeklickt");
-            Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
-            startActivity(intent);
+                Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
+                intent.putExtra("battle", battle);
+                startActivity(intent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            //
-            //Works after Controllers are finished
+        } else if (view.getParent() == oList) {
 
-               /* try{
-                    Intent intent = new Intent("com.albert.testbattle.OpenforVotesBattleActivity");
-                    Battle battle = bController.getBattle(trending[position].getBattleId());
-                    intent.putExtra("battle",battle);
-                    startActivity(intent);
-                }catch(org.json.JSONException exception) {
-                    exception.printStackTrace();
-                }
-                */
+            try {
+                Battle battle = BattleController.getBattle(openForVotesBattlesList.get(position).getBattle_id());
+
+                Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
+                intent.putExtra("battle", battle);
+                startActivity(intent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
-
     }
 }
 

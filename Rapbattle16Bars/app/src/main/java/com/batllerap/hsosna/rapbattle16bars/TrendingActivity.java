@@ -10,14 +10,19 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TrendingActivity extends AppCompatActivity  implements MyAdapter.ClickListener{
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private MyAdapter mAdapter;
-    private final List<ListElement> myDataset = new ArrayList<>();
+    private final List<BattleOverview> myDataset = new ArrayList<>();
     private Handler handler;
 
 
@@ -72,7 +77,6 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
                             current.name1="john";
                             current.name2 = "peter";
 
-                            myDataset.add(current);
                             mAdapter.notifyItemInserted(myDataset.size());
                         }
                         mAdapter.setLoaded();
@@ -84,24 +88,16 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
         });
     }
 
-    public void getTrendingList(){
+    public void getTrendingList()  {
 
-
-
-
-
-
-        for (int i=0;i <20; i++ ){
-
-            ListElement current = new ListElement();
-            current.imgRapper1 =R.mipmap.ic_launcher;
-            current.imgRapper2= R.mipmap.ic_launcher;
-            current.name1="john";
-            current.name2 = "peter";
-
-            myDataset.add(current);
+        BattleOverview[] bla= new BattleOverview[0];
+        try {
+            bla = BattleController.getTrendingBattles(0, 50).getData();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
+        this.myDataset.addAll(Arrays.asList(bla));
 
     }
 

@@ -3,7 +3,6 @@ package com.batllerap.hsosna.rapbattle16bars.Model.Battle;
 import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by Dennis on 03.11.2015.

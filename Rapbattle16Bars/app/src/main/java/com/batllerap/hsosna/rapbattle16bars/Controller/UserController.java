@@ -4,6 +4,8 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
  * Created by Dennis on 03.11.2015.
  */
 
+import android.net.Uri;
+
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.Rapper;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.PasswordRequest;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.ProfileInformationRequest;
@@ -15,6 +17,8 @@ import com.batllerap.hsosna.rapbattle16bars.Model.request.UsernameRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -91,8 +95,15 @@ public class UserController {
         return gson.fromJson(responseString, Settings.class);
     }
 
-    public static boolean setProfilPicture(byte picture) throws  IOException {
+    public static boolean setProfilPicture(Uri pictureUri) throws  IOException {
         String url = "/profile/picture";
+
+        File file = new File(pictureUri.toString());
+        FileInputStream stream;
+        byte[] picture = new byte[(int) file.length()];
+        stream = new FileInputStream(file);
+        stream.read(picture);
+        stream.close();
 
         ProfilePictureRequest request = new ProfilePictureRequest();
         request.setPicture(picture);

@@ -1,8 +1,10 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -158,9 +160,21 @@ public class EditProfileActivity extends AppCompatActivity {
         if (resCode == RESULT_OK) {
             if (reqCode == 1) {
                 imgvEditProfilePicture.setImageURI(data.getData());
-                aktUser.setProfilePicture(data.getData().toString());
+                aktUser.setProfilePicture(getRealPathFromURI(data.getData()));
             }
         }
+    }
+
+    public String getRealPathFromURI(Uri contentUri){
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        if(cursor == null) return null;
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String s = cursor.getString(column_index);
+        cursor.close();
+        System.out.println(s);
+        return s;
     }
 
     @Override

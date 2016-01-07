@@ -32,10 +32,11 @@ public class BattleController {
     /**
      * Returns a BattleList Array with trendingBattles
      * @param amount maximum of Battles in the BattleList
+     * @param page the page of the list
      * @return
      */
     public static BattleListResponse getTrendingBattles(int page, int amount) throws IOException {
-        String url = "/battles/trending";
+        String url = "/battles/trending?amount=" + amount + "&page=" + page;
 
         String responseString = ConnectionController.getJSON(url);
 
@@ -47,12 +48,26 @@ public class BattleController {
     }
 
     /**
-     * Returns a BattleList Array with open for Voting Battles
-     * @param count maximum of Battles in the BattleList
+     * Returns a BattleList Array with Battles, wich are open for voting
+     * @param userId The User, whos Battles are open for voting
+     * @param page the page of the list
+     * @param amount how many Battles
      * @return
      */
     public static BattleListResponse getOpenForVotingBattles(int userId, int page, int amount) throws IOException {
-        String url = "/battles/open-voting";
+        String url = "/battles/open-voting?amount=" + amount + "&user_id=" + userId + "&page=" + page;
+
+        String responseString = ConnectionController.getJSON(url);
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        BattleListResponse response = gson.fromJson(responseString, BattleListResponse.class);
+
+        return response;
+    }
+
+    public static BattleListResponse getOpenForVotingBattles(int page, int amount) throws IOException {
+        String url = "/battles/open-voting?amount=" + amount + "&page=" + page;
 
         String responseString = ConnectionController.getJSON(url);
 
@@ -65,11 +80,13 @@ public class BattleController {
 
     /**
      * Returns a BattleList Array with completed Battles
-     * @param count maximum of Battles in the BattleList
+     * @param userId The User, who completed the Battles
+     * @param page the page of the list
+     * @param amount how many Battles
      * @return
      */
     public static BattleListResponse getCompletedBattles(int userId, int page, int amount) throws IOException {
-        String url = "/battles/open-voting";
+        String url = "/battles/open-voting?amount=" + amount + "&user_id=" + userId + "&page=" + page;
 
         String responseString = ConnectionController.getJSON(url);
 
@@ -82,11 +99,11 @@ public class BattleController {
 
     /**
      * Returns a BattleList Array with open Battles
-     * @param count maximum of Battles in the BattleList
+     * @param page
      * @return
      */
     public static BattleListResponse getOpenBattles(int page) throws IOException {
-        String url = "/battles/open-voting";
+        String url = "/battles/open-voting?page="+page;
 
         String responseString = ConnectionController.getJSON(url);
 

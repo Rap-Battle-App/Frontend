@@ -4,6 +4,8 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
  * Created by Dennis on 03.11.2015.
  */
 
+import android.net.Uri;
+
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.Rapper;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.PasswordRequest;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.ProfileInformationRequest;
@@ -15,8 +17,12 @@ import com.batllerap.hsosna.rapbattle16bars.Model.request.UsernameRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class UserController {
     /**
@@ -25,7 +31,7 @@ public class UserController {
      * @param user        user to find in Database
      * @param newUserName new Username
      */
-    public static boolean setUsername(User user, String newUserName) throws  MalformedURLException, IOException {
+    public static void setUsername(User user, String newUserName) throws  MalformedURLException, IOException {
         String url = "/account/username";
 
         UsernameRequest request = new UsernameRequest();
@@ -39,7 +45,6 @@ public class UserController {
 
         System.out.println("SetUsername: response: " + responseString);
         user.setUserName(newUserName);
-        return true;
     }
 
     /**
@@ -48,8 +53,8 @@ public class UserController {
      * @param user     the User
      * @param isRapper the new status
      */
-    public static boolean setIsRapper(User user, boolean isRapper) throws  IOException {
-        return setSettings(user, user.getNotifications(), isRapper);
+    public static void setIsRapper(User user, boolean isRapper) throws  IOException {
+        setSettings(user, user.getNotifications(), isRapper);
     }
 
     /**
@@ -58,11 +63,11 @@ public class UserController {
      * @param user          the User
      * @param notifications the new status
      */
-    public static boolean setNotifications(User user, boolean notifications) throws  IOException {
-        return setSettings(user, notifications, user.isRapper());
+    public static void setNotifications(User user, boolean notifications) throws  IOException {
+        setSettings(user, notifications, user.isRapper());
     }
 
-    public static boolean setSettings(User user, boolean notifications, boolean isRapper) throws  IOException {
+    public static void setSettings(User user, boolean notifications, boolean isRapper) throws  IOException {
         String url = "/account/settings";
         Settings settings = new Settings(notifications,isRapper);
         GsonBuilder builder = new GsonBuilder();
@@ -75,7 +80,6 @@ public class UserController {
 
         user.setIsRapper(isRapper);
         user.setNotifications(notifications);
-        return true;
     }
 
     /**
@@ -93,8 +97,15 @@ public class UserController {
         return gson.fromJson(responseString, Settings.class);
     }
 
-    public static boolean setProfilPicture(byte picture) throws  IOException {
+    public static boolean setProfilPicture(Uri pictureUri) throws IOException, URISyntaxException {
         String url = "/profile/picture";
+        System.out.println(pictureUri.toString());
+        File file = new File(pictureUri.getPath());
+        FileInputStream stream;
+        byte[] picture = new byte[(int) file.length()];
+        stream = new FileInputStream(file);
+        stream.read(picture);
+        stream.close();
 
         ProfilePictureRequest request = new ProfilePictureRequest();
         request.setPicture(picture);
@@ -109,7 +120,7 @@ public class UserController {
         return true;
     }
 
-    public static boolean setProfileInformation(User user, String location, String aboutMe) throws  IOException {
+    public static void setProfileInformation(User user, String location, String aboutMe) throws  IOException {
         String url = "/profile";
 
         ProfileInformationRequest request = new ProfileInformationRequest();
@@ -128,15 +139,14 @@ public class UserController {
 
         user.setAboutMe(aboutMe);
         user.setLocation(location);
-        return true;
     }
 
-    public static boolean setLocation(User user, String location) throws  IOException {
-        return UserController.setProfileInformation(user, location, user.getAboutMe());
+    public static void setLocation(User user, String location) throws  IOException {
+        UserController.setProfileInformation(user, location, user.getAboutMe());
     }
 
-    public static boolean setAboutMe(User user, String aboutMe) throws IOException {
-        return UserController.setProfileInformation(user, user.getLocation(), aboutMe);
+    public static void setAboutMe(User user, String aboutMe) throws IOException {
+        UserController.setProfileInformation(user, user.getLocation(), aboutMe);
     }
 
     /**
@@ -177,7 +187,7 @@ public class UserController {
      * @param newPassword the new Password
      * @return returns true if successfull
      */
-    public static boolean changePassword(String oldPassword, String newPassword) throws IOException {
+    public static void changePassword(String oldPassword, String newPassword) throws IOException {
         String url = "/account/password";
 
         PasswordRequest request = new PasswordRequest();
@@ -191,7 +201,5 @@ public class UserController {
 
         String responseString = ConnectionController.postJSON(url, requestString);
         System.out.println("ChangePassword response: " + responseString);
-
-        return true;
     }
 }

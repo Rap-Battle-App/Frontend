@@ -1,8 +1,11 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -51,6 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 } else {
                     try {
+
                         UserController.setIsRapper(aktUser,true);
 
                     }catch (java.io.IOException exception){
@@ -66,6 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked && aktUser != null){
                     try{
+
                         UserController.setNotifications(aktUser, false);
 
                     }catch (java.io.IOException exception){
@@ -74,6 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 } else if (aktUser != null){
                     try {
+
                         UserController.setNotifications(aktUser, true );
 
                     } catch (IOException e) {
@@ -82,5 +88,24 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("User", aktUser);
+        startActivity(intent);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Log.v("qqq", "DIGGAAA");
+                onBackPressed();
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

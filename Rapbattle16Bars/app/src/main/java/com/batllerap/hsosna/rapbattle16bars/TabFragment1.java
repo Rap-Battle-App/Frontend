@@ -142,7 +142,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
             try {
                 Battle battle = BattleController.getBattle(openForVotesBattlesList.get(position).getBattle_id());
 
-                Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
+                Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
                 intent.putExtra("battle", battle);
                 startActivity(intent);
             } catch (IOException e) {

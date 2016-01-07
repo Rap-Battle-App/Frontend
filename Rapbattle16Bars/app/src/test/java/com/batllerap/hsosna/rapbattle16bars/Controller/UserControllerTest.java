@@ -27,38 +27,38 @@ public class UserControllerTest {
 
     @Test
     public void testSetUsername() throws Exception {
-        Assert.assertTrue(UserController.setUsername(user,"newName"));
-        Assert.assertTrue(user.getUserName().equals("newName"));
+        UserController.setUsername(user,"newName");
+        user.getUserName().equals("newName");
     }
 
     @Test
     public void testSetIsRapper() throws Exception {
-        Assert.assertTrue(UserController.setIsRapper(user, false));
+        UserController.setIsRapper(user, false);
         Assert.assertTrue(!user.isRapper());
-        Assert.assertTrue(UserController.setIsRapper(user,true));
+        UserController.setIsRapper(user,true);
         Assert.assertTrue(user.isRapper());
     }
 
     @Test
     public void testSetNotifications() throws Exception {
-        Assert.assertTrue(UserController.setNotifications(user, false));
+        UserController.setNotifications(user, false);
         Assert.assertTrue(!user.getNotifications());
-        Assert.assertTrue(UserController.setNotifications(user, true));
+       UserController.setNotifications(user, true);
         Assert.assertTrue(user.getNotifications());
     }
 
     @Test
     public void testSetSettings() throws Exception {
-        Assert.assertTrue(UserController.setSettings(user, false, false));
+        UserController.setSettings(user, false, false);
         Assert.assertTrue(!user.getNotifications());
         Assert.assertTrue(!user.isRapper());
-        Assert.assertTrue(UserController.setSettings(user, false, true));
+        UserController.setSettings(user, false, true);
         Assert.assertTrue(!user.getNotifications());
         Assert.assertTrue(user.isRapper());
-        Assert.assertTrue(UserController.setSettings(user, true, false));
+        UserController.setSettings(user, true, false);
         Assert.assertTrue(user.getNotifications());
         Assert.assertTrue(!user.isRapper());
-        Assert.assertTrue(UserController.setSettings(user, true, true));
+        UserController.setSettings(user, true, true);
         Assert.assertTrue(user.getNotifications());
         Assert.assertTrue(user.isRapper());
     }
@@ -75,7 +75,7 @@ public class UserControllerTest {
 
     @Test
     public void testSetProfileInformation() throws Exception {
-        Assert.assertTrue(UserController.setProfileInformation(user, "hier und da", "blablabbla"));
+       UserController.setProfileInformation(user, "hier und da", "blablabbla");
         Assert.assertTrue(user.getLocation().equals("hier und da"));
         Assert.assertTrue(user.getAboutMe().equals("blablabbla"));
     }
@@ -105,7 +105,7 @@ public class UserControllerTest {
     @Test
     public void testChangePassword(){
         try{
-            Assert.assertTrue("Couldnt change the Password", UserController.changePassword("bla123", "bla1234"));
+            UserController.changePassword("bla123", "bla1234");
         }
         catch(Exception e){
             Assert.fail();

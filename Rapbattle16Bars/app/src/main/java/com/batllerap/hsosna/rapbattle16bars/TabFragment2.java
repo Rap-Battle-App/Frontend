@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.OpenBattle;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Request;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
@@ -89,7 +90,7 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
 
     public  List<BattleOverview> getMyOpenBattlesList(){
 
-        List<BattleOverview> data = Collections.emptyList();
+        List<BattleOverview> data = new ArrayList<>();
         BattleOverview[] bla= new BattleOverview[0];
         try {
             if(aktUser != null) {
@@ -108,11 +109,11 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
     public  List<Request> getMyOpenChallengeList(){
 
 
-        List<Request> data = Collections.emptyList();
+        List<Request> data = new ArrayList<>();
         Request[] bla= new Request[0];
         try {
             if(aktUser != null) {
-                bla = BattleController.getRequestList(aktUser.getUserName()).getRequests();
+                bla = BattleController.getRequestList(aktUser.getUserName()).getOpponent_requests();
             }
 
         } catch (IOException e) {
@@ -128,19 +129,15 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
     @Override
     public void itemClicked(View view, int position) {
         View v =view;
-        Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
-        startActivity(intent);
-        //
-        //Works after Controllers are finished
-                /*
-                try{
-                    Intent intent = new Intent("com.albert.testbattle.ClosedBattleActivity");
-                    Battle battle = bController.getBattle(trending[position].getBattleId());
-                    intent.putExtra("battle",battle);
-                    startActivity(intent);
-                }catch(org.json.JSONException exception) {
-                    exception.printStackTrace();
-                }*/
+        try {
+            OpenBattle oBattle= BattleController.getOpenBattle(myOpenBattlesList.get(position).getBattle_id());
+            Intent intent = new Intent(getActivity(), OpenBattleActivity.class);
+            intent.putExtra("Battle", oBattle);
+            startActivity(intent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

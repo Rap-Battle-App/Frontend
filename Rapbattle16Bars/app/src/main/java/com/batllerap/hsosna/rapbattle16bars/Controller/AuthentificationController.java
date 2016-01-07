@@ -101,10 +101,9 @@ public class AuthentificationController {
      * Logout
      * @return returns true if logout is successful, else false
      */
-    public static boolean logout() throws IOException {
+    public static void logout() throws IOException {
         String url = "/auth/logout";
         String responseString = ConnectionController.getJSON(url);
-        return true;
     }
 
     /**
@@ -112,7 +111,7 @@ public class AuthentificationController {
      * @param email Email to find the Account
      * @return returns true if reset is successful, else false
      */
-    public static boolean resetPassword(String email, String password, String token) throws IOException{
+    public static void resetPassword(String email, String password, String token) throws IOException{
         String url = "/password-recovery/reset";
         ResetRequest request = new ResetRequest();
         request.setEmail(email);
@@ -125,8 +124,6 @@ public class AuthentificationController {
         String requestString = gson.toJson(request);
         String responseString = ConnectionController.postJSON(url,requestString);
         System.out.println("ResetPassword response: " + responseString);
-
-        return true;
     }
 
 

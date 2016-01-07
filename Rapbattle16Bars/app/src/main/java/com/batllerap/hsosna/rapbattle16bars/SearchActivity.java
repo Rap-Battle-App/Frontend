@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+
 import com.batllerap.hsosna.rapbattle16bars.Controller.SearchController;
 import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Request;
@@ -63,20 +63,13 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        /*searchResults = new ProfilePreview[5];
-        searchResults[0] = new ProfilePreview(0, "testRapper", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
-        searchResults[1] = new ProfilePreview(1, "testViewer", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
-        searchResults[2] = new ProfilePreview(1, "testViewer1", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
-        searchResults[3] = new ProfilePreview(1, "testViewer2", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");
-        searchResults[4] = new ProfilePreview(1, "testViewer3", "http://thz-salzburg.at/cms/uploads/Prof-im-Profil-690x1024.jpg");*/
-
-
         aktUser = (User) getIntent().getSerializableExtra("User");
+        searchResults = getData();
 
         this.searchView = (RecyclerView) findViewById(R.id.searchResultView);
         this.wrvLayoutManager = new WrappingRecyclerViewLayoutManager(this);
         this.searchView.setLayoutManager(this.wrvLayoutManager);
-        adapter = new SearchAdapter(getApplicationContext(), getData());
+        adapter = new SearchAdapter(getApplicationContext(), searchResults);
         adapter.setClickListener(SearchActivity.this);
         searchView.setAdapter(adapter);
 
@@ -86,7 +79,7 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
     public List<ProfilePreview> getData() {
 
 
-        List<ProfilePreview> data = Collections.emptyList();
+        List<ProfilePreview> data = new ArrayList<>();
         ProfilePreview[] bla= new ProfilePreview[0];
         try {
             if(aktUser != null && null != getIntent().getSerializableExtra("Suche") ) {
@@ -100,6 +93,7 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
         data.addAll(Arrays.asList(bla));
 
         return data;
+
     }
 
 

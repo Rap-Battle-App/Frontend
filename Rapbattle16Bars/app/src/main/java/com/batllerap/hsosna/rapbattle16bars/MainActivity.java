@@ -1,8 +1,15 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.app.Service;
+
 import android.content.Intent;
 import android.inputmethodservice.Keyboard;
+
+import android.content.Context;
+import android.content.Intent;
+import android.inputmethodservice.Keyboard;
+import android.os.Build;
+
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -12,9 +19,11 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.AuthentificationController;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
@@ -32,9 +41,32 @@ public class MainActivity extends AppCompatActivity {
         aktUser = (User) getIntent().getSerializableExtra("User");
         //System.out.print(aktUser.getUserName());
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.main_relativelayout); // You must use the layout root
+        InputMethodManager im = (InputMethodManager) getSystemService(Service.INPUT_METHOD_SERVICE);
+
+
+        SoftKeyboard softKeyboard;
+        softKeyboard = new SoftKeyboard(mainLayout, im);
+        softKeyboard.setSoftKeyboardCallback(new SoftKeyboard.SoftKeyboardChanged() {
+
+            @Override
+            public void onSoftKeyboardHide() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        etxtSearch.setVisibility(View.GONE);
+                        etxtSearch.getText().clear();
+                    }
+                });
+            }
+
+            @Override
+            public void onSoftKeyboardShow() {
+            }
+        });
 
         //Search EditText
         etxtSearch = (EditText) findViewById(R.id.etxtSearch);
@@ -44,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER) && !etxtSearch.getText().toString().isEmpty()) {
                     etxtSearch.setVisibility(View.INVISIBLE);
+                    etxtSearch.setVisibility(View.GONE);
                     Intent s = new Intent(MainActivity.this, SearchActivity.class);
                     s.putExtra("User", aktUser);
                     s.putExtra("Suche", etxtSearch.getText().toString());
@@ -66,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setContentDescription("PROFILE").setIcon(R.mipmap.ic_account_circle_white_48dp));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        getSupportActionBar().setTitle("HOME");
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setTitle("HOME");
+        }
 
         // Creating Viewpager
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -98,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(2);
             }
         }
-
     }
 
     @Override
@@ -149,6 +183,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_search:
                 etxtSearch.setVisibility(View.VISIBLE);
                 etxtSearch.setEnabled(true);
+                etxtSearch.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(etxtSearch, InputMethodManager.SHOW_IMPLICIT);
+                etxtSearch.bringToFront();
+
                 return true;
 
             default:

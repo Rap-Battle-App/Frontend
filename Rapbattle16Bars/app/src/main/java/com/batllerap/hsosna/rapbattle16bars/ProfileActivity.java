@@ -15,18 +15,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
+
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 
 public class ProfileActivity extends AppCompatActivity implements CustomAdapter.ClickListener {
+
 
     //aktueller User
     private User aktUser = null;
@@ -64,8 +69,8 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
     private WrappingRecyclerViewLayoutManager wrv2LayoutManager;
     private CustomAdapter tAdapter;
     private CustomAdapter oAdapter;
-    private BattleController bController;
-    private  static BattleListResponse trending;
+    private List<BattleOverview> myBattlesList = new ArrayList<>();
+    private List<BattleOverview> myOpenforVotesBattlesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +143,7 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
                 public void onClick(View v) {
                     Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.TrendingActivity");
                     startActivity(myIntent);
+
                 }
             });
 
@@ -149,6 +155,7 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
                 }
             });
 
+
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
             tList.setHasFixedSize(true);
@@ -159,8 +166,12 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             tList.setLayoutManager(wrvLayoutManager);
             oList.setLayoutManager(wrv2LayoutManager);
 
-            tAdapter = new CustomAdapter(this,getCompletedBattles());
-            oAdapter = new CustomAdapter(this,getOpenforVotingBattlesList());
+            myBattlesList = getCompletedBattles();
+
+            myOpenforVotesBattlesList = getOpenforVotingBattlesList();
+
+            tAdapter = new CustomAdapter(this,myBattlesList);
+            oAdapter = new CustomAdapter(this,myOpenforVotesBattlesList);
 
             tAdapter.setClickListener(this);
             oAdapter.setClickListener(this);
@@ -177,6 +188,7 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             this.txtvOpenBattles.setVisibility(View.INVISIBLE);
             this.profileDivider.setVisibility(View.INVISIBLE);
         }
+
     }
 
     public  List<BattleOverview> getCompletedBattles(){
@@ -214,47 +226,33 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
 
         return data;
     }
-
     @Override
     public void itemClicked(View view, int position) {
-        View v =view;
-        System.out.println(v.getParent());
-        if(v.getParent()== tList){
+
+        if (view.getParent() == tList) {
             System.out.println("Trending List Angeklickt");
-            Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
-            startActivity(intent);
-            //
-            //Works after Controllers are finished
-                /*
-                try{
-                    Intent intent = new Intent("com.albert.testbattle.ClosedBattleActivity");
-                    Battle battle = bController.getBattle(trending[position].getBattleId());
-                    intent.putExtra("battle",battle);
-                    startActivity(intent);
-                }catch(org.json.JSONException exception) {
-                    exception.printStackTrace();
-                }*/
+            try {
+                Battle battle = BattleController.getBattle(myBattlesList.get(position).getBattle_id());
 
-        }else if(v.getParent()== oList){
-            System.out.println("Open for Votes List Angeklickt");
-            Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
-            startActivity(intent);
+                Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
+                intent.putExtra("battle", battle);
+                startActivity(intent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            //
-            //Works after Controllers are finished
+        } else if (view.getParent() == oList) {
 
-               /* try{
-                    Intent intent = new Intent("com.albert.testbattle.OpenforVotesBattleActivity");
-                    Battle battle = bController.getBattle(trending[position].getBattleId());
-                    intent.putExtra("battle",battle);
-                    startActivity(intent);
-                }catch(org.json.JSONException exception) {
-                    exception.printStackTrace();
-                }
-                */
+            try {
+                Battle battle = BattleController.getBattle(myOpenforVotesBattlesList.get(position).getBattle_id());
+
+                Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenForVotesBattleActivity");
+                intent.putExtra("battle", battle);
+                startActivity(intent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
-
     }
-
 }

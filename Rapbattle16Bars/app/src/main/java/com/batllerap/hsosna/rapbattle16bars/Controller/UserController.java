@@ -20,6 +20,7 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -97,25 +98,11 @@ public class UserController {
         return gson.fromJson(responseString, Settings.class);
     }
 
-    public static boolean setProfilPicture(Uri pictureUri) throws IOException, URISyntaxException {
+    public static boolean setProfilPicture(InputStream file) throws IOException, URISyntaxException {
         String url = "/profile/picture";
-        System.out.println(pictureUri.toString());
-        File file = new File(pictureUri.getPath());
-        FileInputStream stream;
-        byte[] picture = new byte[(int) file.length()];
-        stream = new FileInputStream(file);
-        stream.read(picture);
-        stream.close();
 
-        ProfilePictureRequest request = new ProfilePictureRequest();
-        request.setPicture(picture);
 
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-
-        String requestString = gson.toJson(request);
-
-        String responseString =  ConnectionController.postJSON(url, requestString);
+        String responseString =  ConnectionController.sendData(url, "picture", file);
         System.out.println("setProfilePicture: " + responseString);
         return true;
     }

@@ -146,18 +146,9 @@ public class BattleController {
     public static void uploadRound(int battleId, int beatId, File videoFile) throws IOException {
         String url = "/open-battle/" + battleId + "/round";
         FileInputStream stream;
-        byte[] video = new byte[(int) videoFile.length()];
         stream = new FileInputStream(videoFile);
-        stream.read(video);
-        stream.close();
 
-        RoundRequest request = new RoundRequest();
-        request.setBeat_id(beatId);
-        request.setVideo(video);
-
-        String requestString = getRequestString(request);
-
-        String responseString =  ConnectionController.postJSON(url, requestString);
+        String responseString =  ConnectionController.sendData(url, "video", stream);
         System.out.println("UploadRound response: " + responseString);
     }
 

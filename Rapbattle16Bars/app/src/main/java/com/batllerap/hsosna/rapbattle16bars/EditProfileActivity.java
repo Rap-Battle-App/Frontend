@@ -23,9 +23,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import org.w3c.dom.Text;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
@@ -103,32 +105,7 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.MainActivity");
                 //myIntent.setAction("TabFragment3");
-                //Benutzerdaten speichern
-                try {
-                    UserController.setUsername(aktUser, txteNewUsername.getText().toString());
 
-                    UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    /*if(!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
-                    if (!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
-                        UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    } else if (txteNewAboutMe.getText().toString().isEmpty()) {
-                        UserController.setLocation(aktUser, txteNewLocation.getText().toString());
-                    } else if (txteNewLocation.getText().toString().isEmpty()) {
-                        UserController.setLocation(aktUser, txteNewAboutMe.getText().toString());
-                    }
-                    UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    }*/
-
-                    UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    UserController.setProfilPicture(Uri.parse(aktUser.getProfilePicture()));
-
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
 
                 myIntent.putExtra("User", aktUser);
                 myIntent.putExtra("Tab", 3);
@@ -136,6 +113,22 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (aktUser.getUserName().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Benutzername darf nicht leer sein", Toast.LENGTH_LONG).show();
                 } else {
+                    //Benutzerdaten speichern
+                    try {
+                        UserController.setUsername(aktUser, txteNewUsername.getText().toString());
+                        UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
+                        InputStream iStream =   getContentResolver().openInputStream(Uri.parse(aktUser.getProfilePicture()));
+                        byte[] inputData = getBytes(iStream);
+                        UserController.setProfilPicture(inputData);
+                        //UserController.setProfilPicture(Uri.parse(aktUser.getProfilePicture()));
+
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
                     startActivity(myIntent);
                 }
             }
@@ -160,12 +153,23 @@ public class EditProfileActivity extends AppCompatActivity {
         if (resCode == RESULT_OK) {
             if (reqCode == 1) {
                 imgvEditProfilePicture.setImageURI(data.getData());
-                aktUser.setProfilePicture(getRealPathFromURI(data.getData()));
+                aktUser.setProfilePicture(data.getData().toString());
             }
         }
     }
 
-    public String getRealPathFromURI(Uri contentUri){
+    public byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+    /* public String getRealPathFromURI(Uri contentUri){
         String[] proj = {MediaStore.Images.Media.DATA};
         Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
         if(cursor == null) return null;
@@ -175,7 +179,7 @@ public class EditProfileActivity extends AppCompatActivity {
         cursor.close();
         System.out.println(s);
         return s;
-    }
+    }*/
 
     @Override
     public void onStart() {

@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Search EditText
         etxtSearch = (EditText) findViewById(R.id.etxtSearch);
+        etxtSearch.setVisibility(View.GONE);
         etxtSearch.setOnKeyListener(new View.OnKeyListener() {
 
             @Override

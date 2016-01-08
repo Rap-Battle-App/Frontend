@@ -120,6 +120,22 @@ public class UserController {
         return true;
     }
 
+    public static boolean setProfilPicture(byte[] data) throws IOException, URISyntaxException {
+        String url = "/profile/picture";
+
+        ProfilePictureRequest request = new ProfilePictureRequest();
+        request.setPicture(data);
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        String requestString = gson.toJson(request);
+
+        String responseString =  ConnectionController.postJSON(url, requestString);
+        System.out.println("setProfilePicture: " + responseString);
+        return true;
+    }
+
     public static void setProfileInformation(User user, String location, String aboutMe) throws  IOException {
         String url = "/profile";
 

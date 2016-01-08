@@ -7,6 +7,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,6 +71,12 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        // Set up Toolbar for Navigation
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.profileToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("PROFIL");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         aktUser = (User) getIntent().getSerializableExtra("User");
 
@@ -219,5 +227,12 @@ public class EditProfileActivity extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        myIntent.putExtra("User", aktUser);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 }

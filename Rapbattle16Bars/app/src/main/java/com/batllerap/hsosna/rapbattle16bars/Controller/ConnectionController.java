@@ -4,6 +4,7 @@ import com.android.internal.http.multipart.MultipartEntity;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.HttpClient;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.json.JSONObject;
@@ -78,11 +79,20 @@ public class ConnectionController {
         return "Fehler";
     }
 
-    public static String sendData(String url,String parameterName, InputStream file) throws IOException {
+    /**
+     * Sends binary Data to the Server
+     * @param url the URL where to send the Data
+     * @param parameterName picture or video
+     * @param fileFormat like png, jpg mp4
+     * @param file the File
+     * @return
+     * @throws IOException
+     */
+    public static String sendData(String url,String parameterName, String fileFormat, InputStream file) throws IOException {
         URL link = new URL(serverUrl + url);
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-
+        builder.setContentType(ContentType.MULTIPART_FORM_DATA);
         builder.addBinaryBody(parameterName, file);
 
         HttpEntity entity = builder.build();
@@ -95,9 +105,16 @@ public class ConnectionController {
 
         connection.setDoOutput(true);
         connection.setDoInput(true);
-        connection.setRequestProperty("Content-Type", "application/json");
+        if(parameterName == "picture") {
+            System.out.println("RequestType: image/" + fileFormat);
+            connection.setRequestProperty("Content-Type", "image/" + fileFormat);
+        }
+        else{
+
+            System.out.println("RequestType: video/" + fileFormat);
+            connection.setRequestProperty("Content-Type", "video/" + fileFormat);
+        }
         connection.setRequestProperty("Connection", "Keep-Alive");
-        connection.setRequestProperty("Accept", "application/json");
         connection.setRequestMethod("POST");
 
         connection.addRequestProperty("Content-length", entity.getContentLength() + "");

@@ -1,5 +1,7 @@
 package com.batllerap.hsosna.rapbattle16bars.Controller;
 
+import com.batllerap.hsosna.rapbattle16bars.Controller.ConnectionController;
+import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Date;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Request;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.RequestList;
@@ -17,7 +19,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.Exception;
 
 /**
  * Created by woors on 16.12.2015.
@@ -34,7 +40,7 @@ public class ConnectionControllerTest {
 
     @Test
     public void testRequest() throws Exception {
-        RequestList rl = new RequestList();
+        /*RequestList rl = new RequestList();
         rl.setOpponent_requests(new Request[0]);
         Request[] requests = new Request[1];
         ProfilePreview opponent = new ProfilePreview();
@@ -50,6 +56,25 @@ public class ConnectionControllerTest {
         rl.setRequests(requests);
 
         RequestModell modell = new RequestModell(requests[0]);
-        Assert.assertTrue("Nix Date", modell.getDate().toString() == date.getDate());
+        Assert.assertTrue("Nix Date", modell.getDate().toString() == date.getDate());*/
+    }
+
+    @Test
+    public void testSendPicture() throws Exception{
+        AuthentificationController.logout();
+        User user = AuthentificationController.login("testUser123undsoweiter2", "bla123");
+        File file = new File("D:/Truve.png");
+        System.out.println("Datei gefunden: "+ file.getAbsolutePath() + " laenge: " + file.length());
+        InputStream stream = new FileInputStream(file);
+        System.out.println("Testergebnis \"testSendData\": " + UserController.setProfilPicture(stream, "png"));
+    }
+
+    @Test
+    public void testSendVideo() throws Exception{
+        AuthentificationController.logout();
+        User user = AuthentificationController.login("testUser123undsoweiter2", "bla123");
+        File file = new File("D:/Dingel.mp4");
+        System.out.println("Datei gefunden: "+ file.getAbsolutePath() + " laenge: " + file.length());
+        BattleController.uploadRound(0, 0, "mp4", file);
     }
 }

@@ -98,11 +98,19 @@ public class UserController {
         return gson.fromJson(responseString, Settings.class);
     }
 
-    public static boolean setProfilPicture(InputStream file) throws IOException, URISyntaxException {
+    /**
+     * Uploads a new Profilepicture for the User
+     * @param file the Picture
+     * @param fileFormat like png, jpg...
+     * @return
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    public static boolean setProfilPicture(InputStream file, String fileFormat) throws IOException, URISyntaxException {
         String url = "/profile/picture";
 
 
-        String responseString =  ConnectionController.sendData(url, "picture", file);
+        String responseString =  ConnectionController.sendData(url, "picture", fileFormat, file);
         System.out.println("setProfilePicture: " + responseString);
         return true;
     }

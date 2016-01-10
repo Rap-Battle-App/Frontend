@@ -143,12 +143,20 @@ public class BattleController {
         return gson.fromJson(responseString, OpenBattle.class);
     }
 
-    public static void uploadRound(int battleId, int beatId, File videoFile) throws IOException {
+    /**
+     * Uploads a Video to the Server
+     * @param battleId the Id of the Battle
+     * @param beatId the Id of the chosen beat
+     * @param fileFormat like mp4, wmv...
+     * @param videoFile the Videofile
+     * @throws IOException
+     */
+    public static void uploadRound(int battleId, int beatId, String fileFormat, File videoFile) throws IOException {
         String url = "/open-battle/" + battleId + "/round";
         FileInputStream stream;
         stream = new FileInputStream(videoFile);
 
-        String responseString =  ConnectionController.sendData(url, "video", stream);
+        String responseString =  ConnectionController.sendData(url, "video", fileFormat, stream);
         System.out.println("UploadRound response: " + responseString);
     }
 

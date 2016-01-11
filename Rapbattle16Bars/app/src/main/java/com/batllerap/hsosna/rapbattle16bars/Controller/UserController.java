@@ -17,6 +17,11 @@ import com.batllerap.hsosna.rapbattle16bars.Model.request.UsernameRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -100,33 +105,23 @@ public class UserController {
 
     /**
      * Uploads a new Profilepicture for the User
-     * @param file the Picture
+     * @param bytes the Picture
      * @param fileFormat like png, jpg...
      * @return
      * @throws IOException
      * @throws URISyntaxException
      */
-    public static boolean setProfilPicture(InputStream file, String fileFormat) throws IOException, URISyntaxException {
+    public static boolean setProfilPicture(byte[] bytes, String fileFormat) throws IOException, URISyntaxException {
         String url = "/profile/picture";
 
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        builder.setContentType(ContentType.MULTIPART_FORM_DATA);
+        builder.addBinaryBody("picture", bytes);
 
-        String responseString =  ConnectionController.sendData(url, "picture", fileFormat, file);
-        System.out.println("setProfilePicture: " + responseString);
-        return true;
-    }
+        HttpEntity entity = builder.build();
 
-    public static boolean setProfilPicture(byte[] data) throws IOException, URISyntaxException {
-        String url = "/profile/picture";
-
-        ProfilePictureRequest request = new ProfilePictureRequest();
-        request.setPicture(data);
-
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-
-        String requestString = gson.toJson(request);
-
-        String responseString =  ConnectionController.postJSON(url, requestString);
+        String responseString =  ConnectionController.sendData(url, fileFormat, entity, true);
         System.out.println("setProfilePicture: " + responseString);
         return true;
     }

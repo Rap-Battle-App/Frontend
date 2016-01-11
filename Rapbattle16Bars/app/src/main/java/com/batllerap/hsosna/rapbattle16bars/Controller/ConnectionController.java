@@ -10,6 +10,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -82,20 +83,15 @@ public class ConnectionController {
     /**
      * Sends binary Data to the Server
      * @param url the URL where to send the Data
-     * @param parameterName picture or video
+     * @param isImage picture or video
      * @param fileFormat like png, jpg mp4
-     * @param file the File
+     * @param entity the File
      * @return
      * @throws IOException
      */
-    public static String sendData(String url,String parameterName, String fileFormat, InputStream file) throws IOException {
+    public static String sendData(String url, String fileFormat, HttpEntity entity, boolean isImage) throws IOException {
         URL link = new URL(serverUrl + url);
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-        builder.setContentType(ContentType.MULTIPART_FORM_DATA);
-        builder.addBinaryBody(parameterName, file);
 
-        HttpEntity entity = builder.build();
 
         HttpURLConnection connection = (HttpURLConnection) link.openConnection();
         if(cookieManager == null) {
@@ -105,7 +101,7 @@ public class ConnectionController {
 
         connection.setDoOutput(true);
         connection.setDoInput(true);
-        if(parameterName == "picture") {
+        if(isImage) {
             System.out.println("RequestType: image/" + fileFormat);
             connection.setRequestProperty("Content-Type", "image/" + fileFormat);
         }

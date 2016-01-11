@@ -13,6 +13,11 @@ import com.batllerap.hsosna.rapbattle16bars.Model.response.RandomOpponentRespons
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -168,7 +173,14 @@ public class BattleController {
         FileInputStream stream;
         stream = new FileInputStream(videoFile);
 
-        String responseString =  ConnectionController.sendData(url, "video", fileFormat, stream);
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        builder.setContentType(ContentType.MULTIPART_FORM_DATA);
+        builder.addBinaryBody("picture", stream);
+        builder.addTextBody("beat_id","" + beatId);
+        HttpEntity entity = builder.build();
+
+        String responseString =  ConnectionController.sendData(url, fileFormat, entity, false);
         System.out.println("UploadRound response: " + responseString);
     }
 

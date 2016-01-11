@@ -77,7 +77,7 @@ public class BattleController {
 
         return response;
     }
-
+/*
     public static BattleListResponse getOpenForVotingBattles(int page, int amount) throws IOException {
         String url = "/battles/open-voting";
 
@@ -89,7 +89,7 @@ public class BattleController {
 
         return response;
     }
-
+*/
     /**
      * Returns a BattleList Array with completed Battles
      * @param userId The User, who completed the Battles

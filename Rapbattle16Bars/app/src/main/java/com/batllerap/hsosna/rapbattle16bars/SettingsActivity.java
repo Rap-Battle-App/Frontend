@@ -98,8 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
         Intent intent = new Intent(this,MainActivity.class);
         intent.putExtra("User", aktUser);
         User tuser = (User) intent.getSerializableExtra("User");
-        System.out.println("onbackPressed" + tuser.getUserName() + tuser.isRapper() + tuser.getNotifications());
-        NavUtils.navigateUpTo(this, intent);
+        startActivityForResult(intent, 1);
         return;
     }
 

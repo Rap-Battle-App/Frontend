@@ -1,5 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <Button android:id="@+id/capture_second_round"
+        android:layout_height="72dp"
+        android:layout_width="match_parent"
+        android:text="Rückrunde aufnehmen!"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"/>
+
+    <ScrollView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent" android:layout_height="match_parent"
+               >
+
+                <TextView android:id="@+id/rapper1_round1text"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textSize="32sp"
+                    android:text="Hinrunde Rapper X"/>
+
+                <VideoView android:id="@+id/firstround_rapperx"
+                    android:layout_below="@+id/rapper1_round1text"
+                    android:layout_width="match_parent"
+                    android:layout_height="256dp"
+                    android:layout_margin="16dp"/>
+
+                <TextView android:id="@+id/rapper2_round1text"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textSize="32sp"
+                    android:layout_below="@+id/firstround_rapperx"
+                    android:text="Hinrunde Rapper Y"/>
+
+                <VideoView android:id="@+id/firstrounde_rappery"
+                    android:layout_below="@+id/rapper2_round1text"
+                    android:layout_width="match_parent"
+                    android:layout_height="256dp"
+                    android:layout_margin="16dp"/>
+
+            </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

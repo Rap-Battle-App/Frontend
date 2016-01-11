@@ -63,6 +63,18 @@ public class BattleController {
         return response;
     }
 
+    public static BattleListResponse getOpenForVotingBattles(int page, int amount) throws IOException {
+        String url = "/battles/open-voting";
+
+        String responseString = ConnectionController.getJSON(url);
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        BattleListResponse response = gson.fromJson(responseString, BattleListResponse.class);
+
+        return response;
+    }
+
     /**
      * Returns a BattleList Array with completed Battles
      * @param count maximum of Battles in the BattleList
@@ -215,7 +227,7 @@ public class BattleController {
      * @param accepted true if the request is accepted, else false
      */
     public static void answerRequest(int id, boolean accepted) throws IOException {
-        String url = "/request" + id;
+        String url = "/request/" + id;
         AnswerRequest request = new AnswerRequest();
         request.setAccepted(accepted);
 

@@ -10,8 +10,8 @@ import java.util.Map;
 public class Rapper implements Serializable {
     Map<Integer, Battle> finishedBattles;
     Map<Integer, Battle> openBattles;
-    int wins;
-    int looses;
+    int wins = 0;
+    int looses = 0;
     String userName;
 
     public int getWins(){

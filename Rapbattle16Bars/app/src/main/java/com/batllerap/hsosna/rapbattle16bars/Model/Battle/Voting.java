@@ -6,9 +6,9 @@ import java.io.Serializable;
  * Created by woors on 09.12.2015.
  */
 public class Voting implements Serializable{
-    private int votes_rapper1;
-    private int votes_rapper2;
-    private int voted_for;
+    private int votes_rapper1 = 0;
+    private int votes_rapper2 = 0;
+    private int voted_for = 0;
     private boolean isOpen;
 
 

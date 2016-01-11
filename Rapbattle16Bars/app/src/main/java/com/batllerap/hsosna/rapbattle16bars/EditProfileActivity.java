@@ -1,10 +1,14 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,9 +25,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import org.w3c.dom.Text;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
@@ -66,6 +72,12 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        // Set up Toolbar for Navigation
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.profileToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("PROFIL");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         aktUser = (User) getIntent().getSerializableExtra("User");
 
         //TextView
@@ -101,32 +113,7 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.MainActivity");
                 //myIntent.setAction("TabFragment3");
-                //Benutzerdaten speichern
-                try {
-                    UserController.setUsername(aktUser, txteNewUsername.getText().toString());
 
-                    UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    /*if(!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
-                    if (!txteNewLocation.getText().toString().isEmpty() && !txteNewAboutMe.getText().toString().isEmpty()) {
-                        UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    } else if (txteNewAboutMe.getText().toString().isEmpty()) {
-                        UserController.setLocation(aktUser, txteNewLocation.getText().toString());
-                    } else if (txteNewLocation.getText().toString().isEmpty()) {
-                        UserController.setLocation(aktUser, txteNewAboutMe.getText().toString());
-                    }
-                    UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    }*/
-
-                    UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                    UserController.setProfilPicture(Uri.parse(aktUser.getProfilePicture()));
-
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
 
                 myIntent.putExtra("User", aktUser);
                 myIntent.putExtra("Tab", 3);
@@ -134,6 +121,22 @@ public class EditProfileActivity extends AppCompatActivity {
                 if (aktUser.getUserName().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Benutzername darf nicht leer sein", Toast.LENGTH_LONG).show();
                 } else {
+                    //Benutzerdaten speichern
+                    try {
+                        UserController.setUsername(aktUser, txteNewUsername.getText().toString());
+                        UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
+                        InputStream iStream =   getContentResolver().openInputStream(Uri.parse(aktUser.getProfilePicture()));
+                        byte[] inputData = getBytes(iStream);
+                        UserController.setProfilPicture(inputData);
+                        //UserController.setProfilPicture(Uri.parse(aktUser.getProfilePicture()));
+
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
                     startActivity(myIntent);
                 }
             }
@@ -162,6 +165,29 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         }
     }
+
+    public byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+    /* public String getRealPathFromURI(Uri contentUri){
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        if(cursor == null) return null;
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String s = cursor.getString(column_index);
+        cursor.close();
+        System.out.println(s);
+        return s;
+    }*/
 
     @Override
     public void onStart() {
@@ -201,5 +227,12 @@ public class EditProfileActivity extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        myIntent.putExtra("User", aktUser);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 }

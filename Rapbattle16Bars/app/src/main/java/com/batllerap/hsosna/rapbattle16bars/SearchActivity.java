@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -109,6 +110,14 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
         }
         intent.putExtra("Searchuser", user);
         intent.putExtra("User", aktUser);
+        intent.putExtra("Suche", getIntent().getSerializableExtra("Suche"));
         startActivity(intent);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        myIntent.putExtra("User", aktUser);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 }

@@ -114,6 +114,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         this.txtvUsername.setText(aktUser.getUserName());
         this.txtvLocation.setText(aktUser.getLocation());
         this.txtvAboutMe.setText(aktUser.getAboutMe());
+        System.out.println(aktUser.getProfilePicture());
         if(aktUser.getProfilePicture() != null) {
             this.imgvProfilePicture.setImageURI(Uri.parse(aktUser.getProfilePicture()));
         }else {

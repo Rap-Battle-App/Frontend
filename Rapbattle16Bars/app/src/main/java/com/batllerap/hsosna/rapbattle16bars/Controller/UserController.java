@@ -20,6 +20,7 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -97,18 +98,28 @@ public class UserController {
         return gson.fromJson(responseString, Settings.class);
     }
 
-    public static boolean setProfilPicture(Uri pictureUri) throws IOException, URISyntaxException {
+    /**
+     * Uploads a new Profilepicture for the User
+     * @param file the Picture
+     * @param fileFormat like png, jpg...
+     * @return
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    public static boolean setProfilPicture(InputStream file, String fileFormat) throws IOException, URISyntaxException {
         String url = "/profile/picture";
-        System.out.println(pictureUri.toString());
-        File file = new File(pictureUri.getPath());
-        FileInputStream stream;
-        byte[] picture = new byte[(int) file.length()];
-        stream = new FileInputStream(file);
-        stream.read(picture);
-        stream.close();
+
+
+        String responseString =  ConnectionController.sendData(url, "picture", fileFormat, file);
+        System.out.println("setProfilePicture: " + responseString);
+        return true;
+    }
+
+    public static boolean setProfilPicture(byte[] data) throws IOException, URISyntaxException {
+        String url = "/profile/picture";
 
         ProfilePictureRequest request = new ProfilePictureRequest();
-        request.setPicture(picture);
+        request.setPicture(data);
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();

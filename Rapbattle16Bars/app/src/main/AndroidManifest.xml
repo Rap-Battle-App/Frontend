@@ -19,8 +19,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity
+            android:name=".EditProfileActivity"
+            android:parentActivityName=".MainActivity">
+            <intent-filter>
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.EditProfileActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:parentActivityName=".MainActivity">
+            <intent-filter>
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.ProfileActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.MainActivity" />
@@ -83,7 +99,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity" />
+        <activity android:name=".SearchActivity"
+            android:parentActivityName=".MainActivity">
+            <intent-filter>
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.SearchActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.

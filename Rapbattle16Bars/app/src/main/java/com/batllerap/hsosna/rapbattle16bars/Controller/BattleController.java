@@ -32,10 +32,11 @@ public class BattleController {
     /**
      * Returns a BattleList Array with trendingBattles
      * @param amount maximum of Battles in the BattleList
+     * @param page the page of the list
      * @return
      */
     public static BattleListResponse getTrendingBattles(int page, int amount) throws IOException {
-        String url = "/battles/trending";
+        String url = "/battles/trending?amount=" + amount + "&page=" + page;
 
         String responseString = ConnectionController.getJSON(url);
 
@@ -47,12 +48,26 @@ public class BattleController {
     }
 
     /**
-     * Returns a BattleList Array with open for Voting Battles
-     * @param count maximum of Battles in the BattleList
+     * Returns a BattleList Array with Battles, wich are open for voting
+     * @param userId The User, whos Battles are open for voting
+     * @param page the page of the list
+     * @param amount how many Battles
      * @return
      */
     public static BattleListResponse getOpenForVotingBattles(int userId, int page, int amount) throws IOException {
-        String url = "/battles/open-voting";
+        String url = "/battles/open-voting?amount=" + amount + "&user_id=" + userId + "&page=" + page;
+
+        String responseString = ConnectionController.getJSON(url);
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        BattleListResponse response = gson.fromJson(responseString, BattleListResponse.class);
+
+        return response;
+    }
+
+    public static BattleListResponse getOpenForVotingBattles(int page, int amount) throws IOException {
+        String url = "/battles/open-voting?amount=" + amount + "&page=" + page;
 
         String responseString = ConnectionController.getJSON(url);
 
@@ -77,11 +92,13 @@ public class BattleController {
 
     /**
      * Returns a BattleList Array with completed Battles
-     * @param count maximum of Battles in the BattleList
+     * @param userId The User, who completed the Battles
+     * @param page the page of the list
+     * @param amount how many Battles
      * @return
      */
     public static BattleListResponse getCompletedBattles(int userId, int page, int amount) throws IOException {
-        String url = "/battles/open-voting";
+        String url = "/battles/open-voting?amount=" + amount + "&user_id=" + userId + "&page=" + page;
 
         String responseString = ConnectionController.getJSON(url);
 
@@ -94,11 +111,11 @@ public class BattleController {
 
     /**
      * Returns a BattleList Array with open Battles
-     * @param count maximum of Battles in the BattleList
+     * @param page
      * @return
      */
     public static BattleListResponse getOpenBattles(int page) throws IOException {
-        String url = "/battles/open-voting";
+        String url = "/battles/open-voting?page="+page;
 
         String responseString = ConnectionController.getJSON(url);
 
@@ -138,21 +155,20 @@ public class BattleController {
         return gson.fromJson(responseString, OpenBattle.class);
     }
 
-    public static void uploadRound(int battleId, int beatId, File videoFile) throws IOException {
+    /**
+     * Uploads a Video to the Server
+     * @param battleId the Id of the Battle
+     * @param beatId the Id of the chosen beat
+     * @param fileFormat like mp4, wmv...
+     * @param videoFile the Videofile
+     * @throws IOException
+     */
+    public static void uploadRound(int battleId, int beatId, String fileFormat, File videoFile) throws IOException {
         String url = "/open-battle/" + battleId + "/round";
         FileInputStream stream;
-        byte[] video = new byte[(int) videoFile.length()];
         stream = new FileInputStream(videoFile);
-        stream.read(video);
-        stream.close();
 
-        RoundRequest request = new RoundRequest();
-        request.setBeat_id(beatId);
-        request.setVideo(video);
-
-        String requestString = getRequestString(request);
-
-        String responseString =  ConnectionController.postJSON(url, requestString);
+        String responseString =  ConnectionController.sendData(url, "video", fileFormat, stream);
         System.out.println("UploadRound response: " + responseString);
     }
 

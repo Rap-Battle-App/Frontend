@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -254,5 +255,13 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             }
 
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), SearchActivity.class);
+        myIntent.putExtra("User", aktUser);
+        myIntent.putExtra("Suche", getIntent().getSerializableExtra("Suche"));
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 }

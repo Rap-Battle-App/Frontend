@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,9 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         toolbar.setVisibility(View.GONE);
 
         aktUser = (User) getActivity().getIntent().getSerializableExtra("User");
+
+        System.out.println("Tab3:"+ aktUser.getUserName() + aktUser.isNotifications() +aktUser.isRapper());
+
 
         //TextView
         this.txtvUsername = (TextView) layout.findViewById(R.id.txtvUsername);
@@ -242,7 +246,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         BattleOverview[] bla= new BattleOverview[0];
         try {
             if(aktUser != null) {
-                bla = BattleController.getOpenForVotingBattles(aktUser.getId(),0, 50).getData();
+                bla = BattleController.getOpenForVotingBattles(aktUser.getId(), 0, 50).getData();
             }
 
         } catch (IOException e) {

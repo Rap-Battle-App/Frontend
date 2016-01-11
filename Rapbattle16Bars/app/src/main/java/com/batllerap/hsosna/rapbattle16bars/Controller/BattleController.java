@@ -98,7 +98,7 @@ public class BattleController {
      * @return
      */
     public static BattleListResponse getCompletedBattles(int userId, int page, int amount) throws IOException {
-        String url = "/battles/open-voting?amount=" + amount + "&user_id=" + userId + "&page=" + page;
+        String url = "/battles/completed?amount=" + amount + "&user_id=" + userId + "&page=" + page;
 
         String responseString = ConnectionController.getJSON(url);
 
@@ -115,7 +115,7 @@ public class BattleController {
      * @return
      */
     public static BattleListResponse getOpenBattles(int page) throws IOException {
-        String url = "/battles/open-voting?page="+page;
+        String url = "/battles/open?page="+page;
 
         String responseString = ConnectionController.getJSON(url);
 

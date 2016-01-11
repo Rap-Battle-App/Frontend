@@ -76,7 +76,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
 
         aktUser = (User) getActivity().getIntent().getSerializableExtra("User");
 
-        System.out.println("Tab3:"+ aktUser.getUserName() + aktUser.isNotifications() +aktUser.isRapper());
+//        System.out.println("Tab3:"+ aktUser.getUserName() + aktUser.isNotifications() +aktUser.isRapper());
 
 
         //TextView

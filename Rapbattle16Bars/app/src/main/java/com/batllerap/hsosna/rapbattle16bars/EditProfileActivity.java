@@ -1,5 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -127,9 +128,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
                         InputStream iStream =   getContentResolver().openInputStream(Uri.parse(aktUser.getProfilePicture()));
                         byte[] inputData = getBytes(iStream);
-                        UserController.setProfilPicture(iStream, "png");
-                        //UserController.setProfilPicture(Uri.parse(aktUser.getProfilePicture()));
-
+                        UserController.setProfilPicture(inputData, getMimeType(getApplicationContext(), Uri.parse(aktUser.getProfilePicture())));
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -166,16 +165,33 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    public byte[] getBytes(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-        int bufferSize = 1024;
-        byte[] buffer = new byte[bufferSize];
+    public static String getMimeType(Context context, Uri uriImage)
+    {
+        String strMimeType = null;
 
-        int len = 0;
-        while ((len = inputStream.read(buffer)) != -1) {
-            byteBuffer.write(buffer, 0, len);
+        Cursor cursor = context.getContentResolver().query(uriImage,
+                new String[] { MediaStore.MediaColumns.MIME_TYPE },
+                null, null, null);
+
+        if (cursor != null && cursor.moveToNext())
+        {
+            strMimeType = cursor.getString(0);
         }
-        return byteBuffer.toByteArray();
+        assert strMimeType != null;
+        String[] seperated = strMimeType.split("/");
+        return seperated[1];
+    }
+
+    public byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        int next = inputStream.read();
+        while (next > -1) {
+            bos.write(next);
+            next = inputStream.read();
+        }
+        bos.flush();
+        byte[] result = bos.toByteArray();
+        return result;
     }
     /* public String getRealPathFromURI(Uri contentUri){
         String[] proj = {MediaStore.Images.Media.DATA};

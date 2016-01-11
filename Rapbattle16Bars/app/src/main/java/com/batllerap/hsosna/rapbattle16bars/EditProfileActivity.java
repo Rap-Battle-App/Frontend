@@ -128,6 +128,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
                         InputStream iStream =   getContentResolver().openInputStream(Uri.parse(aktUser.getProfilePicture()));
                         byte[] inputData = getBytes(iStream);
+                        //TODO Bild Hochladen
                         UserController.setProfilPicture(inputData, getMimeType(getApplicationContext(), Uri.parse(aktUser.getProfilePicture())));
                     } catch (MalformedURLException e) {
                         e.printStackTrace();

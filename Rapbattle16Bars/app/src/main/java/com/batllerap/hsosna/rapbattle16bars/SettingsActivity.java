@@ -98,7 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
         Intent intent = new Intent(this,MainActivity.class);
         intent.putExtra("User", aktUser);
         User tuser = (User) intent.getSerializableExtra("User");
-        startActivityForResult(intent, 1);
+        startActivity(intent);
         return;
     }
 

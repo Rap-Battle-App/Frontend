@@ -29,7 +29,6 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
     private WrappingRecyclerViewLayoutManager wrv2LayoutManager;
     private CustomAdapter tAdapter;
     private CustomAdapter oAdapter;
-    private BattleController bController;
     private User aktUser;
     private List<BattleOverview> trendingBattlesList;
     private List<BattleOverview> openForVotesBattlesList;
@@ -73,7 +72,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         oList.setLayoutManager(wrv2LayoutManager);
 
         trendingBattlesList = getTrendingList();
-        openForVotesBattlesList = getOpenBattlesList();
+        openForVotesBattlesList = getOpenForVotesBattlesList();
         tAdapter = new CustomAdapter(getActivity(), trendingBattlesList);
         oAdapter = new CustomAdapter(getActivity(), openForVotesBattlesList);
 
@@ -104,7 +103,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         return data;
     }
 
-    public List<BattleOverview> getOpenBattlesList() {
+    public List<BattleOverview> getOpenForVotesBattlesList() {
 
         List<BattleOverview> data = Collections.emptyList();
         BattleOverview[] bla = new BattleOverview[0];

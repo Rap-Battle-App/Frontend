@@ -3,6 +3,8 @@ package com.batllerap.hsosna.rapbattle16bars;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
@@ -28,6 +30,12 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_openfor_votes_battle);
+
+        // Set up Toolbar for Navigation
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.openforvotesToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Battle");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lButton = (ToggleButton) findViewById(R.id.openforvotes_votebutton1);
         rButton = (ToggleButton) findViewById(R.id.openforvotes_votebutton2);
@@ -113,6 +121,18 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

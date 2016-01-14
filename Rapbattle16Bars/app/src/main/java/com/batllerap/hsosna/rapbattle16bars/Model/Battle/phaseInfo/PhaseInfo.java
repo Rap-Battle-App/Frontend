@@ -7,4 +7,8 @@ import java.io.Serializable;
  */
 public abstract class PhaseInfo implements Serializable {
     protected int time_left;
+
+    public PhaseInfo() {
+    }
 }
+

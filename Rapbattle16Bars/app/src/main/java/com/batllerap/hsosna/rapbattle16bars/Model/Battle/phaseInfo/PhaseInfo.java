@@ -5,6 +5,18 @@ import java.io.Serializable;
 /**
  * Created by woors on 23.11.2015.
  */
-public abstract class PhaseInfo implements Serializable {
-    protected int time_left;
+public class PhaseInfo implements Serializable {
+    private int time_left;
+
+    public PhaseInfo(){
+
+    }
+
+    public int getTime_left() {
+        return time_left;
+    }
+
+    public void setTime_left(int time_left) {
+        this.time_left = time_left;
+    }
 }

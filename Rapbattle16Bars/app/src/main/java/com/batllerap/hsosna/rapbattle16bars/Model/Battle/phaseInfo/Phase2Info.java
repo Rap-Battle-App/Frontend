@@ -14,7 +14,7 @@ public class Phase2Info extends PhaseInfo{
     }
 
     public Phase2Info(int timeLeft, String round1Url, int beatId, String opponentRoundUrl, String round2Url){
-        super.time_left = timeLeft;
+        super.setTime_left(timeLeft);
         this.setRound1_url(round1Url);
         this.setBeat_id(beatId);
         this.setOpponent_round1_rl(opponentRoundUrl);
@@ -51,13 +51,5 @@ public class Phase2Info extends PhaseInfo{
 
     public void setRound2_url(String round2_url) {
         this.round2_url = round2_url;
-    }
-
-    public int getTime_left(){
-        return this.time_left;
-    }
-
-    public void setTime_left(int time_left){
-        this.time_left = time_left;
     }
 }

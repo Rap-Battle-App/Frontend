@@ -73,6 +73,9 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
     private List<BattleOverview> myBattlesList = new ArrayList<>();
     private List<BattleOverview> myOpenforVotesBattlesList = new ArrayList<>();
 
+    private List<BattleOverview> trendingBattlesList;
+    private List<BattleOverview> openForVotesBattlesList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,12 +170,11 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             tList.setLayoutManager(wrvLayoutManager);
             oList.setLayoutManager(wrv2LayoutManager);
 
-            myBattlesList = getCompletedBattles();
+            trendingBattlesList = getCompletedBattles();
+            openForVotesBattlesList = getOpenforVotingBattlesList();
 
-            myOpenforVotesBattlesList = getOpenforVotingBattlesList();
-
-            tAdapter = new CustomAdapter(this,myBattlesList);
-            oAdapter = new CustomAdapter(this,myOpenforVotesBattlesList);
+            tAdapter = new CustomAdapter(this,trendingBattlesList);
+            oAdapter = new CustomAdapter(this,openForVotesBattlesList);
 
             tAdapter.setClickListener(this);
             oAdapter.setClickListener(this);
@@ -192,13 +194,13 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
 
     }
 
-    public  List<BattleOverview> getCompletedBattles(){
+    public List<BattleOverview> getCompletedBattles() {
 
-        List<BattleOverview> data = Collections.emptyList();
-        BattleOverview[] bla= new BattleOverview[0];
+        List<BattleOverview> data = new ArrayList<>();
+        BattleOverview[] bla = new BattleOverview[0];
         try {
-            if(aktUser != null) {
-                bla = BattleController.getCompletedBattles(searchUser.getId(), 0, 50).getData();
+            if (searchUser != null) {
+                bla = BattleController.getCompletedBattles(searchUser.getId(),0, 50).getData();
             }
 
         } catch (IOException e) {
@@ -210,13 +212,13 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         return data;
     }
 
-    public  List<BattleOverview> getOpenforVotingBattlesList(){
+    public List<BattleOverview> getOpenforVotingBattlesList() {
 
-        List<BattleOverview> data = Collections.emptyList();
-        BattleOverview[] bla= new BattleOverview[0];
+        List<BattleOverview> data = new ArrayList<>();
+        BattleOverview[] bla = new BattleOverview[0];
         try {
-            if(aktUser != null) {
-                bla = BattleController.getOpenForVotingBattles(searchUser.getId(),0, 50).getData();
+            if (searchUser != null) {
+                bla = BattleController.getOpenForVotingBattles(searchUser.getId(), 0, 50).getData();
             }
 
         } catch (IOException e) {
@@ -227,13 +229,13 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
 
         return data;
     }
+
     @Override
     public void itemClicked(View view, int position) {
-
         if (view.getParent() == tList) {
             System.out.println("Trending List Angeklickt");
             try {
-                Battle battle = BattleController.getBattle(myBattlesList.get(position).getBattle_id());
+                Battle battle = BattleController.getBattle(trendingBattlesList.get(position).getBattle_id());
 
                 Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
                 intent.putExtra("battle", battle);
@@ -245,9 +247,9 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         } else if (view.getParent() == oList) {
 
             try {
-                Battle battle = BattleController.getBattle(myOpenforVotesBattlesList.get(position).getBattle_id());
+                Battle battle = BattleController.getBattle(openForVotesBattlesList.get(position).getBattle_id());
 
-                Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenForVotesBattleActivity");
+                Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
                 intent.putExtra("battle", battle);
                 startActivity(intent);
             } catch (IOException e) {

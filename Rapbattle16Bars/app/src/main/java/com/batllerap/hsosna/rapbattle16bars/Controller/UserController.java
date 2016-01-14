@@ -4,8 +4,13 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
  * Created by Dennis on 03.11.2015.
  */
 
+import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 
+import com.android.internal.http.multipart.MultipartEntity;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.Rapper;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.PasswordRequest;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.ProfileInformationRequest;
@@ -18,25 +23,34 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.HashMap;
 
-public class UserController {
+public class UserController{
     /**
      * Changes the username in the Database
      *
      * @param user        user to find in Database
      * @param newUserName new Username
      */
+
     public static void setUsername(User user, String newUserName) throws  MalformedURLException, IOException {
         String url = "/account/username";
 
@@ -105,12 +119,43 @@ public class UserController {
 
     /**
      * Uploads a new Profilepicture for the User
-     * @param bytes the Picture
-     * @param fileFormat like png, jpg...
      * @return
      * @throws IOException
      * @throws URISyntaxException
      */
+
+    public static boolean setProfilPicture(String data, String fileFormat) throws IOException, URISyntaxException {
+        String url = "/profile/picture";
+
+        File f = new File(data);
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        builder.setContentType(ContentType.MULTIPART_FORM_DATA);
+        builder.addBinaryBody("picture", f);
+
+        HttpEntity entity = builder.build();
+
+        String responseString =  ConnectionController.sendData(url, fileFormat, entity, true);
+        System.out.println("setProfilePicture: " + responseString);
+        return true;
+    }
+
+    public static boolean setProfilPicture(File f, String fileFormat) throws IOException, URISyntaxException {
+        String url = "/profile/picture";
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        builder.setContentType(ContentType.MULTIPART_FORM_DATA);
+        builder.addBinaryBody("picture", f);
+
+        HttpEntity entity = builder.build();
+
+        String responseString =  ConnectionController.sendData(url, fileFormat, entity, true);
+        System.out.println("setProfilePicture: " + responseString);
+        return true;
+    }
+
     public static boolean setProfilPicture(byte[] bytes, String fileFormat) throws IOException, URISyntaxException {
         String url = "/profile/picture";
 
@@ -122,6 +167,25 @@ public class UserController {
         HttpEntity entity = builder.build();
 
         String responseString =  ConnectionController.sendData(url, fileFormat, entity, true);
+        System.out.println("setProfilePicture: " + responseString);
+        return true;
+    }
+
+    public static boolean setProfilPicture(Bitmap data/*, String fileFormat*/) throws IOException, URISyntaxException {
+        String url = "/profile/picture";
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        data.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        builder.setContentType(ContentType.MULTIPART_FORM_DATA);
+        builder.addBinaryBody("picture", byteArray);
+
+        HttpEntity entity = builder.build();
+
+        String responseString =  ConnectionController.sendData(url, "JPEG", entity, true);
         System.out.println("setProfilePicture: " + responseString);
         return true;
     }

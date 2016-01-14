@@ -1,10 +1,13 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,21 +20,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.batllerap.hsosna.rapbattle16bars.Controller.UploadController;
 import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-
-import org.w3c.dom.Text;
-
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -126,10 +125,11 @@ public class EditProfileActivity extends AppCompatActivity {
                     try {
                         UserController.setUsername(aktUser, txteNewUsername.getText().toString());
                         UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                        InputStream iStream =   getContentResolver().openInputStream(Uri.parse(aktUser.getProfilePicture()));
-                        byte[] inputData = getBytes(iStream);
-                        //TODO Bild Hochladen
-                        UserController.setProfilPicture(inputData, getMimeType(getApplicationContext(), Uri.parse(aktUser.getProfilePicture())));
+                        Bitmap image=((BitmapDrawable)imgvEditProfilePicture.getDrawable()).getBitmap();
+                        UserController.setProfilPicture(image);
+                        /*
+                        UploadController uC = new UploadController();
+                        uC.execute(f);*/
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -161,9 +161,38 @@ public class EditProfileActivity extends AppCompatActivity {
         if (resCode == RESULT_OK) {
             if (reqCode == 1) {
                 imgvEditProfilePicture.setImageURI(data.getData());
-                aktUser.setProfilePicture(data.getData().toString());
+                aktUser.setProfilePicture(data.getDataString());
             }
         }
+    }
+
+    public Bitmap getThumbnail(Uri uri) throws FileNotFoundException, IOException{
+        int targetW = imgvEditProfilePicture.getWidth();
+        int targetH = imgvEditProfilePicture.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(uri.getPath(), bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(uri.getPath(), bmOptions);
+        return bitmap;
+    }
+
+    private static int getPowerOfTwoForSampleRatio(double ratio){
+        int k = Integer.highestOneBit((int)Math.floor(ratio));
+        if(k==0) return 1;
+        else return k;
     }
 
     public static String getMimeType(Context context, Uri uriImage)
@@ -171,7 +200,7 @@ public class EditProfileActivity extends AppCompatActivity {
         String strMimeType = null;
 
         Cursor cursor = context.getContentResolver().query(uriImage,
-                new String[] { MediaStore.MediaColumns.MIME_TYPE },
+                new String[]{MediaStore.MediaColumns.MIME_TYPE},
                 null, null, null);
 
         if (cursor != null && cursor.moveToNext())
@@ -183,7 +212,20 @@ public class EditProfileActivity extends AppCompatActivity {
         return seperated[1];
     }
 
-    public byte[] getBytes(InputStream inputStream) throws IOException {
+    private Bitmap getBitmapFromUri(Uri contentUri) {
+        String path = null;
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(contentUri, projection, null, null, null);
+        if (cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            path = cursor.getString(columnIndex);
+        }
+        cursor.close();
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
+        return bitmap;
+    }
+
+   /* public byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         int next = inputStream.read();
         while (next > -1) {
@@ -193,17 +235,6 @@ public class EditProfileActivity extends AppCompatActivity {
         bos.flush();
         byte[] result = bos.toByteArray();
         return result;
-    }
-    /* public String getRealPathFromURI(Uri contentUri){
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
-        if(cursor == null) return null;
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String s = cursor.getString(column_index);
-        cursor.close();
-        System.out.println(s);
-        return s;
     }*/
 
     @Override

@@ -105,11 +105,11 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
 
     public List<BattleOverview> getOpenForVotesBattlesList() {
 
-        List<BattleOverview> data = Collections.emptyList();
+        List<BattleOverview> data =  new ArrayList<>();
         BattleOverview[] bla = new BattleOverview[0];
         try {
             if (aktUser != null) {
-                bla = BattleController.getOpenForVotingBattles(aktUser.getId(), 0, 50).getData();
+                bla = BattleController.getOpenForVotingBattles( 0, 50).getData();
             }
 
         } catch (IOException e) {

@@ -1,11 +1,13 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -13,7 +15,9 @@ import android.widget.ToggleButton;
 import android.widget.VideoView;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 import java.io.IOException;
 
@@ -25,6 +29,8 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
     private ProgressBar pBar;
     private ToggleButton lButton;
     private ToggleButton rButton;
+    private ImageView imgRapper1;
+    private ImageView imgRapper2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +49,15 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
         battle = (Battle) getIntent().getSerializableExtra("battle");
         if (battle != null) {
 
+            imgRapper1 = (ImageView) findViewById(R.id.openforvotes_battleRapper1img);
+            imgRapper2 = (ImageView) findViewById(R.id.openforvotes_battleRapper2img);
+            rapper1 = (TextView) findViewById(R.id.openforvotes_Rapper1);
+            rapper2 =(TextView) findViewById(R.id.openforvotes_Rapper2);
 
-            rapper1 = (TextView) findViewById(R.id.closedBattleRapper1);
-            rapper2 =(TextView) findViewById(R.id.closedBattleRapper2);
             pBar= (ProgressBar) findViewById(R.id.progressBar);
             rapper1.setText(battle.getRapper1().getUsername());
             rapper2.setText(battle.getRapper2().getUsername());
-            video = (VideoView) findViewById(R.id.video);
+            video = (VideoView) findViewById(R.id.openforvotes_video);
             Uri vUri =Uri.parse(battle.getVideo_url());
             video.setVideoURI(vUri);
 
@@ -120,6 +128,38 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
 
             }
 
+        });
+
+        imgRapper1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    User rapper = UserController.getUser(battle.getRapper1().getUser_id());
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    intent.putExtra("Searchuser", rapper);
+                    startActivity(intent);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        imgRapper2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User rapper = null;
+                try {
+                    rapper = UserController.getUser(battle.getRapper2().getUser_id());
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    intent.putExtra("Searchuser", rapper);
+                    startActivity(intent);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
         });
     }
 

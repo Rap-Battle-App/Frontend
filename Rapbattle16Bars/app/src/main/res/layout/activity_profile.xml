@@ -57,7 +57,8 @@
             android:layout_marginStart="29dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/imgvProfilePicture"
-            android:layout_toRightOf="@+id/imgvProfilePicture" />
+            android:layout_toRightOf="@+id/imgvProfilePicture"
+            android:maxHeight="90dp" />
 
         <TextView
             android:id="@+id/txtvWins"
@@ -74,9 +75,9 @@
             android:id="@+id/txtvLooses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/txtvAboutMe"
-            android:layout_alignRight="@+id/txtvAboutMe"
+            android:layout_toRightOf="@+id/txtvWins"
             android:layout_alignTop="@+id/txtvWins"
+            android:layout_marginLeft="50dp"
             android:text="@string/strLooses" />
 
         <TextView
@@ -106,9 +107,9 @@
             android:textColor="#ffffff"
             android:text="Herausfordern"
             android:textSize="10dp"
+            android:layout_marginLeft="60dp"
             android:layout_alignTop="@+id/txtvLooses"
-            android:layout_toRightOf="@+id/txtvUsername"
-            android:layout_toEndOf="@+id/txtvUsername" />
+            android:layout_toRightOf="@+id/txtvLooses" />
 
         <Button
             android:id="@+id/btnEditProfile"

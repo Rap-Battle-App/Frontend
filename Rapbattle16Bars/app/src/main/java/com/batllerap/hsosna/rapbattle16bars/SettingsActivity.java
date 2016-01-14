@@ -102,14 +102,10 @@ public class SettingsActivity extends AppCompatActivity {
         return;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Log.v("qqq", "DIGGAAA");
-                onBackPressed();
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        myIntent.putExtra("User", aktUser);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 }

@@ -8,6 +8,8 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -21,7 +23,7 @@ import java.io.IOException;
 
 
 
-public class VideoCapture extends Activity implements View.OnClickListener, SurfaceHolder.Callback {
+public class VideoCapture extends AppCompatActivity implements View.OnClickListener, SurfaceHolder.Callback {
 
     public static final String LOGTAG = "VIDEOCAPTURE";
 
@@ -30,6 +32,8 @@ public class VideoCapture extends Activity implements View.OnClickListener, Surf
     private SurfaceHolder holder;
     private CamcorderProfile camcorderProfile;
     private static Camera camera;
+    private File newFile;
+    private DialogFragment VideoAlert;
 
     int beat;
     int id;
@@ -38,22 +42,25 @@ public class VideoCapture extends Activity implements View.OnClickListener, Surf
     boolean usecamera = true;
     boolean previewRunning = false;
 
-    private static int currentCameraId =0;
+    private static int currentCameraId = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         beat=  getIntent().getIntExtra("Beat",0);
         id = getIntent().getIntExtra("BattleID",999999);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         beatstr = "beat"+beat;
         Log.v("DAMN", beatstr);
+
+        VideoAlert = new VideoUploadAlert();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        camcorderProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
+        camcorderProfile = CamcorderProfile.get(currentCameraId,CamcorderProfile.QUALITY_HIGH);
 
         setContentView(R.layout.activity_video_capture);
         Button othercam = (Button) findViewById(R.id.switchcam);
@@ -77,6 +84,9 @@ public class VideoCapture extends Activity implements View.OnClickListener, Surf
                         player.stop();
                         player.release();
                     }
+
+
+
 
                 }
                 if (previewRunning){
@@ -134,7 +144,7 @@ public class VideoCapture extends Activity implements View.OnClickListener, Surf
             }
         } else if (camcorderProfile.fileFormat == MediaRecorder.OutputFormat.MPEG_4) {
             try {
-                File newFile = File.createTempFile("videocapture", ".mp4", Environment.getExternalStorageDirectory());
+                 newFile = File.createTempFile("videocapture", ".mp4", Environment.getExternalStorageDirectory());
                 recorder.setOutputFile(newFile.getAbsolutePath());
             } catch (IOException e) {
                 Log.v(LOGTAG,"Couldn't create file");
@@ -185,9 +195,11 @@ public class VideoCapture extends Activity implements View.OnClickListener, Surf
             Log.v(LOGTAG, "Recording Stopped");
             // Let's prepareRecorder so we can record again
             prepareRecorder();
+            VideoAlert = VideoUploadAlert.newInstance(beat, id, "mp4", newFile);
+            VideoAlert.show(getSupportFragmentManager(), "123");
         } else {
             recording = true;
-            player = MediaPlayer.create(this, getResources().getIdentifier(beatstr,"raw",getPackageName()));
+            player = MediaPlayer.create(this, getResources().getIdentifier(beatstr,"raw", getPackageName()));
             recorder.start();
             player.start();
             Log.v(LOGTAG, "Recording Started");
@@ -199,6 +211,7 @@ public class VideoCapture extends Activity implements View.OnClickListener, Surf
 
         if (usecamera) {
             camera = Camera.open(currentCameraId);
+            camera.setDisplayOrientation(90);
 
             try {
                 camera.setPreviewDisplay(holder);

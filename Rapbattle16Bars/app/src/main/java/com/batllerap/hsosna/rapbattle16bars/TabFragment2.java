@@ -17,12 +17,10 @@ import com.batllerap.hsosna.rapbattle16bars.Model.Battle.OpenBattle;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Request;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
-import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class TabFragment2 extends Fragment implements CustomAdapter.ClickListener,ChallengeAdapter.ClickListener {

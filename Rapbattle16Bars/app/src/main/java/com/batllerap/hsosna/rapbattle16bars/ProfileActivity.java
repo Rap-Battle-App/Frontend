@@ -116,7 +116,7 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            btnHerausfordern.setVisibility(View.INVISIBLE);
+                btnHerausfordern.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -126,12 +126,12 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         this.txtvUsername.setText(searchUser.getUserName());
         this.txtvLocation.setText(searchUser.getLocation());
         this.txtvAboutMe.setText(searchUser.getAboutMe());
-        if(searchUser.getProfilePicture() != null) {
+        if (searchUser.getProfilePicture() != null) {
             this.imgvProfilePicture.setImageURI(Uri.parse(searchUser.getProfilePicture()));
-        }else {
+        } else {
             this.imgvProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
-        if(searchUser.isRapper()){
+        if (searchUser.isRapper()) {
             this.txtvWinsValue.setText(String.valueOf(searchUser.getRapper().getWins()));
             this.txtvLoosesValue.setText(String.valueOf(searchUser.getRapper().getLooses()));
 
@@ -173,15 +173,15 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             trendingBattlesList = getCompletedBattles();
             openForVotesBattlesList = getOpenforVotingBattlesList();
 
-            tAdapter = new CustomAdapter(this,trendingBattlesList);
-            oAdapter = new CustomAdapter(this,openForVotesBattlesList);
+            tAdapter = new CustomAdapter(this, trendingBattlesList);
+            oAdapter = new CustomAdapter(this, openForVotesBattlesList);
 
             tAdapter.setClickListener(this);
             oAdapter.setClickListener(this);
 
             tList.setAdapter(tAdapter);
             oList.setAdapter(oAdapter);
-        }else{
+        } else {
             this.txtvWins.setVisibility(View.INVISIBLE);
             this.txtvLooses.setVisibility(View.INVISIBLE);
             this.txtvWinsValue.setVisibility(View.INVISIBLE);
@@ -200,7 +200,7 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         BattleOverview[] bla = new BattleOverview[0];
         try {
             if (searchUser != null) {
-                bla = BattleController.getCompletedBattles(searchUser.getId(),0, 50).getData();
+                bla = BattleController.getCompletedBattles(searchUser.getId(), 0, 50).getData();
             }
 
         } catch (IOException e) {
@@ -259,11 +259,13 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         }
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
-        Intent myIntent = new Intent(getApplicationContext(), SearchActivity.class);
-        myIntent.putExtra("User", aktUser);
-        myIntent.putExtra("Suche", getIntent().getSerializableExtra("Suche"));
-        startActivityForResult(myIntent, 0);
+    public boolean onOptionsItemSelected(MenuItem item) {
+            /*Intent myIntent = new Intent(getApplicationContext(), SearchActivity.class);
+            myIntent.putExtra("User", aktUser);
+            myIntent.putExtra("Suche", getIntent().getSerializableExtra("Suche"));
+            startActivityForResult(myIntent, 0);
+            return true;*/
+        finish();
         return true;
     }
 }

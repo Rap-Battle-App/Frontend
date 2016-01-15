@@ -1,17 +1,21 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
 import android.app.usage.UsageEvents;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -26,12 +30,19 @@ import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Random;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -97,9 +108,9 @@ public class EditProfileActivity extends AppCompatActivity {
         this.btnSaveChanges = (Button) findViewById(R.id.btnSaveChanges);
         this.btnChangeProfilePicture = (Button) findViewById(R.id.btnChangeProfilePicture);
 
-        if(aktUser.getProfilePicture() != null) {
+        if (aktUser.getProfilePicture() != null) {
             this.imgvEditProfilePicture.setImageURI(Uri.parse(aktUser.getProfilePicture()));
-        }else {
+        } else {
             this.imgvEditProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
 
@@ -125,16 +136,46 @@ public class EditProfileActivity extends AppCompatActivity {
                     try {
                         UserController.setUsername(aktUser, txteNewUsername.getText().toString());
                         UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                        Bitmap image=((BitmapDrawable)imgvEditProfilePicture.getDrawable()).getBitmap();
-                        UserController.setProfilPicture(image);
-                        /*
-                        UploadController uC = new UploadController();
-                        uC.execute(f);*/
+                        String path = null;
+                        Picasso.with(getApplicationContext()).load(Uri.parse(aktUser.getProfilePicture())).into(new Target() {
+                            @Override
+                            public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
+                                new Thread(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+
+                                        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/tmp.jpg");
+                                        try {
+                                            file.createNewFile();
+                                            FileOutputStream ostream = new FileOutputStream(file);
+                                            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
+                                            Uri tmpUri = getImageUri(getApplicationContext(), bitmap);
+                                            UserController.setProfilPicture(getRealPathFromURI(tmpUri), getMimeType(getApplicationContext(), tmpUri));
+                                            ostream.flush();
+                                            ostream.close();
+                                        } catch (IOException e) {
+                                            Log.e("IOException", e.getLocalizedMessage());
+                                        } catch (URISyntaxException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }).start();
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Drawable drawable) {
+
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable drawable) {
+
+                            }
+                        });
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (URISyntaxException e) {
                         e.printStackTrace();
                     }
                     startActivity(myIntent);
@@ -157,7 +198,7 @@ public class EditProfileActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public void onActivityResult(int reqCode, int resCode, Intent data) {
+    public void onActivityResult(int reqCode, int resCode, final Intent data) {
         if (resCode == RESULT_OK) {
             if (reqCode == 1) {
                 imgvEditProfilePicture.setImageURI(data.getData());
@@ -166,76 +207,33 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    public Bitmap getThumbnail(Uri uri) throws FileNotFoundException, IOException{
-        int targetW = imgvEditProfilePicture.getWidth();
-        int targetH = imgvEditProfilePicture.getHeight();
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(uri.getPath(), bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(uri.getPath(), bmOptions);
-        return bitmap;
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
-    private static int getPowerOfTwoForSampleRatio(double ratio){
-        int k = Integer.highestOneBit((int)Math.floor(ratio));
-        if(k==0) return 1;
-        else return k;
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
     }
-
-    public static String getMimeType(Context context, Uri uriImage)
-    {
+    public static String getMimeType(Context context, Uri uriImage) {
         String strMimeType = null;
 
         Cursor cursor = context.getContentResolver().query(uriImage,
                 new String[]{MediaStore.MediaColumns.MIME_TYPE},
                 null, null, null);
 
-        if (cursor != null && cursor.moveToNext())
-        {
+        if (cursor != null && cursor.moveToNext()) {
             strMimeType = cursor.getString(0);
         }
         assert strMimeType != null;
         String[] seperated = strMimeType.split("/");
         return seperated[1];
     }
-
-    private Bitmap getBitmapFromUri(Uri contentUri) {
-        String path = null;
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getContentResolver().query(contentUri, projection, null, null, null);
-        if (cursor.moveToFirst()) {
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            path = cursor.getString(columnIndex);
-        }
-        cursor.close();
-        Bitmap bitmap = BitmapFactory.decodeFile(path);
-        return bitmap;
-    }
-
-   /* public byte[] getBytes(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        int next = inputStream.read();
-        while (next > -1) {
-            bos.write(next);
-            next = inputStream.read();
-        }
-        bos.flush();
-        byte[] result = bos.toByteArray();
-        return result;
-    }*/
 
     @Override
     public void onStart() {
@@ -277,7 +275,7 @@ public class EditProfileActivity extends AppCompatActivity {
         client.disconnect();
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         myIntent.putExtra("User", aktUser);
         startActivityForResult(myIntent, 0);

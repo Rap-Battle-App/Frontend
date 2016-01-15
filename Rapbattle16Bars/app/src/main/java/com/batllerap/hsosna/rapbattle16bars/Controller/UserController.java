@@ -131,7 +131,7 @@ public class UserController{
 
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-        builder.setContentType(ContentType.MULTIPART_FORM_DATA);
+       // builder.setContentType(ContentType.MULTIPART_FORM_DATA);
         builder.addBinaryBody("picture", f);
 
         HttpEntity entity = builder.build();
@@ -146,7 +146,7 @@ public class UserController{
 
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-        builder.setContentType(ContentType.MULTIPART_FORM_DATA);
+      //  builder.setContentType(ContentType.MULTIPART_FORM_DATA);
         builder.addBinaryBody("picture", f);
 
         HttpEntity entity = builder.build();
@@ -161,7 +161,7 @@ public class UserController{
 
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-        builder.setContentType(ContentType.MULTIPART_FORM_DATA);
+        //builder.setContentType(ContentType.MULTIPART_FORM_DATA);
         builder.addBinaryBody("picture", bytes);
 
         HttpEntity entity = builder.build();
@@ -180,7 +180,7 @@ public class UserController{
 
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-        builder.setContentType(ContentType.MULTIPART_FORM_DATA);
+        //builder.setContentType(ContentType.MULTIPART_FORM_DATA);
         builder.addBinaryBody("picture", byteArray);
 
         HttpEntity entity = builder.build();

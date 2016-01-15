@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.OpenBattle;
@@ -21,6 +22,7 @@ public class OpenBattleActivity extends AppCompatActivity {
     MediaPlayer mPlayer;
     Button vidButton;
     int auswahl;
+    private RadioGroup beatgroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class OpenBattleActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("EINSTELLUNGEN");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
-
+        beatgroup = (RadioGroup) findViewById(R.id.beatgroup);
         beat1 =(RadioButton) findViewById(R.id.beat1);
         beat2 =(RadioButton) findViewById(R.id.beat2);
         beat3 =(RadioButton) findViewById(R.id.beat3);
@@ -124,8 +126,12 @@ public class OpenBattleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),VideoCapture.class);
-                intent.putExtra("Beat", auswahl);
-                intent.putExtra("BeatID",battle.getId() );
+                int radioButtonID = beatgroup.getCheckedRadioButtonId();
+                View radioButton = beatgroup.findViewById(radioButtonID);
+                auswahl = beatgroup.indexOfChild(radioButton);
+                System.out.println(auswahl);
+                intent.putExtra("Beat", auswahl+1);
+                intent.putExtra("BattleID",battle.getId() );
                 startActivity(intent);
             }
         });

@@ -116,13 +116,14 @@ public class ConnectionController {
         connection.addRequestProperty("Content-length", entity.getContentLength() + "");
         connection.addRequestProperty(entity.getContentType().getName(), entity.getContentType().getValue());
 
+        System.out.println(fileFormat + " wird gesendet");
         OutputStream os = connection.getOutputStream();
         entity.writeTo(connection.getOutputStream());
         os.close();
         connection.connect();
 
         int responseCode = connection.getResponseCode();
-        System.out.println("SendData ResponseCode: " + responseCode);
+        System.out.println("SendData "+ fileFormat + "ResponseCode: " + responseCode);
         if (responseCode == HttpURLConnection.HTTP_OK) {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(connection.getInputStream()));
@@ -133,6 +134,7 @@ public class ConnectionController {
                 response.append(inputLine);
             }
             in.close();
+            System.out.println(fileFormat + " Response: " + response.toString());
             return response.toString();
         }
         System.out.println("Fehler beim Senden: " + connection.getResponseMessage());

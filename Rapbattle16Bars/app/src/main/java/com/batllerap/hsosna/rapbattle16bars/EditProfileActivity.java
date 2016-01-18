@@ -151,13 +151,15 @@ public class EditProfileActivity extends AppCompatActivity {
                                             FileOutputStream ostream = new FileOutputStream(file);
                                             bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
                                             Uri tmpUri = getImageUri(getApplicationContext(), bitmap);
-                                            UserController.setProfilPicture(getRealPathFromURI(tmpUri), getMimeType(getApplicationContext(), tmpUri));
+                                            File f = new File(getRealPathFromURI(tmpUri));
+                                            /*aktUser.setProfilePicture(getRealPathFromURI(tmpUri));
+                                            UserController.setProfilPicture(f, getMimeType(getApplicationContext(), tmpUri));*/
+                                            UploadController up = new UploadController();
+                                            up.execute(f);
                                             ostream.flush();
                                             ostream.close();
                                         } catch (IOException e) {
                                             Log.e("IOException", e.getLocalizedMessage());
-                                        } catch (URISyntaxException e) {
-                                            e.printStackTrace();
                                         }
                                     }
                                 }).start();
@@ -232,6 +234,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
         assert strMimeType != null;
         String[] seperated = strMimeType.split("/");
+        cursor.close();
         return seperated[1];
     }
 

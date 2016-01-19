@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:id="@+id/container"
     android:background="#FFFFFF" >
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,6 +28,16 @@
             android:layout_height="150dp"
             android:contentDescription="@string/profilePictureDescription"
             android:src="@drawable/default_profile_pic" />
+
+        <ImageView
+            android:id="@+id/expanded_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:contentDescription="Zoom Bild"
+            android:layout_below="@+id/profileToolbar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/txtvUsername"

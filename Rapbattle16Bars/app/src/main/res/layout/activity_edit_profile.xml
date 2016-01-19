@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/container_edit"
     tools:context="com.batllerap.hsosna.rapbattle16bars.EditProfileActivity">
 
     <android.support.v7.widget.Toolbar
@@ -20,6 +21,14 @@
         android:layout_marginTop="80dp"
         android:layout_marginLeft="30dp"
         android:contentDescription="@string/editProfilePictureDescription" />
+
+    <ImageView
+        android:id="@+id/expanded_image_edit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:layout_marginTop="30dp"
+        android:contentDescription="Zoom Bild" />
 
     <TextView
         android:layout_width="wrap_content"

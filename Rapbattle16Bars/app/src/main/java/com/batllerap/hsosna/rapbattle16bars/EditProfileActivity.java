@@ -4,13 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.usage.UsageEvents;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -31,7 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.batllerap.hsosna.rapbattle16bars.Controller.UploadController;
+import com.batllerap.hsosna.rapbattle16bars.Controller.ImageUploadController;
 import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.google.android.gms.appindexing.Action;
@@ -42,14 +39,9 @@ import com.squareup.picasso.Target;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Random;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -170,7 +162,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                             bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
                                             Uri tmpUri = getImageUri(getApplicationContext(), bitmap);
                                             File f = new File(getRealPathFromURI(tmpUri));
-                                            UploadController up = new UploadController();
+                                            ImageUploadController up = new ImageUploadController();
                                             up.execute(f);
                                             ostream.flush();
                                             ostream.close();

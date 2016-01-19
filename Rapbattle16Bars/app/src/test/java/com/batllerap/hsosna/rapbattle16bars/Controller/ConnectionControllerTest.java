@@ -8,6 +8,7 @@ import com.batllerap.hsosna.rapbattle16bars.Model.Battle.RequestList;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.RequestModell;
 import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
+import com.google.android.gms.auth.api.Auth;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -30,17 +31,17 @@ import java.lang.Exception;
  */
 public class ConnectionControllerTest {
 
-
+    /*
     @Test
     public void testRegister() throws Exception {
-        /*AuthentificationController.logout("bla123");
+        AuthentificationController.logout("bla123");
         User user = AuthentificationController.register("testUser123undsoweiter", "testUser123undsoweiter@bla.de",  "bla123");
-        System.out.println("Ergebnis: " + user);*/
+        System.out.println("Ergebnis: " + user);
     }
 
     @Test
     public void testRequest() throws Exception {
-        /*RequestList rl = new RequestList();
+        RequestList rl = new RequestList();
         rl.setOpponent_requests(new Request[0]);
         Request[] requests = new Request[1];
         ProfilePreview opponent = new ProfilePreview();
@@ -56,25 +57,34 @@ public class ConnectionControllerTest {
         rl.setRequests(requests);
 
         RequestModell modell = new RequestModell(requests[0]);
-        Assert.assertTrue("Nix Date", modell.getDate().toString() == date.getDate());*/
+        Assert.assertTrue("Nix Date", modell.getDate().toString() == date.getDate());
     }
 
-    @Test
-    public void testSendPicture() throws Exception{
-        AuthentificationController.logout();
-        User user = AuthentificationController.login("testUser123undsoweiter2", "bla123");
-        File file = new File("D:/Truve.png");
-        System.out.println("Datei gefunden: "+ file.getAbsolutePath() + " laenge: " + file.length());
-        InputStream stream = new FileInputStream(file);
-        System.out.println("Testergebnis \"testSendData\": " + UserController.setProfilPicture(stream, "png"));
-    }
+     @Test
+        public void testSendPicture() throws Exception{
+            AuthentificationController.logout();
+            User user = AuthentificationController.login("testUser123undsoweiter2", "bla123");
+            File file = new File("D:/Truve.png");
+            System.out.println("Datei gefunden: "+ file.getAbsolutePath() + " laenge: " + file.length());
+            InputStream stream = new FileInputStream(file);
+            System.out.println("Testergebnis \"testSendData\": " + UserController.setProfilPicture(stream, "png"));
+        }
 
-    @Test
-    public void testSendVideo() throws Exception{
-        AuthentificationController.logout();
-        User user = AuthentificationController.login("testUser123undsoweiter2", "bla123");
+        @Test
+        public void testSendVideo() throws Exception{
+            AuthentificationController.logout();
+            User user = AuthentificationController.login("testUser123undsoweiter2", "bla123");
         File file = new File("D:/Dingel.mp4");
         System.out.println("Datei gefunden: "+ file.getAbsolutePath() + " laenge: " + file.length());
         BattleController.uploadRound(0, 0, "mp4", file);
+    }*/
+
+    @Test
+    public void testUpload() throws Exception{
+        AuthentificationController.logout();
+        AuthentificationController.login("test", "testtest");
+        File file = new File("D:/Tru.png");
+        UploadController uploadController = new UploadController();
+        uploadController.execute(file);
     }
 }

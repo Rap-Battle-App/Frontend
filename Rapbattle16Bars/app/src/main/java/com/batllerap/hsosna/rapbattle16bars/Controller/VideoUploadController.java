@@ -2,6 +2,8 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
 
 import android.os.AsyncTask;
 
+import com.batllerap.hsosna.rapbattle16bars.Model.request.VideoUploadRequest;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -14,19 +16,33 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 /**
- * Created by Mark on 14.01.2016.
+ * Created by woors on 19.01.2016.
  */
-public class UploadController extends AsyncTask<File, Void, Void> {
+
+public class VideoUploadController extends AsyncTask<VideoUploadRequest, Void, Void> {
 
     String lineEnd = "\r\n";
     String twoHyphens = "--";
     String boundary = "AaB03x87yxdkjnxvi7";
 
-    protected Void doInBackground(File... files){
-        File file = files[0];
-        URL url = null;
+    /**
+     * Versendet eine Battlerunde an den Server
+     * @param requests Ein VideoUploadRequest, in dem das Video, die BattleID, die BeatID und das Format vorher angegeben wird
+     * @return
+     */
+    @Override
+    protected Void doInBackground(VideoUploadRequest... requests){
+       VideoUploadRequest request = requests[0];
         try {
-            url = new URL("http://46.101.216.34/profile/picture");
+            BattleController.uploadRound(request.getBattle_id(),request.getBeat_id(),request.getFileFormat(),request.getVideo());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+        /* URL url = null;
+        try {
+            url = new URL("http://46.101.216.34/open-battle/" + request.getBattle_id() + "/round");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -39,7 +55,7 @@ public class UploadController extends AsyncTask<File, Void, Void> {
         int maxBufferSize = 20 * 1024;
         try {
             // ------------------ CLIENT REQUEST
-            fileInputStream = new FileInputStream(file);
+            fileInputStream = new FileInputStream(request.getVideo());
 
             // open a URL connection to the Servlet
             // Open a HTTP connection to the URL
@@ -50,6 +66,7 @@ public class UploadController extends AsyncTask<File, Void, Void> {
             conn.setDoOutput(true);
             // Don't use a cached copy.
             conn.setUseCaches(false);
+            conn.setChunkedStreamingMode(1024);
             // Use a post method.
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type",
@@ -58,14 +75,12 @@ public class UploadController extends AsyncTask<File, Void, Void> {
             dos = new DataOutputStream(conn.getOutputStream());
 
             dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\""
-                    + "picture" + "\"; filename=\"" + "profilePicture"
-                    + ".jpg" + "\"" + lineEnd);
-            dos.writeBytes("Content-Type:image/jpg" + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"video\"; filename=\"battle." + request.getFileFormat() + "\"" + lineEnd);
+            dos.writeBytes("Content-Type:video/" + request.getFileFormat() + lineEnd);
             dos.writeBytes(lineEnd);
 
             // create a buffer of maximum size
-            buffer = new byte[Math.min((int) file.length(), maxBufferSize)];
+            buffer = new byte[Math.min((int) request.getVideo().length(), maxBufferSize)];
             int length;
             // read file and write it into form...
             while ((length = fileInputStream.read(buffer)) != -1) {
@@ -107,9 +122,7 @@ public class UploadController extends AsyncTask<File, Void, Void> {
                 response.append(line).append('\n');
             }
 
-            System.out.println("Upload file responce:"
-                    + response.toString());
-            System.out.println(response.toString());
+            System.out.println("Upload file responce:" + response.toString());
             return null;
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,12 +134,6 @@ public class UploadController extends AsyncTask<File, Void, Void> {
                     e.printStackTrace();
                 }
         }
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(Void result) {
-        // TODO Auto-generated method stub
-        super.onPostExecute(result);
+        return null;*/
     }
 }

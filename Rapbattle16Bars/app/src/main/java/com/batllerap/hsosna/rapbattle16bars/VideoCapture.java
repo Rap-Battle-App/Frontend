@@ -129,33 +129,36 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
 
         recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
         recorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
+        recorder.setOrientationHint(270);
 
         recorder.setProfile(camcorderProfile);
 
         // This is all very sloppy
         if (camcorderProfile.fileFormat == MediaRecorder.OutputFormat.THREE_GPP) {
             try {
-                File newFile = File.createTempFile("videocapture", ".3gp", Environment.getExternalStorageDirectory());
+                newFile = new File(Environment.getExternalStorageDirectory(), "Video" + ".3gp" );
                 recorder.setOutputFile(newFile.getAbsolutePath());
-            } catch (IOException e) {
+            } catch (Exception e) {
                 Log.v(LOGTAG,"Couldn't create file");
                 e.printStackTrace();
                 finish();
             }
         } else if (camcorderProfile.fileFormat == MediaRecorder.OutputFormat.MPEG_4) {
             try {
-                 newFile = File.createTempFile("videocapture", ".mp4", Environment.getExternalStorageDirectory());
+                newFile = new File(Environment.getExternalStorageDirectory(), "Video" + ".mp4" );
                 recorder.setOutputFile(newFile.getAbsolutePath());
-            } catch (IOException e) {
+                System.out.println("CAPTURE" + newFile.getName());
+                System.out.println("CAPTURE"+newFile.getAbsolutePath());
+            } catch (Exception e) {
                 Log.v(LOGTAG,"Couldn't create file");
                 e.printStackTrace();
                 finish();
             }
         } else {
             try {
-                File newFile = File.createTempFile("videocapture", ".mp4", Environment.getExternalStorageDirectory());
+                newFile = new File(Environment.getExternalStorageDirectory(), "Video" + ".mp4" );
                 recorder.setOutputFile(newFile.getAbsolutePath());
-            } catch (IOException e) {
+            } catch (Exception e) {
                 Log.v(LOGTAG,"Couldn't create file");
                 e.printStackTrace();
                 finish();
@@ -212,6 +215,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         if (usecamera) {
             camera = Camera.open(currentCameraId);
             camera.setDisplayOrientation(90);
+
 
             try {
                 camera.setPreviewDisplay(holder);

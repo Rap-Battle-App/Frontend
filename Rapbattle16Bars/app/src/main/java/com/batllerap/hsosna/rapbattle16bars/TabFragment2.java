@@ -131,6 +131,7 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
             OpenBattle oBattle= BattleController.getOpenBattle(myOpenBattlesList.get(position).getBattle_id());
             Intent intent = new Intent(getActivity(), OpenBattleActivity.class);
             intent.putExtra("Battle", oBattle);
+            intent.putExtra("User", aktUser);
             startActivity(intent);
         } catch (IOException e) {
             e.printStackTrace();

@@ -35,6 +35,11 @@ public class VideoUploadAlert extends DialogFragment {
                 .setPositiveButton("Ja!", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         try {
+                            if (video!=null){
+                                System.out.println("Videoupload:"+video.getName());
+                                System.out.println("Videoupload:"+video.getAbsolutePath());
+                            }
+
                             BattleController.uploadRound(beatID,battleID,fileFormat,video);
                             Toast.makeText(getContext(), "Upload gestartet....", Toast.LENGTH_LONG).show();
                         } catch (IOException e) {

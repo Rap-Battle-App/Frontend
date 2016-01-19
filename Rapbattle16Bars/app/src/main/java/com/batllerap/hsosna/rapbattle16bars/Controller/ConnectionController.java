@@ -112,6 +112,7 @@ public class ConnectionController {
         }
         connection.setRequestProperty("Connection", "Keep-Alive");
         connection.setRequestMethod("POST");
+        connection.setChunkedStreamingMode(1024);
 
         connection.addRequestProperty("Content-length", entity.getContentLength() + "");
         connection.addRequestProperty(entity.getContentType().getName(), entity.getContentType().getValue());

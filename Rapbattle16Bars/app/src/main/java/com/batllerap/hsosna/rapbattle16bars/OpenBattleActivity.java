@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.OpenBattle;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 public class OpenBattleActivity extends AppCompatActivity {
 
@@ -23,13 +24,21 @@ public class OpenBattleActivity extends AppCompatActivity {
     Button vidButton;
     int auswahl;
     private RadioGroup beatgroup;
+    private User aktUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_battle);
 
-         battle = (OpenBattle) getIntent().getSerializableExtra("Battle");
+        // Set up Toolbar for Navigation
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.openBattleToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Battle");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        battle = (OpenBattle) getIntent().getSerializableExtra("Battle");
+        aktUser = (User) getIntent().getSerializableExtra("User");
 
         // Set up Toolbar for Navigation
     /*    final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -132,6 +141,13 @@ public class OpenBattleActivity extends AppCompatActivity {
                 System.out.println(auswahl);
                 intent.putExtra("Beat", auswahl+1);
                 intent.putExtra("BattleID",battle.getId() );
+                try {
+                    mPlayer.stop();
+                    mPlayer.release();
+                } catch (Exception e) {
+
+                }
+
                 startActivity(intent);
             }
         });
@@ -161,29 +177,36 @@ public class OpenBattleActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (mPlayer != null) {
+        if (mPlayer != null){
+
+
+            mPlayer.reset();
             mPlayer.release();
+            mPlayer = null;
+
+
         }
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("User", aktUser);
+        User tuser = (User) intent.getSerializableExtra("User");
+        startActivity(intent);
+        return;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Log.v("qqq", "DIGGAAA");
-                onBackPressed();
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mPlayer != null) {
-            mPlayer.pause();
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (mPlayer != null){
             mPlayer.release();
+            mPlayer = null;
+
+
         }
+
+
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        myIntent.putExtra("User", aktUser);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
+
 
 }

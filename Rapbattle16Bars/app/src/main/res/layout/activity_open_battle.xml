@@ -4,18 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.batllerap.hsosna.rapbattle16bars.OpenBattleActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/openBattleToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 
 
     <RadioGroup android:id="@+id/beatgroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp">
+        android:paddingLeft="16dp"
+        android:layout_below="@id/openBattleToolbar"
+        >
 
         <RadioButton android:id="@+id/beat1"
             android:layout_width="match_parent"

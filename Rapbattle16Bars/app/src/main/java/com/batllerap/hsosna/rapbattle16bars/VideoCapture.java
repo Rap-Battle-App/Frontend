@@ -129,6 +129,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
 
         recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
         recorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
+        recorder.setOrientationHint(90);
 
         recorder.setProfile(camcorderProfile);
 
@@ -212,6 +213,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         if (usecamera) {
             camera = Camera.open(currentCameraId);
             camera.setDisplayOrientation(90);
+
 
             try {
                 camera.setPreviewDisplay(holder);

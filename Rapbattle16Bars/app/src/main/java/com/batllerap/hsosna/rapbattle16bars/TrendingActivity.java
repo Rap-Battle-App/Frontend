@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 
 import java.io.IOException;
@@ -22,8 +23,9 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private MyAdapter mAdapter;
-    private final List<BattleOverview> myDataset = new ArrayList<>();
+    private final  List<BattleOverview> myDataset = new ArrayList<>();
     private Handler handler;
+    private int page;
 
 
     @Override
@@ -66,19 +68,23 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        page++;
                         //remove progress item
                         myDataset.remove(myDataset.size() - 1);
                         mAdapter.notifyItemRemoved(myDataset.size());
                         //add items one by one
-                        for (int i = 0; i < 15; i++) {
-                            ListElement current = new ListElement();
-                            current.imgRapper1 =R.mipmap.ic_launcher;
-                            current.imgRapper2= R.mipmap.ic_launcher;
-                            current.name1="john";
-                            current.name2 = "peter";
-
-                            mAdapter.notifyItemInserted(myDataset.size());
+                        BattleOverview[] bla = new BattleOverview[0];
+                        try {
+                            bla = BattleController.getTrendingBattles(page, 25).getData();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
+
+                        myDataset.addAll(Arrays.asList(bla));
+
+                        mAdapter.notifyDataSetChanged();
+                        // mAdapter.notifyItemInserted(myDataset.size());
+
                         mAdapter.setLoaded();
                         //or you can add all at once but do not forget to call mAdapter.notifyDataSetChanged();
                     }
@@ -92,7 +98,7 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
 
         BattleOverview[] bla= new BattleOverview[0];
         try {
-            bla = BattleController.getTrendingBattles(0, 50).getData();
+            bla = BattleController.getTrendingBattles(0, 25).getData();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -104,22 +110,14 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
 
     @Override
     public void itemClicked(View view, int position) {
-        View v = view;
+        try {
+            Battle battle = BattleController.getBattle(myDataset.get(position).getBattle_id());
 
-
-        System.out.println("Trending List Angeklickt");
-        Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
-        startActivity(intent);
-        //
-        //Works after Controllers are finished
-        /*
-               try{
-                   Intent intent = new Intent("com.albert.testbattle.ClosedBattleActivity");
-                    Battle battle = bController.getBattle(trending[position].getBattleId());
-                    intent.putExtra("battle",battle);
-                    startActivity(intent);
-                }catch(org.json.JSONException exception) {
-                    exception.printStackTrace();
-                }*/
+            Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
+            intent.putExtra("battle", battle);
+            startActivity(intent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

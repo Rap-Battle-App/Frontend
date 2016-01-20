@@ -28,6 +28,7 @@ public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter
     private final List<BattleOverview> myDataset = new ArrayList<>();
     private Handler handler;
     private User aktUser;
+    int page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,24 +72,29 @@ public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        page++;
                         //remove progress item
                         myDataset.remove(myDataset.size() - 1);
                         mAdapter.notifyItemRemoved(myDataset.size());
                         //add items one by one
-                        for (int i = 0; i < 15; i++) {
-                            ListElement current = new ListElement();
-                            current.imgRapper1 =R.mipmap.ic_launcher;
-                            current.imgRapper2= R.mipmap.ic_launcher;
-                            current.name1="john";
-                            current.name2 = "peter";
-
-                           // myDataset.add(current);
-                            mAdapter.notifyItemInserted(myDataset.size());
+                        BattleOverview[] bla = new BattleOverview[0];
+                        try {
+                            bla = BattleController.getTrendingBattles(page, 25).getData();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                        mAdapter.setLoaded();
-                        //or you can add all at once but do not forget to call mAdapter.notifyDataSetChanged();
-                    }
-                }, 2000);
+
+                        myDataset.addAll(Arrays.asList(bla));
+
+                        mAdapter.notifyDataSetChanged();
+                        // mAdapter.notifyItemInserted(myDataset.size());
+
+
+
+                    mAdapter.setLoaded();
+                    //or you can add all at once but do not forget to call mAdapter.notifyDataSetChanged();
+                }
+            }, 2000);
                 System.out.println("load");
             }
         });
@@ -102,7 +108,7 @@ public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter
             BattleOverview[] bla= new BattleOverview[0];
             try {
                 if(aktUser != null) {
-                    bla = BattleController.getOpenForVotingBattles(aktUser.getId(),0, 50).getData();
+                    bla = BattleController.getOpenForVotingBattles(aktUser.getId(),0, 25).getData();
                 }
 
             } catch (IOException e) {

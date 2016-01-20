@@ -74,8 +74,8 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
     private BattleController bController;
     private  static BattleListResponse trending;
 
-    private List<BattleOverview> trendingBattlesList;
-    private List<BattleOverview> openForVotesBattlesList;
+    private List<BattleOverview> trendingBattlesList = new ArrayList<>();
+    private List<BattleOverview> openForVotesBattlesList = new ArrayList<>();
 
     private Animator mCurrentAnimator;
     private int mShortAnimationDuration;
@@ -128,7 +128,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         this.txtvAboutMe.setText(aktUser.getAboutMe());
         System.out.println("Profilbild: " + aktUser.getProfilePicture());
         if(aktUser.getProfilePicture() != null) {
-            Picasso.with(getActivity().getApplicationContext()).load(aktUser.getProfilePicture()).into(imgvProfilePicture);
+            Picasso.with(getActivity().getApplicationContext()).load(aktUser.getProfilePicture()).fit().into(imgvProfilePicture);
         }else {
             this.imgvProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
@@ -177,11 +177,15 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
             tList.setLayoutManager(wrvLayoutManager);
             oList.setLayoutManager(wrv2LayoutManager);
 
-            trendingBattlesList = getCompletedBattles();
-            openForVotesBattlesList = getOpenforVotingBattlesList();
-
             tAdapter = new CustomAdapter(getActivity(),trendingBattlesList);
             oAdapter = new CustomAdapter(getActivity(),openForVotesBattlesList);
+
+            if(aktUser != null){
+                TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks(this.getContext());
+                asyncTrendigBattles.execute("complete", aktUser.getId(), trendingBattlesList, tAdapter);
+                TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks(this.getContext());
+                asyncOpenForVotes.execute("open", aktUser.getId(), openForVotesBattlesList, oAdapter);
+            }
 
             tAdapter.setClickListener(this);
             oAdapter.setClickListener(this);
@@ -200,42 +204,6 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         }
 
         return layout;
-    }
-
-    public List<BattleOverview> getCompletedBattles() {
-
-        List<BattleOverview> data = new ArrayList<>();
-        BattleOverview[] bla = new BattleOverview[0];
-        try {
-            if (aktUser != null) {
-                bla = BattleController.getCompletedBattles(aktUser.getId(),0, 50).getData();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        data.addAll(Arrays.asList(bla));
-
-        return data;
-    }
-
-    public List<BattleOverview> getOpenforVotingBattlesList() {
-
-        List<BattleOverview> data = new ArrayList<>();
-        BattleOverview[] bla = new BattleOverview[0];
-        try {
-            if (aktUser != null) {
-                bla = BattleController.getOpenForVotingBattles(aktUser.getId(), 0, 50).getData();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        data.addAll(Arrays.asList(bla));
-
-        return data;
     }
 
     @Override

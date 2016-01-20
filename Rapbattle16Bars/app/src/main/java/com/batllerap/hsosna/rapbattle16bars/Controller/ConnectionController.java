@@ -98,7 +98,7 @@ public class ConnectionController {
             cookieManager = new CookieManager();
             CookieHandler.setDefault(new CookieManager());
         }
-
+        System.setProperty("http.keepAlive", "false");
         connection.setDoOutput(true);
         connection.setDoInput(true);
         if(isImage) {
@@ -110,7 +110,7 @@ public class ConnectionController {
             System.out.println("RequestType: video/" + fileFormat);
             connection.setRequestProperty("Content-Type", "video/" + fileFormat);
         }
-        connection.setRequestProperty("Connection", "Keep-Alive");
+        connection.setRequestProperty("Connection", "close");
         connection.setRequestMethod("POST");
         connection.setChunkedStreamingMode(1024);
 

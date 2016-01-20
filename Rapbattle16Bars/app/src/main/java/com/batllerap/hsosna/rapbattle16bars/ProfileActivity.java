@@ -143,8 +143,12 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         this.txtvUsername.setText(searchUser.getUserName());
         this.txtvLocation.setText(searchUser.getLocation());
         this.txtvAboutMe.setText(searchUser.getAboutMe());
+
+        if(aktUser.getUserName().equals(searchUser.getUserName())){
+            btnHerausfordern.setVisibility(View.INVISIBLE);
+        }
         if (searchUser.getProfilePicture() != null) {
-            Picasso.with(getApplicationContext()).load(aktUser.getProfilePicture()).into(imgvProfilePicture);
+            Picasso.with(getApplicationContext()).load(searchUser.getProfilePicture()).into(imgvProfilePicture);
         } else {
             this.imgvProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }

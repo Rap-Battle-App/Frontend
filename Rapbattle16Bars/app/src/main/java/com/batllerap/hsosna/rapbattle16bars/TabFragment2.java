@@ -20,7 +20,6 @@ import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TabFragment2 extends Fragment implements CustomAdapter.ClickListener,ChallengeAdapter.ClickListener {
@@ -32,8 +31,8 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
     private WrappingRecyclerViewLayoutManager wrvLayoutManager2;
     private CustomAdapter oAdapter;
     private ChallengeAdapter cAdapter;
-    private List<Request> challengeList;
-    private List<BattleOverview> myOpenBattlesList;
+    private List<Request> challengeList = new ArrayList<>();
+    private List<BattleOverview> myOpenBattlesList = new ArrayList<>();
     private DialogFragment challengeAlert;
 
     private User aktUser;
@@ -57,12 +56,16 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
 
         oList.setLayoutManager(wrvLayoutManager);
         cList.setLayoutManager(wrvLayoutManager2);
-        myOpenBattlesList = getMyOpenBattlesList();
 
         oAdapter = new CustomAdapter(getActivity(),myOpenBattlesList);
-
-        challengeList =getMyOpenChallengeList();
         cAdapter = new ChallengeAdapter(getActivity(),challengeList);
+
+        if(aktUser != null){
+            TabFragment2AsyncTasks asyncOpenBattles = new TabFragment2AsyncTasks();
+            asyncOpenBattles.execute(null, myOpenBattlesList, oAdapter);
+            TabFragment2AsyncTasks asyncChallengeList = new TabFragment2AsyncTasks();
+            asyncChallengeList.execute(aktUser.getUserName(), challengeList, cAdapter);
+        }
 
         cAdapter.setClickListener(this);
         oAdapter.setClickListener(this);
@@ -78,51 +81,8 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
 
             }
         });
-
-
-
-
-
         return layout;
     }
-
-    public  List<BattleOverview> getMyOpenBattlesList(){
-
-        List<BattleOverview> data = new ArrayList<>();
-        BattleOverview[] bla= new BattleOverview[0];
-        try {
-            if(aktUser != null) {
-                bla = BattleController.getOpenBattles(0).getData();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        data.addAll(Arrays.asList(bla));
-
-        return data;
-    }
-
-    public  List<Request> getMyOpenChallengeList(){
-
-
-        List<Request> data = new ArrayList<>();
-        Request[] bla= new Request[0];
-        try {
-            if(aktUser != null) {
-                bla = BattleController.getRequestList(aktUser.getUserName()).getOpponent_requests();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        data.addAll(Arrays.asList(bla));
-
-        return data;
-    }
-
 
     @Override
     public void itemClicked(View view, int position) {

@@ -30,8 +30,8 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
     private CustomAdapter tAdapter;
     private CustomAdapter oAdapter;
     private User aktUser;
-    private List<BattleOverview> trendingBattlesList;
-    private List<BattleOverview> openForVotesBattlesList;
+    private List<BattleOverview> trendingBattlesList = new ArrayList<>();
+    private List<BattleOverview> openForVotesBattlesList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,10 +71,15 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         tList.setLayoutManager(wrvLayoutManager);
         oList.setLayoutManager(wrv2LayoutManager);
 
-        trendingBattlesList = getTrendingList();
-        openForVotesBattlesList = getOpenForVotesBattlesList();
         tAdapter = new CustomAdapter(getActivity(), trendingBattlesList);
         oAdapter = new CustomAdapter(getActivity(), openForVotesBattlesList);
+
+        if(aktUser != null){
+            TabFragment1AsyncTasks asyncTrendigBattles = new TabFragment1AsyncTasks();
+            asyncTrendigBattles.execute("trending", trendingBattlesList, tAdapter);
+            TabFragment1AsyncTasks asyncOpenForVotes = new TabFragment1AsyncTasks();
+            asyncOpenForVotes.execute("open", openForVotesBattlesList, oAdapter);
+        }
 
         tAdapter.setClickListener(this);
         oAdapter.setClickListener(this);

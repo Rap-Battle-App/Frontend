@@ -1,194 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
-    android:background="#FFFFFF" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:id="@+id/scrollView">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/profileToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+            <ImageView
+                android:id="@+id/imgvProfilePicture"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_below="@+id/profileToolbar"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:contentDescription="@string/profilePictureDescription"
+                android:src="@drawable/default_profile_pic" />
+
+            <TextView
+                android:id="@+id/txtvUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/txtvLocation"
+                android:layout_alignStart="@+id/txtvLocation"
+                android:layout_below="@+id/profileToolbar"
+                android:layout_marginTop="30dp"
+                android:text="New Text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtvLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/txtvAboutMe"
+                android:layout_alignStart="@+id/txtvAboutMe"
+                android:layout_below="@+id/txtvUsername"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/txtvAboutMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtvLocation"
+                android:layout_marginLeft="29dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/imgvProfilePicture"
+                android:layout_toRightOf="@+id/imgvProfilePicture"
+                android:maxHeight="90dp" />
+
+            <TextView
+                android:id="@+id/txtvWins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/imgvProfilePicture"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="22dp"
+                android:text="@string/strWins" />
+
+            <TextView
+                android:id="@+id/txtvLooses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/txtvWins"
+                android:layout_marginLeft="50dp"
+                android:layout_toRightOf="@+id/txtvWins"
+                android:text="@string/strLooses" />
+
+            <TextView
+                android:id="@+id/txtvWinsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/txtvWins"
+                android:layout_marginLeft="30dp"
+                android:text="New Text" />
+
+            <TextView
+                android:id="@+id/txtvLoosesValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/txtvLooses"
+                android:layout_alignStart="@+id/txtvLooses"
+                android:layout_below="@+id/txtvLooses"
+                android:text="New Text" />
+
+            <Button
+                android:id="@+id/btnHerausfordern"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/txtvLooses"
+                android:layout_marginLeft="60dp"
+                android:layout_toRightOf="@+id/txtvLooses"
+                android:background="?attr/colorPrimary"
+                android:text="Herausfordern"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
+
+            <Button
+                android:id="@+id/btnEditProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/txtvWins"
+                android:layout_alignEnd="@+id/imgvProfilePicture"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignRight="@+id/imgvProfilePicture"
+                android:layout_marginLeft="30dp"
+                android:background="?attr/colorPrimary"
+                android:text="@string/strEditProfile"
+                android:textColor="#ffffff"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtvClosedBattles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtvWinsValue"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:text="Abgeschlossene Battles"
+                android:textSize="16sp" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/profileClosedBattlesList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtvClosedBattles">
+
+
+            </android.support.v7.widget.RecyclerView>
+
+            <View
+                android:id="@+id/profileDivider"
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/profileClosedBattlesList"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+                android:background="#c0c0c0" />
+
+
+            <TextView
+                android:id="@+id/txtvOpenBattles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profileDivider"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+                android:text="Offene Battles"
+                android:textSize="16sp" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/profileOpenBattlesList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtvOpenBattles"
+                android:layout_centerHorizontal="true">
+
+
+            </android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/expanded_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:contentDescription="Zoom Bild"
+        android:layout_alignStart="@+id/imgvProfilePicture"
+        android:visibility="invisible"
+        android:layout_alignLeft="@+id/imgvProfilePicture" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/profileToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-        <ImageView
-            android:layout_below="@+id/profileToolbar"
-            android:id="@+id/imgvProfilePicture"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:contentDescription="@string/profilePictureDescription"
-            android:src="@drawable/default_profile_pic" />
-
-        <ImageView
-            android:id="@+id/expanded_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"
-            android:contentDescription="Zoom Bild"
-            android:layout_below="@+id/profileToolbar"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:id="@+id/txtvUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/profileToolbar"
-            android:layout_alignLeft="@+id/txtvLocation"
-            android:layout_alignStart="@+id/txtvLocation"
-            android:layout_marginTop="30dp"
-            android:text="New Text"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtvLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/txtvAboutMe"
-            android:layout_alignStart="@+id/txtvAboutMe"
-            android:layout_below="@+id/txtvUsername"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:id="@+id/txtvAboutMe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtvLocation"
-            android:layout_marginLeft="29dp"
-            android:layout_marginStart="29dp"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@+id/imgvProfilePicture"
-            android:layout_toRightOf="@+id/imgvProfilePicture"
-            android:maxHeight="90dp" />
-
-        <TextView
-            android:id="@+id/txtvWins"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/imgvProfilePicture"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="22dp"
-            android:text="@string/strWins" />
-
-        <TextView
-            android:id="@+id/txtvLooses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/txtvWins"
-            android:layout_alignTop="@+id/txtvWins"
-            android:layout_marginLeft="50dp"
-            android:text="@string/strLooses" />
-
-        <TextView
-            android:id="@+id/txtvWinsValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="30dp"
-            android:layout_below="@+id/txtvWins"
-            android:text="New Text" />
-
-        <TextView
-            android:id="@+id/txtvLoosesValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/txtvLooses"
-            android:layout_alignStart="@+id/txtvLooses"
-            android:layout_below="@+id/txtvLooses"
-            android:text="New Text" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnHerausfordern"
-            android:background="?attr/colorPrimary"
-            android:textColor="#ffffff"
-            android:text="Herausfordern"
-            android:textSize="10dp"
-            android:layout_marginLeft="60dp"
-            android:layout_alignTop="@+id/txtvLooses"
-            android:layout_toRightOf="@+id/txtvLooses" />
-
-        <Button
-            android:id="@+id/btnEditProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/txtvWins"
-            android:layout_alignEnd="@+id/imgvProfilePicture"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="30dp"
-            android:layout_alignRight="@+id/imgvProfilePicture"
-            android:background="?attr/colorPrimary"
-            android:textColor="#ffffff"
-            android:text="@string/strEditProfile"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/txtvClosedBattles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtvWinsValue"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:text="Abgeschlossene Battles"
-            android:textSize="16sp" />
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/profileClosedBattlesList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtvClosedBattles">
-
-
-        </android.support.v7.widget.RecyclerView>
-
-        <View
-            android:id="@+id/profileDivider"
-            android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            android:layout_marginLeft="30dp"
-            android:layout_below="@+id/profileClosedBattlesList"
-            android:layout_centerHorizontal="true"
-            android:background="#c0c0c0" />
-
-
-        <TextView
-            android:id="@+id/txtvOpenBattles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/profileDivider"
-            android:layout_centerHorizontal="true"
-            android:text="Offene Battles"
-            android:layout_marginLeft="30dp"
-            android:textSize="16sp" />
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/profileOpenBattlesList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtvOpenBattles"
-            android:layout_centerHorizontal="true">
-
-
-        </android.support.v7.widget.RecyclerView>
-
-    </RelativeLayout>
-
-</ScrollView>
+</RelativeLayout>

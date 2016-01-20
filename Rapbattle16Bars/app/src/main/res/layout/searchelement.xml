@@ -2,23 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/searchElement"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="54dp"
     android:background="@drawable/ripple"
     android:clickable="true">
 
     <ImageView
         android:id="@+id/SearchPicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/default_profile_pic" />
 
     <TextView
         android:id="@+id/SearchName"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="72dp"
+        android:layout_marginLeft="16dp"
         android:paddingTop="16dp"
         android:text="RAPPER Y"
-        android:textSize="16sp" />
+        android:textSize="18sp"
+        android:layout_toRightOf="@id/SearchPicture"/>
 </RelativeLayout>

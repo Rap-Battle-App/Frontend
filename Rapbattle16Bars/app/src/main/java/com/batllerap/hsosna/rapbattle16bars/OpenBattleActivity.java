@@ -179,8 +179,6 @@ public class OpenBattleActivity extends AppCompatActivity {
         super.onBackPressed();
         if (mPlayer != null){
 
-
-            mPlayer.reset();
             mPlayer.release();
             mPlayer = null;
 

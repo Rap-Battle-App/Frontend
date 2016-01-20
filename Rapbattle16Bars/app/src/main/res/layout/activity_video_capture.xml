@@ -6,11 +6,38 @@
     <SurfaceView android:id="@+id/CameraView" android:layout_width="fill_parent" android:layout_height="fill_parent">
     </SurfaceView>
 
-    <Button android:id="@+id/switchcam"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        <TextView   android:id="@+id/rec_dot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_red"
+            android:layout_toLeftOf="@+id/rec"
+            android:layout_marginTop="26dp"
+            android:visibility="invisible" />
 
-        android:text="Kamera wechseln"/>
+        <TextView android:id="@+id/rec"
+            android:text="REC"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:textSize="32sp"
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/red"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
+        <Chronometer  android:id="@+id/timer"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="32sp"
+            android:layout_below="@+id/rec"
+            android:layout_marginRight="32dp"
+
+            android:visibility="invisible"/>
 
 
 </RelativeLayout>

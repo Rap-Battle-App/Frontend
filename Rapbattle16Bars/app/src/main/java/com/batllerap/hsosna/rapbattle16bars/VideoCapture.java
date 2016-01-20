@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +18,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Chronometer;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,9 +34,14 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
     private MediaPlayer player;
     private SurfaceHolder holder;
     private CamcorderProfile camcorderProfile;
+    private TextView redDot;
+    private TextView rec;
     private static Camera camera;
     private File newFile;
     private DialogFragment VideoAlert;
+    private Chronometer timer;
+  //  private AsyncVideoCaptureUI myTask;
+
 
     int beat;
     int id;
@@ -49,12 +57,18 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        setContentView(R.layout.activity_video_capture);
+
+        redDot = (TextView) findViewById(R.id.rec_dot);
+        rec = (TextView) findViewById(R.id.rec);
         beat=  getIntent().getIntExtra("Beat",0);
         id = getIntent().getIntExtra("BattleID",999999);
 
         beatstr = "beat"+beat;
         Log.v("DAMN", beatstr);
-
+        //TODO: Blinkendes Icon fixen, wenn Zeit vorhanden.
+       // myTask = new AsyncVideoCaptureUI(getApplicationContext(),findViewById(android.R.id.content),timer);
         VideoAlert = new VideoUploadAlert();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -62,9 +76,9 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
 
         camcorderProfile = CamcorderProfile.get(currentCameraId,CamcorderProfile.QUALITY_HIGH);
 
-        setContentView(R.layout.activity_video_capture);
-        Button othercam = (Button) findViewById(R.id.switchcam);
 
+        timer = (Chronometer) findViewById(R.id.timer);
+      //  myTask = new AsyncVideoCaptureUI(getApplicationContext(),findViewById(android.R.id.content),timer);
 
 
         SurfaceView cameraView = (SurfaceView) findViewById(R.id.CameraView);
@@ -74,48 +88,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
 
         cameraView.setClickable(true);
         cameraView.setOnClickListener(this);
-        othercam.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
-                if(recording){
-                    recorder.stop();
-                    if (player != null){
-                        player.stop();
-                        player.release();
-                    }
-
-
-
-
-                }
-                if (previewRunning){
-                    Log.v(LOGTAG, "Stop PreVIEW");
-                    camera.stopPreview();
-                }
-
-                //camera.release();
-
-                if(currentCameraId == Camera.CameraInfo.CAMERA_FACING_BACK){
-                    currentCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
-                }
-                else {
-                    currentCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
-                }
-
-                recreate();
-                //camera = Camera.open(currentCameraId);
-              // camera.unlock();
-              //  recorder.setCamera(camera);
-
-           /*     try{
-                    camera.setPreviewDisplay(holder);
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
-                camera.startPreview();*/
-            }
-        });
     }
 
     private void prepareRecorder() {
@@ -182,10 +155,16 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         if (recording) {
             recorder.stop();
 
+          //  myTask.cancel(true);
+
             if (player != null){
                 player.stop();
                 player.release();
             }
+            timer.stop();
+            timer.setVisibility(View.GONE);
+            rec.setVisibility(View.GONE);
+            redDot.setVisibility(View.GONE);
             if (usecamera) {
                 try {
                     camera.reconnect();
@@ -205,6 +184,12 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
             player = MediaPlayer.create(this, getResources().getIdentifier(beatstr,"raw", getPackageName()));
             recorder.start();
             player.start();
+            timer.setVisibility(View.VISIBLE);
+            redDot.setVisibility(View.VISIBLE);
+            rec.setVisibility(View.VISIBLE);
+            timer.setBase(SystemClock.elapsedRealtime());
+            timer.start();
+          //  myTask.execute();
             Log.v(LOGTAG, "Recording Started");
         }
     }
@@ -273,6 +258,15 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
             //camera.lock();
             camera.release();
         }
+        if (player != null){
+            player.release();
+        }
+        timer.stop();
+        timer.setVisibility(View.GONE);
+        rec.setVisibility(View.GONE);
+        redDot.setVisibility(View.GONE);
+       // myTask.cancel(true);
+
         finish();
     }
 }

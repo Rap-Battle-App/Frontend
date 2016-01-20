@@ -1,5 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.content.ContentResolver;
 import android.support.v4.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
@@ -61,9 +62,9 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
         cAdapter = new ChallengeAdapter(getActivity(),challengeList);
 
         if(aktUser != null){
-            TabFragment2AsyncTasks asyncOpenBattles = new TabFragment2AsyncTasks();
+            TabFragment2AsyncTasks asyncOpenBattles = new TabFragment2AsyncTasks(this.getContext());
             asyncOpenBattles.execute(null, myOpenBattlesList, oAdapter);
-            TabFragment2AsyncTasks asyncChallengeList = new TabFragment2AsyncTasks();
+            TabFragment2AsyncTasks asyncChallengeList = new TabFragment2AsyncTasks(this.getContext());
             asyncChallengeList.execute(aktUser.getUserName(), challengeList, cAdapter);
         }
 

@@ -87,8 +87,8 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
     private List<BattleOverview> myBattlesList = new ArrayList<>();
     private List<BattleOverview> myOpenforVotesBattlesList = new ArrayList<>();
 
-    private List<BattleOverview> trendingBattlesList;
-    private List<BattleOverview> openForVotesBattlesList;
+    private List<BattleOverview> trendingBattlesList = new ArrayList<>();
+    private List<BattleOverview> openForVotesBattlesList = new ArrayList<>();
     private Animator mCurrentAnimator;
     private int mShortAnimationDuration;
 
@@ -124,18 +124,20 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         //Button
         this.editProfile = (Button) findViewById(R.id.btnEditProfile);
         this.editProfile.setVisibility(View.INVISIBLE);
-        this.btnHerausfordern = (Button) findViewById(R.id.btnHerausfordern);
-        this.btnHerausfordern.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    BattleController.sendRequest(searchUser.getId());
-                } catch (IOException e) {
-                    e.printStackTrace();
+        if(!aktUser.getUserName().equals(searchUser.getUserName())){
+            this.btnHerausfordern = (Button) findViewById(R.id.btnHerausfordern);
+            this.btnHerausfordern.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        BattleController.sendRequest(searchUser.getId());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    btnHerausfordern.setVisibility(View.INVISIBLE);
                 }
-                btnHerausfordern.setVisibility(View.INVISIBLE);
-            }
-        });
+            });
+        }
 
         //ImageView
         this.imgvProfilePicture = (ImageView) findViewById(R.id.imgvProfilePicture);
@@ -144,9 +146,6 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         this.txtvLocation.setText(searchUser.getLocation());
         this.txtvAboutMe.setText(searchUser.getAboutMe());
 
-        if(aktUser.getUserName().equals(searchUser.getUserName())){
-            btnHerausfordern.setVisibility(View.INVISIBLE);
-        }
         if (searchUser.getProfilePicture() != null) {
             Picasso.with(getApplicationContext()).load(searchUser.getProfilePicture()).into(imgvProfilePicture);
         } else {
@@ -198,11 +197,15 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             tList.setLayoutManager(wrvLayoutManager);
             oList.setLayoutManager(wrv2LayoutManager);
 
-            trendingBattlesList = getCompletedBattles();
-            openForVotesBattlesList = getOpenforVotingBattlesList();
-
             tAdapter = new CustomAdapter(this, trendingBattlesList);
             oAdapter = new CustomAdapter(this, openForVotesBattlesList);
+
+            if(aktUser != null){
+                TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks(this.getApplicationContext());
+                asyncTrendigBattles.execute("complete", aktUser.getId(), trendingBattlesList, tAdapter);
+                TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks(this.getApplicationContext());
+                asyncOpenForVotes.execute("open", aktUser.getId(), openForVotesBattlesList, oAdapter);
+            }
 
             tAdapter.setClickListener(this);
             oAdapter.setClickListener(this);

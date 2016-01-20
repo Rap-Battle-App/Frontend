@@ -1,5 +1,8 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Request;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
@@ -16,22 +19,19 @@ public class TabFragment2AsyncTasks extends android.os.AsyncTask<Object, Void, I
 
     private CustomAdapter oAdapter;
     private ChallengeAdapter cAdapter;
-    /*
-    private List<BattleOverview> dataBattleOverview = new ArrayList<>();
-    private List<Request> dataRequest = new ArrayList<>();
-    private String userString = null;
+    private Context context;
 
-    public TabFragment2AsyncTasks(List<BattleOverview> data, CustomAdapter oAdapter) {
-        this.dataBattleOverview = data;
-        this.oAdapter = oAdapter;
+    ProgressDialog pd;
+
+    public TabFragment2AsyncTasks(Context context) {
+        this.context = context;
     }
 
-    public TabFragment2AsyncTasks(String userName, List<Request> data, ChallengeAdapter cAdapter) {
-        this.userString = userName;
-        this.dataRequest = data;
-        this.cAdapter = cAdapter;
+    @Override
+    protected void onPreExecute(){
+        pd = ProgressDialog.show(context, "", "Battles werden geladen", false);
     }
-*/
+
     @Override
     protected Integer doInBackground(Object... params) {
         String username = (String) params[0];
@@ -68,5 +68,6 @@ public class TabFragment2AsyncTasks extends android.os.AsyncTask<Object, Void, I
         } else if (result == 2) {
             oAdapter.notifyDataSetChanged();
         }
+        pd.dismiss();
     }
 }

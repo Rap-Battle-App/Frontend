@@ -75,9 +75,9 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         oAdapter = new CustomAdapter(getActivity(), openForVotesBattlesList);
 
         if(aktUser != null){
-            TabFragment1AsyncTasks asyncTrendigBattles = new TabFragment1AsyncTasks();
+            TabFragment1AsyncTasks asyncTrendigBattles = new TabFragment1AsyncTasks(this.getContext());
             asyncTrendigBattles.execute("trending", trendingBattlesList, tAdapter);
-            TabFragment1AsyncTasks asyncOpenForVotes = new TabFragment1AsyncTasks();
+            TabFragment1AsyncTasks asyncOpenForVotes = new TabFragment1AsyncTasks(this.getContext());
             asyncOpenForVotes.execute("open", openForVotesBattlesList, oAdapter);
         }
 

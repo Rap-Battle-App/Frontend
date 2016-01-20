@@ -166,6 +166,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                             up.execute(f);
                                             ostream.flush();
                                             ostream.close();
+                                            deleteFile(bitmap.toString());
                                         } catch (IOException e) {
                                             Log.e("IOException", e.getLocalizedMessage());
                                         }

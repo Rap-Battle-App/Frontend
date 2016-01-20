@@ -1,5 +1,8 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 
@@ -13,6 +16,18 @@ import java.util.List;
 public class TabFragment1AsyncTasks extends android.os.AsyncTask<Object, Void, Integer> {
     private CustomAdapter oAdapter;
     private CustomAdapter cAdapter;
+    private Context context;
+
+    ProgressDialog pd;
+
+    public TabFragment1AsyncTasks(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    protected void onPreExecute(){
+        pd = ProgressDialog.show(context, "", "Battles werden geladen", false);
+    }
 
     @Override
     protected Integer doInBackground(Object... params) {
@@ -51,5 +66,6 @@ public class TabFragment1AsyncTasks extends android.os.AsyncTask<Object, Void, I
         } else if (result == 2) {
             oAdapter.notifyDataSetChanged();
         }
+        pd.dismiss();
     }
 }

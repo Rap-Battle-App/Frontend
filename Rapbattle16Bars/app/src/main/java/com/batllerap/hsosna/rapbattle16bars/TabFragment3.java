@@ -128,7 +128,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         this.txtvAboutMe.setText(aktUser.getAboutMe());
         System.out.println("Profilbild: " + aktUser.getProfilePicture());
         if(aktUser.getProfilePicture() != null) {
-            Picasso.with(getActivity().getApplicationContext()).load(aktUser.getProfilePicture()).into(imgvProfilePicture);
+            Picasso.with(getActivity().getApplicationContext()).load(aktUser.getProfilePicture()).fit().into(imgvProfilePicture);
         }else {
             this.imgvProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
@@ -181,9 +181,9 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
             oAdapter = new CustomAdapter(getActivity(),openForVotesBattlesList);
 
             if(aktUser != null){
-                TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks();
+                TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks(this.getContext());
                 asyncTrendigBattles.execute("complete", aktUser.getId(), trendingBattlesList, tAdapter);
-                TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks();
+                TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks(this.getContext());
                 asyncOpenForVotes.execute("open", aktUser.getId(), openForVotesBattlesList, oAdapter);
             }
 

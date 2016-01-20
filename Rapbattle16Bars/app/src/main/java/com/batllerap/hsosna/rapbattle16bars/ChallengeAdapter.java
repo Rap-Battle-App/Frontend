@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Request;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -46,7 +47,9 @@ public class ChallengeAdapter  extends RecyclerView.Adapter<ChallengeAdapter.Cha
     public void onBindViewHolder(ChallengeViewHolder holder, int position) {
         Request current = data.get(position);
         holder.rname.setText(current.getOpponent().getUsername());
-        holder.rProfilePic.setImageResource(R.mipmap.ic_launcher);
+        if (current.getOpponent().getProfile_picture() != null){
+            Picasso.with(context).load(current.getOpponent().getProfile_picture()).into(holder.rProfilePic);
+        }
 
     }
 

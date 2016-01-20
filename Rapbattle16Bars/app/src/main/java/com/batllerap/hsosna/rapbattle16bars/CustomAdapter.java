@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,11 +45,19 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        BattleOverview current = data.get(position);/*
-        holder.imgRapper1.setImageResource(R.drawable.default_profile_pic);
-        holder.imgRapper2.setImageResource(R.drawable.default_profile_pic);*/
+        BattleOverview current = data.get(position);
+
         holder.rapper1.setText(current.getRapper1().getUsername());
         holder.rapper2.setText(current.getRapper2().getUsername());
+
+        if (current.getRapper1().getProfile_picture() != null){
+            Picasso.with(context).load(current.getRapper1().getProfile_picture()).into(holder.imgRapper1);
+
+        }
+        if (current.getRapper2().getProfile_picture() != null){
+            Picasso.with(context).load(current.getRapper2().getProfile_picture()).into(holder.imgRapper2);
+
+        }
 
 
 

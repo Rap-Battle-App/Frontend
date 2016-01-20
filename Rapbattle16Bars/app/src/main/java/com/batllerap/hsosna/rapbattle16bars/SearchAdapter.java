@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -51,6 +52,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         final ProfilePreview current = data.get(position);
         holder.rname.setText(current.getUsername());
         holder.profileId = current.getUser_id();
+        if (current.getProfile_picture() != null){
+            Picasso.with(context).load(current.getProfile_picture()).into(holder.rProfilePic);
+        }
+
 
     }
 

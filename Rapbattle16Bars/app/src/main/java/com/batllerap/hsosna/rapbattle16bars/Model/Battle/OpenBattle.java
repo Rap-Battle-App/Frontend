@@ -1,5 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars.Model.Battle;
 
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.phaseInfo.Phase2Info;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.phaseInfo.PhaseInfo;
 import com.batllerap.hsosna.rapbattle16bars.Model.ProfilePreview;
 
@@ -12,13 +13,13 @@ public class OpenBattle implements Serializable{
     private int id;
     private ProfilePreview opponent;
     private int phase;
-    private PhaseInfo info;
+    private Phase2Info info;
 
     public OpenBattle(){
 
     }
 
-    public OpenBattle(int id, int userId, String username, String profilePicture, int phase, PhaseInfo info){
+    public OpenBattle(int id, int userId, String username, String profilePicture, int phase, Phase2Info info){
         this.setId(id);
         this.setPhase(phase);
         this.setOpponent(new ProfilePreview(userId, username, profilePicture));
@@ -49,11 +50,11 @@ public class OpenBattle implements Serializable{
         this.phase = phase;
     }
 
-    public PhaseInfo getInfo() {
+    public Phase2Info getInfo() {
         return info;
     }
 
-    public void setInfo(PhaseInfo info) {
+    public void setInfo(Phase2Info info) {
         this.info = info;
     }
 }

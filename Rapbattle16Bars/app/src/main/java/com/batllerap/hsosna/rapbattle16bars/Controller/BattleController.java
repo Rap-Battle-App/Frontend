@@ -18,10 +18,14 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DateFormat;
 
 /**
  * Created by Dennis on 03.11.2015.
@@ -182,6 +186,97 @@ public class BattleController {
 
         String responseString =  ConnectionController.sendData(url, fileFormat, entity, false);
         System.out.println("UploadRound response: " + responseString);
+    }
+
+    public static String uploadRound2(int battleId, int beatId, String fileFormat, File videoFile) throws IOException{
+        String urlServer = "/open-battle/" + battleId + "/round";
+        String response = "error";
+        HttpURLConnection connection = null;
+        DataOutputStream outputStream = null;
+
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+
+        int bytesRead, bytesAvailable, bufferSize;
+        byte[] buffer;
+        int maxBufferSize = 1 * 1024;
+        try {
+            FileInputStream fileInputStream = new FileInputStream(videoFile);
+
+            URL url = new URL(urlServer);
+            connection = (HttpURLConnection) url.openConnection();
+
+            // Allow Inputs & Outputs
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setUseCaches(false);
+            connection.setChunkedStreamingMode(1024);
+            // Enable POST method
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Connection", "Keep-Alive");
+            connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+
+            outputStream = new DataOutputStream(connection.getOutputStream());
+            outputStream.writeBytes(twoHyphens + boundary + lineEnd);
+
+            String connstr = null;
+            connstr = "Content-Disposition: form-data; name=\"uploadedfile\";filename=\"video\"" + lineEnd;
+
+
+            outputStream.writeBytes(connstr);
+            outputStream.writeBytes(lineEnd);
+
+            bytesAvailable = fileInputStream.available();
+            bufferSize = Math.min(bytesAvailable, maxBufferSize);
+            buffer = new byte[bufferSize];
+
+            // Read file
+            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+            System.out.println("File length" + bytesAvailable + "");
+            try {
+                while (bytesRead > 0) {
+                    try {
+                        outputStream.write(buffer, 0, bufferSize);
+                    } catch (OutOfMemoryError e) {
+                        e.printStackTrace();
+                        response = "outofmemoryerror";
+                        return response;
+                    }
+                    bytesAvailable = fileInputStream.available();
+                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                response = "error";
+                return response;
+            }
+            outputStream.writeBytes(lineEnd);
+            outputStream.writeBytes(twoHyphens + boundary + twoHyphens
+                    + lineEnd);
+
+            // Responses from the server (code and message)
+            int serverResponseCode = connection.getResponseCode();
+            String serverResponseMessage = connection.getResponseMessage();
+            System.out.println("Video Upload Server Response Code " + serverResponseCode);
+            System.out.println("Video Upload Server Response Message " + serverResponseMessage);
+
+            if (serverResponseCode == 200) {
+                response = "true";
+            }
+
+            fileInputStream.close();
+            outputStream.flush();
+            outputStream.close();
+            outputStream = null;
+        } catch (Exception ex) {
+            // Exception handling
+            response = "error";
+            System.out.println("Video Upload: Send file Exception" + ex.getMessage() + "");
+            ex.printStackTrace();
+        }
+        return response;
     }
 
     /**

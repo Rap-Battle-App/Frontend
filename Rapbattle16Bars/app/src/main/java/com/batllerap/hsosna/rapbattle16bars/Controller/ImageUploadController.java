@@ -119,6 +119,7 @@ public class ImageUploadController extends AsyncTask<File, Void, Void> {
                     e.printStackTrace();
                 }
         }
+        conn.disconnect();
         return null;
     }
 

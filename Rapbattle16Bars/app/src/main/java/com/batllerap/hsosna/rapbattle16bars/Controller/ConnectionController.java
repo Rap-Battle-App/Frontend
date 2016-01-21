@@ -77,6 +77,7 @@ public class ConnectionController {
             return response.toString();
         }
         System.out.println("Fehler beim Senden: " + connection.getResponseMessage());
+        connection.disconnect();
         return "Fehler";
     }
 
@@ -139,6 +140,7 @@ public class ConnectionController {
             return response.toString();
         }
         System.out.println("Fehler beim Senden: " + connection.getResponseMessage());
+        connection.disconnect();
         return "Fehler";
     }
 
@@ -176,6 +178,7 @@ public class ConnectionController {
 
         //print result
         System.out.println("GET Response: " + response.toString());
+        con.disconnect();
         return response.toString();
     }
 }

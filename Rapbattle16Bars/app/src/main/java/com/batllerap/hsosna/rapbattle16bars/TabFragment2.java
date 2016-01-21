@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.OpenBattle;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Request;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
@@ -106,6 +107,13 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
     public void ChallengeClicked(View view, int position) {
 
         Intent intent = new Intent(getActivity(), ProfileActivity.class);
+        try {
+            intent.putExtra("User",aktUser);
+            intent.putExtra("Searchuser", UserController.getUser(challengeList.get(position).getOpponent().getUser_id()));
+            startActivity(intent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

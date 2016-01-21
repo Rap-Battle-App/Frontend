@@ -185,8 +185,8 @@ public class BattleController {
         builder.addTextBody("beat_id","" + beatId);
         HttpEntity entity = builder.build();
 
-        String responseString =  ConnectionController.sendData(url, fileFormat, entity);
-        System.out.println("UploadRound response: " + responseString);
+        //String responseString =  ConnectionController.sendData(url, fileFormat, entity);
+       // System.out.println("UploadRound response: " + responseString);
     }
 
     public static String uploadRound2(int battleId, int beatId, String fileFormat, File videoFile) throws IOException{

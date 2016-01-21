@@ -27,6 +27,8 @@ import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -127,7 +129,8 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         this.txtvAboutMe.setText(aktUser.getAboutMe());
         System.out.println("Profilbild: " + aktUser.getProfilePicture());
         if(aktUser.getProfilePicture() != null) {
-            Picasso.with(getActivity().getApplicationContext()).load(aktUser.getProfilePicture()).fit().into(imgvProfilePicture);
+            Picasso.with(getActivity().getApplicationContext()).load(aktUser.getProfilePicture()).networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE).fit().into(imgvProfilePicture);
         }else {
             this.imgvProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }

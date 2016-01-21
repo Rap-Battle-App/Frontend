@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+
 import java.io.File;
 import java.io.IOException;
 
@@ -40,6 +41,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
     private File newFile;
     private DialogFragment VideoAlert;
     private Chronometer timer;
+    private int phase;
   //  private AsyncVideoCaptureUI myTask;
 
 
@@ -64,6 +66,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         rec = (TextView) findViewById(R.id.rec);
         beat=  getIntent().getIntExtra("Beat",0);
         id = getIntent().getIntExtra("BattleID",999999);
+        phase = getIntent().getIntExtra("Phase", 99990);
 
         beatstr = "beat"+beat;
         Log.v("DAMN", beatstr);

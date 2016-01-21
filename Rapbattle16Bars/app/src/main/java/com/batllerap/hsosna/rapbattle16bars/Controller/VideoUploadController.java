@@ -45,10 +45,12 @@ public class VideoUploadController extends AsyncTask<VideoUploadRequest, Void, V
      * @return
      */
     @Override
+
     protected Void doInBackground(VideoUploadRequest... requests) {
         VideoUploadRequest request = requests[0];
         /* try {
             BattleController.uploadRound(request.getBattle_id(),request.getBeat_id(),request.getFileFormat(),request.getVideo());
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -91,7 +91,7 @@ public class ConnectionController {
      * @param entity the File
      * @return
      * @throws IOException
-     */
+ /*    *//*
     public static String sendData(String url, String fileFormat, HttpEntity entity) throws IOException {
         URL link = new URL(serverUrl + url);
 
@@ -140,7 +140,7 @@ public class ConnectionController {
         connection.disconnect();
         return "Fehler";
     }
-
+*/
     /**
      * Requests a JSON Object from the Server
      * @param url the URL

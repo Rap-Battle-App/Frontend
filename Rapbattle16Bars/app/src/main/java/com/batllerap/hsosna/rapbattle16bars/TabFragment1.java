@@ -47,6 +47,8 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.TrendingActivity");
+
+                myIntent.putExtra("User", aktUser);
                 startActivity(myIntent);
             }
         });
@@ -130,12 +132,13 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
     public void itemClicked(View view, int position) {
 
         if (view.getParent() == tList) {
-            System.out.println("Trending List Angeklickt");
             try {
                 Battle battle = BattleController.getBattle(trendingBattlesList.get(position).getBattle_id());
 
                 Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
                 intent.putExtra("battle", battle);
+
+                intent.putExtra("User", aktUser);
                 startActivity(intent);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -148,6 +151,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
 
                 Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
                 intent.putExtra("battle", battle);
+                intent.putExtra("User", aktUser);
                 startActivity(intent);
             } catch (IOException e) {
                 e.printStackTrace();

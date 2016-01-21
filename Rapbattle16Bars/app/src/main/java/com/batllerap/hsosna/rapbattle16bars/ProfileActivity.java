@@ -72,9 +72,9 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
 
     //ImageView
     private ImageView imgvProfilePicture = null;
+    private ImageView imgvEditProfile = null;
 
     //Button
-    private Button editProfile = null;
     private Button btnHerausfordern = null;
 
     //Battles
@@ -122,25 +122,26 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         this.profileDivider = (View) findViewById(R.id.profileDivider);
 
         //Button
-        this.editProfile = (Button) findViewById(R.id.btnEditProfile);
-        this.editProfile.setVisibility(View.INVISIBLE);
-        if(!aktUser.getUserName().equals(searchUser.getUserName())){
-            this.btnHerausfordern = (Button) findViewById(R.id.btnHerausfordern);
-            this.btnHerausfordern.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        BattleController.sendRequest(searchUser.getId());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    btnHerausfordern.setVisibility(View.INVISIBLE);
+
+        this.btnHerausfordern = (Button) findViewById(R.id.btnHerausfordern);
+        this.btnHerausfordern.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    BattleController.sendRequest(searchUser.getId());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
+            }
+        });
+        if (aktUser.getUserName().equals(searchUser.getUserName())) {
+            btnHerausfordern.setVisibility(View.INVISIBLE);
         }
 
         //ImageView
         this.imgvProfilePicture = (ImageView) findViewById(R.id.imgvProfilePicture);
+        this.imgvEditProfile = (ImageView) findViewById(R.id.imgvEditProfile);
+        this.imgvEditProfile.setVisibility(View.GONE);
 
         this.txtvUsername.setText(searchUser.getUserName());
         this.txtvLocation.setText(searchUser.getLocation());
@@ -151,9 +152,9 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         } else {
             this.imgvProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
-        this.imgvProfilePicture.setOnClickListener(new View.OnClickListener(){
+        this.imgvProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 zoomImageFromThumb(imgvProfilePicture);
             }
         });
@@ -200,10 +201,10 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             tAdapter = new CustomAdapter(this, trendingBattlesList);
             oAdapter = new CustomAdapter(this, openForVotesBattlesList);
 
-            if(aktUser != null){
-                TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks(this.getApplicationContext());
+            if (aktUser != null) {
+                TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks(this);
                 asyncTrendigBattles.execute("complete", aktUser.getId(), trendingBattlesList, tAdapter);
-                TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks(this.getApplicationContext());
+                TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks(this);
                 asyncOpenForVotes.execute("open", aktUser.getId(), openForVotesBattlesList, oAdapter);
             }
 
@@ -334,7 +335,7 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
 
         // Load the high-resolution "zoomed-in" image.
         final ImageView expandedImageView = (ImageView) findViewById(R.id.expanded_image);
-        expandedImageView.setImageBitmap(((BitmapDrawable)imgvProfilePicture.getDrawable()).getBitmap());
+        expandedImageView.setImageBitmap(((BitmapDrawable) imgvProfilePicture.getDrawable()).getBitmap());
 
         // Calculate the starting and ending bounds for the zoomed-in image.
         // This step involves lots of math. Yay, math.
@@ -434,7 +435,7 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
                         .ofFloat(expandedImageView, View.X, startBounds.left))
                         .with(ObjectAnimator
                                 .ofFloat(expandedImageView,
-                                        View.Y,startBounds.top))
+                                        View.Y, startBounds.top))
                         .with(ObjectAnimator
                                 .ofFloat(expandedImageView,
                                         View.SCALE_X, startScaleFinal))
@@ -448,7 +449,9 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
                     public void onAnimationEnd(Animator animation) {
                         thumbView.setAlpha(1f);
                         expandedImageView.setVisibility(View.GONE);
-                        btnHerausfordern.setVisibility(View.VISIBLE);
+                        if (!aktUser.getUserName().equals(searchUser.getUserName())) {
+                            btnHerausfordern.setVisibility(View.VISIBLE);
+                        }
                         mCurrentAnimator = null;
                     }
 
@@ -456,7 +459,9 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
                     public void onAnimationCancel(Animator animation) {
                         thumbView.setAlpha(1f);
                         expandedImageView.setVisibility(View.GONE);
-                        btnHerausfordern.setVisibility(View.VISIBLE);
+                        if (aktUser.getUserName().equals(searchUser.getUserName())) {
+                            btnHerausfordern.setVisibility(View.VISIBLE);
+                        }
                         mCurrentAnimator = null;
                     }
                 });

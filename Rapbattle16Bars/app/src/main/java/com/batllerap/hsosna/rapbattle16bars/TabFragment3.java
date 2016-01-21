@@ -59,9 +59,9 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
 
     //ImageView
     private ImageView imgvProfilePicture = null;
+    private ImageView imgvEditProfile = null;
 
     //Button
-    private Button btnEditProfile = null;
     private Button btnHerausfordern = null;
 
     //Battles
@@ -105,13 +105,15 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         //View
         this.profileDivider = (View) layout.findViewById(R.id.profileDivider);
 
+        //Button
+        this.btnHerausfordern = (Button) layout.findViewById(R.id.btnHerausfordern);
+        this.btnHerausfordern.setVisibility(View.GONE);
+
         //ImageView
         this.imgvProfilePicture = (ImageView) layout.findViewById(R.id.imgvProfilePicture);
+        this.imgvEditProfile = (ImageView) layout.findViewById(R.id.imgvEditProfile);
 
-        //Button
-        this.btnEditProfile = (Button) layout.findViewById(R.id.btnEditProfile);
-
-        this.btnEditProfile.setOnClickListener(new View.OnClickListener() {
+        this.imgvEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getActivity(), EditProfileActivity.class);
@@ -119,9 +121,6 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
                 getActivity().startActivity(myIntent);
             }
         });
-
-        this.btnHerausfordern = (Button) layout.findViewById(R.id.btnHerausfordern);
-        this.btnHerausfordern.setVisibility(View.INVISIBLE);
 
         this.txtvUsername.setText(aktUser.getUserName());
         this.txtvLocation.setText(aktUser.getLocation());
@@ -290,7 +289,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         thumbView.setAlpha(0f);
         expandedImageView.setVisibility(View.VISIBLE);
         expandedImageView.bringToFront();
-        btnEditProfile.setVisibility(View.INVISIBLE);
+        imgvEditProfile.setVisibility(View.INVISIBLE);
 
         // Set the pivot point for SCALE_X and SCALE_Y transformations
         // to the top-left corner of the zoomed-in view (the default
@@ -357,7 +356,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
                     public void onAnimationEnd(Animator animation) {
                         thumbView.setAlpha(1f);
                         expandedImageView.setVisibility(View.GONE);
-                        btnEditProfile.setVisibility(View.VISIBLE);
+                        imgvEditProfile.setVisibility(View.VISIBLE);
                         mCurrentAnimator = null;
                     }
 
@@ -365,7 +364,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
                     public void onAnimationCancel(Animator animation) {
                         thumbView.setAlpha(1f);
                         expandedImageView.setVisibility(View.GONE);
-                        btnEditProfile.setVisibility(View.VISIBLE);
+                        imgvEditProfile.setVisibility(View.VISIBLE);
                         mCurrentAnimator = null;
                     }
                 });

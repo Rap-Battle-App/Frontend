@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,6 +16,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -44,10 +46,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class EditProfileActivity extends AppCompatActivity {
-
-  /*  public final static String NEW_USERNAME = "com.batllerap.hsosna.rapbattle16bars.USERNAME";
-    public final static String NEW_LOCATION = "com.batllerap.hsosna.rapbattle16bars.LOCATION";
-    public final static String NEW_ABOUT_ME = "com.batllerap.hsosna.rapbattle16bars.ABOUTME";*/
+    private static final int FROM_GALLERY = 80;
+    private static final int PICTURE_CROP = 90;
 
     //aktueller User
     private User aktUser;
@@ -78,6 +78,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private Animator mCurrentAnimator;
     private int mShortAnimationDuration;
+
+    private boolean pictureChanged = false;
 
 
     @Override
@@ -117,9 +119,9 @@ public class EditProfileActivity extends AppCompatActivity {
             this.imgvEditProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
 
-        this.imgvEditProfilePicture.setOnClickListener(new View.OnClickListener(){
+        this.imgvEditProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 zoomImageFromThumb(imgvEditProfilePicture);
             }
         });
@@ -146,44 +148,47 @@ public class EditProfileActivity extends AppCompatActivity {
                     try {
                         UserController.setUsername(aktUser, txteNewUsername.getText().toString());
                         UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
-                        String path = null;
-                        Picasso.with(getApplicationContext()).load(Uri.parse(aktUser.getProfilePicture())).into(new Target() {
-                            @Override
-                            public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
-                                new Thread(new Runnable() {
+                        System.out.println(pictureChanged);
+                        if (pictureChanged) {
+                            String path = null;
+                            Picasso.with(getApplicationContext()).load(Uri.parse(aktUser.getProfilePicture())).into(new Target() {
+                                @Override
+                                public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
+                                    new Thread(new Runnable() {
 
-                                    @Override
-                                    public void run() {
+                                        @Override
+                                        public void run() {
 
-                                        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/tmp.jpg");
-                                        try {
-                                            file.createNewFile();
-                                            FileOutputStream ostream = new FileOutputStream(file);
-                                            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
-                                            Uri tmpUri = getImageUri(getApplicationContext(), bitmap);
-                                            File f = new File(getRealPathFromURI(tmpUri));
-                                            ImageUploadController up = new ImageUploadController();
-                                            up.execute(f);
-                                            ostream.flush();
-                                            ostream.close();
-                                            deleteFile(bitmap.toString());
-                                        } catch (IOException e) {
-                                            Log.e("IOException", e.getLocalizedMessage());
+                                            File file = new File(Environment.getExternalStorageDirectory().getPath() + "/tmp.jpg");
+                                            try {
+                                                file.createNewFile();
+                                                FileOutputStream ostream = new FileOutputStream(file);
+                                                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
+                                                Uri tmpUri = getImageUri(getApplicationContext(), bitmap);
+                                                File f = new File(getRealPathFromURI(tmpUri));
+                                                ImageUploadController up = new ImageUploadController(getContextFromActivity());
+                                                up.execute(f);
+                                                ostream.flush();
+                                                ostream.close();
+                                                file.delete();
+                                            } catch (IOException e) {
+                                                Log.e("IOException", e.getLocalizedMessage());
+                                            }
                                         }
-                                    }
-                                }).start();
-                            }
+                                    }).start();
+                                }
 
-                            @Override
-                            public void onBitmapFailed(Drawable drawable) {
+                                @Override
+                                public void onBitmapFailed(Drawable drawable) {
 
-                            }
+                                }
 
-                            @Override
-                            public void onPrepareLoad(Drawable drawable) {
+                                @Override
+                                public void onPrepareLoad(Drawable drawable) {
 
-                            }
-                        });
+                                }
+                            });
+                        }
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -198,22 +203,34 @@ public class EditProfileActivity extends AppCompatActivity {
         this.btnChangeProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent.createChooser(intent, "Select Profile Picture"), 1);
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto, FROM_GALLERY);
             }
         });
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     public void onActivityResult(int reqCode, int resCode, final Intent data) {
-        if (resCode == RESULT_OK) {
-            if (reqCode == 1) {
-                imgvEditProfilePicture.setImageURI(data.getData());
-                aktUser.setProfilePicture(data.getDataString());
+        switch (reqCode) {
+            case FROM_GALLERY: {
+                if (resCode == Activity.RESULT_OK) {
+                    Uri selectedImage = data.getData();
+                    Intent cropIntent = new Intent("com.android.camera.action.CROP");
+                    cropIntent.setDataAndType(selectedImage, "image/*");
+                    cropIntent.putExtra("crop", "true");
+                    cropIntent.putExtra("aspectX", 1);
+                    cropIntent.putExtra("aspectY", 1);
+                    startActivityForResult(cropIntent, PICTURE_CROP);
+                }
+                break;
+            }
+            case PICTURE_CROP: {
+                if (resCode == Activity.RESULT_OK) {
+                    imgvEditProfilePicture.setImageURI(data.getData());
+                    aktUser.setProfilePicture(data.getDataString());
+                    pictureChanged = true;
+                }
+                break;
             }
         }
     }
@@ -230,21 +247,6 @@ public class EditProfileActivity extends AppCompatActivity {
         cursor.moveToFirst();
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
-    }
-    public static String getMimeType(Context context, Uri uriImage) {
-        String strMimeType = null;
-
-        Cursor cursor = context.getContentResolver().query(uriImage,
-                new String[]{MediaStore.MediaColumns.MIME_TYPE},
-                null, null, null);
-
-        if (cursor != null && cursor.moveToNext()) {
-            strMimeType = cursor.getString(0);
-        }
-        assert strMimeType != null;
-        String[] seperated = strMimeType.split("/");
-        cursor.close();
-        return seperated[1];
     }
 
     @Override
@@ -303,7 +305,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // Load the high-resolution "zoomed-in" image.
         final ImageView expandedImageView = (ImageView) findViewById(R.id.expanded_image_edit);
-        expandedImageView.setImageBitmap(((BitmapDrawable)imgvEditProfilePicture.getDrawable()).getBitmap());
+        expandedImageView.setImageBitmap(((BitmapDrawable) imgvEditProfilePicture.getDrawable()).getBitmap());
 
         // Calculate the starting and ending bounds for the zoomed-in image.
         // This step involves lots of math. Yay, math.
@@ -404,7 +406,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         .ofFloat(expandedImageView, View.X, startBounds.left))
                         .with(ObjectAnimator
                                 .ofFloat(expandedImageView,
-                                        View.Y,startBounds.top))
+                                        View.Y, startBounds.top))
                         .with(ObjectAnimator
                                 .ofFloat(expandedImageView,
                                         View.SCALE_X, startScaleFinal))
@@ -436,5 +438,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 mCurrentAnimator = set;
             }
         });
+    }
+
+    public EditProfileActivity getContextFromActivity() {
+        return this;
     }
 }

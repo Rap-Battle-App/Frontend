@@ -114,7 +114,7 @@ public class EditProfileActivity extends AppCompatActivity {
         this.btnChangeProfilePicture = (Button) findViewById(R.id.btnChangeProfilePicture);
 
         if (aktUser.getProfilePicture() != null) {
-            Picasso.with(getApplicationContext()).load(aktUser.getProfilePicture()).into(imgvEditProfilePicture);
+            Picasso.with(getApplicationContext()).load(aktUser.getProfilePicture()).fit().into(imgvEditProfilePicture);
         } else {
             this.imgvEditProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
@@ -306,6 +306,7 @@ public class EditProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         myIntent.putExtra("User", aktUser);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivityForResult(myIntent, 0);
         return true;
     }

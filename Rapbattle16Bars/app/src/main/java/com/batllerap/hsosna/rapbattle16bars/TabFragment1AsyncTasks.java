@@ -14,9 +14,8 @@ import java.util.List;
  * Created by Mark on 20.01.2016.
  */
 public class TabFragment1AsyncTasks extends android.os.AsyncTask<Object, Void, Integer> {
-    private CustomAdapter oAdapter;
-    private CustomAdapter cAdapter;
-    private Context context;
+
+   /* private Context context;
 
     ProgressDialog pd;
 
@@ -28,13 +27,12 @@ public class TabFragment1AsyncTasks extends android.os.AsyncTask<Object, Void, I
     protected void onPreExecute(){
         pd = ProgressDialog.show(context, "", "Battles werden geladen", false);
     }
-
+*/
     @Override
     protected Integer doInBackground(Object... params) {
         String task = (String) params[0];
         if (task == "trending") {
             List<BattleOverview> dataRequest = (List<BattleOverview>) params[1];
-            this.cAdapter = (CustomAdapter)params[2];
             BattleOverview[] bla = new BattleOverview[0];
             try {
                 bla = BattleController.getTrendingBattles(0, 50).getData();
@@ -45,7 +43,6 @@ public class TabFragment1AsyncTasks extends android.os.AsyncTask<Object, Void, I
             return 1;
         } else if (task == "open") {
             List<BattleOverview> dataBattleOverview = (List<BattleOverview>) params[1];
-            this.oAdapter = (CustomAdapter)params[2];
             BattleOverview[] bla = new BattleOverview[0];
             try {
                 bla = BattleController.getOpenForVotingBattles( 0, 50).getData();
@@ -61,11 +58,8 @@ public class TabFragment1AsyncTasks extends android.os.AsyncTask<Object, Void, I
 
     @Override
     protected void onPostExecute(Integer result) {
-        if (result == 1) {
-            cAdapter.notifyDataSetChanged();
-        } else if (result == 2) {
-            oAdapter.notifyDataSetChanged();
-        }
-        pd.dismiss();
+
+            MyBus.getInstance().post(new AsyncTaskResult(result));
+
     }
 }

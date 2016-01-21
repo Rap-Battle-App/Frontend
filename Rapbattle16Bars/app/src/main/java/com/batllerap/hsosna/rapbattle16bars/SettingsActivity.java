@@ -97,6 +97,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent(this,MainActivity.class);
         intent.putExtra("User", aktUser);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         return;
     }
@@ -104,6 +105,7 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         myIntent.putExtra("User", aktUser);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivityForResult(myIntent, 0);
         return true;
     }

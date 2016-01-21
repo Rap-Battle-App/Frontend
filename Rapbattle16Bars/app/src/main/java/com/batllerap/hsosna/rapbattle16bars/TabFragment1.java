@@ -15,6 +15,7 @@ import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
+import com.squareup.otto.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -76,11 +77,12 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         tAdapter = new CustomAdapter(getActivity(), trendingBattlesList);
         oAdapter = new CustomAdapter(getActivity(), openForVotesBattlesList);
 
+        MyBus.getInstance().register(this);
         if(aktUser != null){
-            TabFragment1AsyncTasks asyncTrendigBattles = new TabFragment1AsyncTasks(this.getContext());
-            asyncTrendigBattles.execute("trending", trendingBattlesList, tAdapter);
-            TabFragment1AsyncTasks asyncOpenForVotes = new TabFragment1AsyncTasks(this.getContext());
-            asyncOpenForVotes.execute("open", openForVotesBattlesList, oAdapter);
+            TabFragment1AsyncTasks asyncTrendigBattles = new TabFragment1AsyncTasks();
+            asyncTrendigBattles.execute("trending", trendingBattlesList);
+            TabFragment1AsyncTasks asyncOpenForVotes = new TabFragment1AsyncTasks();
+            asyncOpenForVotes.execute("open", openForVotesBattlesList);
         }
 
         tAdapter.setClickListener(this);
@@ -91,7 +93,19 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         return layout;
     }
 
+    @Subscribe public  void onAsyncTaskResult(AsyncTaskResult event){
+        if(event.getResult() == 1) {
+            tAdapter.notifyDataSetChanged();
+        }else{
+            oAdapter.notifyDataSetChanged();
+        }
+    }
 
+    @Override
+    public void onDestroy(){
+        MyBus.getInstance().unregister(this);
+        super.onDestroy();
+    }
     public List<BattleOverview> getTrendingList() {
 
         List<BattleOverview> data = new ArrayList<>();
@@ -116,7 +130,7 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         BattleOverview[] bla = new BattleOverview[0];
         try {
             if (aktUser != null) {
-                bla = BattleController.getOpenForVotingBattles( 0, 50).getData();
+                bla = BattleController.getOpenForVotingBattles(0, 50).getData();
             }
 
         } catch (IOException e) {
@@ -159,6 +173,8 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
 
         }
     }
+
+
 }
 
 

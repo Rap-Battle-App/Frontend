@@ -27,6 +27,7 @@ import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -74,7 +75,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
     private CustomAdapter tAdapter;
     private CustomAdapter oAdapter;
     private BattleController bController;
-    private  static BattleListResponse trending;
+    private BattleListResponse trending;
 
     private List<BattleOverview> trendingBattlesList = new ArrayList<>();
     private List<BattleOverview> openForVotesBattlesList = new ArrayList<>();
@@ -182,11 +183,12 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
             tAdapter = new CustomAdapter(getActivity(),trendingBattlesList);
             oAdapter = new CustomAdapter(getActivity(),openForVotesBattlesList);
 
+            MyBus.getInstance().register(this);
             if(aktUser != null){
-                TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks(this.getContext());
-                asyncTrendigBattles.execute("complete", aktUser.getId(), trendingBattlesList, tAdapter);
-                TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks(this.getContext());
-                asyncOpenForVotes.execute("open", aktUser.getId(), openForVotesBattlesList, oAdapter);
+                TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks();
+                asyncTrendigBattles.execute("complete", aktUser.getId(), trendingBattlesList);
+                TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks();
+                asyncOpenForVotes.execute("open", aktUser.getId(), openForVotesBattlesList);
             }
 
             tAdapter.setClickListener(this);
@@ -206,6 +208,20 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         }
 
         return layout;
+    }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        MyBus.getInstance().unregister(this);
+    }
+
+    @Subscribe
+    public  void onAsyncTaskResult(AsyncTaskResult event){
+        if(event.getResult() == 1) {
+            tAdapter.notifyDataSetChanged();
+        }else{
+            oAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

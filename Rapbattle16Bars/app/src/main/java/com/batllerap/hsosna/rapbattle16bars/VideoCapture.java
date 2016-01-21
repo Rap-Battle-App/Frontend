@@ -272,4 +272,11 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
 
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+
+    }
 }

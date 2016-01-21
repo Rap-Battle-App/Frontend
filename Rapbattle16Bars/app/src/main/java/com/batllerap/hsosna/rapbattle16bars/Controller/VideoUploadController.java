@@ -87,7 +87,7 @@ public class VideoUploadController extends AsyncTask<VideoUploadRequest, Void, V
             OutputStreamWriter w = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
             w.write("beat_id=" + request.getBeat_id());
             w.flush();
-            w.close();
+
 
             // ------------------ CLIENT REQUEST
             fileInputStream = new FileInputStream(file);

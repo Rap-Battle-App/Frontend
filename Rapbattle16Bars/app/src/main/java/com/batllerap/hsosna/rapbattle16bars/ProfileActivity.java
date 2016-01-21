@@ -202,9 +202,9 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             oAdapter = new CustomAdapter(this, openForVotesBattlesList);
 
             if (aktUser != null) {
-                TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks(this);
+                TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks();
                 asyncTrendigBattles.execute("complete", aktUser.getId(), trendingBattlesList, tAdapter);
-                TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks(this);
+                TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks();
                 asyncOpenForVotes.execute("open", aktUser.getId(), openForVotesBattlesList, oAdapter);
             }
 

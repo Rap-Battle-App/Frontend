@@ -19,6 +19,7 @@ import com.batllerap.hsosna.rapbattle16bars.Model.Battle.OpenBattle;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Request;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
+import com.squareup.otto.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,7 +45,9 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
         View layout = inflater.inflate(R.layout.tab_fragment_2, container, false);
 
         challengeAlert = new ChallengeAlertDialogFragment();
-
+        System.out.println("TAB2: ONCREATE!");
+        System.out.println("TAB2: ONCREATE!");
+        System.out.println("TAB2: ONCREATE!");
 
         oList = (RecyclerView) layout.findViewById(R.id.openBattlesList);
         cList = (RecyclerView) layout.findViewById(R.id.challengeList);
@@ -62,12 +65,12 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
 
         oAdapter = new CustomAdapter(getActivity(),myOpenBattlesList);
         cAdapter = new ChallengeAdapter(getActivity(),challengeList);
-
+        MyBus.getInstance().register(this);
         if(aktUser != null){
-            TabFragment2AsyncTasks asyncOpenBattles = new TabFragment2AsyncTasks(this.getContext());
-            asyncOpenBattles.execute(null, myOpenBattlesList, oAdapter);
-            TabFragment2AsyncTasks asyncChallengeList = new TabFragment2AsyncTasks(this.getContext());
-            asyncChallengeList.execute(aktUser.getUserName(), challengeList, cAdapter);
+            TabFragment2AsyncTasks asyncOpenBattles = new TabFragment2AsyncTasks();
+            asyncOpenBattles.execute(null, myOpenBattlesList);
+            TabFragment2AsyncTasks asyncChallengeList = new TabFragment2AsyncTasks();
+            asyncChallengeList.execute(aktUser.getUserName(), challengeList);
         }
 
         cAdapter.setClickListener(this);
@@ -122,7 +125,7 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
 
 
         try {
-            BattleController.answerRequest(challengeList.get(position).getId(),true);
+            BattleController.answerRequest(challengeList.get(position).getId(), true);
             Context context = getActivity().getApplicationContext();
             CharSequence text = "Challenge angenommen! ;)";
             int duration = Toast.LENGTH_SHORT;
@@ -151,6 +154,24 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+    @Subscribe
+    public  void onAsyncTaskResult(AsyncTaskResult event){
+        if(event.getResult() == 1) {
+            cAdapter.notifyDataSetChanged();
+        }else{
+            oAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onDestroy(){
+        MyBus.getInstance().unregister(this);
+        System.out.println("TAB2: ONDESTROY!");
+        System.out.println("TAB2: ONDESTROY!");
+        System.out.println("TAB2: ONDESTROY!");
+        super.onDestroy();
 
     }
 }

@@ -151,7 +151,20 @@ public class EditProfileActivity extends AppCompatActivity {
                         System.out.println(pictureChanged);
                         if (pictureChanged) {
                             String path = null;
-                            Picasso.with(getApplicationContext()).load(Uri.parse(aktUser.getProfilePicture())).into(new Target() {
+                            System.out.println("AM ANFANG");
+                            File file = new File(Environment.getExternalStorageDirectory().getPath() + "/tmp.jpg");
+                            file.createNewFile();
+                            FileOutputStream ostream = new FileOutputStream(file);
+                            Bitmap bitmap = null;
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
+                            Uri tmpUri = getImageUri(getApplicationContext(), bitmap);
+                            File f = new File(getRealPathFromURI(tmpUri));
+                            ImageUploadController up = new ImageUploadController(getContextFromActivity());
+                            up.execute(f);
+                            ostream.flush();
+                            ostream.close();
+                            file.delete();
+                            /*Picasso.with(getApplicationContext()).load(Uri.parse(aktUser.getProfilePicture())).into(new Target() {
                                 @Override
                                 public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
                                     new Thread(new Runnable() {
@@ -188,7 +201,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                 public void onPrepareLoad(Drawable drawable) {
 
                                 }
-                            });
+                            });*/
                         }
                     } catch (MalformedURLException e) {
                         e.printStackTrace();

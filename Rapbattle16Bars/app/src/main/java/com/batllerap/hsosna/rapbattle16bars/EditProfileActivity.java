@@ -151,7 +151,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         System.out.println(pictureChanged);
                         if (pictureChanged) {
                             String path = null;
-                            System.out.println("AM ANFANG");
+                            /*System.out.println("AM ANFANG");
                             File file = new File(Environment.getExternalStorageDirectory().getPath() + "/tmp.jpg");
                             file.createNewFile();
                             FileOutputStream ostream = new FileOutputStream(file);
@@ -163,8 +163,8 @@ public class EditProfileActivity extends AppCompatActivity {
                             up.execute(f);
                             ostream.flush();
                             ostream.close();
-                            file.delete();
-                            /*Picasso.with(getApplicationContext()).load(Uri.parse(aktUser.getProfilePicture())).into(new Target() {
+                            file.delete();*/
+                            Picasso.with(getApplicationContext()).load(Uri.parse(aktUser.getProfilePicture())).into(new Target() {
                                 @Override
                                 public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
                                     new Thread(new Runnable() {
@@ -201,7 +201,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                 public void onPrepareLoad(Drawable drawable) {
 
                                 }
-                            });*/
+                            });
                         }
                     } catch (MalformedURLException e) {
                         e.printStackTrace();

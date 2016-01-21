@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -124,7 +125,7 @@ public class ConnectionController {
         entity.writeTo(connection.getOutputStream());
         os.close();
 
-        int responseCode = connection.getResponseCode();
+        /*int responseCode = connection.getResponseCode();
         System.out.println("SendData "+ fileFormat + "ResponseCode: " + responseCode);
         if (responseCode == HttpURLConnection.HTTP_OK) {
             BufferedReader in = new BufferedReader(
@@ -141,7 +142,29 @@ public class ConnectionController {
         }
         System.out.println("Fehler beim Senden: " + connection.getResponseMessage());
         connection.disconnect();
-        return "Fehler";
+        return "Fehler";*/
+        DataInputStream dis = null;
+        try {
+            dis = new DataInputStream(connection.getInputStream());
+            StringBuilder response = new StringBuilder();
+
+            String line;
+            while ((line = dis.readLine()) != null) {
+                response.append(line).append('\n');
+            }
+
+            System.out.println("Upload video responce:" + response.toString());
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (dis != null)
+                try {
+                    dis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
     }
 
     /**

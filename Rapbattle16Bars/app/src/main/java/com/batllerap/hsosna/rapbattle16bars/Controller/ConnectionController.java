@@ -118,11 +118,11 @@ public class ConnectionController {
         connection.addRequestProperty("Content-length", entity.getContentLength() + "");
         connection.addRequestProperty(entity.getContentType().getName(), entity.getContentType().getValue());
 
+        connection.connect();
         System.out.println(fileFormat + " wird gesendet");
         OutputStream os = connection.getOutputStream();
         entity.writeTo(connection.getOutputStream());
         os.close();
-        connection.connect();
 
         int responseCode = connection.getResponseCode();
         System.out.println("SendData "+ fileFormat + "ResponseCode: " + responseCode);

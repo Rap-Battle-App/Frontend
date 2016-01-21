@@ -44,6 +44,7 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
 
         challengeAlert = new ChallengeAlertDialogFragment();
 
+
         oList = (RecyclerView) layout.findViewById(R.id.openBattlesList);
         cList = (RecyclerView) layout.findViewById(R.id.challengeList);
         cButton = (Button) layout.findViewById(R.id.challenge_random_opponent);

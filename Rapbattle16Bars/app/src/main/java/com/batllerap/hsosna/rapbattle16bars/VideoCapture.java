@@ -74,7 +74,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        camcorderProfile = CamcorderProfile.get(currentCameraId,CamcorderProfile.QUALITY_720P);
+        camcorderProfile = CamcorderProfile.get(currentCameraId,CamcorderProfile.QUALITY_HIGH);
 
 
         timer = (Chronometer) findViewById(R.id.timer);

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -77,6 +78,7 @@ public class ConnectionController {
             return response.toString();
         }
         System.out.println("Fehler beim Senden: " + connection.getResponseMessage());
+        connection.disconnect();
         return "Fehler";
     }
 
@@ -117,13 +119,13 @@ public class ConnectionController {
         connection.addRequestProperty("Content-length", entity.getContentLength() + "");
         connection.addRequestProperty(entity.getContentType().getName(), entity.getContentType().getValue());
 
+        connection.connect();
         System.out.println(fileFormat + " wird gesendet");
         OutputStream os = connection.getOutputStream();
         entity.writeTo(connection.getOutputStream());
         os.close();
-        connection.connect();
 
-        int responseCode = connection.getResponseCode();
+        /*int responseCode = connection.getResponseCode();
         System.out.println("SendData "+ fileFormat + "ResponseCode: " + responseCode);
         if (responseCode == HttpURLConnection.HTTP_OK) {
             BufferedReader in = new BufferedReader(
@@ -139,7 +141,31 @@ public class ConnectionController {
             return response.toString();
         }
         System.out.println("Fehler beim Senden: " + connection.getResponseMessage());
-        return "Fehler";
+        connection.disconnect();
+        return "Fehler";*/
+        DataInputStream dis = null;
+        try {
+            dis = new DataInputStream(connection.getInputStream());
+            StringBuilder response = new StringBuilder();
+
+            String line;
+            while ((line = dis.readLine()) != null) {
+                response.append(line).append('\n');
+            }
+
+            System.out.println("Upload video responce:" + response.toString());
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (dis != null)
+                try {
+                    dis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
+        return null;
     }
 
     /**
@@ -176,6 +202,7 @@ public class ConnectionController {
 
         //print result
         System.out.println("GET Response: " + response.toString());
+        con.disconnect();
         return response.toString();
     }
 }

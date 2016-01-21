@@ -48,7 +48,7 @@ public class ChallengeAdapter  extends RecyclerView.Adapter<ChallengeAdapter.Cha
         Request current = data.get(position);
         holder.rname.setText(current.getOpponent().getUsername());
         if (current.getOpponent().getProfile_picture() != null){
-            Picasso.with(context).load(current.getOpponent().getProfile_picture()).into(holder.rProfilePic);
+            Picasso.with(context).load(current.getOpponent().getProfile_picture()).fit().into(holder.rProfilePic);
         }
 
     }

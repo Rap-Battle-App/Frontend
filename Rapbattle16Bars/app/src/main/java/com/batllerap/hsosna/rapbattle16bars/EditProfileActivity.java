@@ -161,6 +161,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                                             File file = new File(Environment.getExternalStorageDirectory().getPath() + "/tmp.jpg");
                                             try {
+                                                System.out.println("AM ANFANG");
                                                 file.createNewFile();
                                                 FileOutputStream ostream = new FileOutputStream(file);
                                                 bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);

@@ -6,7 +6,7 @@ package com.batllerap.hsosna.rapbattle16bars.Model.Battle.phaseInfo;
 public class Phase2Info extends PhaseInfo{
     private String round1_url;
     private int beat_id;
-    private String opponent_round1_rl;
+    private String opponent_round1_url;
     private String round2_url;
 
     public Phase2Info(){
@@ -38,11 +38,11 @@ public class Phase2Info extends PhaseInfo{
     }
 
     public String getOpponent_round1_rl() {
-        return opponent_round1_rl;
+        return opponent_round1_url;
     }
 
     public void setOpponent_round1_rl(String opponent_round1_rl) {
-        this.opponent_round1_rl = opponent_round1_rl;
+        this.opponent_round1_url = opponent_round1_rl;
     }
 
     public String getRound2_url() {

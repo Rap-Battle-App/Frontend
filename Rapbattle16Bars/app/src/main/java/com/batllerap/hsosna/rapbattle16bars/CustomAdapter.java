@@ -51,11 +51,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.rapper2.setText(current.getRapper2().getUsername());
 
         if (current.getRapper1().getProfile_picture() != null){
-            Picasso.with(context).load(current.getRapper1().getProfile_picture()).into(holder.imgRapper1);
+            Picasso.with(context).load(current.getRapper1().getProfile_picture()).fit().into(holder.imgRapper1);
 
         }
         if (current.getRapper2().getProfile_picture() != null){
-            Picasso.with(context).load(current.getRapper2().getProfile_picture()).into(holder.imgRapper2);
+            Picasso.with(context).load(current.getRapper2().getProfile_picture()).fit().into(holder.imgRapper2);
 
         }
 

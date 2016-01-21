@@ -2,21 +2,23 @@
 <RelativeLayout android:id="@+id/challengeElement"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="54dp"
+    android:layout_marginTop="16dp"
     android:background="@drawable/ripple"
     android:clickable="true">
 
     <ImageView
         android:id="@+id/ChallengeImage"
-        android:paddingLeft="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
         android:src="@mipmap/ic_launcher" />
     <TextView
         android:id="@+id/ChallengeRapper"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:paddingTop="16dp"
-        android:paddingLeft="72dp"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/ChallengeImage"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="RAPPER Y"/>

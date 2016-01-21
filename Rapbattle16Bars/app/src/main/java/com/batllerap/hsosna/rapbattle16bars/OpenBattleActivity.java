@@ -169,6 +169,7 @@ public class OpenBattleActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle("Battle");
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+                vidButton = (Button) findViewById(R.id.capture_second_round);
 
 
                 myRound1Text =(TextView) findViewById(R.id.rapper1_round1text);
@@ -193,7 +194,24 @@ public class OpenBattleActivity extends AppCompatActivity {
                 enemyRound1.setMediaController(mc);
                 enemyRound1.setVideoURI(videolink2);
                 enemyRound1.requestFocus();
-                enemyRound1.start();
+
+                vidButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), VideoCapture.class);
+                        intent.putExtra("Beat", battle.getInfo().getBeat_id());
+                        intent.putExtra("BattleID", battle.getId());
+                        try {
+                            mPlayer.stop();
+                            mPlayer.release();
+                        } catch (Exception e) {
+
+                        }
+
+                        startActivity(intent);
+                    }
+                });
+
 
 
 

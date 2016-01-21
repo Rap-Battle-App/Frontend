@@ -93,6 +93,7 @@ public class VideoUploadController extends AsyncTask<VideoUploadRequest, Void, V
             conn.setDoOutput(true);
             // Don't use a cached copy.
             conn.setUseCaches(false);
+            conn.setChunkedStreamingMode(1024);
             // Use a post method.
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type",

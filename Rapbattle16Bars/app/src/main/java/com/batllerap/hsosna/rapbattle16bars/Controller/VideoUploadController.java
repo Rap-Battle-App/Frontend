@@ -70,25 +70,9 @@ public class VideoUploadController extends AsyncTask<VideoUploadRequest, Void, V
         DataInputStream dis = null;
         FileInputStream fileInputStream = null;
 
-        try {
-            OutputStreamWriter w = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
-            w.write("beat_id=" + request.getBeat_id());
-            w.flush();
-            w.close();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-
         byte[] buffer;
         int maxBufferSize = 20 * 1024;
-        try {
-            // ------------------ CLIENT REQUEST
-            fileInputStream = new FileInputStream(file);
-
-            // open a URL connection to the Servlet
-            // Open a HTTP connection to the URL
-            conn = (HttpURLConnection) url.openConnection();
+        try {conn = (HttpURLConnection) url.openConnection();
             // Allow Inputs
             conn.setDoInput(true);
             // Allow Outputs
@@ -100,6 +84,17 @@ public class VideoUploadController extends AsyncTask<VideoUploadRequest, Void, V
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type",
                     "multipart/form-data;boundary=" + boundary);
+            OutputStreamWriter w = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
+            w.write("beat_id=" + request.getBeat_id());
+            w.flush();
+            w.close();
+
+            // ------------------ CLIENT REQUEST
+            fileInputStream = new FileInputStream(file);
+
+            // open a URL connection to the Servlet
+            // Open a HTTP connection to the URL
+
 
             dos = new DataOutputStream(conn.getOutputStream());
 

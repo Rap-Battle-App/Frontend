@@ -201,6 +201,7 @@ public class OpenBattleActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), VideoCapture.class);
                         intent.putExtra("Beat", battle.getInfo().getBeat_id());
                         intent.putExtra("BattleID", battle.getId());
+                        intent.putExtra("Phase", battle.getPhase());
                         try {
                             mPlayer.stop();
                             mPlayer.release();

@@ -10,9 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
@@ -121,23 +123,33 @@ public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter
 
     @Override
     public void itemClicked(View view, int position) {
-        View v = view;
+        try {
+            Battle battle = BattleController.getBattle(myDataset.get(position).getBattle_id());
 
+            Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
+            intent.putExtra("battle", battle);
+            intent.putExtra("User", aktUser);
+            startActivity(intent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        System.out.println("Trending List Angeklickt");
-        Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
-        startActivity(intent);
-        //
-        //Works after Controllers are finished
-        /*
-               try{
-                   Intent intent = new Intent("com.albert.testbattle.ClosedBattleActivity");
-                    Battle battle = bController.getBattle(trending[position].getBattleId());
-                    intent.putExtra("battle",battle);
-                    startActivity(intent);
-                }catch(org.json.JSONException exception) {
-                    exception.printStackTrace();
-                }*/
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("User", aktUser);
+        startActivity(intent);
+        return;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        myIntent.putExtra("User", aktUser);
+        startActivityForResult(myIntent, 0);
+        return true;
+    }
 }

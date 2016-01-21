@@ -97,7 +97,6 @@ public class SettingsActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent(this,MainActivity.class);
         intent.putExtra("User", aktUser);
-        User tuser = (User) intent.getSerializableExtra("User");
         startActivity(intent);
         return;
     }

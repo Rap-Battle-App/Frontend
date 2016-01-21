@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
     private final  List<BattleOverview> myDataset = new ArrayList<>();
     private Handler handler;
     private int page;
+    private User aktUser;
 
 
     @Override
@@ -34,6 +37,7 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
         setContentView(R.layout.activity_trending);
 
         // Set up Toolbar for Navigation
+        aktUser = (User)getIntent().getSerializableExtra("User");
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("TRENDING");
@@ -115,9 +119,27 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
 
             Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
             intent.putExtra("battle", battle);
+
+            intent.putExtra("User", aktUser);
             startActivity(intent);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("User", aktUser);
+        startActivity(intent);
+        return;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        myIntent.putExtra("User", aktUser);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 }

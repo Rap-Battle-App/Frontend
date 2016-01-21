@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -56,34 +57,114 @@ public class VideoUploadController extends AsyncTask<VideoUploadRequest, Void, V
         }
         return null;*/
 
+        System.out.println("BILD UPLOAD");
+        File file = request.getVideo();
         URL url = null;
         try {
-            url = new URL("http://46.101.216.34/open-battle/" + request.getBattle_id() + "/round");
+            url = new URL("http://46.101.216.34/open-battle/" + request.getBeat_id() + "/round");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost("http://46.101.216.34/open-battle/" + request.getBattle_id() + "/round");
-        FileBody body = new FileBody(request.getVideo());
-        MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-        reqEntity.addPart("video", body);
-        try {
-            reqEntity.addPart("beat_id", new StringBody("" + request.getBeat_id()));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        post.setEntity(reqEntity);
+        HttpURLConnection conn = null;
+        DataOutputStream dos = null;
+        DataInputStream dis = null;
+        FileInputStream fileInputStream = null;
 
         try {
-            HttpResponse response = client.execute(post);
-            HttpEntity resEntity = response.getEntity();
-            if (resEntity != null) {
-                String responseStr = EntityUtils.toString(resEntity).trim();
-                System.out.println(responseStr);
-            }
-        } catch (IOException e) {
+            OutputStreamWriter w = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
+            w.write("beat_id=" + request.getBeat_id());
+            w.flush();
+            w.close();
+        }
+        catch(Exception e){
             e.printStackTrace();
         }
+
+        byte[] buffer;
+        int maxBufferSize = 20 * 1024;
+        try {
+            // ------------------ CLIENT REQUEST
+            fileInputStream = new FileInputStream(file);
+
+            // open a URL connection to the Servlet
+            // Open a HTTP connection to the URL
+            conn = (HttpURLConnection) url.openConnection();
+            // Allow Inputs
+            conn.setDoInput(true);
+            // Allow Outputs
+            conn.setDoOutput(true);
+            // Don't use a cached copy.
+            conn.setUseCaches(false);
+            // Use a post method.
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type",
+                    "multipart/form-data;boundary=" + boundary);
+
+            dos = new DataOutputStream(conn.getOutputStream());
+
+            dos.writeBytes(twoHyphens + boundary + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\""
+                    + "picture" + "\"; filename=\"" + "profilePicture"
+                    + ".jpg" + "\"" + lineEnd);
+            dos.writeBytes("Content-Type:image/jpg" + lineEnd);
+            dos.writeBytes(lineEnd);
+
+            // create a buffer of maximum size
+            buffer = new byte[Math.min((int) file.length(), maxBufferSize)];
+            int length;
+            // read file and write it into form...
+            while ((length = fileInputStream.read(buffer)) != -1) {
+                dos.write(buffer, 0, length);
+            }
+
+            // send multipart form data necessary after file data...
+            dos.writeBytes(lineEnd);
+            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+            dos.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileInputStream != null)
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            if (dos != null)
+                try {
+                    dos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
+
+        // ------------------ read the SERVER RESPONSE
+        try {
+            dis = new DataInputStream(conn.getInputStream());
+            StringBuilder response = new StringBuilder();
+
+            String line;
+            while ((line = dis.readLine()) != null) {
+                response.append(line).append('\n');
+            }
+
+            System.out.println("Upload file responce:" + response.toString());
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (dis != null)
+                try {
+                    dis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
+        conn.disconnect();
         return null;
     }
 }

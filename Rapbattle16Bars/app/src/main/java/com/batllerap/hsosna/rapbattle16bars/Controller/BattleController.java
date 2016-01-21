@@ -179,12 +179,13 @@ public class BattleController {
 
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+
         //builder.setContentType(ContentType.MULTIPART_FORM_DATA);
         builder.addBinaryBody("video", stream);
         builder.addTextBody("beat_id","" + beatId);
         HttpEntity entity = builder.build();
 
-        String responseString =  ConnectionController.sendData(url, fileFormat, entity, false);
+        String responseString =  ConnectionController.sendData(url, fileFormat, entity);
         System.out.println("UploadRound response: " + responseString);
     }
 

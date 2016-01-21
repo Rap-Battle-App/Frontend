@@ -55,7 +55,7 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new MyAdapter<String>(myDataset, mRecyclerView);
+        mAdapter = new MyAdapter<String>(myDataset, mRecyclerView,this);
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setClickListener(this);

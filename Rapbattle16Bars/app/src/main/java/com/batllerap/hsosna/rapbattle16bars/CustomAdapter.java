@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -51,11 +53,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.rapper2.setText(current.getRapper2().getUsername());
 
         if (current.getRapper1().getProfile_picture() != null){
-            Picasso.with(context).load(current.getRapper1().getProfile_picture()).fit().into(holder.imgRapper1);
+            Picasso.with(context).load(current.getRapper1().getProfile_picture()).fit().networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.imgRapper1);
 
         }
         if (current.getRapper2().getProfile_picture() != null){
-            Picasso.with(context).load(current.getRapper2().getProfile_picture()).fit().into(holder.imgRapper2);
+            Picasso.with(context).load(current.getRapper2().getProfile_picture()).fit().networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.imgRapper2);
 
         }
 

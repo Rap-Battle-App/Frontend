@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Request;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -48,7 +50,8 @@ public class ChallengeAdapter  extends RecyclerView.Adapter<ChallengeAdapter.Cha
         Request current = data.get(position);
         holder.rname.setText(current.getOpponent().getUsername());
         if (current.getOpponent().getProfile_picture() != null){
-            Picasso.with(context).load(current.getOpponent().getProfile_picture()).fit().into(holder.rProfilePic);
+            Picasso.with(context).load(current.getOpponent().getProfile_picture()).fit().networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.rProfilePic);
         }
 
     }

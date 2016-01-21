@@ -1,5 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars;
 
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +29,7 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
 
+    private Context context;
     private List<BattleOverview> mDataset = new ArrayList<>();
 
     // The minimum amount of items to have below your current scroll position before loading more.
@@ -34,8 +39,8 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private OnLoadMoreListener onLoadMoreListener;
     private static ClickListener cListener;
 
-    public MyAdapter(List<BattleOverview> myDataSet, RecyclerView recyclerView) {
-
+    public MyAdapter(List<BattleOverview> myDataSet, RecyclerView recyclerView, Context context) {
+        this.context = context;
         this.mDataset = myDataSet;
 
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
@@ -93,11 +98,21 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         if (holder instanceof TextViewHolder) {
-            BattleOverview current = mDataset.get(position);/*
-            ((TextViewHolder) holder).imgRapper1.setImageResource(R.drawable.default_profile_pic);
-            ((TextViewHolder) holder).imgRapper2.setImageResource(R.drawable.default_profile_pic);*/
+            BattleOverview current = mDataset.get(position);
+
             ((TextViewHolder) holder).rapper1.setText(current.getRapper1().getUsername());
             ((TextViewHolder) holder).rapper2.setText(current.getRapper2().getUsername());
+
+            if (current.getRapper1().getProfile_picture() != null){
+                Picasso.with(context).load(current.getRapper1().getProfile_picture()).fit().networkPolicy(NetworkPolicy.NO_CACHE)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE).into(((TextViewHolder) holder).imgRapper1);
+
+            }
+            if (current.getRapper2().getProfile_picture() != null){
+                Picasso.with(context).load(current.getRapper2().getProfile_picture()).fit().networkPolicy(NetworkPolicy.NO_CACHE)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE).into(((TextViewHolder) holder).imgRapper2);
+
+            }
 
 ;
         } else {

@@ -57,7 +57,7 @@ public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new MyAdapter<String>(myDataset, mRecyclerView);
+        mAdapter = new MyAdapter<String>(myDataset, mRecyclerView,this);
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setClickListener(this);

@@ -3,6 +3,7 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
 import com.android.internal.http.multipart.MultipartEntity;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
@@ -11,7 +12,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +26,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by woors on 09.12.2015.
@@ -85,13 +87,12 @@ public class ConnectionController {
     /**
      * Sends binary Data to the Server
      * @param url the URL where to send the Data
-     * @param isImage picture or video
      * @param fileFormat like png, jpg mp4
      * @param entity the File
      * @return
      * @throws IOException
-     */
-    public static String sendData(String url, String fileFormat, HttpEntity entity, boolean isImage) throws IOException {
+ /*    *//*
+    public static String sendData(String url, String fileFormat, HttpEntity entity) throws IOException {
         URL link = new URL(serverUrl + url);
 
 
@@ -103,15 +104,10 @@ public class ConnectionController {
         System.setProperty("http.keepAlive", "false");
         connection.setDoOutput(true);
         connection.setDoInput(true);
-        if(isImage) {
-            System.out.println("RequestType: image/" + fileFormat);
-            connection.setRequestProperty("Content-Type", "image/" + fileFormat);
-        }
-        else{
+        System.out.println("RequestType: video/" + fileFormat);
+        connection.setRequestProperty("Content-Type", "video/" + fileFormat);
 
-            System.out.println("RequestType: video/" + fileFormat);
-            connection.setRequestProperty("Content-Type", "video/" + fileFormat);
-        }
+        connection.setRequestProperty("Content-Type", "multipart/form-data");
         connection.setRequestProperty("Connection", "close");
         connection.setRequestMethod("POST");
         connection.setChunkedStreamingMode(1024);
@@ -125,7 +121,7 @@ public class ConnectionController {
         entity.writeTo(connection.getOutputStream());
         os.close();
 
-        /*int responseCode = connection.getResponseCode();
+        int responseCode = connection.getResponseCode();
         System.out.println("SendData "+ fileFormat + "ResponseCode: " + responseCode);
         if (responseCode == HttpURLConnection.HTTP_OK) {
             BufferedReader in = new BufferedReader(
@@ -142,32 +138,9 @@ public class ConnectionController {
         }
         System.out.println("Fehler beim Senden: " + connection.getResponseMessage());
         connection.disconnect();
-        return "Fehler";*/
-        DataInputStream dis = null;
-        try {
-            dis = new DataInputStream(connection.getInputStream());
-            StringBuilder response = new StringBuilder();
-
-            String line;
-            while ((line = dis.readLine()) != null) {
-                response.append(line).append('\n');
-            }
-
-            System.out.println("Upload video responce:" + response.toString());
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (dis != null)
-                try {
-                    dis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-        }
-        return null;
+        return "Fehler";
     }
-
+*/
     /**
      * Requests a JSON Object from the Server
      * @param url the URL

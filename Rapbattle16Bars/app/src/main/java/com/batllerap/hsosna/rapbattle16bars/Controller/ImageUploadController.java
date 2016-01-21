@@ -1,5 +1,7 @@
 package com.batllerap.hsosna.rapbattle16bars.Controller;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import java.io.DataInputStream;
@@ -21,8 +23,20 @@ public class ImageUploadController extends AsyncTask<File, Void, Void> {
     String lineEnd = "\r\n";
     String twoHyphens = "--";
     String boundary = "AaB03x87yxdkjnxvi7";
+    Context context;
+    ProgressDialog pd;
+
+    public ImageUploadController(Context context){
+        this.context = context;
+    }
+
+    @Override
+    protected void onPreExecute(){
+        pd = ProgressDialog.show(context, "", "Profilbild wird hochgeladen...", false);
+    }
 
     protected Void doInBackground(File... files){
+        System.out.println("BILD UPLOAD");
         File file = files[0];
         URL url = null;
         try {
@@ -126,6 +140,7 @@ public class ImageUploadController extends AsyncTask<File, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         // TODO Auto-generated method stub
+        pd.dismiss();
         super.onPostExecute(result);
     }
 }

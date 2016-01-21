@@ -77,6 +77,7 @@ public class ConnectionController {
             return response.toString();
         }
         System.out.println("Fehler beim Senden: " + connection.getResponseMessage());
+        connection.disconnect();
         return "Fehler";
     }
 
@@ -117,11 +118,11 @@ public class ConnectionController {
         connection.addRequestProperty("Content-length", entity.getContentLength() + "");
         connection.addRequestProperty(entity.getContentType().getName(), entity.getContentType().getValue());
 
+        connection.connect();
         System.out.println(fileFormat + " wird gesendet");
         OutputStream os = connection.getOutputStream();
         entity.writeTo(connection.getOutputStream());
         os.close();
-        connection.connect();
 
         int responseCode = connection.getResponseCode();
         System.out.println("SendData "+ fileFormat + "ResponseCode: " + responseCode);
@@ -139,6 +140,7 @@ public class ConnectionController {
             return response.toString();
         }
         System.out.println("Fehler beim Senden: " + connection.getResponseMessage());
+        connection.disconnect();
         return "Fehler";
     }
 
@@ -176,6 +178,7 @@ public class ConnectionController {
 
         //print result
         System.out.println("GET Response: " + response.toString());
+        con.disconnect();
         return response.toString();
     }
 }

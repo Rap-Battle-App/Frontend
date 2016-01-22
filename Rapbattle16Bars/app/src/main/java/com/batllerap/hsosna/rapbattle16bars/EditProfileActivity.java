@@ -150,8 +150,32 @@ public class EditProfileActivity extends AppCompatActivity {
                         UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
                         System.out.println(pictureChanged);
                         if (pictureChanged) {
-                            String path = null;
-                            /*System.out.println("AM ANFANG");
+
+                            File sdcard = Environment.getExternalStorageDirectory();
+
+                            File folder = new File(sdcard.getAbsoluteFile(), "RapBattle"); //".your_specific_directory");//the dot makes this directory hidden to the user
+                            folder.mkdir();
+                            File file = new File(folder.getAbsoluteFile(), "tmp" + ".jpg");
+                            if (file.exists()) {
+                                file.delete();
+                                file = new File(folder.getAbsoluteFile(), "tmp" + ".jpg");
+                            }
+                            try {
+                                FileOutputStream out = new FileOutputStream(file);
+                                Bitmap bitmap = ((BitmapDrawable) imgvEditProfilePicture.getDrawable()).getBitmap();
+                                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                                Uri tmpUri = getImageUri(getApplicationContext(), bitmap);
+                                File f = new File(getRealPathFromURI(tmpUri));
+                                ImageUploadController up = new ImageUploadController(getContextFromActivity());
+                                up.execute(f);
+                                out.flush();
+                                out.close();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            /*String path = null;
+                            System.out.println("AM ANFANG");
                             File file = new File(Environment.getExternalStorageDirectory().getPath() + "/tmp.jpg");
                             file.createNewFile();
                             FileOutputStream ostream = new FileOutputStream(file);
@@ -164,7 +188,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             ostream.flush();
                             ostream.close();
                             file.delete();*/
-                            Picasso.with(getApplicationContext()).load(Uri.parse(aktUser.getProfilePicture())).into(new Target() {
+                            /*Picasso.with(getApplicationContext()).load(Uri.parse(aktUser.getProfilePicture())).into(new Target() {
                                 @Override
                                 public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
                                     new Thread(new Runnable() {
@@ -180,7 +204,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                                 bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
                                                 Uri tmpUri = getImageUri(getApplicationContext(), bitmap);
                                                 File f = new File(getRealPathFromURI(tmpUri));
-                                                ImageUploadController up = new ImageUploadController(getContextFromActivity());
+                                                ImageUploadController up = new ImageUploadController();
                                                 up.execute(f);
                                                 ostream.flush();
                                                 ostream.close();
@@ -201,7 +225,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                 public void onPrepareLoad(Drawable drawable) {
 
                                 }
-                            });
+                            });*/
                         }
                     } catch (MalformedURLException e) {
                         e.printStackTrace();

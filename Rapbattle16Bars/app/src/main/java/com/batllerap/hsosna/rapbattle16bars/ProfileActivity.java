@@ -26,6 +26,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
 
@@ -129,6 +130,8 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             public void onClick(View v) {
                 try {
                     BattleController.sendRequest(searchUser.getId());
+                    btnHerausfordern.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "Herausgefordert!", Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

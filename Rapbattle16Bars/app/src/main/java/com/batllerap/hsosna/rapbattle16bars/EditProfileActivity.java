@@ -135,12 +135,8 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.MainActivity");
-                //myIntent.setAction("TabFragment3");
-
-
                 myIntent.putExtra("User", aktUser);
                 myIntent.putExtra("Tab", 3);
-
                 if (aktUser.getUserName().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Benutzername darf nicht leer sein", Toast.LENGTH_LONG).show();
                 } else {
@@ -150,82 +146,12 @@ public class EditProfileActivity extends AppCompatActivity {
                         UserController.setProfileInformation(aktUser, txteNewLocation.getText().toString(), txteNewAboutMe.getText().toString());
                         System.out.println(pictureChanged);
                         if (pictureChanged) {
-
-                            File sdcard = Environment.getExternalStorageDirectory();
-
-                            File folder = new File(sdcard.getAbsoluteFile(), "RapBattle"); //".your_specific_directory");//the dot makes this directory hidden to the user
-                            folder.mkdir();
-                            File file = new File(folder.getAbsoluteFile(), "tmp" + ".jpg");
-                            if (file.exists()) {
-                                file.delete();
-                                file = new File(folder.getAbsoluteFile(), "tmp" + ".jpg");
-                            }
-                            try {
-                                FileOutputStream out = new FileOutputStream(file);
-                                Bitmap bitmap = ((BitmapDrawable) imgvEditProfilePicture.getDrawable()).getBitmap();
-                                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-                                Uri tmpUri = getImageUri(getApplicationContext(), bitmap);
-                                File f = new File(getRealPathFromURI(tmpUri));
-                                ImageUploadController up = new ImageUploadController(getContextFromActivity());
-                                up.execute(f);
-                                out.flush();
-                                out.close();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                            /*String path = null;
-                            System.out.println("AM ANFANG");
-                            File file = new File(Environment.getExternalStorageDirectory().getPath() + "/tmp.jpg");
-                            file.createNewFile();
-                            FileOutputStream ostream = new FileOutputStream(file);
-                            Bitmap bitmap = null;
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
+                            Bitmap bitmap = ((BitmapDrawable) imgvEditProfilePicture.getDrawable()).getBitmap();
                             Uri tmpUri = getImageUri(getApplicationContext(), bitmap);
                             File f = new File(getRealPathFromURI(tmpUri));
                             ImageUploadController up = new ImageUploadController(getContextFromActivity());
                             up.execute(f);
-                            ostream.flush();
-                            ostream.close();
-                            file.delete();*/
-                            /*Picasso.with(getApplicationContext()).load(Uri.parse(aktUser.getProfilePicture())).into(new Target() {
-                                @Override
-                                public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
-                                    new Thread(new Runnable() {
-
-                                        @Override
-                                        public void run() {
-
-                                            File file = new File(Environment.getExternalStorageDirectory().getPath() + "/tmp.jpg");
-                                            try {
-                                                System.out.println("AM ANFANG");
-                                                file.createNewFile();
-                                                FileOutputStream ostream = new FileOutputStream(file);
-                                                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
-                                                Uri tmpUri = getImageUri(getApplicationContext(), bitmap);
-                                                File f = new File(getRealPathFromURI(tmpUri));
-                                                ImageUploadController up = new ImageUploadController();
-                                                up.execute(f);
-                                                ostream.flush();
-                                                ostream.close();
-                                                file.delete();
-                                            } catch (IOException e) {
-                                                Log.e("IOException", e.getLocalizedMessage());
-                                            }
-                                        }
-                                    }).start();
-                                }
-
-                                @Override
-                                public void onBitmapFailed(Drawable drawable) {
-
-                                }
-
-                                @Override
-                                public void onPrepareLoad(Drawable drawable) {
-
-                                }
-                            });*/
+                            pictureChanged = false;
                         }
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
@@ -242,6 +168,10 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                pickPhoto.putExtra("crop", "true");
+                pickPhoto.putExtra("aspectX", 1);
+                pickPhoto.putExtra("aspectY", 1);
                 startActivityForResult(pickPhoto, FROM_GALLERY);
             }
         });
@@ -250,7 +180,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void onActivityResult(int reqCode, int resCode, final Intent data) {
         switch (reqCode) {
-            case FROM_GALLERY: {
+            case FROM_GALLERY: {/*
                 if (resCode == Activity.RESULT_OK) {
                     Uri selectedImage = data.getData();
                     Intent cropIntent = new Intent("com.android.camera.action.CROP");
@@ -262,7 +192,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
                 break;
             }
-            case PICTURE_CROP: {
+            case PICTURE_CROP: {*/
                 if (resCode == Activity.RESULT_OK) {
                     imgvEditProfilePicture.setImageURI(data.getData());
                     aktUser.setProfilePicture(data.getDataString());

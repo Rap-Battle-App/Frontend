@@ -111,14 +111,14 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
         intent.putExtra("Searchuser", user);
         intent.putExtra("User", aktUser);
         intent.putExtra("Suche", getIntent().getSerializableExtra("Suche"));
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         myIntent.putExtra("User", aktUser);
-        myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        //myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivityForResult(myIntent, 0);
         return true;
     }

@@ -106,12 +106,14 @@ public class MyAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (current.getRapper1().getProfile_picture() != null){
                 Picasso.with(context).load(current.getRapper1().getProfile_picture()).fit().networkPolicy(NetworkPolicy.NO_CACHE)
                         .memoryPolicy(MemoryPolicy.NO_CACHE).into(((TextViewHolder) holder).imgRapper1);
-
+            }else{
+                ((TextViewHolder) holder).imgRapper1.setImageResource(R.drawable.default_profile_pic);
             }
             if (current.getRapper2().getProfile_picture() != null){
                 Picasso.with(context).load(current.getRapper2().getProfile_picture()).fit().networkPolicy(NetworkPolicy.NO_CACHE)
                         .memoryPolicy(MemoryPolicy.NO_CACHE).into(((TextViewHolder) holder).imgRapper2);
-
+            }else{
+                ((TextViewHolder) holder).imgRapper2.setImageResource(R.drawable.default_profile_pic);
             }
 
 ;

@@ -21,6 +21,7 @@
 
     <ScrollView
         android:layout_below="@id/openBattleToolbarphase1"
+        android:layout_above="@id/capture_second_round"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_marginLeft="16dp">

@@ -20,6 +20,11 @@
         android:layout_toRightOf="@id/ListImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLines="1"
+        android:maxLength="9"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
         android:text="RAPPER X"/>
 
     <TextView
@@ -42,6 +47,11 @@
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
         android:layout_toRightOf="@id/VS"
+        android:inputType="text"
+        android:maxLines="1"
+        android:maxLength="9"
+        android:ellipsize="end"
+        android:scrollHorizontally="true"
         android:text="RAPPER Y"/>
     <ImageView
         android:id="@+id/ListImage2"

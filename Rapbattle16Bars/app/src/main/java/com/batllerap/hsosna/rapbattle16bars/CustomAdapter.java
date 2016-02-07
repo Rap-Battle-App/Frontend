@@ -54,11 +54,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         if (current.getRapper1().getProfile_picture() != null){
             Picasso.with(context).load(current.getRapper1().getProfile_picture()).resize(150,150).into(holder.imgRapper1);
-
+        }else{
+            holder.imgRapper1.setImageResource(R.drawable.default_profile_pic);
         }
         if (current.getRapper2().getProfile_picture() != null){
             Picasso.with(context).load(current.getRapper2().getProfile_picture()).resize(150,150).into(holder.imgRapper2);
-
+        }else{
+            holder.imgRapper2.setImageResource(R.drawable.default_profile_pic);
         }
 
 

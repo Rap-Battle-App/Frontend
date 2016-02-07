@@ -174,4 +174,5 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
         super.onDestroy();
 
     }
+    
 }

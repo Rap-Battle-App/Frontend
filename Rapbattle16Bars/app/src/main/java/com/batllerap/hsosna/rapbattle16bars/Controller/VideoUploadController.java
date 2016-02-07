@@ -57,7 +57,7 @@ public class VideoUploadController extends AsyncTask<VideoUploadRequest, Void, V
         }
         return null;*/
 
-        System.out.println("BILD UPLOAD");
+        System.out.println("VIDEO UPLOAD");
         File file = request.getVideo();
         URL url = null;
         try {

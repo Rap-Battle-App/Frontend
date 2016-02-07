@@ -42,7 +42,7 @@ public class UploadVideoController extends AsyncTask<VideoUploadRequest, Integer
         String responseString = null;
 
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://46.101.216.34/open-battle/" + request.getBeat_id() + "/round");
+        HttpPost httppost = new HttpPost("http://46.101.216.34/open-battle/" + request.getBattle_id() + "/round");
 
         try {
             AndroidMultiPartEntity entity = new AndroidMultiPartEntity(
@@ -57,12 +57,9 @@ public class UploadVideoController extends AsyncTask<VideoUploadRequest, Integer
             File sourceFile = request.getVideo();
 
             // Adding file data to http body
-            entity.addPart("image", new FileBody(sourceFile));
+            entity.addPart("video", new FileBody(sourceFile));
 
-            // Extra parameters if you want to pass to server
-            entity.addPart("website",
-                    new StringBody("www.androidhive.info"));
-            entity.addPart("email", new StringBody("abc@gmail.com"));
+            entity.addPart("beat_id", new StringBody("" + request.getBeat_id()));
 
             totalSize = entity.getContentLength();
             httppost.setEntity(entity);

@@ -17,12 +17,14 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.CookieHandler;
+import java.net.CookieManager;
 
 /**
  * Created by woors on 07.02.2016.
  */
 public class UploadVideoController extends AsyncTask<VideoUploadRequest, Integer, String> {
-
+    private static CookieManager cookieManager;
     long totalSize = 0;
 
     @Override
@@ -33,6 +35,10 @@ public class UploadVideoController extends AsyncTask<VideoUploadRequest, Integer
 
     @SuppressWarnings("deprecation")
     private String uploadFile(VideoUploadRequest request) {
+        if(cookieManager == null) {
+            cookieManager = new CookieManager();
+            CookieHandler.setDefault(new CookieManager());
+        }
         String responseString = null;
 
         HttpClient httpclient = new DefaultHttpClient();

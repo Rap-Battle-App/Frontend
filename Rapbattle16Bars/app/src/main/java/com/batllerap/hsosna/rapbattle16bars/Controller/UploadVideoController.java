@@ -13,6 +13,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.File;
@@ -43,7 +44,8 @@ public class UploadVideoController extends AsyncTask<VideoUploadRequest, Integer
 
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost("http://46.101.216.34/open-battle/" + request.getBattle_id() + "/round");
-
+        System.out.println("POST oder GET? " + httppost.getMethod());
+        httppost.setHeader(HTTP.CONTENT_TYPE, "multipart/form-data; boundary=---------------------------11677207783477");
         try {
             AndroidMultiPartEntity entity = new AndroidMultiPartEntity(
                     new AndroidMultiPartEntity.ProgressListener() {

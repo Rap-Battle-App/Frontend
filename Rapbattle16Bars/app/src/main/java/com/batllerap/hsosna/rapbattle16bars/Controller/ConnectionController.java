@@ -5,6 +5,7 @@ import com.android.internal.http.multipart.MultipartEntity;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -42,9 +43,12 @@ public class ConnectionController {
 
 
     private static CookieManager cookieManager;
-    private static HttpContext context = new BasicHttpContext();
+    private static HttpClientContext context = HttpClientContext.create();
 
 
+    public static HttpClientContext getContext(){
+        return context;
+    }
 
     /**
      * Sends a JSON Object to the server
@@ -199,7 +203,5 @@ public class ConnectionController {
         return cookieManager;
     }
 
-    public static HttpContext getContext(){
-        return context;
-    }
+
 }

@@ -53,10 +53,12 @@ public class VideoUploadAlert extends DialogFragment {
                         try {
 
                             Toast.makeText(getContext(), "Upload gestartet....", Toast.LENGTH_LONG).show();
+                            System.out.println("BEAT ID:"+beatID);
+                            System.out.println("Battle ID:"+battleID);
                             request= new VideoUploadRequest(beatID,battleID, video, fileFormat,ConnectionController.getContext(),ConnectionController.getCookieManager());
-                            UploadVideoController up = new UploadVideoController();
+                            VideoUploadController up = new VideoUploadController();
                             up.execute(request);
-                           // uploadVideo(video.getPath());
+                            //uploadVideo(video.getPath());
 
 
                         } catch (Exception e) {
@@ -97,7 +99,7 @@ public class VideoUploadAlert extends DialogFragment {
     private void uploadVideo(String videoPath) throws ParseException, IOException {
         System.out.println("YOLOLOLOLOL");
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://46.101.216.34/open-battle/" + request.getBeat_id() + "/round");
+        HttpPost httppost = new HttpPost("http://46.101.216.34/open-battle/" + request.getBattle_id() + "/round");
 
         FileBody filebodyVideo = new FileBody(new File(videoPath));
         StringBody title = new StringBody("Filename: " + videoPath);

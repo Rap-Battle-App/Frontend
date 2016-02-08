@@ -59,9 +59,10 @@ public class VideoUploadController extends AsyncTask<VideoUploadRequest, Void, V
 
         System.out.println("VIDEO UPLOAD");
         File file = request.getVideo();
+        System.out.print("VIDEOUPLOADCONTROlLER:"+request.getBattle_id() +""+ request.getBeat_id());
         URL url = null;
         try {
-            url = new URL("http://46.101.216.34/open-battle/" + request.getBeat_id() + "/round");
+            url = new URL("http://46.101.216.34/open-battle/" + request.getBattle_id() + "/round");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

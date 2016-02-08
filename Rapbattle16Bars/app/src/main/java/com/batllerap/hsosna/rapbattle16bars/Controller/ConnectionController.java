@@ -5,6 +5,7 @@ import com.android.internal.http.multipart.MultipartEntity;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -39,13 +40,13 @@ public class ConnectionController {
     //TODO: Serveradresse einfügen
     private static String serverUrl = "http://46.101.216.34";
     private static CookieManager cookieManager;
-    private static HttpContext context = new BasicHttpContext();
+    private static HttpClientContext context = HttpClientContext.create();
 
     public CookieManager getCookieManager(){
         return this.cookieManager;
     }
 
-    public HttpContext getContext(){
+    public HttpClientContext getContext(){
         return this.context;
     }
 

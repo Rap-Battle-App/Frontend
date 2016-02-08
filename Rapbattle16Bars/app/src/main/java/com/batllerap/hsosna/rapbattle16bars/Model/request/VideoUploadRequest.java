@@ -1,5 +1,6 @@
 package com.batllerap.hsosna.rapbattle16bars.Model.request;
 
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.protocol.HttpContext;
 
 import java.io.File;
@@ -14,14 +15,14 @@ public class VideoUploadRequest implements Serializable {
     private int battle_id;
     private File video;
     private String fileFormat;
-    private HttpContext context;
+    private HttpClientContext context;
     private CookieManager manager;
 
     public VideoUploadRequest(){
 
     }
 
-    public VideoUploadRequest(int beatId, int battleId, File video, String format, HttpContext context, CookieManager manager){
+    public VideoUploadRequest(int beatId, int battleId, File video, String format, HttpClientContext context, CookieManager manager){
         this.beat_id = beatId;
         this.battle_id = battleId;
         this.video = video;
@@ -62,11 +63,11 @@ public class VideoUploadRequest implements Serializable {
         this.fileFormat = fileFormat;
     }
 
-    public HttpContext getContext() {
+    public HttpClientContext getContext() {
         return context;
     }
 
-    public void setContext(HttpContext context) {
+    public void setContext(HttpClientContext context) {
         this.context = context;
     }
 

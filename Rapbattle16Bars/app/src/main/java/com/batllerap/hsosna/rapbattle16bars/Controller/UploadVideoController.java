@@ -10,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.params.ClientPNames;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -20,12 +21,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.CookieHandler;
 import java.net.CookieManager;
+import java.net.CookiePolicy;
 
 /**
  * Created by woors on 07.02.2016.
  */
 public class UploadVideoController extends AsyncTask<VideoUploadRequest, Integer, String> {
-    private static CookieManager cookieManager;
     long totalSize = 0;
 
     @Override
@@ -36,16 +37,13 @@ public class UploadVideoController extends AsyncTask<VideoUploadRequest, Integer
 
     @SuppressWarnings("deprecation")
     private String uploadFile(VideoUploadRequest request) {
-        if(cookieManager == null) {
-            cookieManager = new CookieManager();
-            CookieHandler.setDefault(new CookieManager());
-        }
         String responseString = null;
 
         HttpClient httpclient = new DefaultHttpClient();
+        httpclient.getParams().setParameter(ClientPNames.COOKIE_POLICY, CookiePolicy.ACCEPT_ALL);
         HttpPost httppost = new HttpPost("http://46.101.216.34/open-battle/" + request.getBattle_id() + "/round");
         System.out.println("POST oder GET? " + httppost.getMethod());
-        httppost.setHeader(HTTP.CONTENT_TYPE, "multipart/form-data; boundary=---------------------------11677207783477");
+        httppost.setHeader("Connection", "keep-alive");
         try {
             AndroidMultiPartEntity entity = new AndroidMultiPartEntity(
                     new AndroidMultiPartEntity.ProgressListener() {
@@ -67,7 +65,7 @@ public class UploadVideoController extends AsyncTask<VideoUploadRequest, Integer
             httppost.setEntity(entity);
 
             // Making server call
-            HttpResponse response = httpclient.execute(httppost);
+            HttpResponse response = httpclient.execute(httppost, request.getContext());
             HttpEntity r_entity = response.getEntity();
 
             int statusCode = response.getStatusLine().getStatusCode();

@@ -8,6 +8,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -36,7 +38,13 @@ public class ConnectionController {
 
     //TODO: Serveradresse einfügen
     private static String serverUrl = "http://46.101.216.34";
+
+
+
     private static CookieManager cookieManager;
+    private static HttpContext context = new BasicHttpContext();
+
+
 
     /**
      * Sends a JSON Object to the server
@@ -177,5 +185,21 @@ public class ConnectionController {
         System.out.println("GET Response: " + response.toString());
         con.disconnect();
         return response.toString();
+    }
+
+    public static String getServerUrl() {
+        return serverUrl;
+    }
+
+    public static void setServerUrl(String serverUrl) {
+        ConnectionController.serverUrl = serverUrl;
+    }
+
+    public static CookieManager getCookieManager(){
+        return cookieManager;
+    }
+
+    public static HttpContext getContext(){
+        return context;
     }
 }

@@ -9,8 +9,21 @@ import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
 import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
+import com.batllerap.hsosna.rapbattle16bars.Controller.ConnectionController;
+import com.batllerap.hsosna.rapbattle16bars.Controller.UploadVideoController;
 import com.batllerap.hsosna.rapbattle16bars.Controller.VideoUploadController;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.VideoUploadRequest;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +36,7 @@ public class VideoUploadAlert extends DialogFragment {
     private int battleID;
     private String fileFormat;
     private File video;
+    private VideoUploadRequest  request;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -39,9 +53,10 @@ public class VideoUploadAlert extends DialogFragment {
                         try {
 
                             Toast.makeText(getContext(), "Upload gestartet....", Toast.LENGTH_LONG).show();
-                            VideoUploadRequest  request= new VideoUploadRequest(beatID,battleID, video, fileFormat);
-                            VideoUploadController up = new VideoUploadController();
+                            request= new VideoUploadRequest(beatID,battleID, video, fileFormat,ConnectionController.getContext(),ConnectionController.getCookieManager());
+                            UploadVideoController up = new UploadVideoController();
                             up.execute(request);
+                           // uploadVideo(video.getPath());
 
 
                         } catch (Exception e) {
@@ -78,4 +93,40 @@ public class VideoUploadAlert extends DialogFragment {
 
         return f;
     }
+
+    private void uploadVideo(String videoPath) throws ParseException, IOException {
+        System.out.println("YOLOLOLOLOL");
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost("http://46.101.216.34/open-battle/" + request.getBeat_id() + "/round");
+
+        FileBody filebodyVideo = new FileBody(new File(videoPath));
+        StringBody title = new StringBody("Filename: " + videoPath);
+        StringBody description = new StringBody("This is a description of the video");
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.addPart("videoFile", filebodyVideo);
+        builder.addPart("title", title);
+        builder.addPart("description", description);
+        HttpEntity entity = builder.build();
+        httppost.setEntity(entity);
+
+        // DEBUG
+        System.out.println( "executing request " + httppost.getRequestLine( ) );
+        HttpResponse response = httpclient.execute( httppost );
+        HttpEntity resEntity = response.getEntity( );
+
+        // DEBUG
+        System.out.println(response.getStatusLine());
+        if (resEntity != null) {
+            System.out.println( EntityUtils.toString(resEntity) );
+        } // end if
+
+        if (resEntity != null) {
+            resEntity.consumeContent( );
+        } // end if
+
+        httpclient.getConnectionManager( ).shutdown();
+        System.out.println("YOLOLOLOLOL FERTIIIIIGGGG");
+    } // end of uploadVideo( )
+
 }

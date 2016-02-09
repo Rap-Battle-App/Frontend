@@ -103,6 +103,10 @@ public class VideoUploadController extends AsyncTask<File, Void, Void> {
             // send multipart form data necessary after file data...
             dos.writeBytes(lineEnd);
             dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"beat_id\"");
+            dos.writeBytes(lineEnd);
+            dos.writeBytes("" + request.getBeat_id());
+            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
             dos.flush();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -76,8 +76,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         public SearchViewHolder(View itemView) {
             super(itemView);
 
-            rname = (TextView) itemView.findViewById(R.id.SearchName);
-            rProfilePic = (ImageView) itemView.findViewById(R.id.SearchPicture);
+            rname = (TextView) itemView.findViewById(R.id.searchName);
+            rProfilePic = (ImageView) itemView.findViewById(R.id.searchPicture);
             itemView.setOnClickListener(this);
         }
 

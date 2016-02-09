@@ -69,6 +69,7 @@ public class ConnectionController {
 
         connection.setDoOutput(true);
         connection.setDoInput(true);
+        connection.setUseCaches(false);
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setRequestProperty("Accept", "application/json");
         connection.setRequestMethod("POST");

@@ -81,17 +81,18 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
 
 
         List<ProfilePreview> data = new ArrayList<>();
-        ProfilePreview[] bla= new ProfilePreview[0];
+        ProfilePreview[] temp= new ProfilePreview[0];
         try {
             if(aktUser != null && null != getIntent().getSerializableExtra("Suche") ) {
-                bla = SearchController.profileSearch((String)getIntent().getSerializableExtra("Suche"));
+                temp = SearchController.profileSearch((String)getIntent().getSerializableExtra("Suche"));
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        data.addAll(Arrays.asList(bla));
+        ProfilePreview pp = new ProfilePreview(2,"pimmel" , null);
+        data.addAll(Arrays.asList(temp));
+        data.add(pp);
 
         return data;
 

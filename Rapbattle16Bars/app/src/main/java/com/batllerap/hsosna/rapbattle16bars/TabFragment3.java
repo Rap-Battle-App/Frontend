@@ -147,6 +147,8 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
             //Battles des Rappers
             tList = (RecyclerView) layout.findViewById(R.id.profileClosedBattlesList);
             oList = (RecyclerView) layout.findViewById(R.id.profileOpenBattlesList);
+            tList.setItemViewCacheSize(0);
+            oList.setItemViewCacheSize(0);
             TextView tview = (TextView) layout.findViewById(R.id.txtvClosedBattles);
             TextView oView = (TextView) layout.findViewById(R.id.txtvOpenBattles);
 

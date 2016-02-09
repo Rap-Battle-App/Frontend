@@ -54,6 +54,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         final ProfilePreview current = data.get(position);
         holder.rname.setText(current.getUsername());
         holder.profileId = current.getUser_id();
+        System.out.println(current.getProfile_picture());
         if (current.getProfile_picture() != null){
             Picasso.with(context).load(current.getProfile_picture()).fit().networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.rProfilePic);
         }else {
@@ -70,7 +71,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView rname;
-        public ImageView rProfilePic;
+        public ImageView rProfilePic = null;
         public int profileId;
 
         public SearchViewHolder(View itemView) {
@@ -78,6 +79,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
             rname = (TextView) itemView.findViewById(R.id.searchName);
             rProfilePic = (ImageView) itemView.findViewById(R.id.searchPicture);
+            rProfilePic.setImageDrawable(null);
             itemView.setOnClickListener(this);
         }
 

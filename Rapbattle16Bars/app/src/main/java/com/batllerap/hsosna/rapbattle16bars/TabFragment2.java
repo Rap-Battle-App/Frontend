@@ -51,6 +51,8 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
 
         oList = (RecyclerView) layout.findViewById(R.id.openBattlesList);
         cList = (RecyclerView) layout.findViewById(R.id.challengeList);
+        cList.setItemViewCacheSize(0);
+        oList.setItemViewCacheSize(0);
         cButton = (Button) layout.findViewById(R.id.challenge_random_opponent);
 
         oList.setHasFixedSize(true);

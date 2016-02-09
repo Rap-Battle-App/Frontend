@@ -63,11 +63,11 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
         getSupportActionBar().setTitle("SUCHE");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         aktUser = (User) getIntent().getSerializableExtra("User");
         searchResults = getData();
 
         this.searchView = (RecyclerView) findViewById(R.id.searchResultView);
+        searchView.setItemViewCacheSize(0);
         this.wrvLayoutManager = new WrappingRecyclerViewLayoutManager(this);
         this.searchView.setLayoutManager(this.wrvLayoutManager);
         adapter = new SearchAdapter(getApplicationContext(), searchResults);
@@ -90,9 +90,8 @@ public class SearchActivity extends AppCompatActivity implements SearchAdapter.C
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ProfilePreview pp = new ProfilePreview(2,"pimmel" , null);
+
         data.addAll(Arrays.asList(temp));
-        data.add(pp);
 
         return data;
 

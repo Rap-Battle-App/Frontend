@@ -11,8 +11,7 @@
         android:id="@+id/searchPicture"
         android:layout_width="54dp"
         android:layout_height="54dp"
-        android:layout_marginLeft="16dp"
-        android:src="@drawable/default_profile_pic" />
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/searchName"

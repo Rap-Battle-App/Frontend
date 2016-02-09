@@ -39,6 +39,8 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
         View layout = inflater.inflate(R.layout.tab_fragment_1, container, false);
         tList = (RecyclerView) layout.findViewById(R.id.profileClosedBattlesList);
         oList = (RecyclerView) layout.findViewById(R.id.openList);
+        tList.setItemViewCacheSize(0);
+        oList.setItemViewCacheSize(0);
         TextView tview = (TextView) layout.findViewById(R.id.txtvClosedBattles);
         TextView oView = (TextView) layout.findViewById(R.id.txtvOpenBattles);
         aktUser = (User) getActivity().getIntent().getSerializableExtra("User");

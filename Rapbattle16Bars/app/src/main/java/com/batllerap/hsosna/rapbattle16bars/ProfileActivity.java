@@ -170,6 +170,9 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             TextView tview = (TextView) findViewById(R.id.txtvClosedBattles);
             TextView oView = (TextView) findViewById(R.id.txtvOpenBattles);
 
+            tList.setItemViewCacheSize(0);
+            oList.setItemViewCacheSize(0);
+
 
             tview.setOnClickListener(new View.OnClickListener() {
                 @Override

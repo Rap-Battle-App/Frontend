@@ -33,24 +33,24 @@ public class TabFragment1AsyncTasks extends android.os.AsyncTask<Object, Void, I
         String task = (String) params[0];
         if (task == "trending") {
             List<BattleOverview> dataRequest = (List<BattleOverview>) params[1];
-            BattleOverview[] bla = new BattleOverview[0];
+            BattleOverview[] temp = new BattleOverview[0];
             try {
-                bla = BattleController.getTrendingBattles(0, 50).getData();
+                temp = BattleController.getTrendingBattles(0, 50).getData();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            dataRequest.addAll(Arrays.asList(bla));
+            dataRequest.addAll(Arrays.asList(temp));
             return 1;
         } else if (task == "open") {
             List<BattleOverview> dataBattleOverview = (List<BattleOverview>) params[1];
-            BattleOverview[] bla = new BattleOverview[0];
+            BattleOverview[] temp = new BattleOverview[0];
             try {
-                bla = BattleController.getOpenForVotingBattles( 0, 50).getData();
+                temp = BattleController.getOpenForVotingBattles( 0, 50).getData();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            dataBattleOverview.addAll(Arrays.asList(bla));
+            dataBattleOverview.addAll(Arrays.asList(temp));
             return 2;
         }
         return null;

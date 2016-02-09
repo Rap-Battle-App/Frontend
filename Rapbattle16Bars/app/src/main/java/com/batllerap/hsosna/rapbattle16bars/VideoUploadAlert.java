@@ -54,10 +54,10 @@ public class VideoUploadAlert extends DialogFragment {
 
                             Toast.makeText(getContext(), "Upload gestartet....", Toast.LENGTH_LONG).show();
                             System.out.println("BEAT ID:"+beatID);
-                            System.out.println("Battle ID:"+battleID);
+                            System.out.println("Battle ID:" + battleID);
                             request= new VideoUploadRequest(beatID,battleID, video, fileFormat,ConnectionController.getContext(),ConnectionController.getCookieManager());
-                            VideoUploadController up = new VideoUploadController();
-                            up.execute(request);
+                            VideoUploadController up = new VideoUploadController(request);
+                            up.execute(video);
                             //uploadVideo(video.getPath());
 
 
@@ -75,6 +75,7 @@ public class VideoUploadAlert extends DialogFragment {
         return builder.create();
     }
 
+    //No Need
   /*  public void gibDaten(int beatID, int battleID,String FileFormat, File video){
         this.beatID =beatID;
         this.battleID =battleID;
@@ -95,9 +96,9 @@ public class VideoUploadAlert extends DialogFragment {
 
         return f;
     }
-
+ // Test Methodde zum uploaden eines Videos // Fehler 405
     private void uploadVideo(String videoPath) throws ParseException, IOException {
-        System.out.println("YOLOLOLOLOL");
+        System.out.println("Upload gestartet");
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost("http://46.101.216.34/open-battle/" + request.getBattle_id() + "/round");
 
@@ -128,7 +129,7 @@ public class VideoUploadAlert extends DialogFragment {
         } // end if
 
         httpclient.getConnectionManager( ).shutdown();
-        System.out.println("YOLOLOLOLOL FERTIIIIIGGGG");
+        System.out.println("Upload Abgeschlossen!");
     } // end of uploadVideo( )
 
 }

@@ -35,13 +35,13 @@ public class TabFragment3AsyncTasks extends android.os.AsyncTask<Object, Void, I
         if (task == "complete") {
             List<BattleOverview> dataRequest = (List<BattleOverview>) params[2];
 
-            BattleOverview[] bla = new BattleOverview[0];
+            BattleOverview[] temp = new BattleOverview[0];
             try {
-                bla = BattleController.getCompletedBattles(userId,0, 50).getData();
+                temp = BattleController.getCompletedBattles(userId,0, 50).getData();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            dataRequest.addAll(Arrays.asList(bla));
+            dataRequest.addAll(Arrays.asList(temp));
             return 1;
         } else if (task == "open") {
             List<BattleOverview> dataBattleOverview = (List<BattleOverview>) params[2];

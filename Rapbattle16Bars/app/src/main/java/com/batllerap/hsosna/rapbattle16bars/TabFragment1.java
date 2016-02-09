@@ -109,17 +109,17 @@ public class TabFragment1 extends Fragment implements CustomAdapter.ClickListene
     public List<BattleOverview> getTrendingList() {
 
         List<BattleOverview> data = new ArrayList<>();
-        BattleOverview[] bla = new BattleOverview[0];
+        BattleOverview[] temp = new BattleOverview[0];
         try {
             if (aktUser != null) {
-                bla = BattleController.getTrendingBattles(0, 50).getData();
+                temp = BattleController.getTrendingBattles(0, 50).getData();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        data.addAll(Arrays.asList(bla));
+        data.addAll(Arrays.asList(temp));
 
         return data;
     }

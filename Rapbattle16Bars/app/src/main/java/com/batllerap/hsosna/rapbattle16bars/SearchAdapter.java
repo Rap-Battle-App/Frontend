@@ -56,6 +56,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.profileId = current.getUser_id();
         if (current.getProfile_picture() != null){
             Picasso.with(context).load(current.getProfile_picture()).fit().networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.rProfilePic);
+        }else {
+            holder.rProfilePic.setImageResource(R.drawable.default_profile_pic);
         }
 
 

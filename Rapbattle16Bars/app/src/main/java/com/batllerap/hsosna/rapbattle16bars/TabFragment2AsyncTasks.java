@@ -48,14 +48,14 @@ public class TabFragment2AsyncTasks extends android.os.AsyncTask<Object, Void, I
         } else {
             List<BattleOverview> dataBattleOverview = (List<BattleOverview>) params[1];
 
-            BattleOverview[] bla = new BattleOverview[0];
+            BattleOverview[] temp = new BattleOverview[0];
             try {
-                bla = BattleController.getOpenBattles(0).getData();
+                temp = BattleController.getOpenBattles(0).getData();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            dataBattleOverview.addAll(Arrays.asList(bla));
+            dataBattleOverview.addAll(Arrays.asList(temp));
             return 2;
         }
     }

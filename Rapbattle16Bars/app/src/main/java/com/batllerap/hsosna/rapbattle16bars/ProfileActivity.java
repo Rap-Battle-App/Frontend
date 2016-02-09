@@ -232,17 +232,17 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
     public List<BattleOverview> getCompletedBattles() {
 
         List<BattleOverview> data = new ArrayList<>();
-        BattleOverview[] bla = new BattleOverview[0];
+        BattleOverview[] temp = new BattleOverview[0];
         try {
             if (searchUser != null) {
-                bla = BattleController.getCompletedBattles(searchUser.getId(), 0, 50).getData();
+                temp = BattleController.getCompletedBattles(searchUser.getId(), 0, 50).getData();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        data.addAll(Arrays.asList(bla));
+        data.addAll(Arrays.asList(temp));
 
         return data;
     }
@@ -250,17 +250,17 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
     public List<BattleOverview> getOpenforVotingBattlesList() {
 
         List<BattleOverview> data = new ArrayList<>();
-        BattleOverview[] bla = new BattleOverview[0];
+        BattleOverview[] temp = new BattleOverview[0];
         try {
             if (searchUser != null) {
-                bla = BattleController.getOpenForVotingBattles(searchUser.getId(), 0, 50).getData();
+                temp = BattleController.getOpenForVotingBattles(searchUser.getId(), 0, 50).getData();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        data.addAll(Arrays.asList(bla));
+        data.addAll(Arrays.asList(temp));
 
         return data;
     }

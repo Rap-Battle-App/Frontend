@@ -125,100 +125,92 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         this.txtvUsername.setText(aktUser.getUserName());
         this.txtvLocation.setText(aktUser.getLocation());
         this.txtvAboutMe.setText(aktUser.getAboutMe());
-        if(aktUser.getProfilePicture() != null) {
+        if (aktUser.getProfilePicture() != null) {
             Picasso.with(getActivity().getApplicationContext()).load(aktUser.getProfilePicture()).networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE).fit().into(imgvProfilePicture);
-        }else {
+        } else {
             this.imgvProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }
 
-        this.imgvProfilePicture.setOnClickListener(new View.OnClickListener(){
+        this.imgvProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 ZoomImage zi = new ZoomImage();
-                zi.zoomImageFromThumb(imgvProfilePicture, getActivity(), ((BitmapDrawable)imgvProfilePicture.getDrawable()).getBitmap());//imgvProfilePicture);
+                zi.zoomImageFromThumb(imgvProfilePicture, getActivity(), ((BitmapDrawable) imgvProfilePicture.getDrawable()).getBitmap());//imgvProfilePicture);
             }
         });
 
-        if(aktUser.isRapper()){
-            this.txtvWinsValue.setText(Integer.toString(aktUser.getRapper().getWins()));
-            this.txtvLoosesValue.setText(Integer.toString(aktUser.getRapper().getLooses()));
 
-            //Battles des Rappers
-            tList = (RecyclerView) layout.findViewById(R.id.profileClosedBattlesList);
-            oList = (RecyclerView) layout.findViewById(R.id.profileOpenBattlesList);
-            tList.setItemViewCacheSize(0);
-            oList.setItemViewCacheSize(0);
-            TextView tview = (TextView) layout.findViewById(R.id.txtvClosedBattles);
-            TextView oView = (TextView) layout.findViewById(R.id.txtvOpenBattles);
+        this.txtvWinsValue.setText(Integer.toString(aktUser.getRapper().getWins()));
+        this.txtvLoosesValue.setText(Integer.toString(aktUser.getRapper().getLooses()));
+
+        //Battles des Rappers
+        tList = (RecyclerView) layout.findViewById(R.id.profileClosedBattlesList);
+        oList = (RecyclerView) layout.findViewById(R.id.profileOpenBattlesList);
+        tList.setItemViewCacheSize(0);
+        oList.setItemViewCacheSize(0);
+        TextView tview = (TextView) layout.findViewById(R.id.txtvClosedBattles);
+        TextView oView = (TextView) layout.findViewById(R.id.txtvOpenBattles);
 
 
-            tview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.TrendingActivity");
-                    startActivity(myIntent);
-                }
-            });
-
-            oView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforvotesActivity");
-                    startActivity(myIntent);
-                }
-            });
-
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            tList.setHasFixedSize(true);
-
-            wrvLayoutManager = new WrappingRecyclerViewLayoutManager(getActivity());
-            wrv2LayoutManager = new WrappingRecyclerViewLayoutManager(getActivity());
-
-            tList.setLayoutManager(wrvLayoutManager);
-            oList.setLayoutManager(wrv2LayoutManager);
-
-            tAdapter = new CustomAdapter(getActivity(),trendingBattlesList);
-            oAdapter = new CustomAdapter(getActivity(),openForVotesBattlesList);
-
-            MyBus.getInstance().register(this);
-            if(aktUser != null){
-                TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks();
-                asyncTrendigBattles.execute("complete", aktUser.getId(), trendingBattlesList);
-                TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks();
-                asyncOpenForVotes.execute("open", aktUser.getId(), openForVotesBattlesList);
+        tview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.TrendingActivity");
+                startActivity(myIntent);
             }
+        });
 
-            tAdapter.setClickListener(this);
-            oAdapter.setClickListener(this);
+        oView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforvotesActivity");
+                startActivity(myIntent);
+            }
+        });
 
-            tList.setAdapter(tAdapter);
-            oList.setAdapter(oAdapter);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        tList.setHasFixedSize(true);
 
-        }else{
-            this.txtvWins.setVisibility(View.INVISIBLE);
-            this.txtvLooses.setVisibility(View.INVISIBLE);
-            this.txtvWinsValue.setVisibility(View.INVISIBLE);
-            this.txtvLoosesValue.setVisibility(View.INVISIBLE);
-            this.txtvClosedBattles.setVisibility(View.INVISIBLE);
-            this.txtvOpenBattles.setVisibility(View.INVISIBLE);
-            this.profileDivider.setVisibility(View.INVISIBLE);
+        wrvLayoutManager = new WrappingRecyclerViewLayoutManager(getActivity());
+        wrv2LayoutManager = new WrappingRecyclerViewLayoutManager(getActivity());
+
+        tList.setLayoutManager(wrvLayoutManager);
+        oList.setLayoutManager(wrv2LayoutManager);
+
+        tAdapter = new CustomAdapter(getActivity(), trendingBattlesList);
+        oAdapter = new CustomAdapter(getActivity(), openForVotesBattlesList);
+
+        MyBus.getInstance().register(this);
+        if (aktUser != null) {
+            TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks();
+            asyncTrendigBattles.execute("complete", aktUser.getId(), trendingBattlesList);
+            TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks();
+            asyncOpenForVotes.execute("open", aktUser.getId(), openForVotesBattlesList);
         }
+
+        tAdapter.setClickListener(this);
+        oAdapter.setClickListener(this);
+
+        tList.setAdapter(tAdapter);
+        oList.setAdapter(oAdapter);
+
 
         return layout;
     }
+
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         MyBus.getInstance().unregister(this);
     }
 
     @Subscribe
-    public  void onAsyncTaskResult(AsyncTaskResult event){
-        if(event.getResult() == 1) {
+    public void onAsyncTaskResult(AsyncTaskResult event) {
+        if (event.getResult() == 1) {
             tAdapter.notifyDataSetChanged();
-        }else{
+        } else {
             oAdapter.notifyDataSetChanged();
         }
     }

@@ -156,77 +156,67 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             @Override
             public void onClick(View view) {
                 ZoomImage zi = new ZoomImage();
-                zi.zoomImageFromThumb(imgvProfilePicture, ProfileActivity.this, ((BitmapDrawable)imgvProfilePicture.getDrawable()).getBitmap()); // imgvProfilePicture);
+                zi.zoomImageFromThumb(imgvProfilePicture, ProfileActivity.this, ((BitmapDrawable) imgvProfilePicture.getDrawable()).getBitmap()); // imgvProfilePicture);
             }
         });
 
-        if (searchUser.isRapper()) {
-            this.txtvWinsValue.setText(String.valueOf(searchUser.getRapper().getWins()));
-            this.txtvLoosesValue.setText(String.valueOf(searchUser.getRapper().getLooses()));
+        this.txtvWinsValue.setText(String.valueOf(searchUser.getRapper().getWins()));
+        this.txtvLoosesValue.setText(String.valueOf(searchUser.getRapper().getLooses()));
 
-            //Battles des Rappers
-            tList = (RecyclerView) findViewById(R.id.profileClosedBattlesList);
-            oList = (RecyclerView) findViewById(R.id.profileOpenBattlesList);
-            TextView tview = (TextView) findViewById(R.id.txtvClosedBattles);
-            TextView oView = (TextView) findViewById(R.id.txtvOpenBattles);
+        //Battles des Rappers
+        tList = (RecyclerView) findViewById(R.id.profileClosedBattlesList);
+        oList = (RecyclerView) findViewById(R.id.profileOpenBattlesList);
+        TextView tview = (TextView) findViewById(R.id.txtvClosedBattles);
+        TextView oView = (TextView) findViewById(R.id.txtvOpenBattles);
 
-            tList.setItemViewCacheSize(0);
-            oList.setItemViewCacheSize(0);
-
-
-            tview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.TrendingActivity");
-                    startActivity(myIntent);
-
-                }
-            });
-
-            oView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforvotesActivity");
-                    startActivity(myIntent);
-                }
-            });
+        tList.setItemViewCacheSize(0);
+        oList.setItemViewCacheSize(0);
 
 
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            tList.setHasFixedSize(true);
+        tview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.TrendingActivity");
+                startActivity(myIntent);
 
-            wrvLayoutManager = new WrappingRecyclerViewLayoutManager(this);
-            wrv2LayoutManager = new WrappingRecyclerViewLayoutManager(this);
-
-            tList.setLayoutManager(wrvLayoutManager);
-            oList.setLayoutManager(wrv2LayoutManager);
-
-            tAdapter = new CustomAdapter(this, trendingBattlesList);
-            oAdapter = new CustomAdapter(this, openForVotesBattlesList);
-
-            if (aktUser != null) {
-                TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks();
-                asyncTrendigBattles.execute("complete", aktUser.getId(), trendingBattlesList, tAdapter);
-                TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks();
-                asyncOpenForVotes.execute("open", aktUser.getId(), openForVotesBattlesList, oAdapter);
             }
+        });
 
-            tAdapter.setClickListener(this);
-            oAdapter.setClickListener(this);
+        oView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforvotesActivity");
+                startActivity(myIntent);
+            }
+        });
 
-            tList.setAdapter(tAdapter);
-            oList.setAdapter(oAdapter);
-        } else {
-            this.txtvWins.setVisibility(View.INVISIBLE);
-            this.txtvLooses.setVisibility(View.INVISIBLE);
-            this.txtvWinsValue.setVisibility(View.INVISIBLE);
-            this.txtvLoosesValue.setVisibility(View.INVISIBLE);
-            this.btnHerausfordern.setVisibility(View.INVISIBLE);
-            this.txtvClosedBattles.setVisibility(View.INVISIBLE);
-            this.txtvOpenBattles.setVisibility(View.INVISIBLE);
-            this.profileDivider.setVisibility(View.INVISIBLE);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        tList.setHasFixedSize(true);
+
+        wrvLayoutManager = new WrappingRecyclerViewLayoutManager(this);
+        wrv2LayoutManager = new WrappingRecyclerViewLayoutManager(this);
+
+        tList.setLayoutManager(wrvLayoutManager);
+        oList.setLayoutManager(wrv2LayoutManager);
+
+        tAdapter = new CustomAdapter(this, trendingBattlesList);
+        oAdapter = new CustomAdapter(this, openForVotesBattlesList);
+
+        if (aktUser != null) {
+            TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks();
+            asyncTrendigBattles.execute("complete", aktUser.getId(), trendingBattlesList, tAdapter);
+            TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks();
+            asyncOpenForVotes.execute("open", aktUser.getId(), openForVotesBattlesList, oAdapter);
         }
+
+        tAdapter.setClickListener(this);
+        oAdapter.setClickListener(this);
+
+        tList.setAdapter(tAdapter);
+        oList.setAdapter(oAdapter);
+
 
     }
 

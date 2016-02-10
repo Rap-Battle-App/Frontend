@@ -32,6 +32,7 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
     private ImageView imgRapper1;
     private ImageView imgRapper2;
     private User aktUser;
+    private User searchUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_openfor_votes_battle);
 
         aktUser = (User) getIntent().getSerializableExtra("User");
+        searchUser = (User) getIntent().getSerializableExtra("Searchuser");
 
         // Set up Toolbar for Navigation
         final Toolbar toolbar = (Toolbar) findViewById(R.id.openforvotesToolbar);
@@ -159,19 +161,33 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.putExtra("User", aktUser);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(intent);
-        return;
+        if(searchUser != null){
+            super.onBackPressed();
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("Searchuser", searchUser);
+            intent.putExtra("User", aktUser);
+        }else {
+            super.onBackPressed();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("User", aktUser);
+            intent.putExtra("Tab", 3);
+            startActivity(intent);
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-        myIntent.putExtra("User", aktUser);
-        // myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivityForResult(myIntent, 0);
+        if(searchUser != null){
+            super.onBackPressed();
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("Searchuser", searchUser);
+            intent.putExtra("User", aktUser);
+        }else {
+            super.onBackPressed();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("User", aktUser);
+            intent.putExtra("Tab", 3);
+            startActivity(intent);
+        }
         return true;
     }
 }

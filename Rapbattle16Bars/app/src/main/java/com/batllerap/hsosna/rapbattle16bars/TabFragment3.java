@@ -157,7 +157,8 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         tview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.TrendingActivity");
+                Intent myIntent = new Intent(getActivity(), CompletedBattlesUser.class);
+                myIntent.putExtra("User", aktUser);
                 startActivity(myIntent);
             }
         });
@@ -165,7 +166,8 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
         oView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforvotesActivity");
+                Intent myIntent = new Intent(getActivity(), OpenForVotesUser.class);
+                myIntent.putExtra("User", aktUser);
                 startActivity(myIntent);
             }
         });
@@ -224,6 +226,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
                 Battle battle = BattleController.getBattle(trendingBattlesList.get(position).getBattle_id());
 
                 Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
+                intent.putExtra("User", aktUser);
                 intent.putExtra("battle", battle);
                 startActivity(intent);
             } catch (IOException e) {
@@ -237,6 +240,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
 
                 Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
                 intent.putExtra("battle", battle);
+                intent.putExtra("User", aktUser);
                 startActivity(intent);
             } catch (IOException e) {
                 e.printStackTrace();

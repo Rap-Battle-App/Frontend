@@ -98,6 +98,32 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".CompletedBattlesUser"
+            android:configChanges="orientation"
+            android:label="CompletedBattlesUser"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            >
+            <intent-filter>
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.CompletedBattlesUser" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".OpenForVotesUser"
+            android:configChanges="orientation"
+            android:label="OpenForVotesUser"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            >
+            <intent-filter>
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.OpenForVotesUser" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ClosedBattleActivity"
             android:configChanges="orientation"
             android:label="Closed Battle"

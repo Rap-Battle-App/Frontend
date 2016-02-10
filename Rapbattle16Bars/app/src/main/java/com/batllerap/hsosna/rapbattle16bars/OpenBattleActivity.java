@@ -231,11 +231,8 @@ public class OpenBattleActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         if (mPlayer != null){
-
             mPlayer.release();
             mPlayer = null;
-
-
         }
         Intent intent = new Intent(this,MainActivity.class);
         intent.putExtra("User", aktUser);
@@ -249,11 +246,7 @@ public class OpenBattleActivity extends AppCompatActivity {
         if (mPlayer != null){
             mPlayer.release();
             mPlayer = null;
-
-
         }
-
-
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         myIntent.putExtra("User", aktUser);
         //myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

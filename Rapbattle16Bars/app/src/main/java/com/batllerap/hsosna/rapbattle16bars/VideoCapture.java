@@ -279,4 +279,6 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         finish();
 
     }
+
+
 }

@@ -289,11 +289,12 @@ public class BattleController {
     }
 
     public static void upload3(VideoUploadRequest request) throws FileNotFoundException {
-        String urlServer = "/open-battle/" + request.getBattle_id() + "/round";
+        String urlServer = "http://46.101.216.34/open-battle/" + request.getBattle_id() + "/round";
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
+
+        params.put("video", request.getVideo());
         params.put("beat_id", request.getBeat_id());
-        params.put("video", request.getVideo(), "upload." + request.getFileFormat());
         ResponseHandlerInterface responseHandler = new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

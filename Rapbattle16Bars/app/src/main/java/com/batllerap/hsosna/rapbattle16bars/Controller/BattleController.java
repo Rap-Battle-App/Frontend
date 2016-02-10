@@ -7,11 +7,16 @@ import com.batllerap.hsosna.rapbattle16bars.Model.Battle.RequestList;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.AnswerRequest;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.RequestRequest;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.RoundRequest;
+import com.batllerap.hsosna.rapbattle16bars.Model.request.VideoUploadRequest;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.VoteRequest;
 import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
 import com.batllerap.hsosna.rapbattle16bars.Model.response.RandomOpponentResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
@@ -21,11 +26,14 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Dennis on 03.11.2015.
@@ -278,6 +286,26 @@ public class BattleController {
             ex.printStackTrace();
         }
         return response;
+    }
+
+    public static void upload3(VideoUploadRequest request) throws FileNotFoundException {
+        String urlServer = "/open-battle/" + request.getBattle_id() + "/round";
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("beat_id", request.getBeat_id());
+        params.put("video", request.getVideo(), "upload." + request.getFileFormat());
+        ResponseHandlerInterface responseHandler = new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                System.out.println("Videoupload erfolgreich");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                System.out.println("Videoupload gescheitert, errorCode: " + statusCode);
+            }
+        };
+        client.post(urlServer, params, responseHandler);
     }
 
     /**

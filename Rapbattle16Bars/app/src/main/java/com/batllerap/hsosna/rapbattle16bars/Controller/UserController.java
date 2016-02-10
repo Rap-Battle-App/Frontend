@@ -191,9 +191,8 @@ public class UserController{
         user.setLocation(prof.getCity());
         user.setProfilePicture(prof.getProfile_picture());
         Rapper rapper = null;
-        if(user.isRapper()){
-            rapper = new Rapper(user.getUserName(),prof.getStatistics().getWins(),prof.getStatistics().getDefeats());
-        }
+        rapper = new Rapper(user.getUserName(),prof.getStatistics().getWins(),prof.getStatistics().getDefeats());
+
         user.setRapper(rapper);
         return user;
     }

@@ -128,6 +128,10 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
 
         try {
             BattleController.answerRequest(challengeList.get(position).getId(), true);
+            if(aktUser != null) {
+                TabFragment2AsyncTasks asyncOpenBattles = new TabFragment2AsyncTasks();
+                asyncOpenBattles.execute(null, myOpenBattlesList);
+            }
             Context context = getActivity().getApplicationContext();
             CharSequence text = "Challenge angenommen! ;)";
             int duration = Toast.LENGTH_SHORT;

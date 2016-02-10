@@ -56,7 +56,7 @@ public class VideoUploadAlert extends DialogFragment {
                             Toast.makeText(getContext(), "Upload gestartet....", Toast.LENGTH_LONG).show();
                             System.out.println("BEAT ID:" + beatID);
                             System.out.println("Battle ID:" + battleID);
-                            //File newFile = new File(Environment.getExternalStorageDirectory(), "20140412_233801" + ".mp4" );
+                            //File newFile = new File(Environment.getExternalStorageDirectory(), "VID_20151120_114737" + ".3gp" );
                             request= new VideoUploadRequest(beatID,battleID, video, fileFormat,ConnectionController.getContext(),ConnectionController.getCookieManager());
                             VideoUploadController up = new VideoUploadController(request);
                             up.execute(video);
@@ -99,6 +99,7 @@ public class VideoUploadAlert extends DialogFragment {
         return f;
     }
  // Test Methodde zum uploaden eines Videos // Fehler 405
+/*
     private void uploadVideo(String videoPath) throws ParseException, IOException {
         System.out.println("Upload gestartet");
         HttpClient httpclient = new DefaultHttpClient();
@@ -133,5 +134,6 @@ public class VideoUploadAlert extends DialogFragment {
         httpclient.getConnectionManager( ).shutdown();
         System.out.println("Upload Abgeschlossen!");
     } // end of uploadVideo( )
+*/
 
 }

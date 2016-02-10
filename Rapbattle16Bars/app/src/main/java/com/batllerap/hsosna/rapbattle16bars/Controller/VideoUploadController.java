@@ -25,7 +25,9 @@ public class VideoUploadController extends AsyncTask<File, Void, Void> {
     String lineEnd = "\r\n";
     String twoHyphens = "--";
     String boundary = "AaB03x87yxdkjnxvi7";
+    String bounday2 = "125043040331425";
     Context context;
+    String hyphens ="-----------------------------";
     VideoUploadRequest request;
     ProgressDialog pd;
 
@@ -47,10 +49,11 @@ public class VideoUploadController extends AsyncTask<File, Void, Void> {
         System.out.println("VIDEO UPLOAD");
 
 
-        System.out.print("VIDEOUPLOADCONTROlLER:"+request.getBattle_id() +""+ request.getBeat_id());
+        System.out.print("VIDEOUPLOADCONTROlLER:" + request.getBattle_id() + "" + request.getBeat_id());
 
         File file = files[0];
-
+        System.out.println(file.getAbsolutePath());
+        System.out.println(file.getName());
         URL url = null;
         try {
             url = new URL("http://46.101.216.34/open-battle/" + request.getBattle_id() + "/round");
@@ -79,17 +82,20 @@ public class VideoUploadController extends AsyncTask<File, Void, Void> {
             conn.setUseCaches(false);
             // Use a post method.
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("beat_id", "" + request.getBeat_id());
+
+            //conn.setRequestProperty("beat_id", "" + request.getBeat_id());
             conn.setRequestProperty("Content-Type",
-                    "multipart/form-data;boundary=" + boundary);
+                    "multipart/form-data; boundary="+hyphens + bounday2);
+            //conn.setRequestProperty( "Content-Length", ""+file.length() );
 
             dos = new DataOutputStream(conn.getOutputStream());
 
-            dos.writeBytes(twoHyphens + boundary + lineEnd);
+            dos.writeBytes(hyphens + bounday2 + lineEnd);
             dos.writeBytes("Content-Disposition: form-data; name=\""
-                    + "video" + "\"; filename=\"" + "upload."
+                    + "video" + "\";"+lineEnd+"filename=\"" + "upload."
                     + request.getFileFormat() + "\"" + lineEnd);
-            dos.writeBytes("Content-Type:video/" + request.getFileFormat() + lineEnd);
+            dos.writeBytes("Content-Type: video/mp4"  + lineEnd);
+            System.out.println("UPLOAD CONTR-File Format: " +request.getFileFormat());
             dos.writeBytes(lineEnd);
 
             // create a buffer of maximum size
@@ -99,14 +105,15 @@ public class VideoUploadController extends AsyncTask<File, Void, Void> {
             while ((length = fileInputStream.read(buffer)) != -1) {
                 dos.write(buffer, 0, length);
             }
+            //dos.writeBytes("ich bin das video");
 
             // send multipart form data necessary after file data...
+
+            dos.writeBytes(hyphens + bounday2 +lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name\""+"beat_id\""+lineEnd);
             dos.writeBytes(lineEnd);
-            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"beat_id\"");
-            dos.writeBytes(lineEnd);
-            dos.writeBytes("" + request.getBeat_id());
-            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+            dos.writeBytes(""+request.getBeat_id()+ lineEnd);
+            dos.writeBytes(hyphens + bounday2 + twoHyphens + lineEnd);
             dos.flush();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

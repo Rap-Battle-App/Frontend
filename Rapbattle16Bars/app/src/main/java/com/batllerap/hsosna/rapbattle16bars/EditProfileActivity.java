@@ -164,6 +164,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 pickPhoto.putExtra("crop", "true");
                 pickPhoto.putExtra("aspectX", 1);
                 pickPhoto.putExtra("aspectY", 1);
+
                 startActivityForResult(pickPhoto, FROM_GALLERY);
             }
         });
@@ -173,7 +174,7 @@ public class EditProfileActivity extends AppCompatActivity {
     public void onActivityResult(int reqCode, int resCode, final Intent data) {
         if (reqCode == FROM_GALLERY) {
             if (resCode == Activity.RESULT_OK) {
-                imgvEditProfilePicture.setImageURI(data.getData());
+                imgvEditProfilePicture.setImageBitmap((Bitmap)data.getExtras().get("data"));
                 aktUser.setProfilePicture(data.getDataString());
                 pictureChanged = true;
             }

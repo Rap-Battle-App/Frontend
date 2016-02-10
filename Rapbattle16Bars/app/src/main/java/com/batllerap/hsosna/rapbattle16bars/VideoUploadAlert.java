@@ -58,8 +58,7 @@ public class VideoUploadAlert extends DialogFragment {
                             System.out.println("Battle ID:" + battleID);
                             //File newFile = new File(Environment.getExternalStorageDirectory(), "VID_20151120_114737" + ".3gp" );
                             request= new VideoUploadRequest(beatID,battleID, video, fileFormat,ConnectionController.getContext(),ConnectionController.getCookieManager());
-                            VideoUploadController up = new VideoUploadController(request);
-                            up.execute(video);
+                            BattleController.upload3(request);
                             //uploadVideo(video.getPath());
 
 

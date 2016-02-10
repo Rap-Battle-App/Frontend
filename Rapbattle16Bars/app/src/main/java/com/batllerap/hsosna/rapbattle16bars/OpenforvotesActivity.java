@@ -79,14 +79,14 @@ public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter
                         myDataset.remove(myDataset.size() - 1);
                         mAdapter.notifyItemRemoved(myDataset.size());
                         //add items one by one
-                        BattleOverview[] bla = new BattleOverview[0];
+                        BattleOverview[] tmp = new BattleOverview[0];
                         try {
-                            bla = BattleController.getTrendingBattles(page, 25).getData();
+                            tmp = BattleController.getOpenForVotingBattles(page, 25).getData();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
-                        myDataset.addAll(Arrays.asList(bla));
+                        myDataset.addAll(Arrays.asList(tmp));
 
                         mAdapter.notifyDataSetChanged();
                         // mAdapter.notifyItemInserted(myDataset.size());
@@ -107,17 +107,17 @@ public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter
 
 
 
-            BattleOverview[] bla= new BattleOverview[0];
+            BattleOverview[] tmp= new BattleOverview[0];
             try {
                 if(aktUser != null) {
-                    bla = BattleController.getOpenForVotingBattles(aktUser.getId(),0, 25).getData();
+                    tmp = BattleController.getOpenForVotingBattles(aktUser.getId(),0, 25).getData();
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            this.myDataset.addAll(Arrays.asList(bla));
+            this.myDataset.addAll(Arrays.asList(tmp));
 
     }
 
@@ -138,7 +138,7 @@ public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter
 
 
     @Override
-    public void onBackPressed() {
+     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(this,MainActivity.class);
         intent.putExtra("User", aktUser);

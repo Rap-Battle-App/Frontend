@@ -77,14 +77,14 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
                         myDataset.remove(myDataset.size() - 1);
                         mAdapter.notifyItemRemoved(myDataset.size());
                         //add items one by one
-                        BattleOverview[] bla = new BattleOverview[0];
+                        BattleOverview[] tmp = new BattleOverview[0];
                         try {
-                            bla = BattleController.getTrendingBattles(page, 25).getData();
+                            tmp = BattleController.getTrendingBattles(page, 25).getData();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
-                        myDataset.addAll(Arrays.asList(bla));
+                        myDataset.addAll(Arrays.asList(tmp));
 
                         mAdapter.notifyDataSetChanged();
                         // mAdapter.notifyItemInserted(myDataset.size());

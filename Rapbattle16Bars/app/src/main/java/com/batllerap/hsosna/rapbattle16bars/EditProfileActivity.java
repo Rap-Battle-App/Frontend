@@ -174,7 +174,12 @@ public class EditProfileActivity extends AppCompatActivity {
     public void onActivityResult(int reqCode, int resCode, final Intent data) {
         if (reqCode == FROM_GALLERY) {
             if (resCode == Activity.RESULT_OK) {
-                imgvEditProfilePicture.setImageBitmap((Bitmap)data.getExtras().get("data"));
+                if(data.getData()!=null){
+                    imgvEditProfilePicture.setImageURI(data.getData());
+                }else{
+                    imgvEditProfilePicture.setImageBitmap((Bitmap)data.getExtras().get("data"));
+                }
+
                 aktUser.setProfilePicture(data.getDataString());
                 pictureChanged = true;
             }

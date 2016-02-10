@@ -160,11 +160,9 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
                 pickPhoto.putExtra("crop", "true");
                 pickPhoto.putExtra("aspectX", 1);
                 pickPhoto.putExtra("aspectY", 1);
-
                 startActivityForResult(pickPhoto, FROM_GALLERY);
             }
         });
@@ -174,7 +172,11 @@ public class EditProfileActivity extends AppCompatActivity {
     public void onActivityResult(int reqCode, int resCode, final Intent data) {
         if (reqCode == FROM_GALLERY) {
             if (resCode == Activity.RESULT_OK) {
-                imgvEditProfilePicture.setImageBitmap((Bitmap)data.getExtras().get("data"));
+                if(data.getData()!=null){
+                    imgvEditProfilePicture.setImageURI(data.getData());
+                }else{
+                    imgvEditProfilePicture.setImageBitmap((Bitmap)data.getExtras().get("data"));
+                }
                 aktUser.setProfilePicture(data.getDataString());
                 pictureChanged = true;
             }
@@ -238,6 +240,7 @@ public class EditProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         myIntent.putExtra("User", aktUser);
+        myIntent.putExtra("Tab", 3);
         // myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivityForResult(myIntent, 0);
         return true;

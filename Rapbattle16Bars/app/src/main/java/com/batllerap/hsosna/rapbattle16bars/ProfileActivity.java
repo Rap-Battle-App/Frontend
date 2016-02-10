@@ -137,6 +137,9 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         if (aktUser.getUserName().equals(searchUser.getUserName())) {
             btnHerausfordern.setVisibility(View.INVISIBLE);
         }
+        if(!searchUser.isRapper()){
+            btnHerausfordern.setVisibility(View.INVISIBLE);
+        }
 
         //ImageView
         this.imgvProfilePicture = (ImageView) findViewById(R.id.imgvProfilePicture);
@@ -176,7 +179,9 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         tview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.TrendingActivity");
+                Intent myIntent = new Intent(getApplicationContext(), CompletedBattlesUser.class);
+                myIntent.putExtra("User", aktUser);
+                myIntent.putExtra("Searchuser", searchUser);
                 startActivity(myIntent);
 
             }
@@ -185,7 +190,9 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         oView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforvotesActivity");
+                Intent myIntent = new Intent(getApplicationContext(), OpenForVotesUser.class);
+                myIntent.putExtra("User", aktUser);
+                myIntent.putExtra("Searchuser", searchUser);
                 startActivity(myIntent);
             }
         });
@@ -265,6 +272,8 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
 
                 Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
                 intent.putExtra("battle", battle);
+                intent.putExtra("User", aktUser);
+                intent.putExtra("Searchuser", searchUser);
                 startActivity(intent);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -277,6 +286,8 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
 
                 Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
                 intent.putExtra("battle", battle);
+                intent.putExtra("User", aktUser);
+                intent.putExtra("Searchuser", searchUser);
                 startActivity(intent);
             } catch (IOException e) {
                 e.printStackTrace();

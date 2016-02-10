@@ -37,6 +37,8 @@ import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -113,7 +115,8 @@ public class EditProfileActivity extends AppCompatActivity {
         this.btnChangeProfilePicture = (Button) findViewById(R.id.btnChangeProfilePicture);
 
         if (aktUser.getProfilePicture() != null) {
-            Picasso.with(getApplicationContext()).load(aktUser.getProfilePicture()).fit().into(imgvEditProfilePicture);
+            Picasso.with(getApplicationContext()).load(aktUser.getProfilePicture()).networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE).fit().into(imgvEditProfilePicture);
         } else {
             this.imgvEditProfilePicture.setImageResource(R.drawable.default_profile_pic);
         }

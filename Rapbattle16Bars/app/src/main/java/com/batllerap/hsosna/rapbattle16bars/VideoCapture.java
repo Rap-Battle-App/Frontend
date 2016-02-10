@@ -37,6 +37,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
     private CamcorderProfile camcorderProfile;
     private TextView redDot;
     private TextView rec;
+    private TextView maxTime;
     private static Camera camera;
     private File newFile;
     private DialogFragment VideoAlert;
@@ -64,6 +65,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
 
         redDot = (TextView) findViewById(R.id.rec_dot);
         rec = (TextView) findViewById(R.id.rec);
+        maxTime =(TextView) findViewById(R.id.maxTime);
         beat=  getIntent().getIntExtra("Beat",0);
         id = getIntent().getIntExtra("BattleID",999999);
         phase = getIntent().getIntExtra("Phase", 99990);
@@ -168,6 +170,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
             timer.setVisibility(View.GONE);
             rec.setVisibility(View.GONE);
             redDot.setVisibility(View.GONE);
+            maxTime.setVisibility(View.GONE);
             if (usecamera) {
                 try {
                     camera.reconnect();
@@ -190,6 +193,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
             timer.setVisibility(View.VISIBLE);
             redDot.setVisibility(View.VISIBLE);
             rec.setVisibility(View.VISIBLE);
+            maxTime.setVisibility(View.VISIBLE);
             timer.setBase(SystemClock.elapsedRealtime());
             timer.start();
           //  myTask.execute();
@@ -268,6 +272,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         timer.setVisibility(View.GONE);
         rec.setVisibility(View.GONE);
         redDot.setVisibility(View.GONE);
+        maxTime.setVisibility(View.GONE);
        // myTask.cancel(true);
 
         finish();

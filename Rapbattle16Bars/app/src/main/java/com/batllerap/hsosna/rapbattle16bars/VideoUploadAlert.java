@@ -56,10 +56,9 @@ public class VideoUploadAlert extends DialogFragment {
                             Toast.makeText(getContext(), "Upload gestartet....", Toast.LENGTH_LONG).show();
                             System.out.println("BEAT ID:" + beatID);
                             System.out.println("Battle ID:" + battleID);
-                            //File newFile = new File(Environment.getExternalStorageDirectory(), "VID_20151120_114737" + ".3gp" );
                             request= new VideoUploadRequest(beatID,battleID, video, fileFormat,ConnectionController.getContext(),ConnectionController.getCookieManager());
-                            BattleController.upload3(request);
-                            //uploadVideo(video.getPath());
+                            VideoUploadController up = new VideoUploadController(request);
+                            up.execute(video);
 
 
                         } catch (Exception e) {
@@ -75,14 +74,7 @@ public class VideoUploadAlert extends DialogFragment {
         // Create the AlertDialog object and return it
         return builder.create();
     }
-
-    //No Need
-  /*  public void gibDaten(int beatID, int battleID,String FileFormat, File video){
-        this.beatID =beatID;
-        this.battleID =battleID;
-        this.FileFormat= FileFormat;
-        this.video =video;
-    }*/
+    
 
     public static VideoUploadAlert newInstance(int beatID, int battleID, String fileFormat, File video) {
         VideoUploadAlert f = new VideoUploadAlert();
@@ -97,42 +89,5 @@ public class VideoUploadAlert extends DialogFragment {
 
         return f;
     }
- // Test Methodde zum uploaden eines Videos // Fehler 405
-/*
-    private void uploadVideo(String videoPath) throws ParseException, IOException {
-        System.out.println("Upload gestartet");
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://46.101.216.34/open-battle/" + request.getBattle_id() + "/round");
-
-        FileBody filebodyVideo = new FileBody(new File(videoPath));
-        StringBody title = new StringBody("Filename: " + videoPath);
-        StringBody description = new StringBody("This is a description of the video");
-
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        builder.addPart("videoFile", filebodyVideo);
-        builder.addPart("title", title);
-        builder.addPart("description", description);
-        HttpEntity entity = builder.build();
-        httppost.setEntity(entity);
-
-        // DEBUG
-        System.out.println( "executing request " + httppost.getRequestLine( ) );
-        HttpResponse response = httpclient.execute( httppost );
-        HttpEntity resEntity = response.getEntity( );
-
-        // DEBUG
-        System.out.println(response.getStatusLine());
-        if (resEntity != null) {
-            System.out.println( EntityUtils.toString(resEntity) );
-        } // end if
-
-        if (resEntity != null) {
-            resEntity.consumeContent( );
-        } // end if
-
-        httpclient.getConnectionManager( ).shutdown();
-        System.out.println("Upload Abgeschlossen!");
-    } // end of uploadVideo( )
-*/
 
 }

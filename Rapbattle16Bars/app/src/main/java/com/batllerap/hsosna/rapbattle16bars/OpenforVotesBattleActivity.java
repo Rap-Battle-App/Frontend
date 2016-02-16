@@ -18,6 +18,9 @@ import com.batllerap.hsosna.rapbattle16bars.Controller.BattleController;
 import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -25,7 +28,7 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
     private Battle battle;
     private TextView rapper1;
     private TextView rapper2;
-    private VideoView video;
+    private ImageView video;
     private ProgressBar pBar;
     private ToggleButton lButton;
     private ToggleButton rButton;
@@ -59,29 +62,44 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
             rapper1 = (TextView) findViewById(R.id.openforvotes_Rapper1);
             rapper2 =(TextView) findViewById(R.id.openforvotes_Rapper2);
 
-            pBar= (ProgressBar) findViewById(R.id.progressBar);
+            pBar= (ProgressBar) findViewById(R.id.progressBar1);
             rapper1.setText(battle.getRapper1().getUsername());
             rapper2.setText(battle.getRapper2().getUsername());
-            video = (VideoView) findViewById(R.id.openforvotes_video);
-            Uri vUri =Uri.parse(battle.getVideo_url());
-            video.setVideoURI(vUri);
+            video = (ImageView) findViewById(R.id.openforvotes_video);
+
 
             if (battle.getVoting() != null){
-//                pBar.setMax(battle.getVoting().getVotes_rapper1() + battle.getVoting().getVotes_rapper2());
-                // pBar.setProgress(battle.getVoting().getVotes_rapper1());
+                pBar.setMax(battle.getVoting().getVotes_rapper1() + battle.getVoting().getVotes_rapper2());
+                pBar.setProgress(battle.getVoting().getVotes_rapper1());
             }else {
                 pBar.setMax(2);
                 pBar.setProgress(1);
             }
-            MediaController mc = new MediaController(this);
-            mc.setAnchorView(video);
-            mc.setMediaPlayer(video);
-            Uri videolink = Uri.parse(battle.getVideo_url());
-            video.setMediaController(mc);
-            video.setVideoURI(videolink);
-            video.requestFocus();
-            video.start();
-
+            if (searchUser.getProfilePicture() != null) {
+                Picasso.with(getApplicationContext()).load(battle.getRapper1().getProfile_picture()).into(imgRapper1);
+            } else {
+                this.imgRapper1.setImageResource(R.drawable.default_profile_pic);
+            }
+            /*if (battle.getRapper1().getProfile_picture() != null) {
+                Picasso.with(this.getApplicationContext()).load(battle.getRapper1().getProfile_picture()).networkPolicy(NetworkPolicy.NO_CACHE)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE).fit().into(imgRapper1);
+            } else {
+                this.imgRapper1.setImageResource(R.drawable.default_profile_pic);
+            }*/
+            if (battle.getRapper2().getProfile_picture() != null) {
+                Picasso.with(this.getApplicationContext()).load(battle.getRapper2().getProfile_picture()).networkPolicy(NetworkPolicy.NO_CACHE)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE).fit().into(imgRapper2);
+            } else {
+                this.imgRapper1.setImageResource(R.drawable.default_profile_pic);
+            }
+            video.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), VideoPlayerActivity.class);
+                    intent.putExtra("url", battle.getVideo_url());
+                    startActivity(intent);
+                }
+            });
 
 
 
@@ -170,7 +188,7 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
             super.onBackPressed();
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("User", aktUser);
-            intent.putExtra("Tab", 3);
+          //  intent.putExtra("Tab", 3);
             startActivity(intent);
         }
     }
@@ -185,7 +203,7 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
             super.onBackPressed();
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("User", aktUser);
-            intent.putExtra("Tab", 3);
+            //intent.putExtra("Tab", 3);
             startActivity(intent);
         }
         return true;

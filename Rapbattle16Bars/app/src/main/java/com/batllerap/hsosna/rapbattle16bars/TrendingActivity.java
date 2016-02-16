@@ -100,14 +100,14 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
 
     public void getTrendingList()  {
 
-        BattleOverview[] bla= new BattleOverview[0];
+        BattleOverview[] tmp= new BattleOverview[0];
         try {
-            bla = BattleController.getTrendingBattles(0, 25).getData();
+            tmp = BattleController.getTrendingBattles(0, 25).getData();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        this.myDataset.addAll(Arrays.asList(bla));
+        this.myDataset.addAll(Arrays.asList(tmp));
 
     }
 

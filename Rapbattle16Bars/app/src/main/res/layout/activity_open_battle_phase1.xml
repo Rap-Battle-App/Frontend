@@ -37,7 +37,7 @@
                     android:textSize="32sp"
                     android:text="Hinrunde Rapper X"/>
 
-                <VideoView android:id="@+id/firstround_rapperx"
+                <ImageView android:id="@+id/firstround_rapperx"
                     android:layout_below="@+id/rapper1_round1text"
                     android:layout_width="match_parent"
                     android:layout_height="256dp"
@@ -50,7 +50,7 @@
                     android:layout_below="@+id/firstround_rapperx"
                     android:text="Hinrunde Rapper Y"/>
 
-                <VideoView android:id="@+id/firstrounde_rappery"
+                <ImageView android:id="@+id/firstrounde_rappery"
                     android:layout_below="@+id/rapper2_round1text"
                     android:layout_width="match_parent"
                     android:layout_height="256dp"

@@ -74,7 +74,7 @@ public class VideoUploadAlert extends DialogFragment {
         // Create the AlertDialog object and return it
         return builder.create();
     }
-    
+
 
     public static VideoUploadAlert newInstance(int beatID, int battleID, String fileFormat, File video) {
         VideoUploadAlert f = new VideoUploadAlert();

@@ -26,10 +26,10 @@ public class VideoUploadController extends AsyncTask<File, Void, Void> {
     String twoHyphens = "--";
     String boundary = "AaB03x87yxdkjnxvi7";
     String bounday2 = "125043040331425";
-    Context context;
+    Context context = null;
     String hyphens ="-----------------------------";
     VideoUploadRequest request;
-    ProgressDialog pd;
+    ProgressDialog pd = null;
 
     public VideoUploadController(Context context, VideoUploadRequest request){
         this.context = context;
@@ -42,7 +42,7 @@ public class VideoUploadController extends AsyncTask<File, Void, Void> {
 
     @Override
     protected void onPreExecute(){
-        //pd = ProgressDialog.show(context, "", "Video wird hochgeladen...", false);
+        pd = ProgressDialog.show(context, "", "Video wird hochgeladen...", false);
     }
 
     protected Void doInBackground(File... files){
@@ -152,7 +152,7 @@ public class VideoUploadController extends AsyncTask<File, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         // TODO Auto-generated method stub
-//        pd.dismiss();
+        pd.dismiss();
         super.onPostExecute(result);
     }
 }

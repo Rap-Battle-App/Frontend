@@ -3,6 +3,7 @@ package com.batllerap.hsosna.rapbattle16bars;
 import android.app.Service;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.inputmethodservice.Keyboard;
 
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.inputmethodservice.Keyboard;
 import android.os.Build;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -164,7 +166,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent d = new Intent(this, Login.class);
                 if (aktUser != null) {
                     try {
-
+                        SharedPreferences login = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor editor = login.edit();
+                        editor.remove("username");
+                        editor.remove("passwort");
+                        editor.apply();
                         authController.logout();
 
                         AuthentificationController.logout();

@@ -104,14 +104,28 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
             camera.unlock();
             recorder.setCamera(camera);
         }
-
         recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
         recorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
         recorder.setOrientationHint(270);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        recorder.setVideoSize(320,240);
+        recorder.setVideoFrameRate(10);
+        recorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        /*recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+        recorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
 
-        recorder.setProfile(camcorderProfile);
 
-        // This is all very sloppy
+        recorder.setProfile(camcorderProfile);*/
+        try{
+            newFile = new File(Environment.getExternalStorageDirectory(), "Video" + ".mp4" );
+            recorder.setOutputFile(newFile.getAbsolutePath());
+        } catch (Exception e) {
+        Log.v(LOGTAG,"Couldn't create file");
+        e.printStackTrace();
+        finish();
+    }
+       /* // This is all very sloppy
         if (camcorderProfile.fileFormat == MediaRecorder.OutputFormat.THREE_GPP) {
             try {
                 newFile = new File(Environment.getExternalStorageDirectory(), "Video" + ".3gp" );
@@ -142,7 +156,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
                 finish();
             }
 
-        }
+        }*/
         recorder.setMaxDuration(90000); // 90 seconds
 
         try {
@@ -238,7 +252,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
             try {
                 Camera.Parameters p = camera.getParameters();
 
-                p.setPreviewSize(camcorderProfile.videoFrameWidth, camcorderProfile.videoFrameHeight);
+                p.setPreviewSize(camcorderProfile.videoFrameWidth,camcorderProfile.videoFrameHeight);
                 p.setPreviewFrameRate(camcorderProfile.videoFrameRate);
 
                 camera.setParameters(p);

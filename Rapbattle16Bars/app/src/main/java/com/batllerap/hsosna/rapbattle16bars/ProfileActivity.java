@@ -35,6 +35,7 @@ import com.batllerap.hsosna.rapbattle16bars.Model.BattleOverview;
 
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.batllerap.hsosna.rapbattle16bars.Model.response.BattleListResponse;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -149,7 +150,7 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         this.txtvUsername.setText(searchUser.getUserName());
         this.txtvLocation.setText(searchUser.getLocation());
         this.txtvAboutMe.setText(searchUser.getAboutMe());
-
+        MyBus.getInstance().register(this);
         if (searchUser.getProfilePicture() != null) {
             Picasso.with(getApplicationContext()).load(searchUser.getProfilePicture()).into(imgvProfilePicture);
         } else {
@@ -200,7 +201,7 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        tList.setHasFixedSize(true);
+
 
         wrvLayoutManager = new WrappingRecyclerViewLayoutManager(this);
         wrv2LayoutManager = new WrappingRecyclerViewLayoutManager(this);
@@ -213,9 +214,9 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
 
         if (aktUser != null) {
             TabFragment3AsyncTasks asyncTrendigBattles = new TabFragment3AsyncTasks();
-            asyncTrendigBattles.execute("complete", aktUser.getId(), trendingBattlesList, tAdapter);
+            asyncTrendigBattles.execute("complete", searchUser.getId(), trendingBattlesList, tAdapter);
             TabFragment3AsyncTasks asyncOpenForVotes = new TabFragment3AsyncTasks();
-            asyncOpenForVotes.execute("open", aktUser.getId(), openForVotesBattlesList, oAdapter);
+            asyncOpenForVotes.execute("open", searchUser.getId(), openForVotesBattlesList, oAdapter);
         }
 
         tAdapter.setClickListener(this);
@@ -261,6 +262,20 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
         data.addAll(Arrays.asList(temp));
 
         return data;
+    }
+    @Subscribe
+    public  void onAsyncTaskResult(AsyncTaskResult event){
+        if(event.getResult() == 1) {
+            tAdapter.notifyDataSetChanged();
+        }else{
+            oAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onDestroy(){
+        MyBus.getInstance().unregister(this);
+        super.onDestroy();
     }
 
     @Override

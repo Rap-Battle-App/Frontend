@@ -75,7 +75,7 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
                 pBar.setMax(2);
                 pBar.setProgress(1);
             }
-            if (searchUser.getProfilePicture() != null) {
+            if (battle.getRapper1().getProfile_picture() != null) {
                 Picasso.with(getApplicationContext()).load(battle.getRapper1().getProfile_picture()).into(imgRapper1);
             } else {
                 this.imgRapper1.setImageResource(R.drawable.default_profile_pic);

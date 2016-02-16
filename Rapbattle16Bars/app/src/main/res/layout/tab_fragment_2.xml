@@ -18,17 +18,18 @@
 
             <TextView   android:id="@+id/openBattlesText"
                 android:textSize="16sp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Deine offenen Battles"
+                android:text="DEINE OFFENEN BATTLES"
+                android:textStyle="bold"
                 />
 
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="2dp"
                 android:layout_below="@id/openBattlesText"
                 android:id="@+id/openBattlesList"
                 android:layout_width="match_parent"
@@ -38,18 +39,19 @@
 
             <TextView   android:id="@+id/challenge_text"
                 android:textSize="16sp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Deine Herausforderungen"
+                android:text="DEINE HERAUSFORDERUNGEN"
+                android:textStyle="bold"
                 android:layout_below="@id/openBattlesList"
                 />
 
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="2dp"
                 android:layout_below="@id/challenge_text"
                 android:id="@+id/challengeList"
                 android:layout_width="match_parent"
@@ -66,8 +68,10 @@
         android:layout_height="72dp"
         android:layout_width="match_parent"
         android:text="Zufallsgegner herausfordern!"
-        android:layout_below="@id/tab2scrollview"
         android:background="@color/colorPrimary"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

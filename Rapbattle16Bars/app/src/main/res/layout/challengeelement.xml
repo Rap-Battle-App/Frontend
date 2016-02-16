@@ -3,25 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="54dp"
-    android:layout_marginTop="16dp"
-    android:background="@drawable/ripple"
-    android:clickable="true">
+    android:layout_marginTop="0dp"
+    android:layout_marginBottom="2dp"
+    android:background="@drawable/border"
+    android:clickable="true"
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/ChallengeImage"
-        android:layout_marginLeft="16dp"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         android:src="@mipmap/ic_launcher" />
     <TextView
         android:id="@+id/ChallengeRapper"
         android:textSize="18sp"
-        android:paddingTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@id/ChallengeImage"
+        android:layout_marginLeft="19dp"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="RAPPER Y"/>
+        android:layout_height="wrap_content"
+        android:text="RAPPER Y"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/ChallengeImage"
+        android:layout_toEndOf="@+id/ChallengeImage"
+        android:layout_marginStart="19dp" />
 
     <ImageView android:id="@+id/challenge_accepted"
         android:layout_width="48dp"

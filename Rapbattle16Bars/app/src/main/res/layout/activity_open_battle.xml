@@ -32,34 +32,40 @@
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
-            android:text="Beat 1"
+            android:text="BEAT 1"
             android:checked="false"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:layout_margin="5dp" />
 
         <RadioButton  android:id="@+id/beat2"
             android:layout_width="190dp"
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
-            android:text="Beat 2"
+            android:text="BEAT 2"
             android:textColor="@color/colorPrimary"
-            android:checked="false" />
+            android:checked="false"
+            android:layout_margin="5dp" />
 
         <RadioButton  android:id="@+id/beat3"
             android:layout_width="190dp"
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
-            android:text="Beat 3"
-            android:textColor="@color/colorPrimary"/>
+            android:text="BEAT 3"
+            android:textColor="@color/colorPrimary"
+            android:checked="false"
+            android:layout_margin="5dp" />
 
         <RadioButton  android:id="@+id/beat4"
-            android:layout_width="190dp"
+            android:layout_width="251dp"
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
-            android:text="Beat 4"
-            android:textColor="@color/colorPrimary"/>
+            android:text="OHNE BEAT"
+            android:textColor="@color/colorPrimary"
+            android:checked="false"
+            android:layout_margin="5dp" />
 
     </RadioGroup>
 

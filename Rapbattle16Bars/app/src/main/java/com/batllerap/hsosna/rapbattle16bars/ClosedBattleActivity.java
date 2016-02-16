@@ -78,7 +78,7 @@ public class ClosedBattleActivity extends AppCompatActivity {
                 Picasso.with(this.getApplicationContext()).load(battle.getRapper2().getProfile_picture()).networkPolicy(NetworkPolicy.NO_CACHE)
                         .memoryPolicy(MemoryPolicy.NO_CACHE).fit().into(imgRapper2);
             } else {
-                this.imgRapper1.setImageResource(R.drawable.default_profile_pic);
+                this.imgRapper2.setImageResource(R.drawable.default_profile_pic);
             }
 
             pBar= (ProgressBar) findViewById(R.id.progressBar2);

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -45,7 +46,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         bLogin.setOnClickListener(this);
         tvRegisterLink.setOnClickListener(this);
-
     }
 
 
@@ -60,7 +60,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     e.printStackTrace();
                 }
                 try {
-                    testUser = AuthentificationController.login(etUserName.getText().toString(), etPassword.getText().toString());
+                    if((etUserName.getText().toString().trim().equals("") || etUserName.getText().toString().trim().equals(null)) && (etPassword.getText().toString().trim().equals("") || etPassword.getText().toString().trim().equals(null))){
+                        etUserName.setError("Bitte Benutzername eingeben.");
+                        etPassword.setError("Bitte Passwort eingeben.");
+                        return;
+                    }
+
+                    if((etUserName.getText().toString().trim().equals("") || etUserName.getText().toString().trim().equals(null))) {
+                        etUserName.setError("Bitte Benutzername eingeben.");
+                       // return;
+                    } else if (etPassword.getText().toString().trim().equals("") || etPassword.getText().toString().trim().equals(null)) {
+                        etPassword.setError("Bitte Passwort eingeben.");
+                        return;
+                    } else {
+                        testUser = AuthentificationController.login(etUserName.getText().toString(), etPassword.getText().toString());
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -68,13 +82,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     Intent i = new Intent(this, MainActivity.class);
                     i.putExtra("User", testUser);
                     startActivity(i);
-                    break;
+                    return;
                 } else {
-                    break;
+                    Toast.makeText(Login.this, "Keinen Nutzer gefunden. Logindaten überprüfen!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             case R.id.tvRegisterLink:
                 startActivity(new Intent(this, Register.class));
-                break;
+                return;
         }
     }
 }

@@ -17,14 +17,18 @@
 
         <TextView
             android:textSize="16sp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="8dp"
             android:id="@+id/txtvClosedBattles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Trending"
-            />
+            android:background="#f9f9f9"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp" />
 
 
         <android.support.v7.widget.RecyclerView
@@ -50,18 +54,24 @@
         <TextView
             android:textSize="16sp"
             android:layout_below="@id/profileDivider"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="8dp"
             android:id="@+id/txtvOpenBattles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Offene Battles"
-            />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="#f9f9f9"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
 
 
         <android.support.v7.widget.RecyclerView
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="0dp"
             android:layout_below="@id/txtvOpenBattles"
             android:id="@+id/openList"
             android:layout_width="match_parent"

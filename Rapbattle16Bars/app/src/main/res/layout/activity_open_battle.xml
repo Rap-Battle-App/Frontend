@@ -22,36 +22,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
-        android:layout_below="@id/openBattleToolbar"
-        >
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/openBattleToolbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RadioButton android:id="@+id/beat1"
-            android:layout_width="match_parent"
+            android:layout_width="190dp"
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
-            android:text="Beat 1" />
+            android:text="Beat 1"
+            android:checked="false"
+            android:textColor="@color/colorPrimary" />
 
         <RadioButton  android:id="@+id/beat2"
-            android:layout_width="match_parent"
+            android:layout_width="190dp"
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
-            android:text="Beat 2"/>
+            android:text="Beat 2"
+            android:textColor="@color/colorPrimary"
+            android:checked="false" />
 
         <RadioButton  android:id="@+id/beat3"
-            android:layout_width="match_parent"
+            android:layout_width="190dp"
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
-            android:text="Beat 3"/>
+            android:text="Beat 3"
+            android:textColor="@color/colorPrimary"/>
 
         <RadioButton  android:id="@+id/beat4"
-            android:layout_width="match_parent"
+            android:layout_width="190dp"
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
-            android:text="Beat 4"/>
+            android:text="Beat 4"
+            android:textColor="@color/colorPrimary"/>
 
     </RadioGroup>
 
@@ -61,7 +69,8 @@
         android:text="Hinrunde Aufnehmen!"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

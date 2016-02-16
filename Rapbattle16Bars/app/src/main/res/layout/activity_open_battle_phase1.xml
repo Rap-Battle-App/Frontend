@@ -17,7 +17,8 @@
         android:text="Rückrunde aufnehmen!"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
     <ScrollView
         android:layout_below="@id/openBattleToolbarphase1"

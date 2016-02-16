@@ -19,14 +19,14 @@ import com.batllerap.hsosna.rapbattle16bars.TabFragment3;
  */
 public class ZoomImage {
 
-    public void zoomImageFromThumb(final View thumbView, Activity activity, Bitmap bmp /*final ImageView image*/) {
+    public void zoomImageFromThumb(final ImageView thumbView, Activity activity, Bitmap bmp /*final ImageView image*/) {
         // If there's an animation in progress, cancel it
         // immediately and proceed with this one.
         final int mShortAnimationDuration = activity.getResources().getInteger(android.R.integer.config_shortAnimTime);
         // Load the high-resolution "zoomed-in" image.
         final ImageView expandedImageView = (ImageView) activity.findViewById(R.id.expanded_image);
-        expandedImageView.setImageBitmap(bmp);
-
+        //expandedImageView.setImageBitmap(bmp);
+        expandedImageView.setImageDrawable(thumbView.getDrawable());
         // Calculate the starting and ending bounds for the zoomed-in image.
         // This step involves lots of math. Yay, math.
         final Rect startBounds = new Rect();
@@ -39,8 +39,7 @@ public class ZoomImage {
         // bounds, since that's the origin for the positioning animation
         // properties (X, Y).
         thumbView.getGlobalVisibleRect(startBounds);
-        activity.findViewById(R.id.container)
-                .getGlobalVisibleRect(finalBounds, globalOffset);
+        activity.findViewById(R.id.container).getGlobalVisibleRect(finalBounds, globalOffset);
         startBounds.offset(-globalOffset.x, -globalOffset.y);
         finalBounds.offset(-globalOffset.x, -globalOffset.y);
 

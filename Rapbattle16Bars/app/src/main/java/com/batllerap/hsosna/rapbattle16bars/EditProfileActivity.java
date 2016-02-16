@@ -4,9 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -14,9 +16,12 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -47,6 +52,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import android.Manifest;
 
 public class EditProfileActivity extends AppCompatActivity {
     private static final int FROM_GALLERY = 80;
@@ -73,6 +79,13 @@ public class EditProfileActivity extends AppCompatActivity {
     //Button
     private Button btnSaveChanges = null;
     private Button btnChangeProfilePicture = null;
+
+    //Permission
+    private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -83,10 +96,22 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private boolean pictureChanged = false;
 
+    @TargetApi(Build.VERSION_CODES.M)
+    private void checkPermission(){
+        System.out.println("Checking Permission:");
+        int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
+            System.out.println("Ask Permission:");
+            ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_CODE_ASK_PERMISSIONS);
+            return;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        checkPermission();
         setContentView(R.layout.activity_edit_profile);
 
         // Set up Toolbar for Navigation
@@ -124,6 +149,7 @@ public class EditProfileActivity extends AppCompatActivity {
         txteNewUsername.setText(aktUser.getUserName());
         txteNewLocation.setText(aktUser.getLocation());
         txteNewAboutMe.setText(aktUser.getAboutMe());
+
 
         //OnClickListener zum Speichern der Daten
         this.btnSaveChanges.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +200,27 @@ public class EditProfileActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        System.out.println("Permission Rsult:");
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_PERMISSIONS:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    System.out.println("Permission Granted");
+                } else {
+                    // Permission Denied
+                    System.out.println("Permission Denied");
+                    Toast.makeText(this, "WRITE_EXTERNAL_STORAGE Denied", Toast.LENGTH_SHORT)
+                            .show();
+                    this.btnChangeProfilePicture.setVisibility(View.GONE);
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
     public void onActivityResult(int reqCode, int resCode, final Intent data) {
         if (reqCode == FROM_GALLERY) {
             if (resCode == Activity.RESULT_OK) {
@@ -190,8 +237,11 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
+
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        Uri uri = Uri.parse("content://media/external/images/media");
+
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }

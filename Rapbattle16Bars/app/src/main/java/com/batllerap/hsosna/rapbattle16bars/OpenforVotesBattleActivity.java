@@ -128,6 +128,7 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     try {
                         BattleController.voteBattle(battle.getId(), 0);
+                        votesRapper1.setText((battle.getVoting().getVotes_rapper1() + 1) + "");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -147,6 +148,7 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     try {
                         BattleController.voteBattle(battle.getId(), 1);
+                        votesRapper2.setText((battle.getVoting().getVotes_rapper2()+ 1) +"");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

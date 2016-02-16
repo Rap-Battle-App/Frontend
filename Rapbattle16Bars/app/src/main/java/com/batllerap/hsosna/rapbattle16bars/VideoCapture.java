@@ -109,7 +109,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         recorder.setOrientationHint(270);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         recorder.setVideoSize(320,240);
-        recorder.setVideoFrameRate(10);
+        recorder.setVideoFrameRate(camcorderProfile.videoFrameRate);
         recorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
         /*recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);

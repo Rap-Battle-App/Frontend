@@ -129,6 +129,7 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
         try {
             BattleController.answerRequest(challengeList.get(position).getId(), true);
             if(aktUser != null) {
+                myOpenBattlesList.clear();
                 TabFragment2AsyncTasks asyncOpenBattles = new TabFragment2AsyncTasks();
                 asyncOpenBattles.execute(null, myOpenBattlesList);
             }

@@ -40,6 +40,7 @@
                 <ImageView android:id="@+id/firstround_rapperx"
                     android:layout_below="@+id/rapper1_round1text"
                     android:layout_width="match_parent"
+                    android:src="@drawable/videoplaceholder"
                     android:layout_height="256dp"
                     android:layout_margin="16dp"/>
 
@@ -52,9 +53,11 @@
 
                 <ImageView android:id="@+id/firstrounde_rappery"
                     android:layout_below="@+id/rapper2_round1text"
+                    android:src="@drawable/videoplaceholder"
                     android:layout_width="match_parent"
                     android:layout_height="256dp"
-                    android:layout_margin="16dp"/>
+                    android:layout_margin="16dp"
+                    />
 
             </RelativeLayout>
 

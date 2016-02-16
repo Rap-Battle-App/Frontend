@@ -20,7 +20,7 @@
     <ImageView android:id="@+id/openforvotes_video"
 
         android:layout_below="@+id/openforvotesToolbar"
-
+        android:src="@drawable/videoplaceholder"
         android:layout_width="match_parent"
         android:layout_height="256dp"
         android:layout_margin="16dp"/>
@@ -43,9 +43,7 @@
 
             android:layout_marginLeft="8dp"
             android:layout_width="80dp"
-            android:layout_height="80dp"
-
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_height="80dp"/>
 
         <TextView   android:id="@+id/openforvotes_Rapper1"
 
@@ -82,9 +80,7 @@
             android:layout_marginRight="8dp"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_alignParentRight="true"
-
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
     <ProgressBar    android:id="@+id/progressBar1"

@@ -20,19 +20,19 @@
             android:id="@+id/txtvClosedBattles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Trending"
-            android:background="#f9f9f9"
+            android:text="TRENDING"
+            android:textStyle="bold"
+            android:background="#ffffff"
             android:paddingLeft="5dp"
             android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="1dp" />
 
 
         <android.support.v7.widget.RecyclerView
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
             android:layout_below="@id/txtvClosedBattles"
             android:id="@+id/profileClosedBattlesList"
             android:layout_width="match_parent"
@@ -42,8 +42,8 @@
         </android.support.v7.widget.RecyclerView>
 
         <View
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="6dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="2dp"
             android:layout_below="@id/profileClosedBattlesList"
             android:id="@+id/profileDivider"
             android:layout_width="fill_parent"
@@ -54,20 +54,20 @@
         <TextView
             android:textSize="16sp"
             android:layout_below="@id/profileDivider"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="4dp"
             android:id="@+id/txtvOpenBattles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Offene Battles"
+            android:text="OFFENE BATTLES"
+            android:textStyle="bold"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:background="#f9f9f9"
+            android:background="#ffffff"
             android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp" />
+            android:paddingTop="5dp" />
 
 
 

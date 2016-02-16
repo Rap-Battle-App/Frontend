@@ -37,23 +37,30 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_below="@id/openforvotes_video"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_alignRight="@+id/openforvotes_video"
+        android:layout_alignEnd="@+id/openforvotes_video"
+        android:layout_alignLeft="@+id/openforvotes_video"
+        android:layout_alignStart="@+id/openforvotes_video">
 
         <ImageView  android:id="@+id/openforvotes_battleRapper1img"
 
-            android:layout_marginLeft="8dp"
-            android:layout_width="80dp"
-            android:layout_height="80dp"/>
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView   android:id="@+id/openforvotes_Rapper1"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:textSize="18sp"
-            android:layout_toRightOf="@id/openforvotes_battleRapper1img"
-            android:text="Bushido"/>
+            android:textSize="16sp"
+            android:text="Bushido"
+            android:layout_alignTop="@+id/openforvotes_Rapper2"
+            android:layout_toRightOf="@+id/openforvotes_battleRapper1img"
+            android:layout_toEndOf="@+id/openforvotes_battleRapper1img" />
 
         <TextView   android:id="@+id/openforvites_battlevs"
 
@@ -61,26 +68,28 @@
             android:textSize="24sp"
             android:paddingRight="8dp"
             android:paddingLeft="8dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="VS"/>
+            android:text="VS"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
         <TextView   android:id="@+id/openforvotes_Rapper2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Kollegah"
             android:layout_centerVertical="true"
-            android:textSize="18sp"
-            android:layout_toRightOf="@id/openforvites_battlevs"
-            android:text="Kollegah"/>
+            android:layout_toRightOf="@+id/openforvites_battlevs"
+            android:layout_toEndOf="@+id/openforvites_battlevs" />
 
         <ImageView  android:id="@+id/openforvotes_battleRapper2img"
-            android:layout_marginRight="8dp"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentRight="true"/>
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <ProgressBar    android:id="@+id/progressBar1"

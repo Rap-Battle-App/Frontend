@@ -2,8 +2,11 @@ package com.batllerap.hsosna.rapbattle16bars.Controller;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 
+import com.batllerap.hsosna.rapbattle16bars.MainActivity;
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.VideoUploadRequest;
 
 import java.io.DataInputStream;
@@ -30,10 +33,12 @@ public class VideoUploadController extends AsyncTask<File, Void, Void> {
     String hyphens ="-----------------------------";
     VideoUploadRequest request;
     ProgressDialog pd = null;
+    User aktUser = null;
 
-    public VideoUploadController(Context context, VideoUploadRequest request){
+    public VideoUploadController(Context context, VideoUploadRequest request, User aktUser){
         this.context = context;
         this.request = request;
+        this.aktUser = aktUser;
     }
     public VideoUploadController( VideoUploadRequest request){
 
@@ -153,6 +158,10 @@ public class VideoUploadController extends AsyncTask<File, Void, Void> {
     protected void onPostExecute(Void result) {
         // TODO Auto-generated method stub
         pd.dismiss();
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("Tab", 2);
+        intent.putExtra("User", aktUser);
+        context.startActivity(intent);
         super.onPostExecute(result);
     }
 }

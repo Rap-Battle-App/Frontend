@@ -44,9 +44,9 @@ public class OpenBattleActivity extends AppCompatActivity {
         aktUser = (User) getIntent().getSerializableExtra("User");
 
 
-        switch (battle.getPhase()){
+        switch (battle.getPhase()) {
             case 1:
-                if(battle.getInfo().getRound1_url() != null && battle.getInfo().getOpponent_round1_rl() == null){
+                if (battle.getInfo().getRound1_url() != null && battle.getInfo().getOpponent_round1_rl() == null) {
                     setContentView(R.layout.activity_open_battle_phase_0);
                     final Toolbar toolbar1 = (Toolbar) findViewById(R.id.openBattleToolbarphase0);
                     setSupportActionBar(toolbar1);
@@ -54,7 +54,7 @@ public class OpenBattleActivity extends AppCompatActivity {
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-                    myRound1Text =(TextView) findViewById(R.id.rapper1_round0text);
+                    myRound1Text = (TextView) findViewById(R.id.rapper1_round0text);
                     myRound1Text.setText(aktUser.getUserName());
 
                     myRound1 = (ImageView) findViewById(R.id.firstround_rapperx0);
@@ -62,13 +62,13 @@ public class OpenBattleActivity extends AppCompatActivity {
                     myRound1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(getApplicationContext(),VideoPlayerActivity.class);
-                            intent.putExtra("url",battle.getInfo().getRound1_url());
+                            Intent intent = new Intent(getApplicationContext(), VideoPlayerActivity.class);
+                            intent.putExtra("url", battle.getInfo().getRound1_url());
                             startActivity(intent);
                         }
                     });
 
-                }else {
+                } else {
                     setContentView(R.layout.activity_open_battle);
                     final Toolbar toolbar = (Toolbar) findViewById(R.id.openBattleToolbar);
                     setSupportActionBar(toolbar);
@@ -164,6 +164,7 @@ public class OpenBattleActivity extends AppCompatActivity {
                             System.out.println(auswahl);
                             intent.putExtra("Beat", auswahl + 1);
                             intent.putExtra("BattleID", battle.getId());
+                            intent.putExtra("User", aktUser);
                             try {
                                 mPlayer.stop();
                                 mPlayer.release();
@@ -187,18 +188,18 @@ public class OpenBattleActivity extends AppCompatActivity {
                 vidButton = (Button) findViewById(R.id.capture_second_round);
 
 
-                myRound1Text =(TextView) findViewById(R.id.rapper1_round1text);
+                myRound1Text = (TextView) findViewById(R.id.rapper1_round1text);
                 myRound1Text.setText(aktUser.getUserName());
                 enemyRound1Text = (TextView) findViewById(R.id.rapper2_round1text);
                 enemyRound1Text.setText(battle.getOpponent().getUsername());
                 myRound1 = (ImageView) findViewById(R.id.firstround_rapperx);
-                enemyRound1 = (ImageView) findViewById (R.id.firstrounde_rappery);
+                enemyRound1 = (ImageView) findViewById(R.id.firstrounde_rappery);
 
                 myRound1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(),VideoPlayerActivity.class);
-                        intent.putExtra("url",battle.getInfo().getRound1_url());
+                        Intent intent = new Intent(getApplicationContext(), VideoPlayerActivity.class);
+                        intent.putExtra("url", battle.getInfo().getRound1_url());
                         startActivity(intent);
                     }
                 });
@@ -206,28 +207,33 @@ public class OpenBattleActivity extends AppCompatActivity {
                 enemyRound1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(),VideoPlayerActivity.class);
-                        intent.putExtra("url",battle.getInfo().getOpponent_round1_rl());
+                        Intent intent = new Intent(getApplicationContext(), VideoPlayerActivity.class);
+                        intent.putExtra("url", battle.getInfo().getOpponent_round1_rl());
                         startActivity(intent);
                     }
                 });
-                vidButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), VideoCapture.class);
-                        intent.putExtra("Beat", battle.getInfo().getBeat_id());
-                        intent.putExtra("BattleID", battle.getId());
-                        intent.putExtra("Phase", battle.getPhase());
-                        try {
-                            mPlayer.stop();
-                            mPlayer.release();
-                        } catch (Exception e) {
+                if (battle.getInfo().getRound2_url() != null) {
+                    vidButton.setVisibility(View.GONE);
+                } else {
+                    vidButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), VideoCapture.class);
+                            intent.putExtra("Beat", battle.getInfo().getBeat_id());
+                            intent.putExtra("BattleID", battle.getId());
+                            intent.putExtra("Phase", battle.getPhase());
+                            intent.putExtra("User", aktUser);
+                            try {
+                                mPlayer.stop();
+                                mPlayer.release();
+                            } catch (Exception e) {
 
+                            }
+
+                            startActivity(intent);
                         }
-
-                        startActivity(intent);
-                    }
-                });
+                    });
+                }
                 return;
             default:
                 return;
@@ -239,25 +245,27 @@ public class OpenBattleActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (mPlayer != null){
+        if (mPlayer != null) {
             mPlayer.release();
             mPlayer = null;
         }
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("User", aktUser);
+        intent.putExtra("Tab", 2);
         //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         User tuser = (User) intent.getSerializableExtra("User");
         startActivity(intent);
         return;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
-        if (mPlayer != null){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mPlayer != null) {
             mPlayer.release();
             mPlayer = null;
         }
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         myIntent.putExtra("User", aktUser);
+        myIntent.putExtra("Tab", 2);
         //myIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivityForResult(myIntent, 0);
         return true;

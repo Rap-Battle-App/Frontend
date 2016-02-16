@@ -134,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             if (getIntent().getExtras().getInt("Tab") == 3) {
                 viewPager.setCurrentItem(2);
+            }else if (getIntent().getExtras().getInt("Tab") == 2) {
+                viewPager.setCurrentItem(1);
             }
         }
     }

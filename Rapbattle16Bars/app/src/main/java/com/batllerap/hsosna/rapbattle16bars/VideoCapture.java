@@ -22,6 +22,8 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 
 
+import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -45,6 +47,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
     private int phase;
   //  private AsyncVideoCaptureUI myTask;
 
+    private User aktUser = null;
 
     int beat;
     int id;
@@ -69,6 +72,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         beat=  getIntent().getIntExtra("Beat",0);
         id = getIntent().getIntExtra("BattleID",999999);
         phase = getIntent().getIntExtra("Phase", 99990);
+        aktUser = (User) getIntent().getSerializableExtra("User");
 
         beatstr = "beat"+beat;
         Log.v("DAMN", beatstr);
@@ -199,7 +203,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
             Log.v(LOGTAG, "Recording Stopped");
             // Let's prepareRecorder so we can record again
             prepareRecorder();
-            VideoAlert = VideoUploadAlert.newInstance(beat, id, "mp4", newFile);
+            VideoAlert = VideoUploadAlert.newInstance(beat, id, "mp4", newFile, aktUser);
             VideoAlert.show(getSupportFragmentManager(), "123");
         } else {
             recording = true;

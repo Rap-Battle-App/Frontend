@@ -24,7 +24,7 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.util.List;
 
 
 public class VideoCapture extends AppCompatActivity implements View.OnClickListener, SurfaceHolder.Callback {
@@ -117,6 +117,8 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
 
 
         recorder.setProfile(camcorderProfile);*/
+
+
         try{
             newFile = new File(Environment.getExternalStorageDirectory(), "Video" + ".mp4" );
             recorder.setOutputFile(newFile.getAbsolutePath());
@@ -225,6 +227,10 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         if (usecamera) {
             camera = Camera.open(currentCameraId);
             camera.setDisplayOrientation(90);
+            final List<Camera.Size> mSupportedVideoSizes = getSupportedVideoSizes(camera);
+            for (Camera.Size str : mSupportedVideoSizes)
+                Log.e("VideoAUFNAHME", "mSupportedVideoSizes "+str.width + ":" + str.height + " ... "
+                        + ((float) str.width / str.height));
 
 
             try {
@@ -303,5 +309,13 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
+    public List<Camera.Size> getSupportedVideoSizes(Camera camera) {
+        if (camera.getParameters().getSupportedVideoSizes() != null) {
+            return camera.getParameters().getSupportedVideoSizes();
+        } else {
+            // Video sizes may be null, which indicates that all the supported
+            // preview sizes are supported for video recording.
+            return camera.getParameters().getSupportedPreviewSizes();
+        }
+    }
 }

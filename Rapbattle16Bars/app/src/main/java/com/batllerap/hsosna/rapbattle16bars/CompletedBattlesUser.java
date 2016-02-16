@@ -127,10 +127,9 @@ public class CompletedBattlesUser extends AppCompatActivity implements MyAdapter
     public void itemClicked(View view, int position) {
         try {
             Battle battle = BattleController.getBattle(myDataset.get(position).getBattle_id());
-
             Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
             intent.putExtra("battle", battle);
-
+            intent.putExtra("Searchuser", searchUser);
             intent.putExtra("User", aktUser);
             startActivity(intent);
         } catch (IOException e) {

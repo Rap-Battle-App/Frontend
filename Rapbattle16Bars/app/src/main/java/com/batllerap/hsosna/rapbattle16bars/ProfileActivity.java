@@ -269,7 +269,6 @@ public class ProfileActivity extends AppCompatActivity implements CustomAdapter.
             System.out.println("Trending List Angeklickt");
             try {
                 Battle battle = BattleController.getBattle(trendingBattlesList.get(position).getBattle_id());
-
                 Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
                 intent.putExtra("battle", battle);
                 intent.putExtra("User", aktUser);

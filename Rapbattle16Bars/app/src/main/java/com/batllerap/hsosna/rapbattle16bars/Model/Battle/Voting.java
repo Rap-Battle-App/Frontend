@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Voting implements Serializable{
     private int votes_rapper1;
     private int votes_rapper2;
-    private int voted_for;
+    private int voted_for=3;
     private boolean isOpen;
 
 
@@ -22,6 +22,7 @@ public class Voting implements Serializable{
     public Voting(){
         this.votes_rapper1 = 0;
         this.votes_rapper2= 0;
+
 
     }
 

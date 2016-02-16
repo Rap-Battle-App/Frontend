@@ -47,17 +47,17 @@ public class OpenBattleActivity extends AppCompatActivity {
         switch (battle.getPhase()){
             case 1:
                 if(battle.getInfo().getRound1_url() != null && battle.getInfo().getOpponent_round1_rl() == null){
-                    setContentView(R.layout.activity_open_battle_phase1);
-                    final Toolbar toolbar1 = (Toolbar) findViewById(R.id.openBattleToolbarphase1);
+                    setContentView(R.layout.activity_open_battle_phase_0);
+                    final Toolbar toolbar1 = (Toolbar) findViewById(R.id.openBattleToolbarphase0);
                     setSupportActionBar(toolbar1);
                     getSupportActionBar().setTitle("Battle");
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-                    myRound1Text =(TextView) findViewById(R.id.rapper1_round1text);
+                    myRound1Text =(TextView) findViewById(R.id.rapper1_round0text);
                     myRound1Text.setText(aktUser.getUserName());
 
-                    myRound1 = (ImageView) findViewById(R.id.firstround_rapperx);
+                    myRound1 = (ImageView) findViewById(R.id.firstround_rapperx0);
 
                     myRound1.setOnClickListener(new View.OnClickListener() {
                         @Override

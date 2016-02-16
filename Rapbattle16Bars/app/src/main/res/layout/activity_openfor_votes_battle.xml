@@ -137,7 +137,7 @@
         android:focusableInTouchMode="false"
         android:layout_alignParentRight="true"/>
 
-    <TextView android:id="@+id/votesRapper1"
+    <TextView android:id="@+id/openforvotes_votesRapper1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/progressBar1"
@@ -148,7 +148,7 @@
         android:layout_marginLeft="16dp"/>
 
 
-    <TextView android:id="@+id/votesRapper2"
+    <TextView android:id="@+id/openforvotes_votesRapper2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/progressBar1"

@@ -32,6 +32,8 @@ public class ClosedBattleActivity extends AppCompatActivity {
     private ProgressBar pBar;
     private User aktUser;
     private User searchUser;
+    private TextView votesRapper1;
+    private TextView votesRapper2;
 
     private ImageView imgRapper1;
     private ImageView imgRapper2;
@@ -54,6 +56,12 @@ public class ClosedBattleActivity extends AppCompatActivity {
             rapper2 =(TextView) findViewById(R.id.closedBattleRapper2);
             imgRapper1 = (ImageView) findViewById(R.id.battleRapper1);
             imgRapper2 = (ImageView) findViewById(R.id.battleRapper2);
+
+            votesRapper1 = (TextView) findViewById(R.id.closedBattleVotesRapper1);
+            votesRapper1.setText(battle.getVoting().getVotes_rapper1()+"");
+
+            votesRapper2 = (TextView) findViewById(R.id.closedBattleVotesRapper2);
+            votesRapper2.setText(battle.getVoting().getVotes_rapper2()+"");
 
         /*    if (battle.getRapper1().getProfile_picture() != null) {
                 Picasso.with(this.getApplicationContext()).load(battle.getRapper1().getProfile_picture()).networkPolicy(NetworkPolicy.NO_CACHE)

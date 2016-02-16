@@ -363,9 +363,9 @@ public class BattleController {
      * @param rapperNumber the name of the rapper, who gets the Vote
      */
     public static void voteBattle(int battleId, int rapperNumber) throws IOException {
-        String url = "/battle" + battleId + "/vote";
+        String url = "/battle/" + battleId + "/vote";
         VoteRequest request = new VoteRequest();
-        request.setRapper_numer(rapperNumber);
+        request.setRapper_number(rapperNumber);
 
         String requestString = getRequestString(request);
 

@@ -6,17 +6,17 @@ import java.io.Serializable;
  * Created by woors on 17.12.2015.
  */
 public class VoteRequest implements Serializable {
-    private int rapper_numer;
+    private int rapper_number;
 
     public VoteRequest(){
 
     }
 
-    public int getRapper_numer() {
-        return rapper_numer;
+    public int getRapper_number() {
+        return rapper_number;
     }
 
-    public void setRapper_numer(int rapper_numer) {
-        this.rapper_numer = rapper_numer;
+    public void setRapper_number(int rapper_number) {
+        this.rapper_number = rapper_number;
     }
 }

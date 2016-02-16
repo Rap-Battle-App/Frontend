@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/openBattleToolbarphase0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+
+    <ScrollView
+        android:layout_below="@id/openBattleToolbarphase0"
+        android:layout_above="@id/capture_second_round"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            >
+
+            <TextView android:id="@+id/rapper1_round0text"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textSize="32sp"
+                android:text="Hinrunde Rapper X"/>
+
+            <ImageView android:id="@+id/firstround_rapperx0"
+                android:layout_below="@+id/rapper1_round0text"
+                android:layout_width="match_parent"
+                android:src="@drawable/videoplaceholder"
+                android:layout_height="256dp"
+                android:layout_margin="16dp"/>
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

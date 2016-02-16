@@ -109,7 +109,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         recorder.setOrientationHint(270);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         recorder.setVideoSize(320,240);
-        recorder.setVideoFrameRate(10);
+        recorder.setVideoFrameRate(camcorderProfile.videoFrameRate);
         recorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
         /*recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
@@ -227,12 +227,12 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         if (usecamera) {
             camera = Camera.open(currentCameraId);
             camera.setDisplayOrientation(90);
-            final List<Camera.Size> mSupportedVideoSizes = getSupportedVideoSizes(camera);
+           /* final List<Camera.Size> mSupportedVideoSizes = getSupportedVideoSizes(camera);
             for (Camera.Size str : mSupportedVideoSizes)
                 Log.e("VideoAUFNAHME", "mSupportedVideoSizes "+str.width + ":" + str.height + " ... "
                         + ((float) str.width / str.height));
 
-
+*/
             try {
                 camera.setPreviewDisplay(holder);
                 camera.startPreview();
@@ -309,6 +309,8 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
+    //DEBUG INFO
     public List<Camera.Size> getSupportedVideoSizes(Camera camera) {
         if (camera.getParameters().getSupportedVideoSizes() != null) {
             return camera.getParameters().getSupportedVideoSizes();

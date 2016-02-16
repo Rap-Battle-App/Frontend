@@ -36,6 +36,8 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
     private ImageView imgRapper2;
     private User aktUser;
     private User searchUser;
+    private TextView votesRapper1;
+    private TextView votesRapper2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,11 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
             imgRapper2 = (ImageView) findViewById(R.id.openforvotes_battleRapper2img);
             rapper1 = (TextView) findViewById(R.id.openforvotes_Rapper1);
             rapper2 =(TextView) findViewById(R.id.openforvotes_Rapper2);
+            votesRapper1 = (TextView) findViewById(R.id.openforvotes_votesRapper1);
+            votesRapper1.setText(battle.getVoting().getVotes_rapper1()+"");
 
+            votesRapper2 = (TextView) findViewById(R.id.openforvotes_votesRapper2);
+            votesRapper2.setText(battle.getVoting().getVotes_rapper2()+"");
             pBar= (ProgressBar) findViewById(R.id.progressBar1);
             rapper1.setText(battle.getRapper1().getUsername());
             rapper2.setText(battle.getRapper2().getUsername());
@@ -71,6 +77,17 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
             if (battle.getVoting() != null){
                 pBar.setMax(battle.getVoting().getVotes_rapper1() + battle.getVoting().getVotes_rapper2());
                 pBar.setProgress(battle.getVoting().getVotes_rapper1());
+                if(battle.getVoting().getVoted_for() == 0){
+                    lButton.setChecked(true);
+                    lButton.setClickable(false);
+                    rButton.setChecked(false);
+                    rButton.setClickable(false);
+                }else if(battle.getVoting().getVoted_for() ==1){
+                    rButton.setChecked(true);
+                    rButton.setClickable(false);
+                    lButton.setChecked(false);
+                    lButton.setClickable(false);
+                }
             }else {
                 pBar.setMax(2);
                 pBar.setProgress(1);
@@ -105,44 +122,44 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
 
         }
 
+        if(battle.getVoting().getVoted_for() != 0 && battle.getVoting().getVoted_for() !=1) {
+            lButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        BattleController.voteBattle(battle.getId(), 0);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if (rButton.isChecked()) {
+                        rButton.setChecked(false);
+                    } else {
 
-        lButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    BattleController.voteBattle(battle.getId(),1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (rButton.isChecked()) {
-                    rButton.setChecked(false);
-                } else {
+                    }
 
-                }
-
-
-            }
-
-        });
-
-        rButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    BattleController.voteBattle(battle.getId(),2);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (lButton.isChecked()) {
-                    lButton.setChecked(false);
-                } else {
 
                 }
 
-            }
+            });
 
-        });
+            rButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        BattleController.voteBattle(battle.getId(), 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if (lButton.isChecked()) {
+                        lButton.setChecked(false);
+                    } else {
 
+                    }
+
+                }
+
+            });
+        }
         imgRapper1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

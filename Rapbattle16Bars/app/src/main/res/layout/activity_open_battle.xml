@@ -51,7 +51,7 @@
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
-            android:text="Beat 4"/>
+            android:text="kein Beat"/>
 
     </RadioGroup>
 

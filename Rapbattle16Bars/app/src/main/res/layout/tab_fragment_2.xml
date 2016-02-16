@@ -6,15 +6,9 @@
     android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <Button android:id="@+id/challenge_random_opponent"
-        android:layout_height="72dp"
-        android:layout_width="match_parent"
-        android:text="Zufallsgegner herausfordern!"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/white"/>
 
-    <ScrollView
+
+    <ScrollView android:id="@+id/tab2scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
@@ -67,5 +61,13 @@
         </RelativeLayout>
 
     </ScrollView>
+
+    <Button android:id="@+id/challenge_random_opponent"
+        android:layout_height="72dp"
+        android:layout_width="match_parent"
+        android:text="Zufallsgegner herausfordern!"
+        android:layout_below="@id/tab2scrollview"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"/>
 
 </RelativeLayout>

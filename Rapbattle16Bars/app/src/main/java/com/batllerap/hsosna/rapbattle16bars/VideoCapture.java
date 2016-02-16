@@ -187,9 +187,13 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
             VideoAlert.show(getSupportFragmentManager(), "123");
         } else {
             recording = true;
-            player = MediaPlayer.create(this, getResources().getIdentifier(beatstr,"raw", getPackageName()));
+            if(beat != 4){
+                player = MediaPlayer.create(this, getResources().getIdentifier(beatstr,"raw", getPackageName()));
+                player.start();
+            }
+
             recorder.start();
-            player.start();
+
             timer.setVisibility(View.VISIBLE);
             redDot.setVisibility(View.VISIBLE);
             rec.setVisibility(View.VISIBLE);

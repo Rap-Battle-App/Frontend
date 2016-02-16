@@ -38,8 +38,8 @@
         </android.support.v7.widget.RecyclerView>
 
         <View
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="6dp"
             android:layout_below="@id/profileClosedBattlesList"
             android:id="@+id/profileDivider"
             android:layout_width="fill_parent"
@@ -58,6 +58,7 @@
             android:layout_height="wrap_content"
             android:text="Offene Battles"
             />
+
 
 
         <android.support.v7.widget.RecyclerView

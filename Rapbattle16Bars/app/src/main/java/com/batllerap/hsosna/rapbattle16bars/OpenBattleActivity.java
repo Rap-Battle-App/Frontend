@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -29,8 +30,8 @@ public class OpenBattleActivity extends AppCompatActivity {
     private int auswahl;
     private RadioGroup beatgroup;
     private User aktUser;
-    private VideoView myRound1;
-    private VideoView enemyRound1;
+    private ImageView myRound1;
+    private ImageView enemyRound1;
     private TextView myRound1Text;
     private TextView enemyRound1Text;
 
@@ -118,6 +119,7 @@ public class OpenBattleActivity extends AppCompatActivity {
                         });
                     }
                 });
+
                 beat4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -127,18 +129,10 @@ public class OpenBattleActivity extends AppCompatActivity {
                         } catch (Exception e) {
 
                         }
-                        mPlayer = MediaPlayer.create(OpenBattleActivity.this, R.raw.beat4);
-                        mPlayer.start();
-                        mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mp) {
-                                mPlayer.release();
-                            }
-                        });
                     }
                 });
 
-                vidButton.setOnClickListener(new View.OnClickListener() {
+                            vidButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(),VideoCapture.class);
@@ -158,8 +152,6 @@ public class OpenBattleActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-
-
                 return;
 
             case 2:
@@ -176,25 +168,26 @@ public class OpenBattleActivity extends AppCompatActivity {
                 myRound1Text.setText(aktUser.getUserName());
                 enemyRound1Text = (TextView) findViewById(R.id.rapper2_round1text);
                 enemyRound1Text.setText(battle.getOpponent().getUsername());
-                myRound1 = (VideoView) findViewById(R.id.firstround_rapperx);
-                enemyRound1 = (VideoView) findViewById (R.id.firstrounde_rappery);
+                myRound1 = (ImageView) findViewById(R.id.firstround_rapperx);
+                enemyRound1 = (ImageView) findViewById (R.id.firstrounde_rappery);
 
-                MediaController mc = new MediaController(this);
-                mc.setAnchorView(myRound1);
-                mc.setMediaPlayer(myRound1);
-                Uri videolink = Uri.parse(battle.getInfo().getRound1_url());
-                myRound1.setMediaController(mc);
-                myRound1.setVideoURI(videolink);
-                myRound1.requestFocus();
+                myRound1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(),VideoPlayerActivity.class);
+                        intent.putExtra("url",battle.getInfo().getRound1_url());
+                        startActivity(intent);
+                    }
+                });
 
-                MediaController mc2 = new MediaController(this);
-                mc2.setAnchorView(myRound1);
-                mc2.setMediaPlayer(myRound1);
-                Uri videolink2 = Uri.parse(battle.getInfo().getOpponent_round1_rl());
-                enemyRound1.setMediaController(mc);
-                enemyRound1.setVideoURI(videolink2);
-                enemyRound1.requestFocus();
-
+                enemyRound1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(),VideoPlayerActivity.class);
+                        intent.putExtra("url",battle.getInfo().getOpponent_round1_rl());
+                        startActivity(intent);
+                    }
+                });
                 vidButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -212,14 +205,7 @@ public class OpenBattleActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-
-
-
-
                 return;
-
-
-
             default:
                 return;
         }

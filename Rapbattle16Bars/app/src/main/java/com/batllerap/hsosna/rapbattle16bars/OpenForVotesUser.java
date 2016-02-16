@@ -137,6 +137,7 @@ public class OpenForVotesUser extends AppCompatActivity implements MyAdapter.Cli
 
             Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
             intent.putExtra("battle", battle);
+            intent.putExtra("Searchuser", searchUser);
             intent.putExtra("User", aktUser);
             startActivity(intent);
         } catch (IOException e) {

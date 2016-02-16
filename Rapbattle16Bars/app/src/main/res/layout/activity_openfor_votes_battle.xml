@@ -58,6 +58,8 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:text="Bushido"
+            android:maxLines="1"
+            android:maxLength="9"
             android:layout_alignTop="@+id/openforvotes_Rapper2"
             android:layout_toRightOf="@+id/openforvotes_battleRapper1img"
             android:layout_toEndOf="@+id/openforvotes_battleRapper1img" />
@@ -80,6 +82,8 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:text="Kollegah"
+            android:maxLines="1"
+            android:maxLength="9"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/openforvites_battlevs"
             android:layout_toEndOf="@+id/openforvites_battlevs" />

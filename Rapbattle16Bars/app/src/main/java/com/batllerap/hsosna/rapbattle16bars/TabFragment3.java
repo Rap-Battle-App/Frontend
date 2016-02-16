@@ -232,6 +232,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
 
                 Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity");
                 intent.putExtra("User", aktUser);
+                intent.putExtra("Tab3", "Tab3");
                 intent.putExtra("battle", battle);
                 startActivity(intent);
             } catch (IOException e) {
@@ -245,6 +246,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
 
                 Intent intent = new Intent("com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity");
                 intent.putExtra("battle", battle);
+                intent.putExtra("Tab3", "Tab3");
                 intent.putExtra("User", aktUser);
                 startActivity(intent);
             } catch (IOException e) {

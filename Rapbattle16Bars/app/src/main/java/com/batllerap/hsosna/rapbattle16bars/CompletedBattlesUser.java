@@ -43,7 +43,7 @@ public class CompletedBattlesUser extends AppCompatActivity implements MyAdapter
         searchUser = (User) getIntent().getSerializableExtra("Searchuser");
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("TRENDING");
+        getSupportActionBar().setTitle("ABGESCHLOSSENE BATTLES");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         handler = new Handler();

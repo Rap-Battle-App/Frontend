@@ -148,7 +148,9 @@ public class ClosedBattleActivity extends AppCompatActivity {
             super.onBackPressed();
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("User", aktUser);
-            intent.putExtra("Tab", 3);
+            if(getIntent().hasExtra("Tab3")) {
+                intent.putExtra("Tab", 3);
+            }
             startActivity(intent);
         }
     }
@@ -163,7 +165,9 @@ public class ClosedBattleActivity extends AppCompatActivity {
             super.onBackPressed();
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("User", aktUser);
-            //intent.putExtra("Tab", 3);
+            if(getIntent().hasExtra("Tab3")) {
+                intent.putExtra("Tab", 3);
+            }
             startActivity(intent);
         }
         return true;

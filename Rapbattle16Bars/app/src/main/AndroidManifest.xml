@@ -204,6 +204,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".VideoUploadAlert"
+            android:configChanges="orientation"
+            android:parentActivityName=".OpenBattleActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.VideoUploadAlert" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".VideoPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_video_player"

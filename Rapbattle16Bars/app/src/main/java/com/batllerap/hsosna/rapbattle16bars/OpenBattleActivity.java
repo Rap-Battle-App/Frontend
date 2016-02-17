@@ -50,7 +50,7 @@ public class OpenBattleActivity extends AppCompatActivity {
                     setContentView(R.layout.activity_open_battle_phase_0);
                     final Toolbar toolbar1 = (Toolbar) findViewById(R.id.openBattleToolbarphase0);
                     setSupportActionBar(toolbar1);
-                    getSupportActionBar().setTitle("Battle");
+                    getSupportActionBar().setTitle("BATTLE");
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 

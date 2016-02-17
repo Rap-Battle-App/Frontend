@@ -72,7 +72,7 @@ public class OpenBattleActivity extends AppCompatActivity {
                     setContentView(R.layout.activity_open_battle);
                     final Toolbar toolbar = (Toolbar) findViewById(R.id.openBattleToolbar);
                     setSupportActionBar(toolbar);
-                    getSupportActionBar().setTitle("Battle");
+                    getSupportActionBar().setTitle("BATTLE");
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
                     beatgroup = (RadioGroup) findViewById(R.id.beatgroup);
@@ -182,7 +182,7 @@ public class OpenBattleActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_open_battle_phase1);
                 final Toolbar toolbar1 = (Toolbar) findViewById(R.id.openBattleToolbarphase1);
                 setSupportActionBar(toolbar1);
-                getSupportActionBar().setTitle("Battle");
+                getSupportActionBar().setTitle("BATTLE");
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
                 vidButton = (Button) findViewById(R.id.capture_second_round);

@@ -28,43 +28,59 @@
         android:layout_alignParentStart="true">
 
         <RadioButton android:id="@+id/beat1"
-            android:layout_width="190dp"
+            android:background="@color/colorPrimary"
+            android:layout_width="350dp"
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
             android:text="BEAT 1"
+            android:buttonTint="@color/white"
             android:checked="false"
+<<<<<<< Updated upstream
             android:textColor="@color/colorPrimary"
             android:layout_margin="5dp"
             android:enabled="false" />
+=======
+            android:textColor="#ffffff"
+            android:layout_margin="5dp"
+            android:textStyle="bold" />
+>>>>>>> Stashed changes
 
         <RadioButton  android:id="@+id/beat2"
-            android:layout_width="190dp"
+            android:background="@color/colorPrimary"
+            android:buttonTint="@color/white"
+            android:textColor="#ffffff"
+            android:layout_width="350dp"
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
             android:text="BEAT 2"
-            android:textColor="@color/colorPrimary"
             android:checked="false"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:textStyle="bold" />
 
         <RadioButton  android:id="@+id/beat3"
-            android:layout_width="190dp"
+            android:background="@color/colorPrimary"
+            android:buttonTint="@color/white"
+            android:textColor="#ffffff"
+            android:layout_width="350dp"
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
             android:text="BEAT 3"
-            android:textColor="@color/colorPrimary"
             android:checked="false"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:textStyle="bold" />
 
         <RadioButton  android:id="@+id/beat4"
-            android:layout_width="251dp"
+            android:background="@color/colorPrimary"
+            android:buttonTint="@color/white"
+            android:textColor="#ffffff"
+            android:layout_width="350dp"
             android:layout_height="64dp"
             android:textSize="32sp"
             android:textAlignment="center"
             android:text="OHNE BEAT"
-            android:textColor="@color/colorPrimary"
             android:checked="false"
             android:layout_margin="5dp" />
 

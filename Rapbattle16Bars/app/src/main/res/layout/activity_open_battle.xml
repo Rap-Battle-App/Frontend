@@ -21,51 +21,64 @@
     <RadioGroup android:id="@+id/beatgroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/openBattleToolbar"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:padding="10dp">
 
         <RadioButton android:id="@+id/beat1"
-            android:layout_width="190dp"
+            android:background="@color/colorPrimary"
+            android:layout_width="350dp"
             android:layout_height="64dp"
             android:textSize="32sp"
-            android:textAlignment="center"
+            android:buttonTint="@color/white"
             android:text="BEAT 1"
             android:checked="false"
-            android:textColor="@color/colorPrimary"
-            android:layout_margin="5dp" />
+            android:textColor="#ffffff"
+            android:layout_margin="5dp"
+            android:textStyle="bold"
+            android:paddingLeft="50dp" />
 
         <RadioButton  android:id="@+id/beat2"
-            android:layout_width="190dp"
+            android:background="@color/colorPrimary"
+            android:buttonTint="@color/white"
+            android:textColor="#ffffff"
+            android:layout_width="350dp"
             android:layout_height="64dp"
             android:textSize="32sp"
-            android:textAlignment="center"
             android:text="BEAT 2"
-            android:textColor="@color/colorPrimary"
             android:checked="false"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:textStyle="bold"
+            android:paddingLeft="50dp" />
 
         <RadioButton  android:id="@+id/beat3"
-            android:layout_width="190dp"
+            android:background="@color/colorPrimary"
+            android:buttonTint="@color/white"
+            android:textColor="#ffffff"
+            android:layout_width="350dp"
             android:layout_height="64dp"
             android:textSize="32sp"
-            android:textAlignment="center"
             android:text="BEAT 3"
-            android:textColor="@color/colorPrimary"
             android:checked="false"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:textStyle="bold"
+            android:paddingLeft="50dp" />
 
         <RadioButton  android:id="@+id/beat4"
-            android:layout_width="251dp"
+            android:background="@color/colorPrimary"
+            android:buttonTint="@color/white"
+            android:textColor="#ffffff"
+            android:layout_width="350dp"
             android:layout_height="64dp"
             android:textSize="32sp"
-            android:textAlignment="center"
             android:text="OHNE BEAT"
-            android:textColor="@color/colorPrimary"
             android:checked="false"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:paddingLeft="50dp" />
 
     </RadioGroup>
 

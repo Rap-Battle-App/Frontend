@@ -15,6 +15,8 @@ import com.batllerap.hsosna.rapbattle16bars.Controller.ConnectionController;
 import com.batllerap.hsosna.rapbattle16bars.Controller.UploadVideoController;
 import com.batllerap.hsosna.rapbattle16bars.Controller.UserController;
 import com.batllerap.hsosna.rapbattle16bars.Controller.VideoUploadController;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.Battle;
+import com.batllerap.hsosna.rapbattle16bars.Model.Battle.OpenBattle;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 import com.batllerap.hsosna.rapbattle16bars.Model.request.VideoUploadRequest;
 
@@ -69,9 +71,30 @@ public class VideoUploadAlert extends DialogFragment {
                 })
                 .setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
+                        Intent intent = new Intent(getContext(), OpenBattleActivity.class);
+                        intent.putExtra("User", aktUser);
+                        OpenBattle battle = null;
+                        try {
+                            battle = BattleController.getOpenBattle(battleID);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        intent.putExtra("Battle", battle);
+                        startActivity(intent);
                     }
-                });
+                })
+        .setNeutralButton("Video ansehen", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getContext(), VideoPlayerActivity.class);
+                intent.putExtra("url", video.getAbsolutePath());
+                intent.putExtra("beatID", beatID);
+                intent.putExtra("battleID", battleID);
+                intent.putExtra("video", video);
+                intent.putExtra("User", aktUser);
+                startActivity(intent);
+            }
+        });
         // Create the AlertDialog object and return it
         return builder.create();
     }
@@ -87,7 +110,6 @@ public class VideoUploadAlert extends DialogFragment {
         args.putSerializable("Video", video);
         args.putSerializable("User", aktUser);
         f.setArguments(args);
-
         return f;
     }
 

@@ -52,6 +52,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+
 import android.Manifest;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -97,7 +98,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private boolean pictureChanged = false;
 
     @TargetApi(Build.VERSION_CODES.M)
-    private void checkPermission(){
+    private void checkPermission() {
         System.out.println("Checking Permission:");
         int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
@@ -111,7 +112,11 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        checkPermission();
+
+        if (android.os.Build.VERSION.SDK_INT > 22) {
+            checkPermission();
+        }
+
         setContentView(R.layout.activity_edit_profile);
 
         // Set up Toolbar for Navigation
@@ -224,10 +229,10 @@ public class EditProfileActivity extends AppCompatActivity {
     public void onActivityResult(int reqCode, int resCode, final Intent data) {
         if (reqCode == FROM_GALLERY) {
             if (resCode == Activity.RESULT_OK) {
-                if(data.getData()!=null){
+                if (data.getData() != null) {
                     imgvEditProfilePicture.setImageURI(data.getData());
-                }else{
-                    imgvEditProfilePicture.setImageBitmap((Bitmap)data.getExtras().get("data"));
+                } else {
+                    imgvEditProfilePicture.setImageBitmap((Bitmap) data.getExtras().get("data"));
                 }
 
                 aktUser.setProfilePicture(data.getDataString());

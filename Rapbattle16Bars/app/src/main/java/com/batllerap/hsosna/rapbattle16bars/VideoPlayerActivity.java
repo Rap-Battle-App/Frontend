@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.MediaController;
 import android.widget.VideoView;
@@ -13,18 +14,18 @@ import android.widget.VideoView;
 import com.batllerap.hsosna.rapbattle16bars.Model.Battle.OpenBattle;
 import com.batllerap.hsosna.rapbattle16bars.Model.profile2.User;
 
-
+import java.io.File;
 
 
 public class VideoPlayerActivity extends AppCompatActivity implements MediaPlayer.OnCompletionListener {
-
+    User aktUser = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-        User aktUser = (User) getIntent().getSerializableExtra("User");
+        aktUser = (User) getIntent().getSerializableExtra("User");
 
         setContentView(R.layout.activity_video_player);
 
@@ -49,7 +50,13 @@ public class VideoPlayerActivity extends AppCompatActivity implements MediaPlaye
 
     @Override
     public void onCompletion(MediaPlayer v) {
-        finish();
+        if (getIntent().hasExtra("beatID")) {
+            DialogFragment VideoAlert = new VideoUploadAlert();
+            VideoAlert = VideoUploadAlert.newInstance((int) getIntent().getSerializableExtra("beatID"), (int) getIntent().getSerializableExtra("battleID"), "mp4", (File) getIntent().getSerializableExtra("video"), aktUser);
+            VideoAlert.show(getSupportFragmentManager(), "123");
+        } else {
+            finish();
+        }
     }
 
     //Convenience method to show a video
@@ -63,7 +70,12 @@ public class VideoPlayerActivity extends AppCompatActivity implements MediaPlaye
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
-
+        if (getIntent().hasExtra("beatID")) {
+            DialogFragment VideoAlert = new VideoUploadAlert();
+            VideoAlert = VideoUploadAlert.newInstance((int) getIntent().getSerializableExtra("beatID"), (int) getIntent().getSerializableExtra("battleID"), "mp4", (File) getIntent().getSerializableExtra("video"), aktUser);
+            VideoAlert.show(getSupportFragmentManager(), "123");
+        } else {
+            finish();
+        }
     }
 }

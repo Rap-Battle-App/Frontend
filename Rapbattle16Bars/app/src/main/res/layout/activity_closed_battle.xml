@@ -42,8 +42,8 @@
         android:id="@+id/battleElement"
         android:layout_alignLeft="@+id/video"
         android:layout_alignStart="@+id/video"
-        android:layout_alignRight="@+id/votesRapper2"
-        android:layout_alignEnd="@+id/votesRapper2">
+        android:layout_alignRight="@+id/video"
+        android:layout_alignEnd="@+id/video">
         <ImageView
             android:id="@+id/battleRapper1"
             android:layout_width="54dp"

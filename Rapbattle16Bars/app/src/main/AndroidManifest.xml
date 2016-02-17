@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.batllerap.hsosna.rapbattle16bars" >
+    package="com.batllerap.hsosna.rapbattle16bars">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -14,7 +14,6 @@
     <uses-feature android:name="android.hardware.camera.front" />
     <uses-feature android:name="android.hardware.camera.microphone" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,22 +21,31 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:windowSoftInputMode="adjustResize" >
+        android:windowSoftInputMode="adjustResize">
+        <activity
+            android:name=".SplashActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Login"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.batllerap.hsosna.rapbattle16bars.Login" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".EditProfileActivity"
             android:configChanges="orientation"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.EditProfileActivity" />
 
@@ -48,7 +56,7 @@
             android:name=".ProfileActivity"
             android:configChanges="orientation"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.ProfileActivity" />
 
@@ -58,7 +66,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.MainActivity" />
 
@@ -73,7 +81,7 @@
             android:name=".TrendingActivity"
             android:configChanges="orientation"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.TrendingActivity" />
 
@@ -85,7 +93,7 @@
             android:configChanges="orientation"
             android:label="OpenforvotesActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             >
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.OpenforvotesActivity" />
@@ -98,7 +106,7 @@
             android:configChanges="orientation"
             android:label="CompletedBattlesUser"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             >
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.CompletedBattlesUser" />
@@ -111,7 +119,7 @@
             android:configChanges="orientation"
             android:label="OpenForVotesUser"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             >
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.OpenForVotesUser" />
@@ -123,7 +131,7 @@
             android:name=".ClosedBattleActivity"
             android:configChanges="orientation"
             android:label="Closed Battle"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.ClosedBattleActivity" />
 
@@ -133,7 +141,7 @@
         <activity
             android:name=".OpenforVotesBattleActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.OpenforVotesBattleActivity" />
 
@@ -144,7 +152,7 @@
             android:name=".SettingsActivity"
             android:configChanges="orientation"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.SettingsActivity" />
 
@@ -155,7 +163,7 @@
             android:name=".InfoActivity"
             android:configChanges="orientation"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.InfoActivity" />
 
@@ -166,7 +174,7 @@
             android:name=".SearchActivity"
             android:configChanges="orientation"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.SearchActivity" />
 
@@ -185,7 +193,7 @@
             android:name=".OpenBattleActivity"
             android:configChanges="orientation"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.OpenBattleActivity" />
 
@@ -196,7 +204,7 @@
             android:name=".VideoCapture"
             android:configChanges="orientation"
             android:parentActivityName=".OpenBattleActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.batllerap.hsosna.rapbattle16bars.VideoCapture" />
 
@@ -207,8 +215,8 @@
             android:name=".VideoPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_video_player"
-            android:theme="@style/FullscreenTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme">
         </activity>
     </application>
 

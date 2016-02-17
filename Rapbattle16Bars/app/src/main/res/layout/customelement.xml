@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
     android:layout_height="54dp"
     android:background="@drawable/border"
     android:clickable="true"
@@ -55,10 +55,10 @@
         android:ellipsize="end"
         android:scrollHorizontally="true"
         android:text="RAPPER Y"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
         android:paddingTop="3dp"
-        android:layout_centerVertical="true"
+        android:layout_alignTop="@+id/VS"
         android:layout_toRightOf="@+id/VS"
         android:layout_toEndOf="@+id/VS" />
     <ImageView

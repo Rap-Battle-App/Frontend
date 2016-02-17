@@ -35,7 +35,8 @@
             android:text="BEAT 1"
             android:checked="false"
             android:textColor="@color/colorPrimary"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+            android:enabled="false" />
 
         <RadioButton  android:id="@+id/beat2"
             android:layout_width="190dp"

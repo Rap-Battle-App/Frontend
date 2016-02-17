@@ -7,7 +7,7 @@ import android.os.Bundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-class SplashActivity extends Activity
+public class SplashActivity extends Activity
 {
     private static final long DELAY = 1000;
     private boolean scheduled = false;

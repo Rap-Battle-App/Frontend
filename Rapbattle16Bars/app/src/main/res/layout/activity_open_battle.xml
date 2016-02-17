@@ -32,19 +32,13 @@
             android:layout_width="350dp"
             android:layout_height="64dp"
             android:textSize="32sp"
+            android:buttonTint="@color/white"
             android:textAlignment="center"
             android:text="BEAT 1"
-            android:buttonTint="@color/white"
             android:checked="false"
-<<<<<<< Updated upstream
-            android:textColor="@color/colorPrimary"
-            android:layout_margin="5dp"
-            android:enabled="false" />
-=======
             android:textColor="#ffffff"
             android:layout_margin="5dp"
             android:textStyle="bold" />
->>>>>>> Stashed changes
 
         <RadioButton  android:id="@+id/beat2"
             android:background="@color/colorPrimary"

@@ -32,32 +32,56 @@
                >
 
                 <TextView android:id="@+id/rapper1_round1text"
+                    android:background="@color/colorPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:textSize="32sp"
-                    android:text="Hinrunde Rapper X"/>
+                    android:text="HINRUNDE RAPPER X"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignRight="@+id/firstround_rapperx"
+                    android:layout_alignEnd="@+id/firstround_rapperx"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="4dp" />
 
                 <ImageView android:id="@+id/firstround_rapperx"
-                    android:layout_below="@+id/rapper1_round1text"
                     android:layout_width="match_parent"
                     android:src="@drawable/videoplaceholder"
                     android:layout_height="256dp"
-                    android:layout_margin="16dp"/>
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/rapper1_round1text"
+                    android:layout_alignRight="@+id/firstrounde_rappery"
+                    android:layout_alignEnd="@+id/firstrounde_rappery"
+                    android:layout_marginBottom="15dp" />
 
                 <TextView android:id="@+id/rapper2_round1text"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:textSize="32sp"
                     android:layout_below="@+id/firstround_rapperx"
-                    android:text="Hinrunde Rapper Y"/>
+                    android:background="@color/colorPrimary"
+                    android:text="HINRUNDE RAPPER Y"
+                    android:textColor="#FFFFFF"
+                    android:layout_alignRight="@+id/firstround_rapperx"
+                    android:layout_alignEnd="@+id/firstround_rapperx"
+                    android:textStyle="bold"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="4dp" />
 
                 <ImageView android:id="@+id/firstrounde_rappery"
                     android:layout_below="@+id/rapper2_round1text"
                     android:src="@drawable/videoplaceholder"
                     android:layout_width="match_parent"
                     android:layout_height="256dp"
-                    android:layout_margin="16dp"
-                    />
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
             </RelativeLayout>
 

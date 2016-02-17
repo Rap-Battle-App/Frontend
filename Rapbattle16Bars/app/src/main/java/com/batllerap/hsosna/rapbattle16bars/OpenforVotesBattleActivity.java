@@ -50,7 +50,7 @@ public class OpenforVotesBattleActivity extends AppCompatActivity {
         // Set up Toolbar for Navigation
         final Toolbar toolbar = (Toolbar) findViewById(R.id.openforvotesToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Battle");
+        getSupportActionBar().setTitle("BATTLE");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lButton = (ToggleButton) findViewById(R.id.openforvotes_votebutton1);

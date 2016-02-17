@@ -117,7 +117,8 @@
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
         android:layout_below="@+id/battleElement"
-        android:progress="50"/>
+        android:progress="50"
+        android:progressDrawable="@drawable/progressbar_custom"/>
 
     <TextView android:id="@+id/closedBattleVotesRapper1"
         android:layout_width="wrap_content"

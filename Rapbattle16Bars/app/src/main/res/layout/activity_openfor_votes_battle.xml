@@ -108,7 +108,8 @@
         android:layout_below="@+id/openforvotes_battleElement"
         android:progress="50"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:progressDrawable="@drawable/progressbar_custom"/>
 
     <ToggleButton    android:id="@+id/openforvotes_votebutton1"
         android:clickable="true"

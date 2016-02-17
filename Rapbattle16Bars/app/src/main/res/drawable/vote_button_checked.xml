@@ -3,6 +3,6 @@
     <item android:state_pressed="true"
         android:drawable="@drawable/thumbup" /> <!-- pressed -->
     <item android:state_focused="true"
-        android:drawable="@drawable/thumbup_pressed" /> <!-- focused -->
-    <item android:drawable="@drawable/thumbup_pressed" /> <!-- default -->
+        android:drawable="@drawable/thumbup_pressed2" /> <!-- focused -->
+    <item android:drawable="@drawable/thumbup_pressed2" /> <!-- default -->
 </selector>

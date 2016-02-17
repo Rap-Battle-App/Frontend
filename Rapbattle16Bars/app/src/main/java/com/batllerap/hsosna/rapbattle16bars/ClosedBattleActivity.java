@@ -47,7 +47,7 @@ public class ClosedBattleActivity extends AppCompatActivity {
         // Set up Toolbar for Navigation
         final Toolbar toolbar = (Toolbar) findViewById(R.id.closedBattleToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Battle");
+        getSupportActionBar().setTitle("BATTLE");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         battle = (Battle) getIntent().getSerializableExtra("battle");

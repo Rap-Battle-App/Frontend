@@ -18,14 +18,19 @@
 
             <TextView   android:id="@+id/openBattlesText"
                 android:textSize="16sp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
                 android:text="DEINE OFFENEN BATTLES"
                 android:textStyle="bold"
-                />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="#FFFFFF"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp" />
 
 
             <android.support.v7.widget.RecyclerView
@@ -39,15 +44,22 @@
 
             <TextView   android:id="@+id/challenge_text"
                 android:textSize="16sp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginBottom="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
                 android:text="DEINE HERAUSFORDERUNGEN"
                 android:textStyle="bold"
                 android:layout_below="@id/openBattlesList"
-                />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:textColor="#FFFFFF" />
 
 
             <android.support.v7.widget.RecyclerView

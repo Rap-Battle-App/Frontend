@@ -92,7 +92,7 @@ public class OpenForVotesUser extends AppCompatActivity implements MyAdapter.Cli
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
+                        myDataset.clear();
                         myDataset.addAll(Arrays.asList(tmp));
 
                         mAdapter.notifyDataSetChanged();

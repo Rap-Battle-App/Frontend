@@ -85,7 +85,7 @@ public class OpenforvotesActivity extends AppCompatActivity implements MyAdapter
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
+                        myDataset.clear();
                         myDataset.addAll(Arrays.asList(tmp));
 
                         mAdapter.notifyDataSetChanged();

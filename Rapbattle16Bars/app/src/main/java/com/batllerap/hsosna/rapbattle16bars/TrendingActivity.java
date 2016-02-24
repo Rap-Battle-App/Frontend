@@ -83,14 +83,14 @@ public class TrendingActivity extends AppCompatActivity  implements MyAdapter.Cl
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
+                        myDataset.clear();
                         myDataset.addAll(Arrays.asList(tmp));
 
                         mAdapter.notifyDataSetChanged();
                         // mAdapter.notifyItemInserted(myDataset.size());
 
                         mAdapter.setLoaded();
-                        //or you can add all at once but do not forget to call mAdapter.notifyDataSetChanged();
+
                     }
                 }, 2000);
                 System.out.println("load");

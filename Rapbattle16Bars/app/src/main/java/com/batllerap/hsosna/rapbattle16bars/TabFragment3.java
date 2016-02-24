@@ -85,9 +85,7 @@ public class TabFragment3 extends Fragment implements CustomAdapter.ClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        System.out.println("TAB3 CREATE!");
-        System.out.println("TAB3 CREATE!");
-        System.out.println("TAB3 CREATE!");
+
         View layout = inflater.inflate(R.layout.activity_profile, container, false);
 
         final Toolbar toolbar = (Toolbar) layout.findViewById(R.id.profileToolbar);

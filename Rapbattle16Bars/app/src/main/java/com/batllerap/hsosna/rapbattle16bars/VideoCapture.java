@@ -77,7 +77,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         beatstr = "beat"+beat;
         Log.v("DAMN", beatstr);
         //TODO: Blinkendes Icon fixen, wenn Zeit vorhanden.
-       // myTask = new AsyncVideoCaptureUI(getApplicationContext(),findViewById(android.R.id.content),timer);
+        // myTask = new AsyncVideoCaptureUI(getApplicationContext(),findViewById(android.R.id.content),timer);
         VideoAlert = new VideoUploadAlert();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -131,7 +131,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         e.printStackTrace();
         finish();
     }
-       /* // This is all very sloppy
+       /* // Altes Funktionen
         if (camcorderProfile.fileFormat == MediaRecorder.OutputFormat.THREE_GPP) {
             try {
                 newFile = new File(Environment.getExternalStorageDirectory(), "Video" + ".3gp" );
@@ -163,7 +163,45 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
             }
 
         }*/
-        recorder.setMaxDuration(90000); // 90 seconds
+        recorder.setMaxDuration(60000); // 60 seconds
+        recorder.setOnInfoListener(new MediaRecorder.OnInfoListener() {
+            @Override
+            public void onInfo(MediaRecorder mr, int what, int extra) {
+                if (what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED) {
+                    Log.v("VIDEOCAPTURE", "Maximum Duration Reached");
+                    if (recording) {
+                        recorder.stop();
+
+                        //  myTask.cancel(true);
+
+                        if (player != null) {
+                            player.stop();
+                            player.release();
+                        }
+                        timer.stop();
+                        timer.setVisibility(View.GONE);
+                        rec.setVisibility(View.GONE);
+                        redDot.setVisibility(View.GONE);
+                        maxTime.setVisibility(View.GONE);
+                        if (usecamera) {
+                            try {
+                                camera.reconnect();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        // recorder.release();
+                        recording = false;
+                        Log.v(LOGTAG, "Recording Stopped");
+                        // Let's prepareRecorder so we can record again
+                        prepareRecorder();
+                        VideoAlert = VideoUploadAlert.newInstance(beat, id, "mp4", newFile, aktUser);
+                        VideoAlert.show(getSupportFragmentManager(), "123");
+                    }
+                }
+
+            }
+        });
 
         try {
             recorder.prepare();
@@ -231,6 +269,7 @@ public class VideoCapture extends AppCompatActivity implements View.OnClickListe
         if (usecamera) {
             camera = Camera.open(currentCameraId);
             camera.setDisplayOrientation(90);
+            // Debug Help
            /* final List<Camera.Size> mSupportedVideoSizes = getSupportedVideoSizes(camera);
             for (Camera.Size str : mSupportedVideoSizes)
                 Log.e("VideoAUFNAHME", "mSupportedVideoSizes "+str.width + ":" + str.height + " ... "

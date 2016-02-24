@@ -45,9 +45,7 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
         View layout = inflater.inflate(R.layout.tab_fragment_2, container, false);
 
         challengeAlert = new ChallengeAlertDialogFragment();
-        System.out.println("TAB2: ONCREATE!");
-        System.out.println("TAB2: ONCREATE!");
-        System.out.println("TAB2: ONCREATE!");
+
 
         oList = (RecyclerView) layout.findViewById(R.id.openBattlesList);
         cList = (RecyclerView) layout.findViewById(R.id.challengeList);
@@ -175,9 +173,7 @@ public class TabFragment2 extends Fragment implements CustomAdapter.ClickListene
     @Override
     public void onDestroy(){
         MyBus.getInstance().unregister(this);
-        System.out.println("TAB2: ONDESTROY!");
-        System.out.println("TAB2: ONDESTROY!");
-        System.out.println("TAB2: ONDESTROY!");
+
         super.onDestroy();
 
     }

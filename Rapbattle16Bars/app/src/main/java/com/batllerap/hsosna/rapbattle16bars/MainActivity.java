@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_info:
                 Intent e = new Intent("com.batllerap.hsosna.rapbattle16bars.InfoActivity");
+                e.putExtra("User", aktUser);
                 startActivity(e);
                 return true;
 
